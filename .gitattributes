@@ -6,3 +6,5 @@
 *.woff2 binary
 *.ttf binary
 *.wasm binary
+# LCF fingerprint hashes published file bytes; preserve their authored CRLF on every checkout.
+src/LinguaFlow.Web/wwwroot/Courses/**/*.json text eol=crlf
