@@ -24,14 +24,14 @@
     <div class="practice-wizard">
         <NavLink class="reader-control" href="@($"courses/{CourseId}/practice/import")">@T["ImportAssessment"] →</NavLink>
         <section class="info-panel"><h2>1. @T["ChoosePractice"]</h2><p><strong>@_manifest.Title</strong> · @_manifest.LearningLevel</p>
-            <label>@T["Unit"] <select value="@_unitId" @onchange="ChooseUnit">@foreach (var u in _manifest.Units.OrderBy(u => u.Order)) { <option value="@u.UnitId">@u.Title</option> }</select></label>
+            <label>@T["Unit"] <AppSelect Label="@T["Unit"]" Value="@_unitId" ValueChanged="value => ChooseUnit(new ChangeEventArgs { Value = value })" Options="UnitOptions" /></label>
             @if (_unit is not null)
             {
-                <label>@T["PracticeSkill"] <select value="@_skill" @onchange="ChooseSkill">@foreach (var skill in _tasks.Select(t => t.Skill).Distinct()) { <option value="@skill">@skill</option> }</select></label>
-                <label>@T["PracticeScenario"] <select value="@_taskId" @onchange="ChooseTask">@foreach (var task in _tasks.Where(t => t.Skill == _skill)) { <option value="@task.Id">@task.Label</option> }</select></label>
+                <label>@T["PracticeSkill"] <AppSelect Label="@T["PracticeSkill"]" Value="@_skill" ValueChanged="value => ChooseSkill(new ChangeEventArgs { Value = value })" Options="SkillOptions" /></label>
+                <label>@T["PracticeScenario"] <AppSelect Label="@T["PracticeScenario"]" Value="@_taskId" ValueChanged="value => ChooseTask(new ChangeEventArgs { Value = value })" Options="TaskOptions" /></label>
                 @if (_tasks.Count == 0) { <p>@T["NoAuthoredPractice"]</p> }
-                <label>@T["Difficulty"] <select @bind="_difficulty"><option value="guided">@T["Guided"]</option><option value="standard">@T["Standard"]</option><option value="challenge">@T["Challenge"]</option></select></label>
-                <label>@T["Duration"] <select @bind="_minutes"><option value="10">10</option><option value="15">15</option><option value="20">20</option><option value="30">30</option></select></label>
+                <label>@T["Difficulty"] <AppSelect Label="@T["Difficulty"]" @bind-Value="_difficulty" Options="DifficultyOptions" /></label>
+                <label>@T["Duration"] <AppSelect Label="@T["Duration"]" Value="@_minutes.ToString()" ValueChanged="SetMinutes" Options="DurationOptions" /></label>
                 @if (SelectedTask is { } selected) { <h3>@T["AuthoredTask"]</h3><p class="lesson-block">@selected.Prompt</p> }
                 @if (_unit.Objectives.Count > 0) { <h3>@T["Objectives"]</h3><ul>@foreach (var item in _unit.Objectives) { <li>@item</li> }</ul> }
                 @if (_vocabulary is not null) { <details><summary>@T["PracticeVocabulary"]</summary><ul>@foreach (var item in _vocabulary.Entries.Where(v => v.UnitId == _unitId).Take(20)) { <li>@item.Term — @item.Vietnamese</li> }</ul></details> }
@@ -67,6 +67,12 @@
     private IReadOnlyList<ImportedPracticeResult> _results = [];
     private PracticeSession? _session; private string _unitId = ""; private string _skill = ""; private string _taskId = "";
     private string _difficulty = "standard"; private int _minutes = 15; private bool _busy = true; private bool _working; private string? _error;
+    private IReadOnlyList<SelectItem> UnitOptions => _manifest?.Units.OrderBy(u => u.Order).Select(u => new SelectItem(u.UnitId, u.Title)).ToList() ?? [];
+    private IReadOnlyList<SelectItem> SkillOptions => _tasks.Select(t => t.Skill).Distinct().Select(skill => new SelectItem(skill, skill)).ToList();
+    private IReadOnlyList<SelectItem> TaskOptions => _tasks.Where(t => t.Skill == _skill).Select(t => new SelectItem(t.Id, t.Label)).ToList();
+    private IReadOnlyList<SelectItem> DifficultyOptions => [new("guided", T["Guided"]), new("standard", T["Standard"]), new("challenge", T["Challenge"])];
+    private static readonly IReadOnlyList<SelectItem> DurationOptions = [new("10", "10"), new("15", "15"), new("20", "20"), new("30", "30")];
+    private Task SetMinutes(string value) { if (int.TryParse(value, out var minutes)) _minutes = minutes; return Task.CompletedTask; }
     private (string Id, string Skill, string Label, string Prompt, ContentBlock Block)? SelectedTask => _tasks.Any(t => t.Id == _taskId) ? _tasks.First(t => t.Id == _taskId) : null;
     private RubricRecord? SelectedRubric => _assessments?.Rubrics.FirstOrDefault(r => r.UnitId == _unitId && r.Skill.Contains(_skill, StringComparison.OrdinalIgnoreCase));
     protected override async Task OnInitializedAsync()

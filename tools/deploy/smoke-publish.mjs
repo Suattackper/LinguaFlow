@@ -11,7 +11,7 @@ if (!siteArgument || !base.startsWith('/') || !base.endsWith('/')) throw new Err
 const site = resolve(siteArgument);
 const chrome = process.env.CHROME_BIN || (process.platform === 'win32' ? 'C:/Program Files/Google/Chrome/Application/chrome.exe' : '/usr/bin/google-chrome');
 if (!existsSync(chrome)) throw new Error(`Chrome unavailable: ${chrome}`);
-const mime = { '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json', '.webmanifest': 'application/manifest+json', '.css': 'text/css', '.wasm': 'application/wasm', '.png': 'image/png', '.pdf': 'application/pdf', '.zip': 'application/zip', '.dat': 'application/octet-stream' };
+const mime = { '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json', '.webmanifest': 'application/manifest+json', '.css': 'text/css', '.wasm': 'application/wasm', '.png': 'image/png', '.svg': 'image/svg+xml', '.pdf': 'application/pdf', '.zip': 'application/zip', '.dat': 'application/octet-stream' };
 const overrides = new Map();
 const requests = [];
 const server = createServer((req, res) => {
@@ -47,7 +47,7 @@ try {
   await new Promise((ok, fail) => { ws.onopen = ok; ws.onerror = fail; });
   cdp = new Cdp(ws);
   await cdp.send('Runtime.enable'); await cdp.send('Page.enable');
-  try { await waitFor(async () => await cdp.eval("!!document.querySelector('.top-brand') && !document.querySelector('.boot-loading')")); }
+  try { await waitFor(async () => await cdp.eval("!!document.querySelector('.topbar') && !document.querySelector('.boot-loading')")); }
   catch (error) { console.error(await cdp.eval("[location.href, document.body.innerText.slice(0,1000), document.querySelector('#blazor-error-ui')?.outerHTML, performance.getEntriesByType('resource').filter(x => x.responseStatus >= 400).map(x => [x.name,x.responseStatus]).slice(0,20)]")); console.error('Browser events:', JSON.stringify(cdp.events.slice(-12), null, 2)); throw error; }
   const registered = await waitFor(() => cdp.eval(`(async () => { const r = await navigator.serviceWorker.ready; return r.active?.scriptURL.endsWith('${base}service-worker.js') && !!navigator.serviceWorker.controller; })()`));
   assert.equal(registered, true, 'Published service worker should control the page');
@@ -66,10 +66,14 @@ try {
     assert.equal(await cdp.eval("getComputedStyle(document.querySelector('#blazor-error-ui')).display === 'none'"), true, `Blazor error on ${path}`);
   }
   await openRoute('settings', '.settings-card');
-  await cdp.eval("(() => { const s = document.querySelector('.settings-card select'); s.value = 'en-US'; s.dispatchEvent(new Event('change', { bubbles: true })); })()");
-  await waitFor(() => cdp.eval("document.documentElement.lang === 'en-US' && document.querySelector('.settings-card select')?.value === 'en-US'"));
-  await cdp.eval("(() => { const s = document.querySelector('.settings-card select'); s.value = 'vi-VN'; s.dispatchEvent(new Event('change', { bubbles: true })); })()");
-  await waitFor(() => cdp.eval("document.documentElement.lang === 'vi-VN' && document.querySelector('.settings-card select')?.value === 'vi-VN'"));
+  await cdp.eval("document.querySelector('.settings-card .language-trigger').click()");
+  await waitFor(() => cdp.eval("document.querySelectorAll('.settings-card .language-option').length === 2"));
+  await cdp.eval("document.querySelectorAll('.settings-card .language-option')[1].click()");
+  await waitFor(() => cdp.eval("document.documentElement.lang === 'en-US' && document.querySelector('.settings-card .language-trigger')?.innerText.includes('EN')"));
+  await cdp.eval("document.querySelector('.settings-card .language-trigger').click()");
+  await waitFor(() => cdp.eval("document.querySelectorAll('.settings-card .language-option').length === 2"));
+  await cdp.eval("document.querySelectorAll('.settings-card .language-option')[0].click()");
+  await waitFor(() => cdp.eval("document.documentElement.lang === 'vi-VN' && document.querySelector('.settings-card .language-trigger')?.innerText.includes('VI')"));
   for (const [path, marker] of [
     ['languages/en', '.course-list'],
     ['courses/english-life-office-it', '.course-detail'],

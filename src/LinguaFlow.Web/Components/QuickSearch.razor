@@ -1,0 +1,107 @@
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+@inject NavigationManager Navigation
+@inject CourseCatalogService Catalog
+@inject CourseManifestService Manifests
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+
+<button type="button" class="quick-search-trigger" aria-label="@T["QuickSearch"]" title="Ctrl+K" @onclick="Toggle"><span aria-hidden="true">⌕</span><span class="quick-search-label">@T["QuickSearch"]</span><kbd>Ctrl K</kbd></button>
+@if (_open)
+{
+    <div class="command-overlay" @ref="_overlay" @onclick="Close">
+        <section class="command-panel" role="dialog" aria-modal="true" aria-label="@T["QuickSearch"]" @onclick:stopPropagation="true">
+            <div class="command-input-row"><span aria-hidden="true">⌕</span><input class="command-search" type="search" aria-label="@T["SearchPagesUnits"]" placeholder="@T["SearchPagesUnits"]" @bind="_query" @bind:event="oninput" @onkeydown="HandleKeys" /><button type="button" class="command-close" aria-label="@T["CloseSearch"]" @onclick="Close">Esc</button></div>
+            <div class="command-results" role="listbox" aria-label="@T["SearchResults"]">
+                @if (Results.Count == 0 && !_loading) { <p class="command-empty">@T["NoSearchResults"]</p> }
+                else { @foreach (var item in Results.Take(12)) { <button type="button" class="command-result" role="option" aria-selected="false" @onclick="() => Go(item.Href)"><span aria-hidden="true">@item.Icon</span><span>@item.Title<small>@item.Group</small></span><span aria-hidden="true">↗</span></button> } }
+                @if (_loading) { <p class="command-empty">@T["LoadingCourses"]</p> }
+            </div>
+            <p class="command-hint">@T["SearchHint"]</p>
+        </section>
+    </div>
+}
+
+@code {
+    private record SearchItem(string Title, string Href, string Group, string Icon);
+    private bool _open, _loading, _loaded, _needsReveal, _needsLoad;
+    private string _query = "";
+    private readonly List<SearchItem> _units = [];
+    private ElementReference _overlay;
+    private IJSObjectReference? _module;
+    private List<SearchItem> Results => StaticItems.Concat(_units)
+        .Where(x => string.IsNullOrWhiteSpace(_query) || x.Title.Contains(_query, StringComparison.OrdinalIgnoreCase) || x.Group.Contains(_query, StringComparison.OrdinalIgnoreCase))
+        .ToList();
+    private IEnumerable<SearchItem> StaticItems => new[] {
+        new SearchItem(T["Home"], "", T["PrimaryNavigation"], "⌂"),
+        new SearchItem(T["CourseCatalog"], "courses", T["Learn"], "◉"),
+        new SearchItem(T["English"], "languages/en", T["Learn"], "◉"),
+        new SearchItem(T["Help"], "help", T["Explore"], "?"),
+        new SearchItem(T["Settings"], "settings", T["Explore"], "⚙")
+    };
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        try
+        {
+            if (firstRender)
+            {
+                _module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/ui-controls.js");
+            }
+            if (_needsReveal && _module is not null)
+            {
+                _needsReveal = false;
+                await _module.InvokeVoidAsync("showCommandPalette", _overlay);
+            }
+            if (_needsLoad)
+            {
+                _needsLoad = false;
+                await LoadUnits();
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+        catch (JSException) { /* Search remains usable by clicking its trigger. */ }
+    }
+
+    private Task Toggle()
+    {
+        _open = !_open; _needsReveal = _open;
+        if (_open && !_loaded) { _loading = true; _needsLoad = true; }
+        return Task.CompletedTask;
+    }
+    private async Task LoadUnits()
+    {
+        _loading = true;
+        try
+        {
+            var catalog = await Catalog.GetCatalogAsync();
+            foreach (var course in catalog.Courses.Where(x => x.Status == CourseStatus.Available))
+            {
+                var manifest = await Manifests.GetManifestAsync(course);
+                _units.Add(new SearchItem(course.Title, $"courses/{course.CourseId}", T["CourseCatalog"], "◉"));
+                _units.Add(new SearchItem(T["UnitRoadmap"], $"courses/{course.CourseId}/roadmap", course.Title, "▦"));
+                _units.Add(new SearchItem(T["PracticeCenter"], $"courses/{course.CourseId}/practice", course.Title, "✦"));
+                _units.Add(new SearchItem(T["CourseMaterials"], $"courses/{course.CourseId}/materials", course.Title, "▤"));
+                foreach (var unit in manifest.Units)
+                    _units.Add(new SearchItem(unit.Title, $"courses/{course.CourseId}/units/{unit.UnitId}", $"{course.Title} · {T["Unit"]} {unit.Order:00}", "◌"));
+            }
+            _loaded = true;
+        }
+        catch (Exception ex) when (ex is CourseContentException or HttpRequestException) { _loaded = false; }
+        finally { _loading = false; }
+    }
+    private void Close() { _open = false; _query = ""; }
+    private void Go(string href) { Close(); Navigation.NavigateTo(href); }
+    private void HandleKeys(KeyboardEventArgs e)
+    {
+        if (e.Key == "Escape") Close();
+        if (e.Key == "Enter" && Results.Count > 0) Go(Results[0].Href);
+    }
+    public async ValueTask DisposeAsync()
+    {
+        try
+        {
+            if (_module is not null) await _module.DisposeAsync();
+        }
+        catch (JSDisconnectedException) { }
+    }
+}

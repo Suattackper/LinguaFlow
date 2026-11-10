@@ -1,5 +1,7 @@
 # LinguaFlow STEP 14.2 — UI, motion and visual QA report
 
+> Step 16 supersedes the native entrance module described below with a locally bundled Anime.js 4.5.0 module. See [Step 16 report](STEP16_ANIMEJS_REDESIGN_REPORT.md) and [audit](STEP16_AUDIT.md) for the current motion and interaction behavior.
+
 Date: 2026-11-10. Scope: the existing standalone Blazor WebAssembly app. No course source, LCF schema, IndexedDB record, grading rule, import/export contract or route was changed. No commit or push was made in this step.
 
 ## Phase checklist

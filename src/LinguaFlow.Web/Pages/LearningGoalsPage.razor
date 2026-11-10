@@ -16,8 +16,8 @@ else if (_goals is not null)
         <label>@T["WeeklyStudyDays"] <input type="number" min="1" max="7" @bind="_weekly" /></label>
         <label>@T["PreferredSessionDuration"] <input type="number" min="5" max="120" @bind="_session" /></label>
         <label>@T["DailyReviewGoal"] <input type="number" min="0" max="200" @bind="_vocab" /></label>
-        <label>@T["PreferredStudyTime"] <select @bind="_time"><option value="any">@T["AnyTime"]</option><option value="morning">@T["Morning"]</option><option value="afternoon">@T["Afternoon"]</option><option value="evening">@T["Evening"]</option></select></label>
-        <label>@T["TargetCourse"] <select @bind="_target"><option value="">@T["NoTargetCourse"]</option><option value="@CourseId">@_courseTitle</option></select></label>
+        <label>@T["PreferredStudyTime"] <AppSelect Label="@T["PreferredStudyTime"]" @bind-Value="_time" Options="TimeOptions" /></label>
+        <label>@T["TargetCourse"] <AppSelect Label="@T["TargetCourse"]" @bind-Value="_target" Options="TargetOptions" /></label>
         <button type="button" class="button course-action" @onclick="Save">@T["SaveSettings"]</button>@if (_saved) { <p role="status">@T["GoalsSaved"]</p> }
     </section>
     @if (_analytics is not null) { <section class="info-panel"><h2>@T["GoalProgress"]</h2><p>@T["TodayMinutes"]: @_analytics.TodayEstimatedMinutes / @_goals.DailyMinutes @T["Minutes"]</p><progress value="@Math.Min(_analytics.TodayEstimatedMinutes, _goals.DailyMinutes)" max="@_goals.DailyMinutes"></progress><p>@T["WeeklyStudyDays"]: @_analytics.WeeklyStudyDays / @_goals.WeeklyDays</p><progress value="@Math.Min(_analytics.WeeklyStudyDays, _goals.WeeklyDays)" max="@_goals.WeeklyDays"></progress><p>@T["DailyReviewGoal"]: @_analytics.TodayVocabularyReviews / @_goals.DailyVocabularyReviews</p><progress value="@Math.Min(_analytics.TodayVocabularyReviews, Math.Max(1, _goals.DailyVocabularyReviews))" max="@Math.Max(1, _goals.DailyVocabularyReviews)"></progress><small>@T["GentleGoalsHint"]</small></section> }
@@ -26,6 +26,8 @@ else if (_goals is not null)
 @code {
     [Parameter] public string CourseId { get; set; } = "";
     private LearningGoals? _goals; private CourseAnalytics? _analytics; private string _courseTitle = "", _time = "any", _target = "";
+    private IReadOnlyList<SelectItem> TimeOptions => [new("any", T["AnyTime"]), new("morning", T["Morning"]), new("afternoon", T["Afternoon"]), new("evening", T["Evening"])];
+    private IReadOnlyList<SelectItem> TargetOptions => [new("", T["NoTargetCourse"]), new(CourseId, _courseTitle)];
     private int _daily, _weekly, _session, _vocab; private bool _loading = true, _saved; private string? _error;
     protected override async Task OnParametersSetAsync()
     {

@@ -14,7 +14,7 @@ else if (_error is not null) { <StateMessage Kind="error" Title="@T["CourseLoadE
 else if (_mistakes.Count == 0) { <StateMessage Kind="empty" Title="@T["NoMistakes"]" /> }
 else
 {
-    <div class="workspace-filter"><label>@T["Unit"] <select @bind="_unitFilter"><option value="">@T["All"]</option>@foreach (var unit in _mistakes.Select(x => x.UnitId).Distinct()) { <option value="@unit">@unit</option> }</select></label><label>@T["Skill"] <select @bind="_skillFilter"><option value="">@T["All"]</option>@foreach (var skill in _mistakes.Select(x => x.Skill).Distinct()) { <option value="@skill">@skill</option> }</select></label></div>
+    <div class="workspace-filter"><label>@T["Unit"] <AppSelect Label="@T["Unit"]" @bind-Value="_unitFilter" Options="UnitOptions" /></label><label>@T["Skill"] <AppSelect Label="@T["Skill"]" @bind-Value="_skillFilter" Options="SkillOptions" /></label></div>
     <div class="mistake-list">@foreach (var mistake in _mistakes.Where(x => (_unitFilter.Length == 0 || x.UnitId == _unitFilter) && (_skillFilter.Length == 0 || x.Skill == _skillFilter)).OrderByDescending(x => _frequencies.GetValueOrDefault(x.ExerciseId)).ThenByDescending(x => x.AttemptDate))
     {
         <article class="info-panel"><div class="exercise-heading"><strong>@mistake.ExerciseId</strong><span>@mistake.AttemptDate.ToLocalTime().ToString("g")</span></div><small>@T["MistakeFrequency"]: @_frequencies.GetValueOrDefault(mistake.ExerciseId)</small><p>@T["YourAnswer"]: @mistake.LearnerAnswer</p><p>@T["AuthoredAnswer"]: @mistake.CorrectAnswer</p><p>@T["AnswerExplanation"]: @mistake.Explanation</p><p>@T["Skill"]: @mistake.Skill</p><NavLink class="card-link" href="@($"courses/{CourseId}/units/{mistake.UnitId}")">@T["RetryExercise"] →</NavLink> <button type="button" class="reader-control" disabled="@mistake.Reviewed" @onclick="() => Review(mistake)">@(mistake.Reviewed ? T["Reviewed"] : T["MarkReviewed"])</button><label class="mistake-note">@T["PersonalNotes"] <textarea rows="2" value="@_notes.GetValueOrDefault(mistake.ExerciseId)" @onchange="e => SaveNote(mistake.ExerciseId, e)"></textarea></label></article>
@@ -27,6 +27,8 @@ else
     private Dictionary<string, int> _frequencies = [];
     private readonly Dictionary<string, string> _notes = [];
     private string _unitFilter = "", _skillFilter = "";
+    private IReadOnlyList<SelectItem> UnitOptions => [new("", T["All"]), .. _mistakes.Select(x => x.UnitId).Distinct().Select(x => new SelectItem(x, x))];
+    private IReadOnlyList<SelectItem> SkillOptions => [new("", T["All"]), .. _mistakes.Select(x => x.Skill).Distinct().Select(x => new SelectItem(x, x))];
     private string? _error;
     private bool _loading = true;
     protected override async Task OnParametersSetAsync()

@@ -20,10 +20,10 @@ else if (_document is not null && _manifest is not null)
     @if (_storageError is not null) { <p role="alert" class="content-warning">@_storageError</p> }
     <div class="vocab-filters">
         <label>@T["SearchVocabulary"] <input type="search" @bind="_search" @bind:event="oninput" /></label>
-        <label>@T["Unit"] <select @bind="_unitFilter"><option value="">@T["AllUnits"]</option>@foreach (var unit in _manifest.Units.OrderBy(x => x.Order)) { <option value="@unit.UnitId">@unit.Order.ToString("00") · @unit.Title</option> }</select></label>
-        <label>@T["LearningStatus"] <select @bind="_statusFilter"><option value="all">@T["AllWords"]</option><option value="due">@T["DueNow"]</option><option value="new">@T["New"]</option><option value="learning">@T["Learning"]</option><option value="known">@T["Known"]</option><option value="difficult">@T["Difficult"]</option><option value="favorite">@T["Favorites"]</option><option value="queued">@T["ReviewQueue"]</option></select></label>
-        <label>@T["SortBy"] <select @bind="_sort"><option value="unit">@T["Unit"]</option><option value="term">@T["Term"]</option><option value="due">@T["NextReview"]</option></select></label>
-        <label>@T["GroupBy"] <select @bind="_group"><option value="unit">@T["Unit"]</option><option value="topic">@T["Topic"]</option><option value="status">@T["LearningStatus"]</option><option value="due">@T["ReviewDate"]</option></select></label>
+        <label>@T["Unit"] <AppSelect Label="@T["Unit"]" @bind-Value="_unitFilter" Options="UnitOptions" /></label>
+        <label>@T["LearningStatus"] <AppSelect Label="@T["LearningStatus"]" @bind-Value="_statusFilter" Options="StatusOptions" /></label>
+        <label>@T["SortBy"] <AppSelect Label="@T["SortBy"]" @bind-Value="_sort" Options="SortOptions" /></label>
+        <label>@T["GroupBy"] <AppSelect Label="@T["GroupBy"]" @bind-Value="_group" Options="GroupOptions" /></label>
     </div>
     <p class="activity-count" role="status">@Filtered.Count @T["MatchingWords"]</p>
     @if (Filtered.Count == 0) { <StateMessage Kind="empty" Title="@T["NoMatchingWords"]" /> }
@@ -65,6 +65,10 @@ else if (_document is not null && _manifest is not null)
     private string? _error, _storageError;
     private bool _loading = true;
     private string _search = "", _unitFilter = "", _statusFilter = "all", _sort = "unit", _group = "unit";
+    private IReadOnlyList<SelectItem> UnitOptions => [new("", T["AllUnits"]), .. _manifest!.Units.OrderBy(x => x.Order).Select(x => new SelectItem(x.UnitId, $"{x.Order:00} · {x.Title}"))];
+    private IReadOnlyList<SelectItem> StatusOptions => [new("all", T["AllWords"]), new("due", T["DueNow"]), new("new", T["New"]), new("learning", T["Learning"]), new("known", T["Known"]), new("difficult", T["Difficult"]), new("favorite", T["Favorites"]), new("queued", T["ReviewQueue"])];
+    private IReadOnlyList<SelectItem> SortOptions => [new("unit", T["Unit"]), new("term", T["Term"]), new("due", T["NextReview"])];
+    private IReadOnlyList<SelectItem> GroupOptions => [new("unit", T["Unit"]), new("topic", T["Topic"]), new("status", T["LearningStatus"]), new("due", T["ReviewDate"])];
     private string SpeechLanguage = "en-US";
     private int _page;
     private const int PageSize = 24;

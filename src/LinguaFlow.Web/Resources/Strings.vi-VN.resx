@@ -669,6 +669,12 @@
 <data name="SettingsSupport" xml:space="preserve"><value>Cần trợ giúp với cài đặt?</value></data>
 <data name="OpenSettingsHelp" xml:space="preserve"><value>Mở hướng dẫn cài đặt</value></data>
 <data name="SettingsData" xml:space="preserve"><value>Dữ liệu học tập</value></data>
+<data name="QuickSearch" xml:space="preserve"><value>Tìm nhanh</value></data>
+<data name="SearchPagesUnits" xml:space="preserve"><value>Tìm trang và Unit…</value></data>
+<data name="SearchResults" xml:space="preserve"><value>Kết quả tìm kiếm</value></data>
+<data name="NoSearchResults" xml:space="preserve"><value>Không tìm thấy trang hoặc Unit phù hợp.</value></data>
+<data name="CloseSearch" xml:space="preserve"><value>Đóng tìm kiếm</value></data>
+<data name="SearchHint" xml:space="preserve"><value>Enter để mở kết quả đầu tiên · Esc để đóng</value></data>
 </root>
 
 

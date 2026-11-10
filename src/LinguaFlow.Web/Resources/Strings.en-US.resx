@@ -666,5 +666,11 @@
 <data name="SettingsSupport" xml:space="preserve"><value>Need help with settings?</value></data>
 <data name="OpenSettingsHelp" xml:space="preserve"><value>Open settings guide</value></data>
 <data name="SettingsData" xml:space="preserve"><value>Learning data</value></data>
+<data name="QuickSearch" xml:space="preserve"><value>Quick search</value></data>
+<data name="SearchPagesUnits" xml:space="preserve"><value>Search pages and units…</value></data>
+<data name="SearchResults" xml:space="preserve"><value>Search results</value></data>
+<data name="NoSearchResults" xml:space="preserve"><value>No matching page or unit.</value></data>
+<data name="CloseSearch" xml:space="preserve"><value>Close search</value></data>
+<data name="SearchHint" xml:space="preserve"><value>Enter to open the first result · Esc to close</value></data>
 </root>
 

@@ -1,0 +1,60 @@
+@implements IAsyncDisposable
+@inject UiPreferences Preferences
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+
+<div class="language-switcher">
+    <button type="button" class="language-trigger" aria-label="@T["UiLanguage"]" aria-haspopup="listbox" aria-expanded="@_open" @onclick="Toggle">
+        <img class="flag-icon" src="@(Navigation.BaseUri + (Preferences.Language == "en-US" ? "flags/en.svg" : "flags/vi.svg"))" alt="" />
+        <span>@(Preferences.Language == "en-US" ? "EN" : "VI")</span>
+        <span class="language-chevron" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3.5 6 4.5 4 4.5-4" /></svg></span>
+    </button>
+    @if (_open)
+    {
+        <div class="language-menu" role="listbox" aria-label="@T["UiLanguage"]" @ref="_menu">
+            <button type="button" class="language-option" role="option" aria-selected="@(Preferences.Language == "vi-VN" ? "true" : "false")" @onclick='() => Select("vi-VN")'><img class="flag-icon" src="@(Navigation.BaseUri + "flags/vi.svg")" alt="" /> Tiếng Việt <span class="language-code">VI</span></button>
+            <button type="button" class="language-option" role="option" aria-selected="@(Preferences.Language == "en-US" ? "true" : "false")" @onclick='() => Select("en-US")'><img class="flag-icon" src="@(Navigation.BaseUri + "flags/en.svg")" alt="" /> English <span class="language-code">EN</span></button>
+        </div>
+    }
+</div>
+
+@code {
+    private bool _open, _needsReveal;
+    private ElementReference _menu;
+    private IJSObjectReference? _module;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        try
+        {
+            if (firstRender)
+            {
+                _module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/ui-controls.js");
+            }
+            if (_needsReveal && _module is not null)
+            {
+                _needsReveal = false;
+                await _module.InvokeVoidAsync("showLanguageMenu", _menu);
+            }
+        }
+        catch (JSException) { /* The control remains usable without animation. */ }
+    }
+
+    private void Toggle() { _open = !_open; _needsReveal = _open; }
+    private async Task Select(string culture)
+    {
+        _open = false;
+        if (culture == Preferences.Language) return;
+        await Preferences.SetLanguageAsync(culture);
+        Navigation.NavigateTo(Navigation.Uri, forceLoad: true);
+    }
+    public async ValueTask DisposeAsync()
+    {
+        try
+        {
+            if (_module is not null) await _module.DisposeAsync();
+        }
+        catch (JSDisconnectedException) { }
+    }
+}

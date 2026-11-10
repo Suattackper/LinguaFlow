@@ -11,7 +11,7 @@ public sealed class AnimationService(IJSRuntime js) : IAsyncDisposable
         try
         {
             _module ??= await js.InvokeAsync<IJSObjectReference>("import", "./js/motion.js");
-            await _module.InvokeVoidAsync("initialize", "#main");
+            await _module.InvokeVoidAsync("initialize", ".app-shell");
         }
         catch (JSException) { /* Content is visible without motion. */ }
     }

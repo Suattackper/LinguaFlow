@@ -11,6 +11,25 @@ namespace LinguaFlow.Web.Tests;
 public sealed class ComponentTests : BunitContext
 {
     [Fact]
+    public void AppSelect_ShowsOneValueAndReportsChosenOption()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        string? chosen = null;
+        var cut = Render<AppSelect>(parameters => parameters
+            .Add(p => p.Label, "Theme")
+            .Add(p => p.Value, "light")
+            .Add(p => p.Options, [new SelectItem("light", "Light"), new SelectItem("dark", "Dark")])
+            .Add(p => p.ValueChanged, value => chosen = value));
+        Assert.Equal("Light", cut.Find(".app-select-trigger .app-select-value").TextContent);
+        Assert.Empty(cut.FindAll("select"));
+        cut.Find(".app-select-trigger").Click();
+        Assert.Equal(2, cut.FindAll(".app-select-option").Count);
+        cut.FindAll(".app-select-option")[1].Click();
+        Assert.Equal("dark", chosen);
+        Assert.Empty(cut.FindAll(".app-select-menu"));
+    }
+
+    [Fact]
     public void PageHeading_RendersSemanticHeadingAndDescription()
     {
         var cut = Render<PageHeading>(parameters => parameters
