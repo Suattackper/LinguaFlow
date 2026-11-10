@@ -149,6 +149,8 @@ ipch/
 
 # Visual Studio Trace Files
 *.e2e
+!tests/LinguaFlow.E2E/
+!tests/LinguaFlow.E2E/*.csproj
 
 # TFS 2012 Local Workspace
 $tf/
