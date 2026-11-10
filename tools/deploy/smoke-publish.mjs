@@ -35,7 +35,7 @@ async function waitFor(fn, timeout = 45000) {
   throw new Error('Timed out waiting for browser state.');
 }
 class Cdp {
-  constructor(ws) { this.ws = ws; this.next = 1; this.pending = new Map(); ws.onmessage = event => { const item = JSON.parse(event.data); if (item.id && this.pending.has(item.id)) { const { resolve, reject } = this.pending.get(item.id); this.pending.delete(item.id); item.error ? reject(new Error(item.error.message)) : resolve(item.result); } }; }
+  constructor(ws) { this.ws = ws; this.next = 1; this.pending = new Map(); this.events = []; ws.onmessage = event => { const item = JSON.parse(event.data); if (item.method === 'Runtime.exceptionThrown' || item.method === 'Runtime.consoleAPICalled' || item.method === 'Log.entryAdded') this.events.push(item); if (item.id && this.pending.has(item.id)) { const { resolve, reject } = this.pending.get(item.id); this.pending.delete(item.id); item.error ? reject(new Error(item.error.message)) : resolve(item.result); } }; }
   send(method, params = {}) { const id = this.next++; return new Promise((resolve, reject) => { const timer = setTimeout(() => { this.pending.delete(id); reject(new Error(`CDP ${method} timed out`)); }, 45000); this.pending.set(id, { resolve: value => { clearTimeout(timer); resolve(value); }, reject: error => { clearTimeout(timer); reject(error); } }); this.ws.send(JSON.stringify({ id, method, params })); }); }
   async eval(expression) { const result = await this.send('Runtime.evaluate', { expression, awaitPromise: true, returnByValue: true }); if (result.exceptionDetails) throw new Error(result.exceptionDetails.text + ': ' + result.result?.description); return result.result?.value; }
 }
@@ -48,16 +48,21 @@ try {
   cdp = new Cdp(ws);
   await cdp.send('Runtime.enable'); await cdp.send('Page.enable');
   try { await waitFor(async () => await cdp.eval("!!document.querySelector('.top-brand') && !document.querySelector('.boot-loading')")); }
-  catch (error) { console.error(await cdp.eval("[location.href, document.body.innerText.slice(0,1000), document.querySelector('#blazor-error-ui')?.outerHTML, performance.getEntriesByType('resource').filter(x => x.responseStatus >= 400).map(x => [x.name,x.responseStatus]).slice(0,20)]")); throw error; }
+  catch (error) { console.error(await cdp.eval("[location.href, document.body.innerText.slice(0,1000), document.querySelector('#blazor-error-ui')?.outerHTML, performance.getEntriesByType('resource').filter(x => x.responseStatus >= 400).map(x => [x.name,x.responseStatus]).slice(0,20)]")); console.error('Browser events:', JSON.stringify(cdp.events.slice(-12), null, 2)); throw error; }
   const registered = await waitFor(() => cdp.eval(`(async () => { const r = await navigator.serviceWorker.ready; return r.active?.scriptURL.endsWith('${base}service-worker.js') && !!navigator.serviceWorker.controller; })()`));
   assert.equal(registered, true, 'Published service worker should control the page');
   console.log('Service worker active');
   const manifest = await cdp.eval("(async () => { const m = await (await fetch('manifest.webmanifest')).json(); return [m.name, m.display, m.scope]; })()");
   assert.deepEqual(manifest, ['LinguaFlow', 'standalone', './']);
+  const runtimeFile = readFileSync(join(site, 'index.html'), 'utf8').match(/dotnet\.[a-z0-9]{8,}\.js/)?.[0];
+  assert(runtimeFile, 'Published import map must identify the .NET runtime module');
+  try { console.log('Runtime fetch:', await cdp.eval(`(async () => { const r = await fetch('_framework/${runtimeFile}'); return [r.status, r.headers.get('content-type')]; })()`)); }
+  catch (error) { console.error('Runtime URL:', `${base}_framework/${runtimeFile}`, 'exists:', existsSync(join(site, '_framework', runtimeFile)), 'recent requests:', requests.slice(-20)); console.error('Browser events:', JSON.stringify(cdp.events.slice(-8), null, 2)); throw error; }
   assert.equal(await cdp.eval('document.documentElement.lang'), 'vi-VN', 'Clean browser should default to Vietnamese');
   async function openRoute(path, marker) {
     await cdp.send('Page.navigate', { url: `http://127.0.0.1:${port}${base}${path}` });
-    await waitFor(() => cdp.eval(`location.pathname.endsWith(${JSON.stringify('/' + path)}) && !!document.querySelector(${JSON.stringify(marker)}) && !document.querySelector('.boot-loading')`));
+    try { await waitFor(() => cdp.eval(`location.pathname.endsWith(${JSON.stringify('/' + path)}) && !!document.querySelector(${JSON.stringify(marker)}) && !document.querySelector('.boot-loading')`)); }
+    catch (error) { console.error('Route failure', path, await cdp.eval("[location.href, document.body.innerText.slice(0,500), document.querySelector('#blazor-error-ui')?.outerHTML]")); console.error('Last requests:', requests.slice(-15)); console.error('Browser events:', JSON.stringify(cdp.events.slice(-8), null, 2)); throw error; }
     assert.equal(await cdp.eval("getComputedStyle(document.querySelector('#blazor-error-ui')).display === 'none'"), true, `Blazor error on ${path}`);
   }
   await openRoute('settings', '.settings-card');
@@ -125,6 +130,10 @@ try {
   await cdp.send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 2, mobile: true });
   const mobile = await cdp.eval("[document.documentElement.scrollWidth <= innerWidth + 1, getComputedStyle(document.querySelector('.mobile-menu')).display !== 'none']");
   assert.deepEqual(mobile, [true, true], 'Mobile navigation should fit without horizontal overflow');
+  await cdp.eval("document.querySelector('.mobile-menu').click()");
+  await waitFor(() => cdp.eval("!!document.querySelector('#mobile-navigation') && !!document.activeElement.closest('#mobile-navigation')"));
+  await cdp.eval("document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))");
+  await waitFor(() => cdp.eval("!document.querySelector('#mobile-navigation') && document.activeElement === document.querySelector('.mobile-menu')"));
   await cdp.send('Emulation.clearDeviceMetricsOverride');
   const course = 'english-life-office-it';
   const resources = await cdp.eval(`(async () => { const m = await (await fetch('Courses/English/${course}/manifest.json')).json(); const root = new URL('Courses/English/${course}/manifest.json', document.baseURI); return Promise.all(m.downloads.filter(x => x.available).map(async x => { const r = await fetch(new URL(x.path, root)); return [r.ok, (await r.arrayBuffer()).byteLength === x.fileSize]; })); })()`);

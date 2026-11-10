@@ -12,6 +12,7 @@ public sealed class UiPreferences(IJSRuntime js, LearningRepository learning)
     public bool SystemDark { get; private set; }
     public bool ReducedMotion { get; private set; }
     public bool LargeText { get; private set; }
+    public bool SidebarCollapsed { get; private set; }
     public event Action? Changed;
 
     public async Task InitializeAsync()
@@ -23,6 +24,7 @@ public sealed class UiPreferences(IJSRuntime js, LearningRepository learning)
             Theme = storedTheme is "light" or "dark" ? storedTheme : "system";
             ReducedMotion = await js.InvokeAsync<string?>("linguaFlow.get", "reducedMotion") == "true";
             LargeText = await js.InvokeAsync<string?>("linguaFlow.get", "largeText") == "true";
+            SidebarCollapsed = await js.InvokeAsync<string?>("linguaFlow.get", "sidebarCollapsed") == "true";
             await ApplyAsync();
             await MirrorPreferencesAsync();
         }
@@ -64,12 +66,20 @@ public sealed class UiPreferences(IJSRuntime js, LearningRepository learning)
         Changed?.Invoke();
     }
 
+    public async Task SetSidebarCollapsedAsync(bool value)
+    {
+        SidebarCollapsed = value;
+        await SaveAsync("sidebarCollapsed", value ? "true" : "false");
+        Changed?.Invoke();
+    }
+
     public async Task RestoreDefaultsAsync()
     {
         await SetLanguageAsync("vi-VN");
         await SetThemeAsync("system");
         await SetReducedMotionAsync(false);
         await SetLargeTextAsync(false);
+        await SetSidebarCollapsedAsync(false);
     }
 
     private async Task SaveAsync(string key, string value)
@@ -84,10 +94,11 @@ public sealed class UiPreferences(IJSRuntime js, LearningRepository learning)
         await MirrorAsync("language", Language); await MirrorAsync("theme", Theme);
         await MirrorAsync("reducedMotion", ReducedMotion ? "true" : "false");
         await MirrorAsync("largeText", LargeText ? "true" : "false");
+        await MirrorAsync("sidebarCollapsed", SidebarCollapsed ? "true" : "false");
     }
     private async Task MirrorAsync(string key, string value)
     {
-        var id = key switch { "reducedMotion" => "reduced-motion", "largeText" => "large-text", _ => key };
+        var id = key switch { "reducedMotion" => "reduced-motion", "largeText" => "large-text", "sidebarCollapsed" => "sidebar-collapsed", _ => key };
         try { await learning.UserPreferences.SaveAsync(new LearningRecord { CourseId = "global", Kind = LearningRecordKind.UserPreference, Id = id, Data = JsonSerializer.SerializeToElement(value), UpdatedAt = DateTimeOffset.UtcNow, RecordSchemaVersion = 1 }); }
         catch (LearningStorageException) { /* UI preferences remain in their bootstrap localStorage copy. */ }
     }

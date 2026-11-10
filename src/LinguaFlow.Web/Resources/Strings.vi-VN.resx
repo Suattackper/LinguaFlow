@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
+  <data name="Grammar" xml:space="preserve"><value>Ngữ pháp</value></data>
+  <data name="Vocabulary" xml:space="preserve"><value>Từ vựng</value></data>
+  <data name="Skills" xml:space="preserve"><value>kỹ năng</value></data>
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
   </resheader>
@@ -659,6 +662,13 @@
 <data name="SpeechOfflineWarning" xml:space="preserve"><value>Giọng đọc ngoại tuyến phụ thuộc giọng đã cài trên thiết bị.</value></data>
 <data name="OfflineNetworkRequired" xml:space="preserve"><value>Không tải được manifest mới từ mạng. Hãy kết nối rồi thử lại; bản ngoại tuyến hiện có vẫn được giữ.</value></data>
 <data name="RetryLoading" xml:space="preserve"><value>Thử tải lại</value></data>
+<data name="CollapseMenu" xml:space="preserve"><value>Thu gọn menu</value></data>
+<data name="ExpandMenu" xml:space="preserve"><value>Mở rộng menu</value></data>
+<data name="SettingsLanguageRegion" xml:space="preserve"><value>Ngôn ngữ &amp; khu vực</value></data>
+<data name="SettingsAppearance" xml:space="preserve"><value>Giao diện &amp; hỗ trợ tiếp cận</value></data>
+<data name="SettingsSupport" xml:space="preserve"><value>Cần trợ giúp với cài đặt?</value></data>
+<data name="OpenSettingsHelp" xml:space="preserve"><value>Mở hướng dẫn cài đặt</value></data>
+<data name="SettingsData" xml:space="preserve"><value>Dữ liệu học tập</value></data>
 </root>
 
 

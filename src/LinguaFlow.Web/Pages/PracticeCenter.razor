@@ -15,7 +15,7 @@
 @inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
 <PageTitle>@T["PracticeCenter"] - LinguaFlow</PageTitle>
 <PageHeading Eyebrow="LinguaFlow" Title="@T["PracticeCenter"]" Description="@T["PracticeCenterIntro"]" />
-<NavLink class="reader-control" href="help#chatgpt">@T["Help"] →</NavLink>
+<NavLink class="reader-control" href="help#chatgpt"><span aria-hidden="true">ⓘ</span> @T["Help"]</NavLink>
 @if (Offline.OnlineHint == false) { <p class="content-warning" role="status">@T["PracticeOfflineWarning"]</p> }
 @if (_busy) { <StateMessage Kind="loading" Title="@T["LoadingUnit"]" /> }
 @if (_error is not null) { <p role="alert" class="content-warning">@_error</p> }

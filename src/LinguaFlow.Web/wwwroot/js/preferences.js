@@ -1,6 +1,6 @@
 window.linguaFlow = {
  get: key => { try { return localStorage.getItem("linguaflow." + key); } catch { return null; } },
- set: (key, value) => { try { localStorage.setItem("linguaflow." + key, value); } catch {} },
+ set: (key, value) => { try { localStorage.setItem("linguaflow." + key, value); } catch {} if (key === "sidebarCollapsed") document.documentElement.dataset.sidebar = value === "true" ? "collapsed" : "expanded"; },
  scrollToSection: id => document.getElementById(id)?.scrollIntoView({ block: "start" }),
  copyText: value => navigator.clipboard.writeText(value),
  apply: (theme, reducedMotion, largeText, language) => {

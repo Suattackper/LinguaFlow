@@ -14,7 +14,7 @@ else if (_counts is not null)
 {
     <NavLink class="back-link" href="@($"courses/{CourseId}")">← @T["BackToCourse"]</NavLink>
     <PageHeading Eyebrow="@T["VocabularyLibrary"]" Title="@T["ReviewDashboard"]" Description="@T["ReviewDashboardDescription"]" />
-    <NavLink class="reader-control" href="help#vocabulary">@T["Help"] →</NavLink>
+    <NavLink class="reader-control" href="help#vocabulary"><span aria-hidden="true">ⓘ</span> @T["Help"]</NavLink>
     <div class="review-stats"><article><strong>@_counts.DueToday</strong><span>@T["DueToday"]</span></article><article><strong>@_counts.Overdue</strong><span>@T["Overdue"]</span></article><article><strong>@_counts.NewWords</strong><span>@T["NewWords"]</span></article><article><strong>@_counts.DifficultWords</strong><span>@T["DifficultWords"]</span></article><article><strong>@_counts.ReviewedRecently</strong><span>@T["RecentlyReviewed"]</span></article></div>
     @if (_dueCount == 0) { <StateMessage Kind="empty" Title="@T["NoReviewsDue"]" Description="@T["NoReviewsDueDescription"]" /> }
     else { <NavLink class="button course-action" href="@($"courses/{CourseId}/flashcards?mode=due")">@T["StartReview"] (@_dueCount) →</NavLink> }

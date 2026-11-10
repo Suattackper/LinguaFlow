@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
+  <data name="Grammar" xml:space="preserve"><value>Grammar</value></data>
+  <data name="Vocabulary" xml:space="preserve"><value>Vocabulary</value></data>
+  <data name="Skills" xml:space="preserve"><value>skills</value></data>
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
   </resheader>
@@ -656,5 +659,12 @@
 <data name="SpeechOfflineWarning" xml:space="preserve"><value>Offline speech depends on voices installed on this device.</value></data>
 <data name="OfflineNetworkRequired" xml:space="preserve"><value>The latest manifest could not be fetched. Reconnect and retry; the existing offline copy remains available.</value></data>
 <data name="RetryLoading" xml:space="preserve"><value>Retry loading</value></data>
+<data name="CollapseMenu" xml:space="preserve"><value>Collapse menu</value></data>
+<data name="ExpandMenu" xml:space="preserve"><value>Expand menu</value></data>
+<data name="SettingsLanguageRegion" xml:space="preserve"><value>Language &amp; region</value></data>
+<data name="SettingsAppearance" xml:space="preserve"><value>Appearance &amp; accessibility</value></data>
+<data name="SettingsSupport" xml:space="preserve"><value>Need help with settings?</value></data>
+<data name="OpenSettingsHelp" xml:space="preserve"><value>Open settings guide</value></data>
+<data name="SettingsData" xml:space="preserve"><value>Learning data</value></data>
 </root>
 

@@ -79,4 +79,21 @@ public sealed class ComponentTests : BunitContext
         var withAnswer = Render<ExerciseFeedbackView>(p => p.Add(x => x.Feedback, feedback with { CorrectAnswer = "B", Explanation = "Original explanation" }));
         Assert.Contains("Original explanation", withAnswer.Markup);
     }
+
+    [Fact]
+    public void UnitAssessment_GroupsRepeatedSkillAndDisplaysAuthoredRulesAsSafeText()
+    {
+        Services.AddLocalization();
+        var assessment = new UnitAssessment("unit-01", SkillStatus.NotStarted,
+            [new("grammar", SkillStatus.NotStarted, 0, 0, "Grammar: **__/23**"),
+             new("grammar", SkillStatus.NotStarted, 0, 0, "<script>bad</script> second rule"),
+             new("speaking", SkillStatus.NotStarted, 0, 0, "")],
+            ["Complete **grammar**"]);
+        var cut = Render<UnitAssessmentSummary>(p => p.Add(x => x.Assessment, assessment));
+        Assert.Equal(2, cut.FindAll(".skill-status-card").Count);
+        Assert.Contains("2", cut.Find(".unit-assessment-summary").TextContent);
+        Assert.DoesNotContain("**", cut.Markup);
+        Assert.Empty(cut.FindAll("script"));
+        Assert.Contains("&lt;script&gt;", cut.Markup);
+    }
 }

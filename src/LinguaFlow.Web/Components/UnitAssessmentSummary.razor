@@ -1,8 +1,61 @@
 @using LinguaFlow.Core.Assessment
 @inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
-<section class="info-panel unit-assessment" aria-label="@T["UnitAssessment"]">
-    <h2>@T["UnitAssessment"]</h2><p><strong>@T[Assessment.Status.ToString()]</strong></p>
-    @foreach (var skill in Assessment.Skills) { <div class="assessment-skill"><strong>@skill.Skill</strong><span>@T[skill.Status.ToString()]</span><small>@skill.Requirement</small></div> }
-    @if (Assessment.RemainingRequirements.Count > 0) { <details><summary>@T["RemainingRequirements"] (@Assessment.RemainingRequirements.Count)</summary><ul>@foreach (var requirement in Assessment.RemainingRequirements) { <li>@requirement</li> }</ul></details> }
-</section>
-@code { [Parameter, EditorRequired] public UnitAssessment Assessment { get; set; } = default!; }
+
+<details class="unit-assessment" aria-label="@T["UnitAssessment"]">
+    <summary class="unit-assessment-summary">
+        <span class="unit-assessment-icon" aria-hidden="true">◎</span>
+        <span><strong>@T["UnitAssessment"]</strong><small>@T[Assessment.Status.ToString()] · @Assessment.Skills.Select(x => x.Skill).Distinct().Count() @T["Skills"]</small></span>
+        <span class="unit-assessment-expand" aria-hidden="true">⌄</span>
+    </summary>
+    <div class="unit-assessment-body">
+        <div class="unit-assessment-grid">
+            @foreach (var group in Assessment.Skills.GroupBy(x => x.Skill))
+            {
+                <section class="skill-status-card" aria-label="@SkillName(group.Key)">
+                    <div class="skill-status-heading"><h3>@SkillName(group.Key)</h3><span class="status @StatusClass(group)">@T[GroupStatus(group).ToString()]</span></div>
+                    @foreach (var item in group)
+                    {
+                        @if (!string.IsNullOrWhiteSpace(item.Requirement))
+                        {
+                            <p class="skill-requirement">@PlainText(item.Requirement)</p>
+                        }
+                    }
+                </section>
+            }
+        </div>
+        @if (Assessment.RemainingRequirements.Count > 0)
+        {
+            <details class="remaining-requirements"><summary>@T["RemainingRequirements"] (@Assessment.RemainingRequirements.Count)</summary>
+                <ul>@foreach (var requirement in Assessment.RemainingRequirements) { <li>@PlainText(requirement)</li> }</ul>
+            </details>
+        }
+    </div>
+</details>
+
+@code {
+    [Parameter, EditorRequired] public UnitAssessment Assessment { get; set; } = default!;
+
+    private string SkillName(string skill) => skill.ToLowerInvariant() switch
+    {
+        "grammar" => T["Grammar"], "vocabulary" => T["Vocabulary"],
+        "reading" => T["Reading"], "writing" => T["Writing"],
+        "speaking" => T["Speaking"], "listening" => T["Listening"],
+        _ => skill
+    };
+
+    private static SkillStatus GroupStatus(IEnumerable<SkillAssessment> items)
+    {
+        var list = items.ToList();
+        if (list.All(x => x.Status == SkillStatus.Passed)) return SkillStatus.Passed;
+        if (list.Any(x => x.Status == SkillStatus.InsufficientEvidence)) return SkillStatus.InsufficientEvidence;
+        if (list.Any(x => x.Status == SkillStatus.NeedsReview)) return SkillStatus.NeedsReview;
+        if (list.All(x => x.Status == SkillStatus.NotStarted)) return SkillStatus.NotStarted;
+        return SkillStatus.InProgress;
+    }
+
+    private static string StatusClass(IEnumerable<SkillAssessment> items) => GroupStatus(items) == SkillStatus.Passed ? "available" : "soon";
+
+    // Course-authored Markdown is displayed as encoded plain text here. No HTML is executed.
+    private static string PlainText(string text) => text.Replace("**", "", StringComparison.Ordinal)
+        .Replace("__", "", StringComparison.Ordinal).Replace("`", "", StringComparison.Ordinal).Trim();
+}

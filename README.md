@@ -49,6 +49,9 @@ The Release workflow also runs `tools/deploy/smoke-publish.mjs` against the publ
 
 See [testing](docs/TESTING.md) for production publish verification, [deployment](docs/DEPLOYMENT.md) for GitHub Pages setup, [known limitations](docs/KNOWN_LIMITATIONS.md), and [final release report](docs/FINAL_RELEASE_REPORT.md).
 
+The shared visual system and motion choices are documented in [the UI redesign report](docs/UI_MOTION_REDESIGN_REPORT.md).
+Step 15 navigation, controls, first-load animation and browser screenshots are documented in [the UI polish report](docs/STEP15_UI_UX_REPORT.md).
+
 ## Author
 
 Nguyễn Trần Anh Tân · born 2003 · Software Engineer.

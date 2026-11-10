@@ -17,6 +17,8 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddLocalization();
 builder.Services.AddMudServices();
 builder.Services.AddScoped<UiPreferences>();
+builder.Services.AddScoped<AnimationService>();
+builder.Services.AddScoped<MobileDrawerService>();
 builder.Services.AddScoped<CoursePathResolver>();
 builder.Services.AddScoped<CourseContentValidator>();
 builder.Services.AddScoped<CourseContentCache>();

@@ -16,7 +16,7 @@ else if (_manifest is not null)
     <NavLink class="back-link" href="@($"courses/{CourseId}")">← @T["BackToCourse"]</NavLink>
     <PageHeading Eyebrow="@T["CourseBackup"]" Title="@_manifest.Title" Description="@T["BackupDescription"]" />
     <p class="content-warning">@T["BackupPrivacy"]</p>
-    <NavLink class="reader-control" href="help#backup">@T["Help"] →</NavLink>
+    <NavLink class="reader-control" href="help#backup"><span aria-hidden="true">ⓘ</span> @T["Help"]</NavLink>
     @if (_message is not null) { <p role="status" class="backup-message">@_message</p> }
     @if (_storageError is not null) { <p role="alert" class="content-warning">@_storageError</p> }
     <div class="backup-grid">

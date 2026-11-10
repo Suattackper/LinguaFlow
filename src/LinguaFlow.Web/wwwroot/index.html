@@ -3,14 +3,15 @@
 <head>
 <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>LinguaFlow</title><base href="/" /><meta name="theme-color" content="#4659b8" /><meta name="description" content="Structured, local-first language learning" /><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-status-bar-style" content="default" /><link rel="manifest" href="manifest.webmanifest" /><link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" /><link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" /><link rel="preload" id="webassembly" />
-<link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" /><link rel="stylesheet" href="css/app.css" />
+<link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" /><link rel="stylesheet" href="css/app.css" /><link rel="stylesheet" href="css/redesign.css" /><link rel="stylesheet" href="css/step15.css" />
 <link rel="icon" type="image/png" href="favicon.png" />
-<script type="importmap"></script><script src="js/preferences.js"></script>
+<script type="importmap"></script><script src="js/preferences.js"></script><script>try{document.documentElement.dataset.sidebar=localStorage.getItem('linguaflow.sidebarCollapsed')==='true'?'collapsed':'expanded'}catch{}</script>
 <script>const deepLink = new URLSearchParams(location.search).get('p'); if (deepLink && deepLink.startsWith('/') && !deepLink.startsWith('//')) { history.replaceState(null, '', new URL(deepLink.slice(1), document.baseURI)); }</script>
 </head><body>
-<div id="app"><div class="boot-loading" role="status" aria-live="polite">LinguaFlow · Đang tải / Loading…</div></div>
+<div id="app"><div class="boot-loading" role="status" aria-live="polite"><div class="boot-panel"><div class="boot-mark" aria-hidden="true"><span>✦</span></div><div class="boot-wordmark">LinguaFlow</div><div class="boot-caption">Đang chuẩn bị không gian học tập<span class="boot-dots" aria-hidden="true"><i></i><i></i><i></i></span></div><div class="boot-progress" aria-hidden="true"><span></span></div></div></div></div>
 <div id="blazor-error-ui" role="alert">Đã xảy ra lỗi / Something went wrong. <a href=".">Tải lại / Reload</a><span class="dismiss">×</span></div>
 <script src="_content/MudBlazor/MudBlazor.min.js"></script>
 <script src="_framework/blazor.webassembly#[.{fingerprint}].js"></script>
+<script>setTimeout(() => { const loading = document.querySelector('#app > .boot-loading'); if (!loading) return; const panel = loading.querySelector('.boot-panel'); if (!panel) return; let english = false; try { english = localStorage.getItem('linguaflow.language') === 'en-US'; } catch {} const message = document.createElement('p'); message.className = 'boot-recovery'; message.setAttribute('role', 'alert'); message.textContent = english ? 'The app could not start. Please reload this page.' : 'Ứng dụng chưa khởi động được. Hãy tải lại trang.'; const retry = document.createElement('button'); retry.type = 'button'; retry.className = 'boot-retry'; retry.textContent = english ? 'Reload' : 'Tải lại'; retry.addEventListener('click', () => location.reload()); panel.append(message, retry); }, 15000);</script>
 <script>if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register(new URL('service-worker.js', document.baseURI), { updateViaCache: 'none' }).catch(() => {})); }</script>
 </body></html>

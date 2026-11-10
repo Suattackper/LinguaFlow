@@ -429,3 +429,15 @@ CourseSources/**/TRACKING/
 
 # Official VS Code C# Dev Kit Extension exclusion
 #*.lscache
+
+# Local agent/editor state and generated verification output.
+/.codex/
+/.agents/
+/.cursor/
+/artifacts/
+/playwright-report/
+/test-results/
+/screenshots/
+
+# Personal learning progress exports must never enter source control.
+/linguaflow-*-progress-*.json

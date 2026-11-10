@@ -7,15 +7,17 @@
 @inject LearningRepository LearningStore
 <PageTitle>@T["Settings"] - LinguaFlow</PageTitle>
 <PageHeading Eyebrow="@T["Preferences"]" Title="@T["Settings"]" Description="@T["SettingsDescription"]" />
-<NavLink class="reader-control" href="help#settings">@T["Help"] →</NavLink>
-<div class="settings-card">
-<div class="setting-row"><div><h2>@T["UiLanguage"]</h2><p>@T["UiLanguageDescription"]</p></div><select aria-label="@T["UiLanguage"]" value="@Preferences.Language" @onchange="SetLanguage"><option value="vi-VN">Tiếng Việt</option><option value="en-US">English</option></select></div>
-<div class="setting-row"><div><h2>@T["Appearance"]</h2><p>@T["ThemeDescription"]</p></div><select aria-label="@T["Appearance"]" value="@Preferences.Theme" @onchange="SetTheme"><option value="system">@T["System"]</option><option value="light">@T["Light"]</option><option value="dark">@T["Dark"]</option></select></div>
-<div class="setting-row"><div><h2>@T["ReducedMotion"]</h2><p>@T["ReducedMotionDescription"]</p></div><input type="checkbox" aria-label="@T["ReducedMotion"]" checked="@Preferences.ReducedMotion" @onchange="SetReducedMotion" /></div>
-<div class="setting-row"><div><h2>@T["LargeText"]</h2><p>@T["LargeTextDescription"]</p></div><input type="checkbox" aria-label="@T["LargeText"]" checked="@Preferences.LargeText" @onchange="SetLargeText" /></div>
+<div class="settings-support"><p>@T["SettingsSupport"]</p><NavLink class="reader-control" href="help#settings"><span aria-hidden="true">ⓘ</span> @T["OpenSettingsHelp"]</NavLink></div>
+<div class="settings-grid">
+<section class="settings-card settings-group" aria-labelledby="settings-language"><h2 id="settings-language"><span aria-hidden="true">◎</span> @T["SettingsLanguageRegion"]</h2>
+<div class="setting-row"><div><h3>@T["UiLanguage"]</h3><p>@T["UiLanguageDescription"]</p></div><select aria-label="@T["UiLanguage"]" value="@Preferences.Language" @onchange="SetLanguage"><option value="vi-VN">Tiếng Việt</option><option value="en-US">English</option></select></div></section>
+<section class="settings-card settings-group" aria-labelledby="settings-appearance"><h2 id="settings-appearance"><span aria-hidden="true">◐</span> @T["SettingsAppearance"]</h2>
+<div class="setting-row"><div><h3>@T["Appearance"]</h3><p>@T["ThemeDescription"]</p></div><select aria-label="@T["Appearance"]" value="@Preferences.Theme" @onchange="SetTheme"><option value="system">@T["System"]</option><option value="light">@T["Light"]</option><option value="dark">@T["Dark"]</option></select></div>
+<div class="setting-row switch-row"><div><h3>@T["ReducedMotion"]</h3><p>@T["ReducedMotionDescription"]</p></div><label class="switch-control"><input type="checkbox" role="switch" aria-label="@T["ReducedMotion"]" checked="@Preferences.ReducedMotion" @onchange="SetReducedMotion" /><span class="switch-track" aria-hidden="true"></span></label></div>
+<div class="setting-row switch-row"><div><h3>@T["LargeText"]</h3><p>@T["LargeTextDescription"]</p></div><label class="switch-control"><input type="checkbox" role="switch" aria-label="@T["LargeText"]" checked="@Preferences.LargeText" @onchange="SetLargeText" /><span class="switch-track" aria-hidden="true"></span></label></div></section>
 </div>
-<button class="button settings-reset" type="button" @onclick="ConfirmReset">@T["RestoreDefaults"]</button>
-<section class="info-panel"><h2>@T["ResetAllLearning"]</h2><p>@T["ResetAllWarning"]</p><label for="reset-phrase">@T["TypeDelete"]</label><input id="reset-phrase" class="answer-input" autocomplete="off" @bind="_resetPhrase" @bind:event="oninput" /><button type="button" class="reader-control danger" disabled="@(_resetPhrase != "DELETE")" @onclick="ConfirmResetAllLearning">@T["ResetAllLearning"]</button></section>
+<div class="settings-actions"><button class="button settings-reset" type="button" @onclick="ConfirmReset">@T["RestoreDefaults"]</button></div>
+<section class="info-panel settings-danger"><h2>@T["SettingsData"]</h2><h3>@T["ResetAllLearning"]</h3><p>@T["ResetAllWarning"]</p><label for="reset-phrase">@T["TypeDelete"]</label><input id="reset-phrase" class="answer-input" autocomplete="off" @bind="_resetPhrase" @bind:event="oninput" /><div><button type="button" class="reader-control danger" disabled="@(_resetPhrase != "DELETE")" @onclick="ConfirmResetAllLearning">@T["ResetAllLearning"]</button></div></section>
 @code {
 private string _resetPhrase = "";
 private async Task ConfirmResetAllLearning()
