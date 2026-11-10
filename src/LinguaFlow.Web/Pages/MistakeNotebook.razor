@@ -1,0 +1,53 @@
+@page "/courses/{CourseId}/mistakes"
+@implements IDisposable
+@inject CourseCatalogService CatalogService
+@inject ExerciseSessionService Sessions
+@inject LearningRepository Store
+@using LinguaFlow.Core.Progress
+@using System.Text.Json
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<PageTitle>@T["MistakeNotebook"] - LinguaFlow</PageTitle>
+<NavLink class="back-link" href="@($"courses/{CourseId}/roadmap")">← @T["UnitRoadmap"]</NavLink>
+<PageHeading Eyebrow="@T["ReviewMode"]" Title="@T["MistakeNotebook"]" Description="@T["MistakeNotebookHint"]" />
+@if (_loading) { <StateMessage Kind="loading" Title="@T["LoadingCourses"]" /> }
+else if (_error is not null) { <StateMessage Kind="error" Title="@T["CourseLoadError"]" Description="@_error" /> }
+else if (_mistakes.Count == 0) { <StateMessage Kind="empty" Title="@T["NoMistakes"]" /> }
+else
+{
+    <div class="workspace-filter"><label>@T["Unit"] <select @bind="_unitFilter"><option value="">@T["All"]</option>@foreach (var unit in _mistakes.Select(x => x.UnitId).Distinct()) { <option value="@unit">@unit</option> }</select></label><label>@T["Skill"] <select @bind="_skillFilter"><option value="">@T["All"]</option>@foreach (var skill in _mistakes.Select(x => x.Skill).Distinct()) { <option value="@skill">@skill</option> }</select></label></div>
+    <div class="mistake-list">@foreach (var mistake in _mistakes.Where(x => (_unitFilter.Length == 0 || x.UnitId == _unitFilter) && (_skillFilter.Length == 0 || x.Skill == _skillFilter)).OrderByDescending(x => _frequencies.GetValueOrDefault(x.ExerciseId)).ThenByDescending(x => x.AttemptDate))
+    {
+        <article class="info-panel"><div class="exercise-heading"><strong>@mistake.ExerciseId</strong><span>@mistake.AttemptDate.ToLocalTime().ToString("g")</span></div><small>@T["MistakeFrequency"]: @_frequencies.GetValueOrDefault(mistake.ExerciseId)</small><p>@T["YourAnswer"]: @mistake.LearnerAnswer</p><p>@T["AuthoredAnswer"]: @mistake.CorrectAnswer</p><p>@T["AnswerExplanation"]: @mistake.Explanation</p><p>@T["Skill"]: @mistake.Skill</p><NavLink class="card-link" href="@($"courses/{CourseId}/units/{mistake.UnitId}")">@T["RetryExercise"] →</NavLink> <button type="button" class="reader-control" disabled="@mistake.Reviewed" @onclick="() => Review(mistake)">@(mistake.Reviewed ? T["Reviewed"] : T["MarkReviewed"])</button><label class="mistake-note">@T["PersonalNotes"] <textarea rows="2" value="@_notes.GetValueOrDefault(mistake.ExerciseId)" @onchange="e => SaveNote(mistake.ExerciseId, e)"></textarea></label></article>
+    }</div>
+}
+@code {
+    [Parameter] public string CourseId { get; set; } = "";
+    private CancellationTokenSource _cts = new();
+    private List<LinguaFlow.Core.Assessment.MistakeEntry> _mistakes = [];
+    private Dictionary<string, int> _frequencies = [];
+    private readonly Dictionary<string, string> _notes = [];
+    private string _unitFilter = "", _skillFilter = "";
+    private string? _error;
+    private bool _loading = true;
+    protected override async Task OnParametersSetAsync()
+    {
+        _cts.Cancel(); _cts.Dispose(); _cts = new(); _loading = true; _error = null;
+        try
+        {
+            if (await CatalogService.FindAvailableAsync(CourseId, _cts.Token) is null) { _error = T["CourseUnavailable"]; return; }
+            _mistakes = (await Sessions.GetMistakesAsync(CourseId)).ToList();
+            _frequencies = (await Store.ExerciseAttempts.GetByCourseAsync(CourseId)).Select(r => { try { return r.Data.Deserialize<LinguaFlow.Core.Assessment.ExerciseAttempt>(); } catch (JsonException) { return null; } }).OfType<LinguaFlow.Core.Assessment.ExerciseAttempt>().Where(a => a.Feedback.Status is LinguaFlow.Core.Assessment.GradingStatus.Incorrect or LinguaFlow.Core.Assessment.GradingStatus.Partial).GroupBy(a => a.ExerciseId).ToDictionary(g => g.Key, g => g.Count());
+            foreach (var row in await Store.CourseSettings.GetByCourseAsync(CourseId)) if (row.Id.StartsWith("mistake-note-", StringComparison.Ordinal) && row.Data.ValueKind == JsonValueKind.String) _notes[row.Id[13..]] = row.Data.GetString() ?? "";
+        }
+        catch (Exception ex) when (ex is LearningStorageException or CourseContentException or HttpRequestException) { _error = ex.Message; }
+        finally { _loading = false; }
+    }
+    private async Task Review(LinguaFlow.Core.Assessment.MistakeEntry item) { await Sessions.MarkReviewedAsync(item); _mistakes = (await Sessions.GetMistakesAsync(CourseId)).ToList(); }
+    private async Task SaveNote(string exerciseId, ChangeEventArgs e)
+    {
+        var value = e.Value?.ToString() ?? ""; _notes[exerciseId] = value;
+        try { await Store.CourseSettings.SaveAsync(new LearningRecord { CourseId = CourseId, Kind = LearningRecordKind.CourseSetting, Id = "mistake-note-" + exerciseId, Data = JsonSerializer.SerializeToElement(value), UpdatedAt = DateTimeOffset.UtcNow, RecordSchemaVersion = 1 }); }
+        catch (LearningStorageException ex) { _error = ex.Message; }
+    }
+    public void Dispose() { _cts.Cancel(); _cts.Dispose(); }
+}

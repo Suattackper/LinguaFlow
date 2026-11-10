@@ -1,0 +1,25 @@
+@inject TextToSpeechService Speech
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<div class="dialogue-practice">
+    <div class="dialogue-actions"><button type="button" class="reader-control" @onclick="PlayAll">@T["PlayDialogue"]</button><button type="button" class="reader-control" @onclick="StopDialogue">@T["StopSpeech"]</button></div>
+    @foreach (var line in Lines)
+    {
+        <div class="dialogue-line"><strong>@line.Speaker</strong><span>@line.Text</span><PronounceButton Text="@line.Text" Language="@Language" /></div>
+    }
+</div>
+@code {
+    [Parameter, EditorRequired] public string Text { get; set; } = "";
+    [Parameter] public string Language { get; set; } = "en-US";
+    private bool _stopRequested;
+    private IReadOnlyList<(string Speaker, string Text)> Lines => Text.Split('\n', StringSplitOptions.RemoveEmptyEntries).Select(line =>
+    {
+        var colon = line.IndexOf(':');
+        return colon > 0 && colon < 35 ? (line[..colon].Trim(), line[(colon + 1)..].Trim()) : ("", line.Trim());
+    }).ToList();
+    private async Task PlayAll()
+    {
+        _stopRequested = false;
+        foreach (var line in Lines) { if (_stopRequested) break; await Speech.SpeakAsync(line.Text, Language); if (Speech.Error is not null) break; }
+    }
+    private async Task StopDialogue() { _stopRequested = true; await Speech.StopAsync(); }
+}

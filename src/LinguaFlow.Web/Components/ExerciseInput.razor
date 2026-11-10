@@ -1,0 +1,44 @@
+@using LinguaFlow.Core.Assessment
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+@if (Definition.Kind is ExerciseKind.SingleChoice or ExerciseKind.TrueFalse)
+{
+    <fieldset class="exercise-options"><legend class="visually-hidden">@Definition.Prompt</legend>
+    @foreach (var option in Definition.Options)
+    {
+        <label class="answer-option"><input type="radio" name="@Definition.ExerciseId" value="@option" checked="@(Value == option)" @onchange="() => ValueChanged.InvokeAsync(option)" /> @option</label>
+    }
+    </fieldset>
+}
+else if (Definition.Kind == ExerciseKind.MultipleSelect)
+{
+    <fieldset class="exercise-options"><legend class="visually-hidden">@Definition.Prompt</legend>
+    @foreach (var option in Definition.Options)
+    {
+        <label class="answer-option"><input type="checkbox" checked="@Selected(option)" @onchange="e => Toggle(option, e.Value is true)" /> @option</label>
+    }
+    </fieldset>
+}
+else if (Definition.Kind is ExerciseKind.Matching or ExerciseKind.SentenceOrdering or ExerciseKind.WordOrdering or ExerciseKind.MultipleBlanks)
+{
+    <label class="visually-hidden" for="@Definition.ExerciseId">@Definition.Prompt</label>
+    <textarea id="@Definition.ExerciseId" class="answer-input" rows="4" value="@Value" placeholder="@T["OneAnswerPerLine"]" @oninput="InputChanged"></textarea>
+}
+else
+{
+    <label class="visually-hidden" for="@Definition.ExerciseId">@Definition.Prompt</label>
+    <textarea id="@Definition.ExerciseId" class="answer-input" rows="2" value="@Value" @oninput="InputChanged"></textarea>
+}
+@code {
+    [Parameter, EditorRequired] public ExerciseDefinition Definition { get; set; } = default!;
+    [Parameter] public string Value { get; set; } = "";
+    [Parameter] public EventCallback<string> ValueChanged { get; set; }
+    private Task InputChanged(ChangeEventArgs e) => ValueChanged.InvokeAsync(e.Value?.ToString() ?? "");
+    private bool Selected(string option) => Value.Split('\n', StringSplitOptions.RemoveEmptyEntries).Contains(option);
+    private Task Toggle(string option, bool selected)
+    {
+        var values = Value.Split('\n', StringSplitOptions.RemoveEmptyEntries).ToList();
+        if (selected && !values.Contains(option)) values.Add(option);
+        if (!selected) values.Remove(option);
+        return ValueChanged.InvokeAsync(string.Join('\n', values));
+    }
+}

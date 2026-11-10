@@ -1,0 +1,166 @@
+@page "/courses/{CourseId}/practice"
+@implements IDisposable
+@using LinguaFlow.Core.Practice
+@using LinguaFlow.Core.Progress
+@inject CourseCatalogService Catalog
+@inject CourseManifestService Manifests
+@inject UnitContentService Units
+@inject AssessmentContentService Assessments
+@inject VocabularyContentService Vocabulary
+@inject PracticeContentService PracticeContent
+@inject PracticeSessionService Sessions
+@inject PracticeResultService Results
+@inject PracticeFileService Files
+@inject OfflineCourseService Offline
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<PageTitle>@T["PracticeCenter"] - LinguaFlow</PageTitle>
+<PageHeading Eyebrow="LinguaFlow" Title="@T["PracticeCenter"]" Description="@T["PracticeCenterIntro"]" />
+<NavLink class="reader-control" href="help#chatgpt">@T["Help"] →</NavLink>
+@if (Offline.OnlineHint == false) { <p class="content-warning" role="status">@T["PracticeOfflineWarning"]</p> }
+@if (_busy) { <StateMessage Kind="loading" Title="@T["LoadingUnit"]" /> }
+@if (_error is not null) { <p role="alert" class="content-warning">@_error</p> }
+@if (_manifest is not null)
+{
+    <div class="practice-wizard">
+        <NavLink class="reader-control" href="@($"courses/{CourseId}/practice/import")">@T["ImportAssessment"] →</NavLink>
+        <section class="info-panel"><h2>1. @T["ChoosePractice"]</h2><p><strong>@_manifest.Title</strong> · @_manifest.LearningLevel</p>
+            <label>@T["Unit"] <select value="@_unitId" @onchange="ChooseUnit">@foreach (var u in _manifest.Units.OrderBy(u => u.Order)) { <option value="@u.UnitId">@u.Title</option> }</select></label>
+            @if (_unit is not null)
+            {
+                <label>@T["PracticeSkill"] <select value="@_skill" @onchange="ChooseSkill">@foreach (var skill in _tasks.Select(t => t.Skill).Distinct()) { <option value="@skill">@skill</option> }</select></label>
+                <label>@T["PracticeScenario"] <select value="@_taskId" @onchange="ChooseTask">@foreach (var task in _tasks.Where(t => t.Skill == _skill)) { <option value="@task.Id">@task.Label</option> }</select></label>
+                @if (_tasks.Count == 0) { <p>@T["NoAuthoredPractice"]</p> }
+                <label>@T["Difficulty"] <select @bind="_difficulty"><option value="guided">@T["Guided"]</option><option value="standard">@T["Standard"]</option><option value="challenge">@T["Challenge"]</option></select></label>
+                <label>@T["Duration"] <select @bind="_minutes"><option value="10">10</option><option value="15">15</option><option value="20">20</option><option value="30">30</option></select></label>
+                @if (SelectedTask is { } selected) { <h3>@T["AuthoredTask"]</h3><p class="lesson-block">@selected.Prompt</p> }
+                @if (_unit.Objectives.Count > 0) { <h3>@T["Objectives"]</h3><ul>@foreach (var item in _unit.Objectives) { <li>@item</li> }</ul> }
+                @if (_vocabulary is not null) { <details><summary>@T["PracticeVocabulary"]</summary><ul>@foreach (var item in _vocabulary.Entries.Where(v => v.UnitId == _unitId).Take(20)) { <li>@item.Term — @item.Vietnamese</li> }</ul></details> }
+                @if (_unit.Sections.SelectMany(s => s.Blocks).OfType<GrammarBlock>().Any()) { <details><summary>@T["PracticeGrammar"]</summary>@foreach (var item in _unit.Sections.SelectMany(s => s.Blocks).OfType<GrammarBlock>().Take(3)) { <p class="lesson-block">@item.Text</p> }</details> }
+                @if (SelectedRubric is { } rubric) { <h3>@T["OriginalRubric"]</h3><p class="lesson-block">@rubric.Text</p> }
+                <button type="button" class="button course-action" disabled="@(SelectedTask is null || SelectedRubric is null || _working)" @onclick="Create">@T["GeneratePractice"]</button>
+            }
+        </section>
+        @if (_session is not null)
+        {
+            <section class="info-panel"><h2>2. @T["ExportPractice"]</h2><p>@T["PracticeExportNote"]</p>
+                <div class="practice-actions"><button type="button" class="button course-action" disabled="@_working" @onclick="Download">@T["DownloadPractice"]</button><button type="button" class="reader-control" @onclick="Copy">@T["CopyInstructions"]</button><button type="button" class="reader-control" disabled="@(Offline.OnlineHint == false)" @onclick="OpenChat">@T["OpenChatGPT"]</button><button type="button" class="reader-control" @onclick="Create">@T["RegeneratePractice"]</button></div>
+                <details><summary>@T["PreviewInstructions"]</summary><pre class="practice-preview">@_session.PackageMarkdown</pre></details>
+            </section>
+            <section class="info-panel"><h2>3. @T["PracticeInChat"]</h2><p>@T["PracticeChatSteps"]</p></section>
+            <section class="info-panel"><h2>4. @T["ImportAssessment"]</h2><p>@T["ImportJsonHint"]</p><NavLink class="button course-action" href="@($"courses/{CourseId}/practice/import")">@T["ImportAssessment"] →</NavLink></section>
+        }
+        <section class="info-panel"><h2>@T["PreviousPractice"]</h2>
+            @if (_previous.Count == 0) { <p>@T["NoPreviousPractice"]</p> }
+            else { <ul>@foreach (var s in _previous.Take(12)) { <li><button type="button" class="reader-control" @onclick="() => _session = s">@s.Request.UnitTitle · @s.Request.Skill · @s.Request.GeneratedAt.ToLocalTime().ToString("g") · @s.Status</button> <NavLink href="@($"courses/{CourseId}/practice/import")">@T["ImportAssessment"]</NavLink></li> }</ul> }
+            @if (_results.Count > 0) { <h3>@T["ImportedResults"]</h3><ul>@foreach (var r in _results.Take(12)) { <li><NavLink href="@($"courses/{CourseId}/practice/results/{r.ResultId}")">@r.Result.UnitId · @r.Result.Skill · @r.ImportedAt.ToLocalTime().ToString("g") · @r.Evaluation.Percentage%</NavLink></li> }</ul> }
+        </section>
+    </div>
+}
+@code {
+    [Parameter] public string CourseId { get; set; } = "";
+    [SupplyParameterFromQuery(Name = "unit")] public string? UnitQuery { get; set; }
+    private readonly CancellationTokenSource _cts = new();
+    private CourseCatalogEntry? _entry; private CourseManifest? _manifest; private UnitContent? _unit;
+    private AssessmentDocument? _assessments; private VocabularyDocument? _vocabulary; private PracticeConfiguration? _config;
+    private List<(string Id, string Skill, string Label, string Prompt, ContentBlock Block)> _tasks = [];
+    private IReadOnlyList<PracticeSession> _previous = [];
+    private IReadOnlyList<ImportedPracticeResult> _results = [];
+    private PracticeSession? _session; private string _unitId = ""; private string _skill = ""; private string _taskId = "";
+    private string _difficulty = "standard"; private int _minutes = 15; private bool _busy = true; private bool _working; private string? _error;
+    private (string Id, string Skill, string Label, string Prompt, ContentBlock Block)? SelectedTask => _tasks.Any(t => t.Id == _taskId) ? _tasks.First(t => t.Id == _taskId) : null;
+    private RubricRecord? SelectedRubric => _assessments?.Rubrics.FirstOrDefault(r => r.UnitId == _unitId && r.Skill.Contains(_skill, StringComparison.OrdinalIgnoreCase));
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _entry = await Catalog.FindAvailableAsync(CourseId, _cts.Token) ?? throw new CourseContentException(T["CourseUnavailable"]);
+            _manifest = await Manifests.GetManifestAsync(_entry, _cts.Token);
+            _config = await PracticeContent.GetAsync(_entry, _manifest, _cts.Token);
+            _vocabulary = await Vocabulary.GetAsync(_entry, _manifest, _cts.Token);
+            _previous = await Sessions.GetAsync(CourseId);
+            _results = await Results.GetResultsAsync(CourseId);
+            _unitId = _manifest.Units.Any(u => u.UnitId == UnitQuery) ? UnitQuery! : _manifest.Units.OrderBy(u => u.Order).FirstOrDefault()?.UnitId ?? "";
+            await LoadUnit();
+        }
+        catch (Exception ex) when (ex is CourseContentException or LearningStorageException or HttpRequestException) { _error = ex.Message; }
+        finally { _busy = false; }
+    }
+    private async Task LoadUnit()
+    {
+        if (_entry is null || _manifest is null || _unitId.Length == 0) return;
+        _busy = true; _error = null; _session = null;
+        try
+        {
+            _unit = (await Units.GetUnitAsync(_entry, _manifest, _unitId, _cts.Token)).Content;
+            _assessments = await Assessments.GetForUnitAsync(_entry, _manifest, _unit, _cts.Token);
+            _tasks = _unit.Sections.SelectMany(s => s.Blocks).Select(b => b switch
+            {
+                SpeakingBlock x => (x.ExerciseId, "speaking", s_label(x.Prompt), x.Prompt, (ContentBlock)x),
+                WritingBlock x => (x.ExerciseId, "writing", s_label(x.Prompt), x.Prompt, (ContentBlock)x),
+                ListeningBlock x => (x.ExerciseId, "listening", s_label(x.Prompt), x.Prompt, (ContentBlock)x),
+                _ => ("", "", "", "", b)
+            }).Where(t => t.Item1.Length > 0).ToList();
+            _tasks = _tasks.Where(t => _assessments.Rubrics.Any(r => r.UnitId == _unitId && r.Skill.Contains(t.Skill, StringComparison.OrdinalIgnoreCase) && (t.Skill != "listening" || r.Text.Split('\n').Any(line => line.Contains('%') && (line.Contains("listening", StringComparison.OrdinalIgnoreCase) || line.Contains("nghe", StringComparison.OrdinalIgnoreCase)))))).ToList();
+            _skill = _tasks.FirstOrDefault().Skill ?? ""; _taskId = _tasks.FirstOrDefault().Id ?? "";
+        }
+        catch (Exception ex) when (ex is CourseContentException or HttpRequestException) { _error = ex.Message; _tasks = []; }
+        finally { _busy = false; }
+    }
+    private static string s_label(string prompt) => prompt.Replace('\n', ' ').Trim().Length > 85 ? prompt.Replace('\n', ' ').Trim()[..85] + "…" : prompt.Replace('\n', ' ').Trim();
+    private async Task ChooseUnit(ChangeEventArgs e) { _unitId = e.Value?.ToString() ?? ""; await LoadUnit(); }
+    private void ChooseSkill(ChangeEventArgs e) { _skill = e.Value?.ToString() ?? ""; _taskId = _tasks.FirstOrDefault(t => t.Skill == _skill).Id ?? ""; _session = null; }
+    private void ChooseTask(ChangeEventArgs e) { _taskId = e.Value?.ToString() ?? ""; _session = null; }
+    private async Task Create()
+    {
+        if (_manifest is null || _unit is null || _config is null || _vocabulary is null || SelectedTask is not { } task || SelectedRubric is not { } rubric || _working) return;
+        _working = true; _error = null;
+        try
+        {
+            var request = PracticePackageBuilder.Create(_manifest, _unit, task.Block, rubric, _config, _vocabulary, System.Globalization.CultureInfo.CurrentUICulture.Name, _difficulty, _minutes);
+            var session = new PracticeSession { Request = request, PackageMarkdown = PracticePackageBuilder.BuildMarkdown(request), Status = PracticeSessionStatus.Created, UpdatedAt = DateTimeOffset.UtcNow };
+            await Sessions.SaveAsync(session); _session = session; _previous = await Sessions.GetAsync(CourseId);
+        }
+        catch (Exception ex) when (ex is ArgumentException or LearningStorageException) { _error = ex.Message; }
+        finally { _working = false; }
+    }
+    private async Task Download()
+    {
+        if (_session is null || _working) return;
+        _working = true; _error = null;
+        try
+        {
+            await Files.DownloadAsync(PracticePackageBuilder.Filename(_session.Request), _session.PackageMarkdown);
+            _session = _session with { Status = PracticeSessionStatus.Exported, UpdatedAt = DateTimeOffset.UtcNow };
+            await Sessions.SaveAsync(_session); _previous = await Sessions.GetAsync(CourseId);
+        }
+        catch (Exception ex) when (ex is JSException or LearningStorageException) { _error = T["PracticeDownloadFailed"] + " " + ex.Message; }
+        finally { _working = false; }
+    }
+    private async Task Copy()
+    {
+        if (_session is null) return;
+        try
+        {
+            await Files.CopyAsync(_session.PackageMarkdown);
+            _session = _session with { Status = PracticeSessionStatus.Exported, UpdatedAt = DateTimeOffset.UtcNow };
+            await Sessions.SaveAsync(_session); _previous = await Sessions.GetAsync(CourseId);
+        }
+        catch (JSException) { _error = T["PracticeClipboardFailed"]; }
+        catch (LearningStorageException ex) { _error = ex.Message; }
+    }
+    private async Task OpenChat()
+    {
+        try
+        {
+            if (!await Files.OpenChatAsync()) { _error = T["PracticePopupBlocked"]; return; }
+            if (_session is { Status: PracticeSessionStatus.Exported } exported)
+            {
+                _session = exported with { Status = PracticeSessionStatus.AwaitingResult, UpdatedAt = DateTimeOffset.UtcNow };
+                await Sessions.SaveAsync(_session); _previous = await Sessions.GetAsync(CourseId);
+            }
+        }
+        catch (JSException) { _error = T["PracticePopupBlocked"]; }
+        catch (LearningStorageException ex) { _error = ex.Message; }
+    }
+    public void Dispose() { _cts.Cancel(); _cts.Dispose(); }
+}

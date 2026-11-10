@@ -1,0 +1,20 @@
+@using LinguaFlow.Core.Assessment
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<div class="open-assignment">
+    @if (Definition.Kind == ExerciseKind.Writing) { <p class="activity-count">@T["WordCount"]: @WordCount</p> }
+    @if (Definition.Kind == ExerciseKind.Listening) { <p class="content-warning">@T["ListeningEvidenceWarning"]</p> }
+    <label class="visually-hidden" for="@Definition.ExerciseId">@Definition.Prompt</label>
+    <textarea id="@Definition.ExerciseId" class="answer-input" rows="@(Definition.Kind == ExerciseKind.Writing ? 9 : 5)" value="@Value" @oninput="InputChanged"></textarea>
+    @if (!string.IsNullOrWhiteSpace(Rubric)) { <details class="exercise-rubric"><summary>@T["OriginalRubric"]</summary><div class="lesson-block">@Rubric</div></details> }
+    @if (Definition.Kind == ExerciseKind.Writing) { <label class="self-check"><input type="checkbox" @bind="_reviewed" /> @T["SelfReviewChecklist"]</label> }
+    <p class="activity-count">@T["PracticeExportLater"]</p>
+</div>
+@code {
+    [Parameter, EditorRequired] public ExerciseDefinition Definition { get; set; } = default!;
+    [Parameter] public string Value { get; set; } = "";
+    [Parameter] public string? Rubric { get; set; }
+    [Parameter] public EventCallback<string> ValueChanged { get; set; }
+    private Task InputChanged(ChangeEventArgs e) => ValueChanged.InvokeAsync(e.Value?.ToString() ?? "");
+    private bool _reviewed;
+    private int WordCount => Value.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries).Length;
+}

@@ -1,0 +1,29 @@
+@page "/help"
+@inject UiPreferences Preferences
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<PageTitle>@T["Help"] - LinguaFlow</PageTitle>
+<PageHeading Eyebrow="LinguaFlow" Title="@T["HelpCenter"]" Description="@T["HelpCenterIntro"]" />
+<div class="help-search"><label for="help-query">@T["SearchHelp"]</label><input id="help-query" type="search" @bind="_query" @bind:event="oninput" /></div>
+<nav class="help-categories" aria-label="@T["HelpCategories"]">
+    <button type="button" class="reader-control @(_category == "all" ? "active" : "")" @onclick="ShowAll">@T["AllTopics"]</button>
+    @foreach (var category in Categories) { <button type="button" class="reader-control @(_category == category ? "active" : "")" @onclick="() => SetCategory(category)">@T["help-" + category]</button> }
+</nav>
+<div class="help-layout"><nav class="help-index" aria-label="@T["HelpArticles"]"><ul>@foreach (var article in Filtered) { <li><a href="@("#" + article.Id)">@Title(article)</a></li> }</ul></nav>
+<div class="help-articles">
+@if (!Filtered.Any()) { <StateMessage Kind="empty" Title="@T["NoHelpResults"]" /> }
+@foreach (var article in Filtered)
+{
+    <article id="@article.Id" class="info-panel help-article"><span class="help-tag">@T["help-" + article.Category]</span><h2>@Title(article)</h2><ol>@foreach (var step in Steps(article)) { <li>@step.Text @if (step.Href is not null) { <NavLink href="@step.Href">@step.LinkText →</NavLink> }</li> }</ol></article>
+}
+</div></div>
+<section class="info-panel help-faq"><h2>@T["FrequentlyAsked"]</h2><details><summary>@T["FaqSyncQuestion"]</summary><p>@T["FaqSyncAnswer"]</p></details><details><summary>@T["FaqProjectQuestion"]</summary><p>@T["FaqProjectAnswer"]</p></details><details><summary>@T["FaqAnswersQuestion"]</summary><p>@T["FaqAnswersAnswer"]</p></details></section>
+@code {
+    private string _query = "", _category = "all";
+    private void SetCategory(string category) => _category = category;
+    private void ShowAll() => _category = "all";
+    private bool English => Preferences.Language == "en-US";
+    private static readonly string[] Categories = ["getting-started", "studying", "vocabulary", "practice", "data", "support"];
+    private string Title(HelpArticle a) => English ? a.TitleEn : a.TitleVi;
+    private HelpStep[] Steps(HelpArticle a) => English ? a.En : a.Vi;
+    private IEnumerable<HelpArticle> Filtered => HelpContent.Articles.Where(a => (_category == "all" || a.Category == _category) && (string.IsNullOrWhiteSpace(_query) || Title(a).Contains(_query, StringComparison.OrdinalIgnoreCase) || Steps(a).Any(s => s.Text.Contains(_query, StringComparison.OrdinalIgnoreCase))));
+}

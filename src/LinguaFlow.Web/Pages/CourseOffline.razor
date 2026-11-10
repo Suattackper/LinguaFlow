@@ -1,0 +1,110 @@
+@page "/courses/{CourseId}/offline"
+@implements IDisposable
+@using LinguaFlow.Core.Courses
+@using System.Net.Http.Json
+@inject CourseCatalogService Catalog
+@inject CourseManifestService Manifests
+@inject CoursePathResolver Paths
+@inject CourseContentValidator Validator
+@inject HttpClient Http
+@inject OfflineCourseService Offline
+@inject NavigationManager Navigation
+@inject IDialogService Dialogs
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<PageTitle>@T["OfflineCourse"] - LinguaFlow</PageTitle>
+@if (_loading) { <StateMessage Kind="loading" Title="@T["LoadingCourses"]" /> }
+else if (_error is not null) { <StateMessage Kind="error" Title="@T["CourseLoadError"]" Description="@_error" /> }
+else if (_manifest is not null)
+{
+    <NavLink class="back-link" href="@($"courses/{CourseId}")">← @T["BackToCourse"]</NavLink>
+    <PageHeading Eyebrow="@_manifest.Title" Title="@T["OfflineCourse"]" Description="@T["OfflineCourseIntro"]" />
+    @if (Offline.OnlineHint == false) { <p class="content-warning">@T["OfflineNetworkWarning"]</p> }
+    @if (_operationError is not null) { <p role="alert" class="content-warning">@_operationError</p> }
+    @if (_status is not null)
+    {
+        <div class="dashboard-metrics"><article><small>@T["OfflineAvailability"]</small><strong>@(_status.Available ? T["OfflineReady"] : T["OfflineNotReady"])</strong></article><article><small>@T["CachedUnits"]</small><strong>@_status.CachedUnits / @_manifest.Units.Count</strong></article><article><small>@T["OfflineContentSize"]</small><strong>@(_status.ContentBytes > 0 ? $"{_status.ContentBytes / 1024d / 1024d:0.0} MB" : T["UnknownSize"])</strong></article></div>
+        @if (_remoteManifest is not null && _status.ContentFingerprint is not null && _status.ContentFingerprint != _remoteManifest.ContentFingerprint) { <p class="content-warning" role="alert">@T["OfflineVersionChanged"]</p> }
+    }
+    @if (_busy) { <p role="status">@T["OfflineDownloading"] @_done / @_total</p><progress value="@_done" max="@Math.Max(1, _total)"></progress> }
+    <div class="course-learning-links"><button type="button" class="button course-action" disabled="@_busy" @onclick="Download">@(_status?.Available == true ? T["UpdateOfflineCourse"] : T["DownloadOfflineCourse"])</button><button type="button" class="reader-control danger" disabled="@(_busy || _status?.Available != true)" @onclick="Remove">@T["RemoveOfflineCourse"]</button></div>
+    <p>@T["OfflineStorageNote"]</p><p>@T["OfflineExternalNote"]</p><p>@T["OfflineBackupNote"] <NavLink href="@($"courses/{CourseId}/backup")">@T["CourseBackup"] →</NavLink></p>
+}
+@code {
+    [Parameter] public string CourseId { get; set; } = "";
+    private CourseCatalogEntry? _entry;
+    private CourseManifest? _manifest;
+    private CourseManifest? _remoteManifest;
+    private OfflineCourseStatus? _status;
+    private string? _statusCourseId;
+    private bool _loading = true, _busy;
+    private int _done, _total;
+    private string? _error, _operationError;
+    private CancellationTokenSource _cts = new();
+    protected override async Task OnParametersSetAsync()
+    {
+        _cts.Cancel(); _cts.Dispose(); _cts = new(); _loading = true; _error = null; _status = null;
+        try { _entry = await Catalog.FindAvailableAsync(CourseId, _cts.Token); if (_entry is null) { _error = T["CourseUnavailable"]; return; } _manifest = await Manifests.GetManifestAsync(_entry, _cts.Token); await CheckRemoteAsync(); }
+        catch (Exception ex) when (ex is CourseContentException or HttpRequestException) { _error = ex.Message; }
+        finally { _loading = false; }
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender) Offline.Progress += ProgressChanged;
+        if (_manifest is not null && _statusCourseId != CourseId) { _statusCourseId = CourseId; await RefreshStatus(); }
+    }
+    private void ProgressChanged(int done, int total) { _done = done; _total = total; _ = InvokeAsync(StateHasChanged); }
+    private async Task RefreshStatus()
+    {
+        try { _status = await Offline.StatusAsync(CourseId); }
+        catch (Exception ex) when (ex is JSException or InvalidOperationException) { _operationError = ex.Message; }
+        await InvokeAsync(StateHasChanged);
+    }
+    private async Task Download()
+    {
+        if (_entry is null || _manifest is null) return;
+        _busy = true; _operationError = null; _done = 0; _total = _manifest.Units.Count + _manifest.Vocabulary.Count + _manifest.Assessments.Count + _manifest.AiPractice.Count;
+        try
+        {
+            await CheckRemoteAsync();
+            if (_remoteManifest is null) { _operationError = T["OfflineNetworkRequired"]; return; }
+            var url = Paths.ResolveManifest(new Uri(Navigation.BaseUri), _entry);
+            var changed = _status?.Available == true && _status.ContentFingerprint != _remoteManifest.ContentFingerprint;
+            if (changed && !await Confirm(T["OfflineVersionChanged"], T["OfflineUpdateConfirm"])) return;
+            var result = await Offline.DownloadAsync(CourseId, _entry.LanguageDirectory, url, _remoteManifest.ContentFingerprint, changed);
+            if (result.Status == "changed") _operationError = T["OfflineReloadForUpdate"];
+            else if (result.Status == "ready") _manifest = _remoteManifest;
+            await RefreshStatus();
+        }
+        catch (Exception ex) when (ex is JSException or InvalidOperationException) { _operationError = ex.Message; }
+        finally { _busy = false; }
+    }
+    private async Task Remove()
+    {
+        if (!await Confirm(T["RemoveOfflineCourse"], T["RemoveOfflineConfirm"])) return;
+        _busy = true; _operationError = null;
+        try { await Offline.RemoveAsync(CourseId); await RefreshStatus(); }
+        catch (Exception ex) when (ex is JSException or InvalidOperationException) { _operationError = ex.Message; }
+        finally { _busy = false; }
+    }
+    private async Task<bool> Confirm(string title, string message)
+    {
+        var parameters = new DialogParameters<ConfirmActionDialog> { { x => x.Title, title }, { x => x.Message, message } };
+        var dialog = await Dialogs.ShowAsync<ConfirmActionDialog>(title, parameters);
+        return (await dialog.Result)?.Canceled == false;
+    }
+    private async Task CheckRemoteAsync()
+    {
+        _remoteManifest = null;
+        if (_entry is null) return;
+        try
+        {
+            var url = Paths.ResolveManifest(new Uri(Navigation.BaseUri), _entry);
+            using var response = await Http.GetAsync(new Uri(url.AbsoluteUri + "?offline-refresh=" + DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()), _cts.Token);
+            if (!response.IsSuccessStatusCode || response.Content.Headers.ContentType?.MediaType != "application/json") return;
+            var manifest = await response.Content.ReadFromJsonAsync<CourseManifest>(CourseJson.Options, _cts.Token);
+            if (Validator.ValidateManifest(manifest, _entry).Count == 0) _remoteManifest = manifest;
+        }
+        catch (Exception ex) when (ex is HttpRequestException or System.Text.Json.JsonException) { }
+    }
+    public void Dispose() { Offline.Progress -= ProgressChanged; _cts.Cancel(); _cts.Dispose(); }
+}

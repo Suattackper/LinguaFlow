@@ -1,0 +1,23 @@
+@inject TextToSpeechService Speech
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+@if (AudioUrl is not null && !_audioFailed)
+{
+    <audio controls preload="none" src="@AudioUrl" aria-label="@T["PlayRecording"]" @onerror="() => _audioFailed = true"></audio>
+}
+else if (Speech.Available && Speech.SelectVoice(Language) is not null)
+{
+    <button type="button" class="reader-control pronunciation-button" @onclick="Speak" disabled="@_playing" aria-label="@T["Pronounce"] @Text">🔊 @T["Listen"]</button>
+    @if (_playing) { <button type="button" class="reader-control" @onclick="Stop">@T["StopSpeech"]</button> }
+}
+else { <span class="activity-count" role="status">@T["SpeechUnavailable"]</span> }
+@if (Speech.Error is not null && Speech.Error != "SpeechUnavailable") { <small role="alert">@T[Speech.Error]</small> }
+@code {
+    [Parameter, EditorRequired] public string Text { get; set; } = "";
+    [Parameter] public string Language { get; set; } = "en-US";
+    [Parameter] public string? AudioUrl { get; set; }
+    private bool _playing;
+    private bool _audioFailed;
+    protected override async Task OnInitializedAsync() => await Speech.InitializeAsync();
+    private async Task Speak() { _playing = true; try { await Speech.SpeakAsync(Text, Language); } finally { _playing = false; } }
+    private Task Stop() => Speech.StopAsync();
+}

@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms</value>
+  </resheader>
+  <data name="Skip" xml:space="preserve">
+    <value>Chuyển đến nội dung</value>
+  </data>
+  <data name="PrimaryNavigation" xml:space="preserve">
+    <value>Điều hướng chính</value>
+  </data>
+  <data name="OpenMenu" xml:space="preserve">
+    <value>Mở menu</value>
+  </data>
+  <data name="UiLanguage" xml:space="preserve">
+    <value>Ngôn ngữ giao diện</value>
+  </data>
+  <data name="ChangeTheme" xml:space="preserve">
+    <value>Đổi giao diện</value>
+  </data>
+  <data name="Breadcrumbs" xml:space="preserve">
+    <value>Đường dẫn trang</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Trang chủ</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Trợ giúp</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>Giới thiệu</value>
+  </data>
+  <data name="BrandTag" xml:space="preserve">
+    <value>Học theo nhịp của bạn</value>
+  </data>
+  <data name="Learn" xml:space="preserve">
+    <value>Học tập</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>Tiếng Anh</value>
+  </data>
+  <data name="Japanese" xml:space="preserve">
+    <value>Tiếng Nhật</value>
+  </data>
+  <data name="Chinese" xml:space="preserve">
+    <value>Tiếng Trung</value>
+  </data>
+  <data name="Explore" xml:space="preserve">
+    <value>Khám phá</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Cài đặt</value>
+  </data>
+  <data name="LocalFirst" xml:space="preserve">
+    <value>Không gian học tập trên thiết bị của bạn.</value>
+  </data>
+  <data name="HeroEyebrow" xml:space="preserve">
+    <value>HỌC NGÔN NGỮ CÓ ĐỊNH HƯỚNG</value>
+  </data>
+  <data name="HeroTitle" xml:space="preserve">
+    <value>Học ngoại ngữ theo cách của bạn.</value>
+  </data>
+  <data name="HeroDescription" xml:space="preserve">
+    <value>Một không gian học tập rõ ràng, linh hoạt và gần gũi. Bắt đầu với tiếng Anh; các ngôn ngữ khác sẽ sớm xuất hiện.</value>
+  </data>
+  <data name="StartLearning" xml:space="preserve">
+    <value>Bắt đầu học</value>
+  </data>
+  <data name="HowItWorks" xml:space="preserve">
+    <value>Cách hoạt động</value>
+  </data>
+  <data name="ChoosePath" xml:space="preserve">
+    <value>CHỌN HÀNH TRÌNH</value>
+  </data>
+  <data name="Languages" xml:space="preserve">
+    <value>Ngôn ngữ học</value>
+  </data>
+  <data name="CourseIntro" xml:space="preserve">
+    <value>Chọn ngôn ngữ bạn muốn khám phá.</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Đã mở</value>
+  </data>
+  <data name="ComingSoon" xml:space="preserve">
+    <value>Sắp ra mắt</value>
+  </data>
+  <data name="EnglishDescription" xml:space="preserve">
+    <value>Khám phá hành trình học tiếng Anh trong LinguaFlow.</value>
+  </data>
+  <data name="ExploreEnglish" xml:space="preserve">
+    <value>Khám phá tiếng Anh</value>
+  </data>
+  <data name="ComingSoonDescription" xml:space="preserve">
+    <value>Nội dung cho ngôn ngữ này chưa được phát hành.</value>
+  </data>
+  <data name="Unavailable" xml:space="preserve">
+    <value>Chưa thể bắt đầu</value>
+  </data>
+  <data name="EnglishFoundation" xml:space="preserve">
+    <value>Không gian học tiếng Anh</value>
+  </data>
+  <data name="EnglishFoundationDescription" xml:space="preserve">
+    <value>Trang khóa học sẽ được bổ sung khi nội dung được chuyển đổi và kiểm tra.</value>
+  </data>
+  <data name="CourseNotPublished" xml:space="preserve">
+    <value>Chưa có khóa học được xuất bản</value>
+  </data>
+  <data name="CourseNotPublishedDescription" xml:space="preserve">
+    <value>Tài liệu nguồn hiện chưa được đưa vào ứng dụng.</value>
+  </data>
+  <data name="LanguageNotFound" xml:space="preserve">
+    <value>Không tìm thấy ngôn ngữ</value>
+  </data>
+  <data name="LanguageNotFoundDescription" xml:space="preserve">
+    <value>Mã ngôn ngữ này không được hỗ trợ.</value>
+  </data>
+  <data name="Preferences" xml:space="preserve">
+    <value>TÙY CHỌN CÁ NHÂN</value>
+  </data>
+  <data name="SettingsDescription" xml:space="preserve">
+    <value>Điều chỉnh giao diện phù hợp với bạn. Lựa chọn được lưu trên thiết bị này.</value>
+  </data>
+  <data name="UiLanguageDescription" xml:space="preserve">
+    <value>Ngôn ngữ dùng cho điều hướng và cài đặt.</value>
+  </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>Giao diện</value>
+  </data>
+  <data name="ThemeDescription" xml:space="preserve">
+    <value>Chọn sáng, tối hoặc theo hệ thống.</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>Theo hệ thống</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Sáng</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Tối</value>
+  </data>
+  <data name="ReducedMotion" xml:space="preserve">
+    <value>Giảm chuyển động</value>
+  </data>
+  <data name="ReducedMotionDescription" xml:space="preserve">
+    <value>Hạn chế hiệu ứng chuyển động.</value>
+  </data>
+  <data name="LargeText" xml:space="preserve">
+    <value>Chữ lớn hơn</value>
+  </data>
+  <data name="LargeTextDescription" xml:space="preserve">
+    <value>Tăng kích thước chữ giao diện.</value>
+  </data>
+  <data name="Saved" xml:space="preserve">
+    <value>Đã lưu cài đặt</value>
+  </data>
+  <data name="AboutDescription" xml:space="preserve">
+    <value>Thông tin tác giả đã được xác minh.</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Tác giả</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Họ và tên</value>
+  </data>
+  <data name="BirthYear" xml:space="preserve">
+    <value>Năm sinh</value>
+  </data>
+  <data name="Profession" xml:space="preserve">
+    <value>Nghề nghiệp</value>
+  </data>
+  <data name="Guide" xml:space="preserve">
+    <value>HƯỚNG DẪN</value>
+  </data>
+  <data name="HelpDescription" xml:space="preserve">
+    <value>Bắt đầu từ một ngôn ngữ đang mở và điều chỉnh giao diện theo nhu cầu.</value>
+  </data>
+  <data name="HelpStep1Title" xml:space="preserve">
+    <value>Chọn ngôn ngữ</value>
+  </data>
+  <data name="HelpStep1Description" xml:space="preserve">
+    <value>Tiếng Anh đã mở. Tiếng Nhật và tiếng Trung sẽ được bổ sung sau.</value>
+  </data>
+  <data name="HelpStep2Title" xml:space="preserve">
+    <value>Điều chỉnh cài đặt</value>
+  </data>
+  <data name="HelpStep2Description" xml:space="preserve">
+    <value>Bạn có thể đổi ngôn ngữ giao diện, chủ đề và tùy chọn hỗ trợ đọc.</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>Không tìm thấy trang</value>
+  </data>
+  <data name="NotFoundDescription" xml:space="preserve">
+    <value>Đường dẫn này không tồn tại.</value>
+  </data>
+  <data name="BackHome" xml:space="preserve">
+    <value>Về trang chủ</value>
+  </data>
+  <data name="RestoreDefaults" xml:space="preserve">
+    <value>Khôi phục mặc định</value>
+  </data>
+  <data name="RestoreDefaultsPrompt" xml:space="preserve">
+    <value>Khôi phục ngôn ngữ, giao diện và tùy chọn hỗ trợ về mặc định?</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Xác nhận</value>
+  </data>
+  <data name="CourseCatalog" xml:space="preserve">
+    <value>Danh mục khóa học</value>
+  </data>
+  <data name="CourseCatalogDescription" xml:space="preserve">
+    <value>Khám phá các khóa học hiện có trong LinguaFlow.</value>
+  </data>
+  <data name="LoadingCourses" xml:space="preserve">
+    <value>Đang tải khóa học</value>
+  </data>
+  <data name="CourseLoadError" xml:space="preserve">
+    <value>Không thể tải nội dung khóa học</value>
+  </data>
+  <data name="Level" xml:space="preserve">
+    <value>Trình độ</value>
+  </data>
+  <data name="Units" xml:space="preserve">
+    <value>bài học</value>
+  </data>
+  <data name="ViewCourse" xml:space="preserve">
+    <value>Xem khóa học</value>
+  </data>
+  <data name="StartCourse" xml:space="preserve">
+    <value>Bắt đầu học</value>
+  </data>
+  <data name="UnitRoadmap" xml:space="preserve">
+    <value>Lộ trình bài học</value>
+  </data>
+  <data name="CourseUnavailable" xml:space="preserve">
+    <value>Khóa học này chưa khả dụng.</value>
+  </data>
+  <data name="NetworkError" xml:space="preserve">
+    <value>Không thể kết nối tới nội dung tĩnh. Vui lòng thử lại.</value>
+  </data>
+  <data name="Unit" xml:space="preserve">
+    <value>Bài học</value>
+  </data>
+  <data name="LoadingUnit" xml:space="preserve">
+    <value>Đang tải bài học</value>
+  </data>
+  <data name="BackToCourse" xml:space="preserve">
+    <value>Quay lại khóa học</value>
+  </data>
+  <data name="Term" xml:space="preserve">
+    <value>Từ/cụm từ</value>
+  </data>
+  <data name="VietnameseMeaning" xml:space="preserve">
+    <value>Nghĩa tiếng Việt</value>
+  </data>
+  <data name="Context" xml:space="preserve">
+    <value>Ngữ cảnh</value>
+  </data>
+  <data name="SessionOnly" xml:space="preserve">
+    <value>Chỉ giữ trong phiên đang mở; lưu lâu dài sẽ có ở Bước 05.</value>
+  </data>
+  <data name="ContinueLearning" xml:space="preserve">
+    <value>Tiếp tục học</value>
+  </data>
+  <data name="FocusMode" xml:space="preserve">
+    <value>Chế độ tập trung</value>
+  </data>
+  <data name="PersonalNotes" xml:space="preserve">
+    <value>Ghi chú cá nhân</value>
+  </data>
+  <data name="SectionProgress" xml:space="preserve">
+    <value>Mục</value>
+  </data>
+  <data name="PrintLesson" xml:space="preserve">
+    <value>In bài học</value>
+  </data>
+  <data name="ListeningActivity" xml:space="preserve">
+    <value>Nghe</value>
+  </data>
+  <data name="SpeakingActivity" xml:space="preserve">
+    <value>Nói</value>
+  </data>
+  <data name="UnitNavigation" xml:space="preserve">
+    <value>Điều hướng bài học</value>
+  </data>
+  <data name="BookmarkSection" xml:space="preserve">
+    <value>Đánh dấu mục</value>
+  </data>
+  <data name="Activities" xml:space="preserve">
+    <value>hoạt động</value>
+  </data>
+  <data name="CopyExample" xml:space="preserve">
+    <value>Sao chép ví dụ</value>
+  </data>
+  <data name="OpenUnit" xml:space="preserve">
+    <value>Mở bài học</value>
+  </data>
+  <data name="ShowExplanation" xml:space="preserve">
+    <value>Xem giải thích</value>
+  </data>
+  <data name="WritingActivity" xml:space="preserve">
+    <value>Viết</value>
+  </data>
+  <data name="Sections" xml:space="preserve">
+    <value>Mục</value>
+  </data>
+  <data name="NextSection" xml:space="preserve">
+    <value>Mục tiếp theo</value>
+  </data>
+  <data name="Transcript" xml:space="preserve">
+    <value>Bản chép lời</value>
+  </data>
+  <data name="UnitPreviewUnavailable" xml:space="preserve">
+    <value>Không thể tải bản xem trước</value>
+  </data>
+  <data name="SearchUnit" xml:space="preserve">
+    <value>Tìm trong bài học</value>
+  </data>
+  <data name="ExitFocus" xml:space="preserve">
+    <value>Thoát tập trung</value>
+  </data>
+  <data name="EmptyUnit" xml:space="preserve">
+    <value>Bài học chưa có mục</value>
+  </data>
+  <data name="Objectives" xml:space="preserve">
+    <value>Mục tiêu học tập</value>
+  </data>
+<data name="ToggleTranslation" xml:space="preserve"><value>Hiện bản dịch tiếng Việt</value></data>
+<data name="CourseBackup" xml:space="preserve"><value>Sao lưu khóa học</value></data>
+<data name="BackupDescription" xml:space="preserve"><value>Xuất hoặc khôi phục dữ liệu học của khóa học này.</value></data>
+<data name="BackupPrivacy" xml:space="preserve"><value>Bản sao lưu có thể chứa ghi chú và câu trả lời cá nhân. Hãy giữ tệp riêng tư.</value></data>
+<data name="ExportProgress" xml:space="preserve"><value>Xuất tiến độ</value></data>
+<data name="ExportSummary" xml:space="preserve"><value>Tải tiến độ, bản nháp và ghi chú dưới dạng JSON UTF-8. Không kèm giáo trình.</value></data>
+<data name="LastBackup" xml:space="preserve"><value>Lần sao lưu gần nhất</value></data>
+<data name="Never" xml:space="preserve"><value>Chưa có</value></data>
+<data name="DownloadBackup" xml:space="preserve"><value>Tải bản sao lưu</value></data>
+<data name="ImportProgress" xml:space="preserve"><value>Nhập tiến độ</value></data>
+<data name="ImportHint" xml:space="preserve"><value>Chọn bản sao lưu LinguaFlow đúng khóa học và phiên bản nội dung.</value></data>
+<data name="MaximumFileSize" xml:space="preserve"><value>Dung lượng tệp tối đa</value></data>
+<data name="ImportPreview" xml:space="preserve"><value>Xem trước dữ liệu nhập</value></data>
+<data name="ContentVersion" xml:space="preserve"><value>Phiên bản nội dung</value></data>
+<data name="ExportedAt" xml:space="preserve"><value>Thời điểm xuất</value></data>
+<data name="IncomingRecords" xml:space="preserve"><value>Bản ghi sắp nhập</value></data>
+<data name="ExistingRecords" xml:space="preserve"><value>Bản ghi hiện có</value></data>
+<data name="ReplaceWarning" xml:space="preserve"><value>Thay thế sẽ ghi đè dữ liệu học hiện có của khóa này. Bản khôi phục được tạo trong cùng giao dịch.</value></data>
+<data name="ReplaceProgress" xml:space="preserve"><value>Thay thế tiến độ khóa học</value></data>
+<data name="StorageStatus" xml:space="preserve"><value>Lưu trữ trình duyệt</value></data>
+<data name="ManualReminder" xml:space="preserve"><value>Hãy xuất bản sao lưu thường xuyên, nhất là trước khi đổi máy hoặc xóa dữ liệu trình duyệt.</value></data>
+<data name="StorageUsage" xml:space="preserve"><value>Ước tính sử dụng / hạn mức</value></data>
+<data name="RefreshStatus" xml:space="preserve"><value>Cập nhật trạng thái</value></data>
+<data name="RecoveryAndReset" xml:space="preserve"><value>Khôi phục và xóa</value></data>
+<data name="RecoverySnapshot" xml:space="preserve"><value>Bản khôi phục</value></data>
+<data name="Records" xml:space="preserve"><value>bản ghi</value></data>
+<data name="RestoreSnapshot" xml:space="preserve"><value>Khôi phục trạng thái trước</value></data>
+<data name="ResetCourse" xml:space="preserve"><value>Xóa dữ liệu khóa học</value></data>
+<data name="ResetCourseWarning" xml:space="preserve"><value>Xóa dữ liệu học của khóa này? Một bản khôi phục sẽ được giữ lại.</value></data>
+<data name="FileTooLarge" xml:space="preserve"><value>Bản sao lưu vượt giới hạn 5 MB.</value></data>
+<data name="ImportedRecords" xml:space="preserve"><value>Đã nhập bản ghi</value></data>
+<data name="RestoredRecords" xml:space="preserve"><value>Đã khôi phục bản ghi</value></data>
+<data name="CourseResetDone" xml:space="preserve"><value>Đã xóa dữ liệu học của khóa học.</value></data>
+<data name="ResetAllLearning" xml:space="preserve"><value>Xóa toàn bộ dữ liệu học</value></data>
+<data name="ResetAllWarning" xml:space="preserve"><value>Xóa vĩnh viễn dữ liệu học và bản khôi phục của mọi khóa học trên trình duyệt này? Hãy xuất bản sao lưu trước.</value></data>
+<data name="AllLearningReset" xml:space="preserve"><value>Đã xóa toàn bộ dữ liệu học.</value></data>
+<data name="TypeDelete" xml:space="preserve"><value>Nhập DELETE để bật thao tác này.</value></data>
+<data name="ExerciseMode" xml:space="preserve"><value>Chế độ bài tập</value></data>
+<data name="PracticeMode" xml:space="preserve"><value>Luyện tập</value></data>
+<data name="TestMode" xml:space="preserve"><value>Kiểm tra</value></data>
+<data name="ReviewMode" xml:space="preserve"><value>Ôn lỗi</value></data>
+<data name="MistakeNotebook" xml:space="preserve"><value>Sổ tay lỗi</value></data>
+<data name="TestModeHint" xml:space="preserve"><value>Đáp án và lời giải được ẩn đến khi bạn nộp bài kiểm tra.</value></data>
+<data name="SubmitTest" xml:space="preserve"><value>Nộp bài kiểm tra</value></data>
+<data name="SubmittedQuestions" xml:space="preserve"><value>Số câu đã nộp</value></data>
+<data name="AnswerBeforeSubmit" xml:space="preserve"><value>Hãy trả lời ít nhất một câu trước khi nộp.</value></data>
+<data name="OneAnswerPerLine" xml:space="preserve"><value>Mỗi mục một dòng</value></data>
+<data name="AuthoredAnswer" xml:space="preserve"><value>Đáp án gốc</value></data>
+<data name="AnswerExplanation" xml:space="preserve"><value>Giải thích</value></data>
+<data name="PreviousAttempts" xml:space="preserve"><value>Lần làm trước</value></data>
+<data name="WordCount" xml:space="preserve"><value>Số từ</value></data>
+<data name="ListeningEvidenceWarning" xml:space="preserve"><value>Nhiệm vụ gốc chưa có âm thanh trong ứng dụng. Chỉ có chữ không thể xác minh nghe hoặc phát âm.</value></data>
+<data name="OriginalRubric" xml:space="preserve"><value>Tiêu chí gốc</value></data>
+<data name="SelfReviewChecklist" xml:space="preserve"><value>Tôi đã đối chiếu yêu cầu và sửa bản nháp.</value></data>
+<data name="PracticeExportLater" xml:space="preserve"><value>Xuất tệp luyện tập ChatGPT sẽ có ở Bước 08.</value></data>
+<data name="TestAnswerHeld" xml:space="preserve"><value>Đã giữ câu trả lời để nộp bài; chưa hiện kết quả.</value></data>
+<data name="SubmitAnswer" xml:space="preserve"><value>Nộp câu trả lời</value></data>
+<data name="RetryExercise" xml:space="preserve"><value>Làm lại</value></data>
+<data name="UnitAssessment" xml:space="preserve"><value>Đánh giá bài học</value></data>
+<data name="RemainingRequirements" xml:space="preserve"><value>Điều kiện còn thiếu</value></data>
+<data name="MistakeNotebookHint" xml:space="preserve"><value>Xem lại câu chấm sai và trở về bài tập gốc.</value></data>
+<data name="NoMistakes" xml:space="preserve"><value>Chưa có lỗi được ghi nhận</value></data>
+<data name="YourAnswer" xml:space="preserve"><value>Câu trả lời của bạn</value></data>
+<data name="Skill" xml:space="preserve"><value>Kỹ năng</value></data>
+<data name="Reviewed" xml:space="preserve"><value>Đã ôn</value></data>
+<data name="MarkReviewed" xml:space="preserve"><value>Đánh dấu đã ôn</value></data>
+<data name="Correct" xml:space="preserve"><value>Đúng</value></data>
+<data name="Incorrect" xml:space="preserve"><value>Sai</value></data>
+<data name="Partial" xml:space="preserve"><value>Đúng một phần</value></data>
+<data name="NeedsReview" xml:space="preserve"><value>Cần xem lại</value></data>
+<data name="Submitted" xml:space="preserve"><value>Đã nộp</value></data>
+<data name="InsufficientEvidence" xml:space="preserve"><value>Thiếu bằng chứng</value></data>
+<data name="NotStarted" xml:space="preserve"><value>Chưa bắt đầu</value></data>
+<data name="InProgress" xml:space="preserve"><value>Đang học</value></data>
+<data name="Passed" xml:space="preserve"><value>Đạt</value></data>
+<data name="Completed" xml:space="preserve"><value>Hoàn thành</value></data>
+<data name="ManuallyReviewed" xml:space="preserve"><value>Đã được đánh giá thủ công</value></data>
+<data name="ExternallyAssessed" xml:space="preserve"><value>Đã được đánh giá bên ngoài</value></data>
+<data name="SingleChoice" xml:space="preserve"><value>Chọn một đáp án</value></data>
+<data name="MultipleSelect" xml:space="preserve"><value>Chọn nhiều đáp án</value></data>
+<data name="TrueFalse" xml:space="preserve"><value>Đúng hoặc sai</value></data>
+<data name="FillBlank" xml:space="preserve"><value>Điền chỗ trống</value></data>
+<data name="MultipleBlanks" xml:space="preserve"><value>Điền nhiều chỗ trống</value></data>
+<data name="Matching" xml:space="preserve"><value>Ghép cặp</value></data>
+<data name="SentenceOrdering" xml:space="preserve"><value>Sắp xếp câu</value></data>
+<data name="WordOrdering" xml:space="preserve"><value>Sắp xếp từ</value></data>
+<data name="Reading" xml:space="preserve"><value>Đọc hiểu</value></data>
+<data name="ShortAnswer" xml:space="preserve"><value>Trả lời ngắn</value></data>
+<data name="ErrorCorrection" xml:space="preserve"><value>Sửa lỗi</value></data>
+<data name="Writing" xml:space="preserve"><value>Viết</value></data>
+<data name="Speaking" xml:space="preserve"><value>Nói</value></data>
+<data name="Listening" xml:space="preserve"><value>Nghe</value></data>
+<data name="FeedbackCorrect" xml:space="preserve"><value>Đúng rồi. Bạn có thể làm câu khác hoặc thử lại.</value></data>
+<data name="FeedbackIncorrect" xml:space="preserve"><value>Hãy xem đáp án và giải thích gốc, rồi thử lại.</value></data>
+<data name="FeedbackPartial" xml:space="preserve"><value>Đúng một phần. Hãy xem lại các phần còn lại.</value></data>
+<data name="FeedbackManual" xml:space="preserve"><value>Đã nộp để xem theo tiêu chí hoặc đánh giá thủ công. Chưa có điểm tự động.</value></data>
+<data name="FeedbackNoAudio" xml:space="preserve"><value>Cần bằng chứng âm thanh trước khi đánh giá kỹ năng nghe.</value></data>
+<data name="Question" xml:space="preserve"><value>Câu</value></data>
+<data name="ReviewRecommendation" xml:space="preserve"><value>Xem lại giải thích gốc, sau đó làm lại từng câu đã ghi lỗi.</value></data>
+<data name="TranscriptAfterSubmission" xml:space="preserve"><value>Bản chép lời sẽ hiện sau khi nộp hoạt động nghe.</value></data>
+<data name="VocabularyLibrary" xml:space="preserve"><value>Thư viện từ vựng</value></data>
+<data name="OriginalWords" xml:space="preserve"><value>từ và cụm từ gốc</value></data>
+<data name="ReviewDashboard" xml:space="preserve"><value>Trang ôn tập</value></data>
+<data name="StudyFlashcards" xml:space="preserve"><value>Học thẻ từ</value></data>
+<data name="SearchVocabulary" xml:space="preserve"><value>Tìm từ vựng</value></data>
+<data name="AllUnits" xml:space="preserve"><value>Tất cả bài học</value></data>
+<data name="LearningStatus" xml:space="preserve"><value>Trạng thái học</value></data>
+<data name="AllWords" xml:space="preserve"><value>Tất cả từ</value></data>
+<data name="DueNow" xml:space="preserve"><value>Đến hạn ôn</value></data>
+<data name="New" xml:space="preserve"><value>Mới</value></data>
+<data name="Learning" xml:space="preserve"><value>Đang học</value></data>
+<data name="Known" xml:space="preserve"><value>Đã nhớ</value></data>
+<data name="Difficult" xml:space="preserve"><value>Khó nhớ</value></data>
+<data name="Favorites" xml:space="preserve"><value>Từ yêu thích</value></data>
+<data name="ReviewQueue" xml:space="preserve"><value>Hàng đợi ôn</value></data>
+<data name="SortBy" xml:space="preserve"><value>Sắp xếp theo</value></data>
+<data name="NextReview" xml:space="preserve"><value>Lần ôn tiếp</value></data>
+<data name="MatchingWords" xml:space="preserve"><value>từ phù hợp</value></data>
+<data name="NoMatchingWords" xml:space="preserve"><value>Không tìm thấy từ phù hợp</value></data>
+<data name="FavoriteWord" xml:space="preserve"><value>Yêu thích từ</value></data>
+<data name="AddToReviewQueue" xml:space="preserve"><value>Thêm vào ôn tập</value></data>
+<data name="RemoveFromQueue" xml:space="preserve"><value>Bỏ khỏi ôn tập</value></data>
+<data name="ReviewHistory" xml:space="preserve"><value>Lịch sử ôn</value></data>
+<data name="Remembered" xml:space="preserve"><value>Đã nhớ</value></data>
+<data name="Forgotten" xml:space="preserve"><value>Chưa nhớ</value></data>
+<data name="Previous" xml:space="preserve"><value>Trước</value></data>
+<data name="Next" xml:space="preserve"><value>Sau</value></data>
+<data name="ReviewDashboardDescription" xml:space="preserve"><value>Ôn từ khi đến hạn hoặc bắt đầu phiên học từ mới.</value></data>
+<data name="DueToday" xml:space="preserve"><value>Đến hạn hôm nay</value></data>
+<data name="Overdue" xml:space="preserve"><value>Quá hạn</value></data>
+<data name="NewWords" xml:space="preserve"><value>Từ mới</value></data>
+<data name="DifficultWords" xml:space="preserve"><value>Từ khó</value></data>
+<data name="RecentlyReviewed" xml:space="preserve"><value>Đã ôn trong 7 ngày</value></data>
+<data name="NoReviewsDue" xml:space="preserve"><value>Chưa có từ đến hạn</value></data>
+<data name="NoReviewsDueDescription" xml:space="preserve"><value>Bạn có thể học từ mới hoặc quay lại khi có từ đến hạn.</value></data>
+<data name="StartReview" xml:space="preserve"><value>Bắt đầu ôn</value></data>
+<data name="StudyNewWords" xml:space="preserve"><value>Học từ mới</value></data>
+<data name="ReviewWeakWords" xml:space="preserve"><value>Ôn từ khó</value></data>
+<data name="ReviewTimingNote" xml:space="preserve"><value>Thời điểm ôn được lưu theo mốc tuyệt đối; ngày hiển thị theo múi giờ của thiết bị.</value></data>
+<data name="FlashcardDescription" xml:space="preserve"><value>Lật từng thẻ, sau đó chọn bạn có nhớ từ hay không.</value></data>
+<data name="NoCardsInSession" xml:space="preserve"><value>Không có thẻ trong phiên này</value></data>
+<data name="SessionSummary" xml:space="preserve"><value>Tổng kết phiên học</value></data>
+<data name="ReviewedWords" xml:space="preserve"><value>Từ đã ôn</value></data>
+<data name="ReviewStage" xml:space="preserve"><value>Giai đoạn ôn</value></data>
+<data name="MeaningToWord" xml:space="preserve"><value>Nghĩa → từ</value></data>
+<data name="WordToMeaning" xml:space="preserve"><value>Từ → nghĩa</value></data>
+<data name="RevealAnswer" xml:space="preserve"><value>Lật thẻ</value></data>
+<data name="FlashcardKeyboardHint" xml:space="preserve"><value>Bàn phím: Space để lật, 1 khi chưa nhớ, 2 khi đã nhớ.</value></data>
+<data name="LastCardNextReview" xml:space="preserve"><value>Lần ôn tiếp của thẻ vừa học</value></data>
+<data name="SpeechUnavailable" xml:space="preserve"><value>Không có phát âm hoặc chưa cài giọng phù hợp.</value></data>
+<data name="SpeechVoiceMissing" xml:space="preserve"><value>Không có giọng phù hợp với ngôn ngữ này.</value></data>
+<data name="SpeechPlaybackFailed" xml:space="preserve"><value>Không thể phát âm thanh.</value></data>
+<data name="SpeechPreferenceSaveFailed" xml:space="preserve"><value>Không thể lưu tùy chọn phát âm.</value></data>
+<data name="SpeechLanguage" xml:space="preserve"><value>Ngôn ngữ phát âm</value></data>
+<data name="Voice" xml:space="preserve"><value>Giọng</value></data>
+<data name="SpeechSpeed" xml:space="preserve"><value>Tốc độ</value></data>
+<data name="StopSpeech" xml:space="preserve"><value>Dừng</value></data>
+<data name="Pronounce" xml:space="preserve"><value>Phát âm</value></data>
+<data name="Listen" xml:space="preserve"><value>Nghe</value></data>
+<data name="PlayRecording" xml:space="preserve"><value>Phát bản ghi của khóa học</value></data>
+<data name="PlayDialogue" xml:space="preserve"><value>Phát hội thoại</value></data>
+<data name="RefreshVoices" xml:space="preserve"><value>Tải lại danh sách giọng</value></data>
+<data name="PlayListening" xml:space="preserve"><value>Phát âm thanh bài nghe</value></data>
+<data name="ListeningAudioUnavailable" xml:space="preserve"><value>Không có bản ghi hoặc giọng đọc phù hợp.</value></data>
+<data name="PlaybackEvidenceNote" xml:space="preserve"><value>Lần phát chỉ được ghi là bằng chứng luyện tập; không chứng minh mức độ nghe hiểu hay phát âm.</value></data>
+<data name="GroupBy" xml:space="preserve"><value>Nhóm theo</value></data>
+<data name="Topic" xml:space="preserve"><value>Chủ đề</value></data>
+<data name="ReviewDate" xml:space="preserve"><value>Ngày ôn</value></data>
+<data name="NoReviewDate" xml:space="preserve"><value>Chưa lên lịch</value></data>
+<data name="PracticeCenter" xml:space="preserve"><value>Trung tâm luyện tập ChatGPT</value></data>
+<data name="PracticeCenterIntro" xml:space="preserve"><value>Chọn bài gốc, tải tệp hướng dẫn và luyện tập trong cuộc trò chuyện ChatGPT thông thường.</value></data>
+<data name="ChoosePractice" xml:space="preserve"><value>Chọn bài luyện tập</value></data>
+<data name="PracticeSkill" xml:space="preserve"><value>Kỹ năng</value></data>
+<data name="PracticeScenario" xml:space="preserve"><value>Hoạt động gốc</value></data>
+<data name="NoAuthoredPractice" xml:space="preserve"><value>Unit này chưa có hoạt động luyện tập phù hợp.</value></data>
+<data name="Difficulty" xml:space="preserve"><value>Độ khó</value></data>
+<data name="Guided" xml:space="preserve"><value>Có hướng dẫn</value></data>
+<data name="Standard" xml:space="preserve"><value>Tiêu chuẩn</value></data>
+<data name="Challenge" xml:space="preserve"><value>Thử thách</value></data>
+<data name="Duration" xml:space="preserve"><value>Thời lượng dự kiến</value></data>
+<data name="AuthoredTask" xml:space="preserve"><value>Nhiệm vụ từ giáo trình</value></data>
+<data name="GeneratePractice" xml:space="preserve"><value>Tạo phiên luyện tập</value></data>
+<data name="ExportPractice" xml:space="preserve"><value>Xuất tệp luyện tập</value></data>
+<data name="PracticeExportNote" xml:space="preserve"><value>Phiên đã được lưu trên thiết bị này. Tệp chỉ chứa bối cảnh cần thiết, không chứa toàn bộ lịch sử học.</value></data>
+<data name="DownloadPractice" xml:space="preserve"><value>Tải tệp Markdown</value></data>
+<data name="CopyInstructions" xml:space="preserve"><value>Sao chép hướng dẫn</value></data>
+<data name="OpenChatGPT" xml:space="preserve"><value>Mở ChatGPT</value></data>
+<data name="RegeneratePractice" xml:space="preserve"><value>Tạo phiên mới</value></data>
+<data name="PreviewInstructions" xml:space="preserve"><value>Xem trước tệp</value></data>
+<data name="PracticeInChat" xml:space="preserve"><value>Luyện tập trong ChatGPT</value></data>
+<data name="PracticeChatSteps" xml:space="preserve"><value>Tải tệp lên cuộc trò chuyện thông thường hoặc dán nội dung, rồi trả lời từng câu hỏi. Không có đồng bộ tự động.</value></data>
+<data name="ImportAssessment" xml:space="preserve"><value>Nhập kết quả đánh giá</value></data>
+<data name="ImportAssessmentLater" xml:space="preserve"><value>Việc nhập và xác minh JSON đánh giá sẽ được triển khai ở STEP 09. Hãy giữ kết quả và tệp luyện tập.</value></data>
+<data name="PreviousPractice" xml:space="preserve"><value>Phiên luyện tập trước</value></data>
+<data name="NoPreviousPractice" xml:space="preserve"><value>Chưa có phiên luyện tập.</value></data>
+<data name="PracticeDownloadFailed" xml:space="preserve"><value>Không thể tải tệp. Hãy dùng nút sao chép hướng dẫn.</value></data>
+<data name="PracticeClipboardFailed" xml:space="preserve"><value>Không thể sao chép tự động. Hãy mở phần xem trước và sao chép thủ công.</value></data>
+<data name="PracticePopupBlocked" xml:space="preserve"><value>Trình duyệt chặn tab mới. Hãy mở https://chatgpt.com/ thủ công.</value></data>
+<data name="PracticeVocabulary" xml:space="preserve"><value>Từ vựng của Unit</value></data>
+<data name="PracticeGrammar" xml:space="preserve"><value>Ngữ pháp trọng tâm</value></data>
+<data name="ExternalAiNotice" xml:space="preserve"><value>Đánh giá do AI bên ngoài cung cấp. LinguaFlow tính kết quả theo rubric nhưng không thể xác minh cuộc trò chuyện hoặc độ chính xác của nhận xét.</value></data>
+<data name="ChooseResult" xml:space="preserve"><value>Chọn kết quả JSON</value></data>
+<data name="ImportJsonHint" xml:space="preserve"><value>Tải tệp .json hoặc dán toàn bộ JSON, kể cả khối mã từ ChatGPT. Xem trước và xác nhận trước khi lưu.</value></data>
+<data name="JsonFile" xml:space="preserve"><value>Tệp JSON</value></data>
+<data name="PasteJson" xml:space="preserve"><value>Dán JSON</value></data>
+<data name="PreviewAssessment" xml:space="preserve"><value>Xem trước đánh giá</value></data>
+<data name="ImportError" xml:space="preserve"><value>Không thể xác minh kết quả:</value></data>
+<data name="InvalidResultFile" xml:space="preserve"><value>Chọn tệp .json UTF-8 không quá 64 KiB.</value></data>
+<data name="SessionDate" xml:space="preserve"><value>Ngày tạo phiên</value></data>
+<data name="Evaluator" xml:space="preserve"><value>Nguồn đánh giá</value></data>
+<data name="RubricResult" xml:space="preserve"><value>Điểm theo rubric</value></data>
+<data name="ProposedStatus" xml:space="preserve"><value>Trạng thái dự kiến</value></data>
+<data name="Evidence" xml:space="preserve"><value>Bằng chứng</value></data>
+<data name="Strengths" xml:space="preserve"><value>Điểm làm tốt</value></data>
+<data name="AreasToImprove" xml:space="preserve"><value>Điểm cần cải thiện</value></data>
+<data name="VocabularySuggestions" xml:space="preserve"><value>Từ vựng gợi ý</value></data>
+<data name="ImprovementSuggestions" xml:space="preserve"><value>Gợi ý luyện tiếp</value></data>
+<data name="DuplicateResult" xml:space="preserve"><value>Kết quả này đã được nhập; không lưu bản trùng.</value></data>
+<data name="ConfirmImport" xml:space="preserve"><value>Xác nhận nhập</value></data>
+<data name="PracticeResult" xml:space="preserve"><value>Kết quả luyện tập</value></data>
+<data name="ResultNotFound" xml:space="preserve"><value>Không tìm thấy kết quả trên thiết bị này.</value></data>
+<data name="NextPractice" xml:space="preserve"><value>Bước học tiếp theo</value></data>
+<data name="ReviewGrammar" xml:space="preserve"><value>Ôn ngữ pháp của Unit</value></data>
+<data name="RetryPractice" xml:space="preserve"><value>Luyện lại hoạt động</value></data>
+<data name="ImportedResults" xml:space="preserve"><value>Kết quả đã nhập</value></data>
+<data name="NotAssessed" xml:space="preserve"><value>Chưa kết luận đạt: khóa học chưa có ngưỡng cho kỹ năng này</value></data>
+<data name="NeedsImprovement" xml:space="preserve"><value>Cần ôn thêm</value></data>
+<data name="InvalidResult" xml:space="preserve"><value>Kết quả không hợp lệ</value></data>
+<data name="ResultHistory" xml:space="preserve"><value>So sánh các lần luyện tập</value></data>
+<data name="Unscored" xml:space="preserve"><value>Chưa chấm</value></data>
+<data name="MissingPracticeSession" xml:space="preserve"><value>Không tìm thấy phiên xuất gốc trên thiết bị. Hãy khôi phục bản sao lưu tiến độ có phiên đó rồi thử lại.</value></data>
+<data name="PracticeVersionMismatch" xml:space="preserve"><value>Phiên luyện tập thuộc phiên bản nội dung khác. Chưa có cách chuyển đổi an toàn.</value></data>
+<data name="InvalidPracticeJson" xml:space="preserve"><value>JSON thiếu trường bắt buộc, sai định dạng hoặc vượt giới hạn. Hãy sao chép toàn bộ khối kết quả.</value></data>
+<data name="PracticeReferenceMismatch" xml:space="preserve"><value>Kết quả không khớp phiên luyện tập gốc.</value></data>
+<data name="WelcomeBack" xml:space="preserve"><value>Chào mừng bạn quay lại</value></data><data name="DashboardIntro" xml:space="preserve"><value>Tiếp tục từ nơi bạn dừng và chọn một việc học phù hợp hôm nay.</value></data><data name="RecentCourses" xml:space="preserve"><value>Khóa học gần đây</value></data><data name="StudyToday" xml:space="preserve"><value>Học gì hôm nay?</value></data><data name="RecentAchievements" xml:space="preserve"><value>Cột mốc đã đạt</value></data><data name="UpcomingReviews" xml:space="preserve"><value>Từ vựng cần ôn</value></data><data name="FirstVisitHint" xml:space="preserve"><value>Bắt đầu với khóa học tiếng Anh. Tiến độ cá nhân sẽ xuất hiện ở đây sau khi bạn học.</value></data>
+<data name="CourseProgress" xml:space="preserve"><value>Tiến độ khóa học</value></data><data name="CompletedUnits" xml:space="preserve"><value>Unit hoàn thành</value></data><data name="CompletedUnitsHint" xml:space="preserve"><value>Chỉ tính Unit có trạng thái hoàn thành đã lưu.</value></data><data name="LastStudy" xml:space="preserve"><value>Lần học gần nhất</value></data><data name="LastStudyHint" xml:space="preserve"><value>Từ bài học hoặc hoạt động đã lưu.</value></data><data name="NoActivityYet" xml:space="preserve"><value>Chưa có hoạt động</value></data><data name="DueVocabularyHint" xml:space="preserve"><value>Từ đến hạn hoặc đã đưa vào hàng đợi.</value></data><data name="RecentSkill" xml:space="preserve"><value>Kỹ năng luyện gần đây</value></data><data name="SkillsToImprove" xml:space="preserve"><value>Kỹ năng cần luyện thêm</value></data><data name="PendingPracticeReminder" xml:space="preserve"><value>Có phiên ChatGPT đang chờ nhập kết quả.</value></data><data name="BackupReminder" xml:space="preserve"><value>Chưa có bản sao lưu gần đây; hãy xuất tiến độ để bảo vệ dữ liệu.</value></data><data name="NoCourseMaterials" xml:space="preserve"><value>Khóa học hiện chưa có tài liệu tải xuống riêng.</value></data>
+<data name="LearningProgress" xml:space="preserve"><value>Phân tích tiến độ</value></data><data name="LearningGoals" xml:space="preserve"><value>Mục tiêu học tập</value></data><data name="PersonalWorkspace" xml:space="preserve"><value>Ghi chú và dấu trang</value></data><data name="ExerciseAccuracy" xml:space="preserve"><value>Tỷ lệ bài chấm đúng</value></data><data name="GradedExercises" xml:space="preserve"><value>bài có kết quả chấm tự động</value></data><data name="VocabularyMastery" xml:space="preserve"><value>Từ vựng đã nhớ</value></data><data name="WeeklyStudyDays" xml:space="preserve"><value>Ngày học tuần này</value></data><data name="ActiveDaysHint" xml:space="preserve"><value>Ngày có hoạt động học đã lưu.</value></data><data name="UnitProgression" xml:space="preserve"><value>Tiến trình Unit</value></data><data name="CompletionMetricHint" xml:space="preserve"><value>Thanh chỉ đầy khi Unit thật sự có trạng thái hoàn thành.</value></data><data name="SkillPerformance" xml:space="preserve"><value>Kết quả theo kỹ năng</value></data><data name="StudyFrequency" xml:space="preserve"><value>Hoạt động 14 ngày gần đây</value></data><data name="StudyTimeEstimate" xml:space="preserve"><value>Thời gian học ước tính hôm nay</value></data><data name="CurrentStreak" xml:space="preserve"><value>Số ngày học liên tiếp gần đây</value></data><data name="RecentSessions" xml:space="preserve"><value>Hoạt động gần đây</value></data><data name="Minutes" xml:space="preserve"><value>phút</value></data><data name="SuggestedMinutes" xml:space="preserve"><value>phút gợi ý</value></data>
+<data name="GoalsIntro" xml:space="preserve"><value>Đặt mục tiêu vừa sức; bạn có thể bắt đầu lại bất kỳ ngày nào.</value></data><data name="SetLearningGoals" xml:space="preserve"><value>Thiết lập mục tiêu</value></data><data name="DailyStudyGoal" xml:space="preserve"><value>Phút học mỗi ngày</value></data><data name="PreferredSessionDuration" xml:space="preserve"><value>Thời lượng buổi học ưa thích</value></data><data name="DailyReviewGoal" xml:space="preserve"><value>Số từ muốn ôn mỗi ngày</value></data><data name="PreferredStudyTime" xml:space="preserve"><value>Thời điểm học ưa thích</value></data><data name="AnyTime" xml:space="preserve"><value>Bất kỳ lúc nào</value></data><data name="Morning" xml:space="preserve"><value>Buổi sáng</value></data><data name="Afternoon" xml:space="preserve"><value>Buổi chiều</value></data><data name="Evening" xml:space="preserve"><value>Buổi tối</value></data><data name="TargetCourse" xml:space="preserve"><value>Khóa học mục tiêu</value></data><data name="NoTargetCourse" xml:space="preserve"><value>Chưa chọn</value></data><data name="GoalsSaved" xml:space="preserve"><value>Đã lưu mục tiêu trên thiết bị.</value></data><data name="GoalProgress" xml:space="preserve"><value>Tiến độ mục tiêu</value></data><data name="TodayMinutes" xml:space="preserve"><value>Phút học hôm nay</value></data><data name="GentleGoalsHint" xml:space="preserve"><value>Mục tiêu là gợi ý nhẹ nhàng; bỏ lỡ một ngày không xóa tiến độ.</value></data>
+<data name="FinishStudySession" xml:space="preserve"><value>Kết thúc buổi học</value></data><data name="StudyTooShort" xml:space="preserve"><value>Chưa đủ một phút hoạt động để ghi thời lượng ước tính.</value></data><data name="StudySessionSaved" xml:space="preserve"><value>Đã lưu buổi học khoảng {0} phút.</value></data><data name="MarkSectionComplete" xml:space="preserve"><value>Đánh dấu đã học mục này</value></data><data name="SectionCompleted" xml:space="preserve"><value>Đã học mục này</value></data>
+<data name="LessonOpened" xml:space="preserve"><value>Mở bài học</value></data><data name="ExerciseSubmitted" xml:space="preserve"><value>Nộp bài tập</value></data><data name="VocabularyReviewed" xml:space="preserve"><value>Ôn từ vựng</value></data><data name="PracticeResultImported" xml:space="preserve"><value>Nhập kết quả luyện tập</value></data><data name="SessionCompleted" xml:space="preserve"><value>Kết thúc buổi học</value></data>
+<data name="continue" xml:space="preserve"><value>Tiếp tục bài học</value></data><data name="review" xml:space="preserve"><value>Ôn từ đến hạn</value></data><data name="mistakes" xml:space="preserve"><value>Xem lại lỗi</value></data><data name="practice-result" xml:space="preserve"><value>Nhập kết quả ChatGPT</value></data><data name="checkpoint" xml:space="preserve"><value>Hoàn thiện Unit</value></data><data name="practice" xml:space="preserve"><value>Luyện tập thêm</value></data>
+<data name="reason-continue" xml:space="preserve"><value>Tiếp tục Unit đang học hoặc Unit chưa hoàn thành kế tiếp.</value></data><data name="reason-review" xml:space="preserve"><value>Có từ đến hạn hoặc đã đưa vào hàng ôn.</value></data><data name="reason-mistakes" xml:space="preserve"><value>Còn lỗi trong sổ tay chưa đánh dấu đã ôn.</value></data><data name="reason-practice-result" xml:space="preserve"><value>Có phiên luyện tập đã xuất đang chờ kết quả.</value></data><data name="reason-checkpoint" xml:space="preserve"><value>Unit hiện tại còn yêu cầu hoàn thành.</value></data><data name="reason-practice" xml:space="preserve"><value>Kết quả trước cần luyện thêm hoặc bổ sung bằng chứng.</value></data><data name="SkipSuggestion" xml:space="preserve"><value>Bỏ qua hôm nay</value></data><data name="RefreshSuggestions" xml:space="preserve"><value>Làm mới gợi ý</value></data>
+<data name="first-unit" xml:space="preserve"><value>Unit đầu tiên hoàn thành</value></data><data name="seven-reviews" xml:space="preserve"><value>7 lượt ôn từ vựng</value></data><data name="first-speaking" xml:space="preserve"><value>Kết quả Speaking đầu tiên</value></data>
+<data name="WorkspacePrivateHint" xml:space="preserve"><value>Dữ liệu riêng của bạn được lưu trên thiết bị, không nằm trong nội dung khóa học công khai.</value></data><data name="SavedExamples" xml:space="preserve"><value>Câu ví dụ đã lưu</value></data><data name="WritingDrafts" xml:space="preserve"><value>Bản nháp viết</value></data><data name="WorkspaceEmpty" xml:space="preserve"><value>Chưa có mục nào phù hợp.</value></data><data name="SaveExample" xml:space="preserve"><value>Lưu ví dụ</value></data><data name="notes" xml:space="preserve"><value>Ghi chú</value></data><data name="bookmarks" xml:space="preserve"><value>Dấu trang</value></data><data name="examples" xml:space="preserve"><value>Ví dụ</value></data><data name="drafts" xml:space="preserve"><value>Bản nháp</value></data><data name="MistakeFrequency" xml:space="preserve"><value>Số lần sai đã lưu</value></data>
+<data name="CourseMaterials" xml:space="preserve"><value>Tài liệu khóa học</value></data>
+<data name="MaterialsIntro" xml:space="preserve"><value>Tải các tài liệu gốc đã được kiểm tra của khóa học.</value></data>
+<data name="AnswerKeyGuidance" xml:space="preserve"><value>Đáp án được cung cấp để bạn tự kiểm tra sau khi hoàn thành bài tập. Nên thử làm trước khi xem lời giải.</value></data>
+<data name="StudentBooks" xml:space="preserve"><value>Giáo trình</value></data>
+<data name="AnswerKeys" xml:space="preserve"><value>Đáp án</value></data>
+<data name="SupplementaryMaterials" xml:space="preserve"><value>Tài liệu bổ sung</value></data>
+<data name="FullPackages" xml:space="preserve"><value>Trọn bộ</value></data>
+<data name="DownloadMaterial" xml:space="preserve"><value>Tải xuống</value></data>
+<data name="UnknownSize" xml:space="preserve"><value>Chưa rõ dung lượng</value></data>
+<data name="MaterialsVsBackup" xml:space="preserve"><value>Tài liệu giáo trình không chứa tiến độ cá nhân.</value></data>
+<data name="HelpCenter" xml:space="preserve"><value>Hướng dẫn sử dụng</value></data>
+<data name="HelpCenterIntro" xml:space="preserve"><value>Tìm câu trả lời và làm theo từng bước, từ bài học đầu tiên đến sao lưu dữ liệu.</value></data>
+<data name="SearchHelp" xml:space="preserve"><value>Tìm trong hướng dẫn</value></data>
+<data name="HelpCategories" xml:space="preserve"><value>Danh mục hướng dẫn</value></data>
+<data name="AllTopics" xml:space="preserve"><value>Tất cả</value></data>
+<data name="HelpArticles" xml:space="preserve"><value>Bài hướng dẫn</value></data>
+<data name="NoHelpResults" xml:space="preserve"><value>Không tìm thấy bài phù hợp.</value></data>
+<data name="FrequentlyAsked" xml:space="preserve"><value>Câu hỏi thường gặp</value></data>
+<data name="FaqSyncQuestion" xml:space="preserve"><value>Tiến độ có tự đồng bộ giữa các thiết bị không?</value></data>
+<data name="FaqSyncAnswer" xml:space="preserve"><value>Không. Hãy xuất bản sao lưu của khóa học rồi nhập trên thiết bị mới.</value></data>
+<data name="FaqProjectQuestion" xml:space="preserve"><value>Có cần tạo ChatGPT Project không?</value></data>
+<data name="FaqProjectAnswer" xml:space="preserve"><value>Không. Tệp luyện tập hoạt động trong cuộc trò chuyện ChatGPT thông thường.</value></data>
+<data name="FaqAnswersQuestion" xml:space="preserve"><value>Đáp án tải xuống có được bảo vệ không?</value></data>
+<data name="FaqAnswersAnswer" xml:space="preserve"><value>Không. Đáp án là tài liệu tĩnh công khai; hãy làm bài trước khi mở.</value></data>
+<data name="help-getting-started" xml:space="preserve"><value>Bắt đầu</value></data>
+<data name="help-studying" xml:space="preserve"><value>Học bài</value></data>
+<data name="help-vocabulary" xml:space="preserve"><value>Từ vựng</value></data>
+<data name="help-practice" xml:space="preserve"><value>Luyện nói</value></data>
+<data name="help-data" xml:space="preserve"><value>Dữ liệu và cài đặt</value></data>
+<data name="help-support" xml:space="preserve"><value>Khắc phục</value></data>
+<data name="AboutMissionTitle" xml:space="preserve"><value>Học ngoại ngữ theo cách của bạn</value></data>
+<data name="AboutMission" xml:space="preserve"><value>Giúp mọi người học ngoại ngữ theo giáo trình có cấu trúc, luyện tập thường xuyên và theo dõi tiến độ một cách chủ động.</value></data>
+<data name="AboutProblem" xml:space="preserve"><value>Bài học, thực hành, ôn tập và tiến độ được đặt trong một trải nghiệm dễ theo dõi.</value></data>
+<data name="AboutPhilosophyTitle" xml:space="preserve"><value>Cách học</value></data>
+<data name="AboutPhilosophy" xml:space="preserve"><value>Học theo Unit gốc, thực hành đều đặn, tự kiểm tra sau khi làm bài và xem lại lỗi để cải thiện.</value></data>
+<data name="AboutCapabilitiesTitle" xml:space="preserve"><value>Khả năng hiện có</value></data>
+<data name="AboutCapabilities" xml:space="preserve"><value>Đọc bài, làm bài tập, ôn từ vựng, nghe giọng đọc của trình duyệt, luyện tập qua tệp ChatGPT và sao lưu tiến độ.</value></data>
+<data name="AboutLocalTitle" xml:space="preserve"><value>Dữ liệu trên thiết bị</value></data>
+<data name="AboutLocal" xml:space="preserve"><value>Tiến độ và ghi chú nằm trong trình duyệt của bạn. Bạn chủ động xuất và nhập bản sao lưu.</value></data>
+<data name="AboutTechnologyTitle" xml:space="preserve"><value>Công nghệ</value></data>
+<data name="AboutTechnology" xml:space="preserve"><value>Blazor WebAssembly .NET 10, MudBlazor, nội dung khóa học JSON tĩnh và IndexedDB. Không cần máy chủ ứng dụng.</value></data>
+<data name="AboutPrinciplesTitle" xml:space="preserve"><value>Nguyên tắc phát triển</value></data>
+<data name="AboutPrinciples" xml:space="preserve"><value>Giữ nguyên nguồn giáo trình, chỉ công bố tài liệu được duyệt, hiển thị khả năng đúng với phần đã hoạt động và không tạo số liệu học tập giả.</value></data>
+<data name="Privacy" xml:space="preserve"><value>Quyền riêng tư</value></data>
+<data name="PrivacyIntro" xml:space="preserve"><value>Bạn kiểm soát dữ liệu học tập lưu trong trình duyệt và tệp sao lưu của mình.</value></data>
+<data name="PrivacyStorageTitle" xml:space="preserve"><value>Lưu trên thiết bị</value></data>
+<data name="PrivacyStorage" xml:space="preserve"><value>Tiến độ học và ghi chú được lưu trong IndexedDB của trình duyệt. Ứng dụng không yêu cầu tài khoản ở máy chủ.</value></data>
+<data name="PrivacyTransferTitle" xml:space="preserve"><value>Chuyển thiết bị</value></data>
+<data name="PrivacyTransfer" xml:space="preserve"><value>Không có đồng bộ tự động giữa các thiết bị. Dữ liệu có thể mất khi bạn xóa dữ liệu website; hãy xuất bản sao lưu trước.</value></data>
+<data name="PrivacyBackupTitle" xml:space="preserve"><value>Tệp sao lưu</value></data>
+<data name="PrivacyBackup" xml:space="preserve"><value>Tệp JSON xuất ra có thể chứa ghi chú và câu trả lời cá nhân. Hãy giữ tệp ở nơi an toàn.</value></data>
+<data name="PrivacyChatTitle" xml:space="preserve"><value>Sử dụng ChatGPT</value></data>
+<data name="PrivacyChat" xml:space="preserve"><value>Chỉ khi bạn chủ động tải tệp luyện tập lên ChatGPT, nội dung đó mới được gửi qua dịch vụ của ChatGPT. Việc xử lý dữ liệu phụ thuộc cài đặt và chính sách ChatGPT áp dụng cho bạn.</value></data>
+<data name="OfflineCourse" xml:space="preserve"><value>Học ngoại tuyến</value></data>
+<data name="OfflineCourseIntro" xml:space="preserve"><value>Lưu nội dung của khóa học trên thiết bị để đọc và luyện tập khi mất mạng.</value></data>
+<data name="OnlineHint" xml:space="preserve"><value>Có mạng*</value></data>
+<data name="OfflineHint" xml:space="preserve"><value>Ngoại tuyến*</value></data>
+<data name="NetworkHintExplanation" xml:space="preserve"><value>Trạng thái do trình duyệt báo; không đảm bảo kết nối Internet thực sự.</value></data>
+<data name="OfflineNetworkWarning" xml:space="preserve"><value>Trình duyệt báo ngoại tuyến. Bạn vẫn có thể dùng nội dung đã tải.</value></data>
+<data name="OfflineAvailability" xml:space="preserve"><value>Khả dụng ngoại tuyến</value></data>
+<data name="OfflineReady" xml:space="preserve"><value>Đã tải đủ nội dung</value></data>
+<data name="OfflineNotReady" xml:space="preserve"><value>Chưa tải đủ</value></data>
+<data name="CachedUnits" xml:space="preserve"><value>Unit đã lưu</value></data>
+<data name="OfflineContentSize" xml:space="preserve"><value>Dung lượng nội dung đã lưu</value></data>
+<data name="OfflineVersionChanged" xml:space="preserve"><value>Phiên bản khóa học trên mạng khác bản ngoại tuyến. Việc cập nhật có thể ảnh hưởng tham chiếu tiến độ; các ID sẽ được kiểm tra trước khi thay cache.</value></data>
+<data name="OfflineDownloading" xml:space="preserve"><value>Đang tải nội dung</value></data>
+<data name="UpdateOfflineCourse" xml:space="preserve"><value>Cập nhật nội dung ngoại tuyến</value></data>
+<data name="DownloadOfflineCourse" xml:space="preserve"><value>Tải khóa học để học ngoại tuyến</value></data>
+<data name="RemoveOfflineCourse" xml:space="preserve"><value>Xóa nội dung ngoại tuyến</value></data>
+<data name="OfflineStorageNote" xml:space="preserve"><value>Dung lượng cache tùy trình duyệt và có thể bị thu hồi. Tài liệu PDF tải riêng; thao tác này không xóa tiến độ học.</value></data>
+<data name="OfflineExternalNote" xml:space="preserve"><value>ChatGPT cần Internet. Giọng đọc có thể không có khi ngoại tuyến nếu thiết bị chưa cài giọng.</value></data>
+<data name="OfflineBackupNote" xml:space="preserve"><value>Tiến độ IndexedDB vẫn cần sao lưu riêng.</value></data>
+<data name="OfflineUpdateConfirm" xml:space="preserve"><value>Chỉ thay cache sau khi kiểm tra fingerprint và ID. Tiến độ được giữ nguyên; không có quy tắc di chuyển cho ID đã thay đổi.</value></data>
+<data name="OfflineReloadForUpdate" xml:space="preserve"><value>Nội dung nguồn đã thay đổi. Hãy tải lại trang rồi thử cập nhật.</value></data>
+<data name="RemoveOfflineConfirm" xml:space="preserve"><value>Xóa bản tải ngoại tuyến của khóa học này? Tiến độ và ghi chú vẫn được giữ.</value></data>
+<data name="PracticeOfflineWarning" xml:space="preserve"><value>Bạn đang ngoại tuyến. Có thể chuẩn bị tệp luyện tập đã tải, nhưng cuộc trò chuyện ChatGPT cần kết nối Internet.</value></data>
+<data name="SpeechOfflineWarning" xml:space="preserve"><value>Giọng đọc ngoại tuyến phụ thuộc giọng đã cài trên thiết bị.</value></data>
+<data name="OfflineNetworkRequired" xml:space="preserve"><value>Không tải được manifest mới từ mạng. Hãy kết nối rồi thử lại; bản ngoại tuyến hiện có vẫn được giữ.</value></data>
+<data name="RetryLoading" xml:space="preserve"><value>Thử tải lại</value></data>
+</root>
+
+

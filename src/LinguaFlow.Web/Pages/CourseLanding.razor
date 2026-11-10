@@ -1,0 +1,94 @@
+@page "/courses/{CourseId}"
+@implements IDisposable
+@inject CourseCatalogService CatalogService
+@inject CourseManifestService ManifestService
+@inject VocabularyContentService VocabularyService
+@inject VocabularyLearningService VocabularyLearning
+@inject LearningAnalyticsService Analytics
+@inject CoursePathResolver Paths
+@inject NavigationManager Navigation
+@using LinguaFlow.Core.Analytics
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<PageTitle>@(_manifest?.Title ?? T["CourseCatalog"]) - LinguaFlow</PageTitle>
+@if (_loading) { <StateMessage Kind="loading" Title="@T["LoadingCourses"]" /> }
+else if (_error is not null) { <StateMessage Kind="error" Title="@T["CourseLoadError"]" Description="@_error" /><button type="button" class="reader-control" @onclick="() => Navigation.NavigateTo(Navigation.Uri, forceLoad: true)">@T["RetryLoading"]</button> }
+else if (_manifest is not null)
+{
+    <PageHeading Eyebrow="@T["CourseCatalog"]" Title="@_manifest.Title" Description="@_manifest.Description" />
+    @if (_storageWarning is not null) { <p role="alert" class="content-warning">@_storageWarning</p> }
+    @if (_analytics is not null)
+    {
+        <div class="dashboard-metrics" aria-label="@T["CourseProgress"]">
+            <article><small>@T["CompletedUnits"]</small><strong>@_analytics.CompletedUnits / @_analytics.TotalUnits</strong><span>@T["CompletedUnitsHint"]</span></article>
+            <article><small>@T["CourseProgress"]</small><strong>@_analytics.CompletionPercent%</strong><progress value="@_analytics.CompletedUnits" max="@Math.Max(1, _analytics.TotalUnits)"></progress></article>
+            <article><small>@T["LastStudy"]</small><strong>@(_analytics.LastStudyAt?.ToLocalTime().ToString("d") ?? T["NoActivityYet"])</strong><span>@T["LastStudyHint"]</span></article>
+            <article><small>@T["DueNow"]</small><strong>@_analytics.DueVocabulary</strong><span>@T["DueVocabularyHint"]</span></article>
+        </div>
+        @if (_analytics.CurrentUnitId is { } current) { <NavLink class="button course-action" href="@($"courses/{CourseId}/units/{current}")">@T["ContinueLearning"] →</NavLink> }
+        <div class="course-learning-links"><NavLink class="reader-control" href="@($"courses/{CourseId}/progress")">@T["LearningProgress"] →</NavLink><NavLink class="reader-control" href="@($"courses/{CourseId}/goals")">@T["LearningGoals"] →</NavLink><NavLink class="reader-control" href="@($"courses/{CourseId}/workspace")">@T["PersonalWorkspace"] →</NavLink><NavLink class="reader-control" href="@($"courses/{CourseId}/mistakes")">@T["MistakeNotebook"] →</NavLink></div>
+        @if (_analytics.RecentSkill is not null) { <p>@T["RecentSkill"]: @_analytics.RecentSkill</p> }
+        @if (_analytics.Recommendations.Count > 0) { <section class="info-panel"><h2>@T["StudyToday"]</h2><div class="dashboard-plan">@foreach (var item in _analytics.Recommendations.Where(x => !_skipped.Contains(x.Id)).Take(3)) { <article><NavLink href="@item.Href">@T[item.Id] →</NavLink><p>@T["reason-" + item.Id]</p><small>~@item.SuggestedMinutes @T["Minutes"]</small><button type="button" class="reader-control" @onclick="() => _skipped.Add(item.Id)">@T["SkipSuggestion"]</button></article> }</div><button type="button" class="reader-control" @onclick="RefreshPlan">@T["RefreshSuggestions"]</button></section> }
+        @if (_analytics.SkillVerdicts.Any(x => x.Value is LinguaFlow.Core.Practice.PracticeVerdict.NeedsImprovement or LinguaFlow.Core.Practice.PracticeVerdict.InsufficientEvidence)) { <p>@T["SkillsToImprove"]: @string.Join(", ", _analytics.SkillVerdicts.Where(x => x.Value is LinguaFlow.Core.Practice.PracticeVerdict.NeedsImprovement or LinguaFlow.Core.Practice.PracticeVerdict.InsufficientEvidence).Select(x => x.Key))</p> }
+        @if (_analytics.PendingPracticeResults > 0) { <p>@T["PendingPracticeReminder"] <NavLink href="@($"courses/{CourseId}/practice/import")">@T["ImportAssessment"] →</NavLink></p> }
+        @if (_analytics.LastStudyAt is not null && (_analytics.DaysSinceBackup is null or > 14)) { <p>@T["BackupReminder"]</p> }
+    }
+    <div class="course-detail">
+        <div class="course-meta"><span>@T["Level"]: @_manifest.LearningLevel</span><span>@_manifest.Units.Count @T["Units"]</span><span>@T["Available"]</span></div>
+        <p>@_manifest.Subtitle</p>
+        <NavLink class="back-link" href="@($"courses/{CourseId}/backup")">@T["CourseBackup"] →</NavLink>
+        <div class="course-learning-links"><NavLink class="reader-control" href="@($"courses/{CourseId}/vocabulary")">@T["VocabularyLibrary"] →</NavLink><NavLink class="reader-control" href="@($"courses/{CourseId}/review")">@T["ReviewDashboard"] →</NavLink><NavLink class="reader-control" href="@($"courses/{CourseId}/practice")">@T["PracticeCenter"] →</NavLink><NavLink class="reader-control" href="@($"courses/{CourseId}/roadmap")">@T["UnitRoadmap"] →</NavLink></div>
+        <NavLink class="reader-control" href="@($"courses/{CourseId}/materials")">@T["CourseMaterials"] →</NavLink>
+        <NavLink class="reader-control" href="@($"courses/{CourseId}/offline")">@T["OfflineCourse"] →</NavLink>
+        @if (_reviewDue is not null) { <p>@T["DueNow"]: @_reviewDue</p> }
+        @if (_manifest.Units.Count > 0)
+        {
+            <NavLink class="button course-action" href="@($"courses/{CourseId}/roadmap")">@T["UnitRoadmap"] →</NavLink>
+        }
+    </div>
+    <h2 class="unit-list-title">@T["UnitRoadmap"]</h2>
+    <ol class="unit-list">
+        @foreach (var unit in _manifest.Units.OrderBy(x => x.Order))
+        {
+            <li><NavLink href="@($"courses/{CourseId}/units/{unit.UnitId}")"><span>@unit.Order.ToString("00")</span><strong>@unit.Title</strong>@if (_analytics?.UnitStatuses.TryGetValue(unit.UnitId, out var status) == true) { <span>@T[status.ToString()]</span> }<span aria-hidden="true">→</span></NavLink></li>
+        }
+    </ol>
+}
+@code {
+    [Parameter] public string CourseId { get; set; } = "";
+    private CancellationTokenSource _cts = new();
+    private CourseManifest? _manifest;
+    private CourseCatalogEntry? _entry;
+    private CourseAnalytics? _analytics;
+    private string? _storageWarning;
+    private readonly HashSet<string> _skipped = [];
+    private int? _reviewDue;
+    private string? _error;
+    private bool _loading = true;
+    protected override async Task OnParametersSetAsync()
+    {
+        _cts.Cancel(); _cts.Dispose(); _cts = new(); _loading = true; _error = null; _manifest = null; _reviewDue = null;
+        try
+        {
+            var entry = await CatalogService.FindAvailableAsync(CourseId, _cts.Token);
+            if (entry is null) { _error = T["CourseUnavailable"]; return; }
+            _entry = entry;
+            _manifest = await ManifestService.GetManifestAsync(entry, _cts.Token);
+            try { _analytics = await Analytics.GetAsync(entry, _manifest, _cts.Token); }
+            catch (LearningStorageException ex) { _storageWarning = ex.Message; }
+            try { var document = await VocabularyService.GetAsync(entry, _manifest, _cts.Token); var states = await VocabularyLearning.GetStatesAsync(CourseId); _reviewDue = document.Entries.Count(w => states.TryGetValue(w.VocabularyId, out var state) && (state.InReviewQueue || LinguaFlow.Core.Vocabulary.SpacedRepetitionService.IsDue(state, DateTimeOffset.UtcNow))); }
+            catch (Exception ex) when (ex is LearningStorageException or CourseContentException or HttpRequestException) { }
+        }
+        catch (OperationCanceledException) { return; }
+        catch (CourseContentException ex) { _error = ex.Message; }
+        catch (HttpRequestException) { _error = T["NetworkError"]; }
+        finally { _loading = false; }
+    }
+    public void Dispose() { _cts.Cancel(); _cts.Dispose(); }
+    private async Task RefreshPlan()
+    {
+        _skipped.Clear();
+        if (_manifest is null) return;
+        try { var entry = await CatalogService.FindAvailableAsync(CourseId); if (entry is not null) _analytics = await Analytics.GetAsync(entry, _manifest); }
+        catch (Exception ex) when (ex is LearningStorageException or CourseContentException or HttpRequestException) { _error = ex.Message; }
+    }
+}

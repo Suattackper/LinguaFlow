@@ -1,0 +1,37 @@
+@inherits LayoutComponentBase
+@implements IDisposable
+@inject UiPreferences Preferences
+@inject OfflineCourseService Offline
+@inject NavigationManager Navigation
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<MudThemeProvider Theme="_theme" IsDarkMode="_dark" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+<a class="skip-link" href="#main">@T["Skip"]</a>
+<div class="app-shell">
+<aside class="side-panel"><NavMenu /></aside>
+<div class="main-column">
+<header class="topbar">
+<button class="icon-button mobile-menu" type="button" aria-label="@T["OpenMenu"]" aria-expanded="@_menuOpen" @onclick="ToggleMenu">☰</button>
+<NavLink class="top-brand" href="" Match="NavLinkMatch.All">✦ <span>LinguaFlow</span></NavLink>
+<div class="top-actions">@if (Offline.OnlineHint is not null) { <span class="network-hint @(Offline.OnlineHint.Value ? "online" : "offline")" role="status" title="@T["NetworkHintExplanation"]">@(Offline.OnlineHint.Value ? T["OnlineHint"] : T["OfflineHint"])</span> }<label class="visually-hidden" for="ui-language">@T["UiLanguage"]</label><select id="ui-language" class="toolbar-select" value="@Preferences.Language" @onchange="ChangeLanguage"><option value="vi-VN">Tiếng Việt</option><option value="en-US">English</option></select><button class="icon-button" type="button" title="@T["ChangeTheme"]" aria-label="@T["ChangeTheme"]" @onclick="CycleTheme">◐</button></div>
+</header>
+@if (_menuOpen) { <div class="drawer-backdrop" @onclick="ToggleMenu"></div><nav class="mobile-drawer" aria-label="@T["PrimaryNavigation"]" @onclick="CloseMenu"><NavMenu /></nav> }
+<main id="main" class="content-wrap"><nav class="breadcrumbs" aria-label="@T["Breadcrumbs"]"><NavLink href="">@T["Home"]</NavLink>@if (Navigation.ToBaseRelativePath(Navigation.Uri) is { Length: > 0 } path) { <span>/</span><span>@Breadcrumb(path)</span> }</nav>@Body</main>
+<footer class="footer"><span>© @DateTime.Now.Year LinguaFlow</span><div><NavLink href="help">@T["Help"]</NavLink><NavLink href="about">@T["About"]</NavLink><NavLink href="privacy">@T["Privacy"]</NavLink></div></footer>
+</div></div>
+@code {
+private bool _menuOpen;
+private bool _dark;
+private readonly MudTheme _theme = new() { PaletteLight = new PaletteLight { Primary = "#4659b8", Secondary = "#6977c7", Background = "#f7f8fc", Surface = "#ffffff" }, PaletteDark = new PaletteDark { Primary = "#a7b4ff", Secondary = "#8f9ce8", Background = "#101526", Surface = "#1b2236" }, LayoutProperties = new LayoutProperties { DefaultBorderRadius = "12px" } };
+protected override void OnInitialized() { Preferences.Changed += Refresh; Offline.Changed += Refresh; Refresh(); }
+protected override async Task OnAfterRenderAsync(bool firstRender) { if (firstRender) { try { await Offline.InitializeAsync(); } catch (Exception ex) when (ex is JSException or InvalidOperationException) { } } }
+private void Refresh() { _dark = Preferences.Theme == "dark" || (Preferences.Theme == "system" && Preferences.SystemDark); InvokeAsync(StateHasChanged); }
+private void ToggleMenu() => _menuOpen = !_menuOpen;
+private void CloseMenu() => _menuOpen = false;
+private string Breadcrumb(string path) => path.TrimEnd('/') switch { "languages/en" => T["English"], "languages/ja" => T["Japanese"], "languages/zh" => T["Chinese"], "settings" => T["Settings"], "about" => T["About"], "help" => T["Help"], "privacy" => T["Privacy"], _ when path.EndsWith("/materials", StringComparison.Ordinal) => T["CourseMaterials"], _ when path.EndsWith("/offline", StringComparison.Ordinal) => T["OfflineCourse"], _ => T["NotFound"] };
+private async Task ChangeLanguage(ChangeEventArgs args) { await Preferences.SetLanguageAsync(args.Value?.ToString() ?? "vi-VN"); Navigation.NavigateTo(Navigation.Uri, forceLoad: true); }
+private async Task CycleTheme() => await Preferences.SetThemeAsync(Preferences.Theme switch { "system" => "light", "light" => "dark", _ => "system" });
+public void Dispose() { Preferences.Changed -= Refresh; Offline.Changed -= Refresh; }
+}

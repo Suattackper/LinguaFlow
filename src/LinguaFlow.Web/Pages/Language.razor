@@ -1,0 +1,51 @@
+@page "/languages/{Code}"
+@page "/courses"
+@implements IDisposable
+@inject CourseCatalogService CatalogService
+@inject CourseManifestService ManifestService
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<PageTitle>@Title - LinguaFlow</PageTitle>
+<PageHeading Eyebrow="@T["Languages"]" Title="@Title" Description="@T["CourseCatalogDescription"]" />
+@if (_loading) { <StateMessage Kind="loading" Title="@T["LoadingCourses"]" /> }
+else if (_error is not null) { <StateMessage Kind="error" Title="@T["CourseLoadError"]" Description="@_error" /> }
+else if (Code is not null && Code is not ("en" or "ja" or "zh")) { <StateMessage Kind="error" Title="@T["LanguageNotFound"]" Description="@T["LanguageNotFoundDescription"]" /> }
+else if (_courses.Count == 0) { <StateMessage Kind="empty" Title="@T["ComingSoon"]" Description="@T["ComingSoonDescription"]" /> }
+else
+{
+<div class="course-list">
+@foreach (var item in _courses)
+{
+<article class="course-tile">
+<div><span class="status @(item.Entry.Status == CourseStatus.Available ? "available" : "soon")">@(item.Entry.Status == CourseStatus.Available ? T["Available"] : T["ComingSoon"])</span><h2>@item.Entry.Title</h2><p>@item.Entry.Description</p><div class="course-meta"><span>@T["Level"]: @item.Entry.Level</span><span>@item.UnitCount @T["Units"]</span></div></div>
+@if (item.Entry.Status == CourseStatus.Available) { <NavLink class="button course-action" href="@($"courses/{item.Entry.CourseId}")">@T["ViewCourse"] →</NavLink> }
+</article>
+}
+</div>
+}
+@code {
+[Parameter] public string? Code { get; set; }
+private readonly List<(CourseCatalogEntry Entry, int UnitCount)> _courses = [];
+private CancellationTokenSource _cts = new();
+private bool _loading = true;
+private string? _error;
+private string Title => Code switch { "en" => T["English"], "ja" => T["Japanese"], "zh" => T["Chinese"], _ => T["CourseCatalog"] };
+protected override async Task OnParametersSetAsync()
+{
+ _cts.Cancel(); _cts.Dispose(); _cts = new(); _courses.Clear(); _loading = true; _error = null;
+ if (Code is not null && Code is not ("en" or "ja" or "zh")) { _loading = false; return; }
+ try
+ {
+  var catalog = await CatalogService.GetCatalogAsync(_cts.Token);
+  foreach (var entry in catalog.Courses.Where(x => (Code is null || x.LanguageCode == Code) && x.Status != CourseStatus.Archived))
+  {
+   var count = entry.Status == CourseStatus.Available ? (await ManifestService.GetManifestAsync(entry, _cts.Token)).Units.Count : 0;
+   _courses.Add((entry, count));
+  }
+ }
+ catch (OperationCanceledException) { return; }
+ catch (CourseContentException ex) { _error = ex.Message; }
+ catch (HttpRequestException) { _error = T["NetworkError"]; }
+ finally { _loading = false; }
+}
+public void Dispose() { _cts.Cancel(); _cts.Dispose(); }
+}

@@ -1,0 +1,42 @@
+@page "/settings"
+@inject UiPreferences Preferences
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+@inject NavigationManager Navigation
+@inject LearningRepository LearningStore
+<PageTitle>@T["Settings"] - LinguaFlow</PageTitle>
+<PageHeading Eyebrow="@T["Preferences"]" Title="@T["Settings"]" Description="@T["SettingsDescription"]" />
+<NavLink class="reader-control" href="help#settings">@T["Help"] →</NavLink>
+<div class="settings-card">
+<div class="setting-row"><div><h2>@T["UiLanguage"]</h2><p>@T["UiLanguageDescription"]</p></div><select aria-label="@T["UiLanguage"]" value="@Preferences.Language" @onchange="SetLanguage"><option value="vi-VN">Tiếng Việt</option><option value="en-US">English</option></select></div>
+<div class="setting-row"><div><h2>@T["Appearance"]</h2><p>@T["ThemeDescription"]</p></div><select aria-label="@T["Appearance"]" value="@Preferences.Theme" @onchange="SetTheme"><option value="system">@T["System"]</option><option value="light">@T["Light"]</option><option value="dark">@T["Dark"]</option></select></div>
+<div class="setting-row"><div><h2>@T["ReducedMotion"]</h2><p>@T["ReducedMotionDescription"]</p></div><input type="checkbox" aria-label="@T["ReducedMotion"]" checked="@Preferences.ReducedMotion" @onchange="SetReducedMotion" /></div>
+<div class="setting-row"><div><h2>@T["LargeText"]</h2><p>@T["LargeTextDescription"]</p></div><input type="checkbox" aria-label="@T["LargeText"]" checked="@Preferences.LargeText" @onchange="SetLargeText" /></div>
+</div>
+<button class="button settings-reset" type="button" @onclick="ConfirmReset">@T["RestoreDefaults"]</button>
+<section class="info-panel"><h2>@T["ResetAllLearning"]</h2><p>@T["ResetAllWarning"]</p><label for="reset-phrase">@T["TypeDelete"]</label><input id="reset-phrase" class="answer-input" autocomplete="off" @bind="_resetPhrase" @bind:event="oninput" /><button type="button" class="reader-control danger" disabled="@(_resetPhrase != "DELETE")" @onclick="ConfirmResetAllLearning">@T["ResetAllLearning"]</button></section>
+@code {
+private string _resetPhrase = "";
+private async Task ConfirmResetAllLearning()
+{
+    var parameters = new DialogParameters<ConfirmActionDialog> { { x => x.Title, T["ResetAllLearning"] }, { x => x.Message, T["ResetAllWarning"] } };
+    var dialog = await DialogService.ShowAsync<ConfirmActionDialog>(T["ResetAllLearning"], parameters);
+    if ((await dialog.Result)?.Canceled == false)
+    {
+        try { await LearningStore.ResetAllAsync(); Snackbar.Add(T["AllLearningReset"], Severity.Success); Navigation.NavigateTo(Navigation.Uri, forceLoad: true); }
+        catch (LearningStorageException ex) { Snackbar.Add(ex.Message, Severity.Error); }
+    }
+}
+private async Task ConfirmReset()
+{
+    var parameters = new DialogParameters<ConfirmActionDialog> { { x => x.Title, T["RestoreDefaults"] }, { x => x.Message, T["RestoreDefaultsPrompt"] } };
+    var dialog = await DialogService.ShowAsync<ConfirmActionDialog>(T["RestoreDefaults"], parameters);
+    var result = await dialog.Result;
+    if (result?.Canceled == false) { await Preferences.RestoreDefaultsAsync(); Snackbar.Add(T["Saved"], Severity.Success); }
+}
+private async Task SetLanguage(ChangeEventArgs e) { await Preferences.SetLanguageAsync(e.Value?.ToString() ?? "vi-VN"); Navigation.NavigateTo(Navigation.Uri, forceLoad: true); }
+private async Task SetTheme(ChangeEventArgs e) { await Preferences.SetThemeAsync(e.Value?.ToString() ?? "system"); Snackbar.Add(T["Saved"], Severity.Success); }
+private async Task SetReducedMotion(ChangeEventArgs e) { await Preferences.SetReducedMotionAsync(e.Value is true); Snackbar.Add(T["Saved"], Severity.Success); }
+private async Task SetLargeText(ChangeEventArgs e) { await Preferences.SetLargeTextAsync(e.Value is true); Snackbar.Add(T["Saved"], Severity.Success); }
+}

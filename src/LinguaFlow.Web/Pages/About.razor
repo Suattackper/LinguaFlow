@@ -1,0 +1,7 @@
+@page "/about"
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<PageTitle>@T["About"] - LinguaFlow</PageTitle>
+<div class="about-hero"><span class="about-mark" aria-hidden="true">✦</span><PageHeading Eyebrow="LinguaFlow" Title="@T["AboutMissionTitle"]" Description="@T["AboutMission"]" /><p>@T["AboutProblem"]</p></div>
+<div class="about-grid"><section class="info-panel"><h2>@T["AboutPhilosophyTitle"]</h2><p>@T["AboutPhilosophy"]</p></section><section class="info-panel"><h2>@T["AboutCapabilitiesTitle"]</h2><p>@T["AboutCapabilities"]</p></section><section class="info-panel"><h2>@T["AboutLocalTitle"]</h2><p>@T["AboutLocal"]</p><NavLink href="privacy">@T["Privacy"] →</NavLink></section><section class="info-panel"><h2>@T["AboutTechnologyTitle"]</h2><p>@T["AboutTechnology"]</p></section></div>
+<section class="info-panel about-author"><div class="author-monogram" aria-hidden="true">AT</div><div><h2>@T["Author"]</h2><dl class="facts"><div><dt>@T["Name"]</dt><dd>Nguyễn Trần Anh Tân</dd></div><div><dt>@T["BirthYear"]</dt><dd>2003</dd></div><div><dt>@T["Profession"]</dt><dd>Software Engineer</dd></div></dl></div></section>
+<section class="info-panel"><h2>@T["AboutPrinciplesTitle"]</h2><p>@T["AboutPrinciples"]</p></section>

@@ -1,0 +1,61 @@
+name: Deploy LinguaFlow to GitHub Pages
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Restore
+        run: dotnet restore LinguaFlow.slnx
+      - name: Build
+        run: dotnet build LinguaFlow.slnx -c Release --no-restore
+      - name: Test
+        run: dotnet test LinguaFlow.slnx -c Release --no-build --no-restore
+      - name: Validate public course content
+        run: dotnet run --project tools/LinguaFlow.CourseConverter -c Release --no-build -- validate src/LinguaFlow.Web/wwwroot/Courses
+      - uses: actions/configure-pages@v5
+      - name: Set project base path
+        run: node tools/deploy/set-base.mjs src/LinguaFlow.Web/wwwroot/index.html "/${{ github.event.repository.name }}/"
+      - name: Publish standalone WebAssembly
+        run: dotnet publish src/LinguaFlow.Web/LinguaFlow.Web.csproj -c Release --no-restore -o artifacts/publish
+      - name: Prepare GitHub Pages routes
+        run: node tools/deploy/prepare-pages.mjs artifacts/publish/wwwroot "/${{ github.event.repository.name }}/"
+      - name: Validate deployment output
+        run: dotnet run --project tools/LinguaFlow.CourseConverter -c Release --no-build -- validate-publish artifacts/publish/wwwroot "/${{ github.event.repository.name }}/"
+      - name: Browser smoke test of published site
+        run: node tools/deploy/smoke-publish.mjs artifacts/publish/wwwroot "/${{ github.event.repository.name }}/"
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: artifacts/publish/wwwroot
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,38 @@
+@page "/courses/{CourseId}/progress"
+@using LinguaFlow.Core.Analytics
+@using LinguaFlow.Core.Assessment
+@using LinguaFlow.Core.Practice
+@using System.Text.Json
+@inject CourseCatalogService Catalog
+@inject CourseManifestService Manifests
+@inject LearningAnalyticsService Analytics
+@inject PracticeResultService PracticeResults
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<PageTitle>@T["LearningProgress"] - LinguaFlow</PageTitle>
+@if (_loading) { <StateMessage Kind="loading" Title="@T["LoadingCourses"]" /> }
+else if (_error is not null) { <StateMessage Kind="error" Title="@T["CourseLoadError"]" Description="@_error" /> }
+else if (_manifest is not null && _analytics is not null)
+{
+    <NavLink class="back-link" href="@($"courses/{CourseId}")">← @T["BackToCourse"]</NavLink>
+    <PageHeading Eyebrow="LinguaFlow" Title="@T["LearningProgress"]" Description="@_manifest.Title" />
+    <div class="dashboard-metrics"><article><small>@T["CourseProgress"]</small><strong>@_analytics.CompletionPercent%</strong><span>@_analytics.CompletedUnits / @_analytics.TotalUnits @T["CompletedUnits"]</span></article><article><small>@T["ExerciseAccuracy"]</small><strong>@Percent(_analytics.ExerciseAccuracy)</strong><span>@_analytics.ExerciseCorrect / @_analytics.ExerciseGraded @T["GradedExercises"]</span></article><article><small>@T["VocabularyMastery"]</small><strong>@_analytics.VocabularyMasteryPercent%</strong><span>@_analytics.KnownVocabulary / @_analytics.VocabularyTotal @T["VocabularyLibrary"]</span></article><article><small>@T["WeeklyStudyDays"]</small><strong>@_analytics.WeeklyStudyDays</strong><span>@T["ActiveDaysHint"]</span></article></div>
+    <section class="info-panel"><h2>@T["UnitProgression"]</h2><div class="unit-progress-chart">@foreach (var unit in _manifest.Units.OrderBy(u => u.Order)) { <div><span>@unit.Order.ToString("00")</span><progress value="@(_analytics.UnitStatuses.TryGetValue(unit.UnitId, out var status) && status == SkillStatus.Completed ? 1 : 0)" max="1" aria-label="@($"{unit.Title}: {(_analytics.UnitStatuses.TryGetValue(unit.UnitId, out var state) ? T[state.ToString()] : T["NotStarted"])}")"></progress><NavLink href="@($"courses/{CourseId}/units/{unit.UnitId}")">@unit.Title</NavLink></div> }</div><small>@T["CompletionMetricHint"]</small></section>
+    <section class="info-panel"><h2>@T["SkillPerformance"]</h2><div class="dashboard-metrics"><article><small>@T["Grammar"]</small><strong>@Percent(_analytics.GrammarAccuracy)</strong><span>@_analytics.GrammarCorrect / @_analytics.GrammarGraded</span></article><article><small>@T["Reading"]</small><strong>@Percent(_analytics.ReadingAccuracy)</strong><span>@_analytics.ReadingCorrect / @_analytics.ReadingGraded</span></article>@foreach (var skill in new[] { "writing", "speaking", "listening" }) { <article><small>@skill</small><strong>@(_analytics.SkillVerdicts.TryGetValue(skill, out var verdict) ? T[verdict.ToString()] : T["NotStarted"])</strong></article> }</div></section>
+    <section class="info-panel"><h2>@T["StudyFrequency"]</h2><div class="frequency-chart" role="img" aria-label="@T["StudyFrequency"]">@foreach (var day in Enumerable.Range(0, 14).Select(i => DateOnly.FromDateTime(DateTime.Now.Date).AddDays(i - 13))) { var record = _analytics.DailyActivity.FirstOrDefault(d => d.Day == day); <div title="@($"{day}: {record?.Events ?? 0}")"><span style="@($"height:{Math.Max(5, Math.Min(100, (record?.Events ?? 0) * 18))}%")"></span><small>@day.Day</small></div> }</div><p>@T["StudyTimeEstimate"]: @_analytics.TodayEstimatedMinutes @T["Minutes"] · @T["CurrentStreak"]: @_analytics.CurrentStreak</p></section>
+    <section class="info-panel"><h2>@T["RecentSessions"]</h2>@if (_activities.Count == 0) { <p>@T["NoActivityYet"]</p> } else { <ul>@foreach (var item in _activities.Take(10)) { <li>@item.At.ToLocalTime().ToString("g") · @T[item.Kind.ToString()] · @item.UnitId @if (item.EstimatedMinutes is > 0) { <span>· ~@item.EstimatedMinutes @T["Minutes"]</span> }</li> }</ul> }</section>
+    <section class="info-panel"><h2>@T["ImportedResults"]</h2>@if (_results.Count == 0) { <p>@T["NoPreviousPractice"]</p> } else { <ul>@foreach (var item in _results.Take(10)) { <li><NavLink href="@($"courses/{CourseId}/practice/results/{item.ResultId}")">@item.Result.UnitId · @item.Result.Skill · @item.Evaluation.Percentage% · @T[item.Evaluation.Verdict.ToString()]</NavLink></li> }</ul> }</section>
+}
+@code {
+    [Parameter] public string CourseId { get; set; } = "";
+    private LinguaFlow.Core.Courses.CourseManifest? _manifest; private CourseAnalytics? _analytics;
+    private IReadOnlyList<StudyActivity> _activities = []; private IReadOnlyList<ImportedPracticeResult> _results = [];
+    private bool _loading = true; private string? _error;
+    private static string Percent(decimal? value) => value is null ? "—" : $"{value}%";
+    protected override async Task OnParametersSetAsync()
+    {
+        _loading = true; _error = null;
+        try { var entry = await Catalog.FindAvailableAsync(CourseId) ?? throw new CourseContentException(T["CourseUnavailable"]); _manifest = await Manifests.GetManifestAsync(entry); _analytics = await Analytics.GetAsync(entry, _manifest); _activities = await Analytics.GetActivitiesAsync(CourseId); _results = await PracticeResults.GetResultsAsync(CourseId); }
+        catch (Exception ex) when (ex is CourseContentException or LearningStorageException or HttpRequestException or JsonException) { _error = ex.Message; }
+        finally { _loading = false; }
+    }
+}

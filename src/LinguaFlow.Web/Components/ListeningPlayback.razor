@@ -1,0 +1,33 @@
+@inject TextToSpeechService Speech
+@inject ListeningEvidenceService Evidence
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<div class="listening-playback activity-card">
+    @if (AudioUrl is not null && !_audioFailed)
+    { <audio controls preload="none" src="@AudioUrl" aria-label="@T["PlayListening"]" @onplay="RecordRecording" @onerror="() => _audioFailed = true"></audio> }
+    else if (Speech.Available && Speech.SelectVoice(Language) is not null)
+    { <button type="button" class="reader-control" @onclick="Speak">@T["PlayListening"]</button><button type="button" class="reader-control" @onclick="Speech.StopAsync">@T["StopSpeech"]</button> }
+    else { <p role="status">@T["ListeningAudioUnavailable"]</p> }
+    @if (_storageFailed) { <p role="alert">@T["StorageUnavailable"]</p> }
+    @if (RevealTranscript) { <details><summary>@T["Transcript"]</summary><p class="lesson-block">@Transcript</p></details> }
+    else { <p class="activity-count">@T["TranscriptAfterSubmission"]</p> }
+    <small>@T["PlaybackEvidenceNote"]</small>
+</div>
+@code {
+    [Parameter, EditorRequired] public string CourseId { get; set; } = "";
+    [Parameter, EditorRequired] public string UnitId { get; set; } = "";
+    [Parameter, EditorRequired] public string BlockId { get; set; } = "";
+    [Parameter] public string? AudioUrl { get; set; }
+    [Parameter] public string Transcript { get; set; } = "";
+    [Parameter] public string Language { get; set; } = "en-US";
+    [Parameter] public bool RevealTranscript { get; set; }
+    private bool _audioFailed;
+    private bool _storageFailed;
+    protected override async Task OnInitializedAsync() => await Speech.InitializeAsync();
+    private async Task Speak() { await Speech.SpeakAsync(Transcript, Language); if (Speech.Error is null) await Record("tts"); }
+    private Task RecordRecording() => Record("recording");
+    private async Task Record(string source)
+    {
+        try { await Evidence.RecordAsync(CourseId, UnitId, BlockId, source); }
+        catch (LearningStorageException) { _storageFailed = true; }
+    }
+}

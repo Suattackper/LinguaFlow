@@ -1,0 +1,10 @@
+@using LinguaFlow.Core.Assessment
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<div class="exercise-feedback @Feedback.Status.ToString().ToLowerInvariant()" role="status">
+    <strong>@T[Feedback.Status.ToString()]</strong>
+    @if (Feedback.Status is GradingStatus.Correct or GradingStatus.Incorrect or GradingStatus.Partial) { <span> · @Feedback.EarnedScore / @Feedback.MaximumScore</span> }
+    <p>@T[Feedback.Message]</p>
+    @if (!string.IsNullOrWhiteSpace(Feedback.CorrectAnswer)) { <p><strong>@T["AuthoredAnswer"]:</strong> @Feedback.CorrectAnswer</p> }
+    @if (!string.IsNullOrWhiteSpace(Feedback.Explanation)) { <p><strong>@T["AnswerExplanation"]:</strong> @Feedback.Explanation</p> }
+</div>
+@code { [Parameter, EditorRequired] public ExerciseFeedback Feedback { get; set; } = default!; }

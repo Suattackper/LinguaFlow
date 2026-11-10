@@ -414,6 +414,9 @@ FodyWeavers.xsd
 # Local History for Visual Studio Code
 .history/
 
+# Developer learning logs are local, never public course assets or repository content.
+CourseSources/**/TRACKING/
+
 # Built Visual Studio Code Extensions
 *.vsix
 

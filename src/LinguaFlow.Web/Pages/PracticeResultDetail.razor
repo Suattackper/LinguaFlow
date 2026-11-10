@@ -1,0 +1,62 @@
+@page "/courses/{CourseId}/practice/results/{ResultId}"
+@using LinguaFlow.Core.Practice
+@using System.Text.Json
+@inject PracticeResultService Results
+@inject PracticeSessionService Sessions
+@inject CourseCatalogService Catalog
+@inject CourseManifestService Manifests
+@inject UnitContentService Units
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<PageTitle>@T["PracticeResult"] - LinguaFlow</PageTitle>
+@if (_loading) { <StateMessage Kind="loading" Title="@T["LoadingUnit"]" /> }
+else if (_result is null) { <StateMessage Kind="error" Title="@T["PracticeResult"]" Description="@(_error ?? T["ResultNotFound"])" /> }
+else
+{
+    <PageHeading Eyebrow="LinguaFlow" Title="@T["PracticeResult"]" Description="@(_unit?.Title ?? _result.Result.UnitId)" />
+    <p class="external-ai-notice">@T["ExternalAiNotice"]</p>
+    <div class="practice-wizard">
+        <section class="info-panel"><h2>@T["RubricResult"]</h2><p class="practice-score">@_result.Evaluation.EarnedPoints / @_result.Evaluation.MaximumPoints · @_result.Evaluation.Percentage%</p>
+            <p>@T[_result.Evaluation.Verdict.ToString()] · @_result.Evaluation.PassRule</p>
+            <p>@T["Evaluator"]: @_result.Result.Evaluator · @_result.Result.CompletedAt.ToLocalTime().ToString("g")</p>
+            <p>@T["Evidence"]: @_result.Result.Evidence.Modality — @_result.Result.Evidence.Description</p>
+            @foreach (var warning in _result.Evaluation.Warnings) { <p class="content-warning">@warning</p> }
+            <div class="practice-criteria">@foreach (var criterion in _result.Result.CriterionAssessments) { <div><strong>@(_session?.Request.AssessmentCriteria.FirstOrDefault(c => c.CriterionId == criterion.CriterionId)?.Title ?? criterion.CriterionId)</strong><span>@(criterion.AwardedPoints?.ToString() ?? T["Unscored"]) / @criterion.MaxPoints</span><small>@criterion.EvidenceSummary</small></div> }</div>
+        </section>
+        <section class="info-panel"><h2>@T["Strengths"]</h2><ul>@foreach (var item in _result.Result.Strengths) { <li>@item</li> }</ul>
+            <h2>@T["AreasToImprove"]</h2><ul>@foreach (var item in _result.Result.Mistakes) { <li><strong>@item.Original</strong> → @item.Correction<br />@item.Explanation</li> }</ul>
+            <h2>@T["VocabularySuggestions"]</h2><ul>@foreach (var item in _result.Result.VocabularySuggestions) { <li>@item</li> }</ul>
+            <h2>@T["ImprovementSuggestions"]</h2><ul>@foreach (var item in _result.Result.ImprovementSuggestions) { <li>@item</li> }</ul>
+            <p>@_result.Result.Summary</p>
+        </section>
+        <section class="info-panel"><h2>@T["NextPractice"]</h2>
+            @if (_grammarSection is not null) { <NavLink class="reader-control" href="@($"courses/{CourseId}/units/{_result.Result.UnitId}#{_grammarSection}")">@T["ReviewGrammar"] →</NavLink> }
+            @if (_hasVocabulary) { <NavLink class="reader-control" href="@($"courses/{CourseId}/vocabulary?unit={_result.Result.UnitId}")">@T["VocabularyLibrary"] →</NavLink> }
+            <NavLink class="reader-control" href="@($"courses/{CourseId}/practice?unit={_result.Result.UnitId}")">@T["RetryPractice"] →</NavLink>
+            <NavLink class="reader-control" href="@($"courses/{CourseId}/units/{_result.Result.UnitId}")">@T["Unit"] →</NavLink>
+        </section>
+        @if (_history.Count > 1) { <section class="info-panel"><h2>@T["ResultHistory"]</h2><ul>@foreach (var earlier in _history) { <li><NavLink href="@($"courses/{CourseId}/practice/results/{earlier.ResultId}")">@earlier.ImportedAt.ToLocalTime().ToString("g") · @earlier.Evaluation.Percentage% · @T[earlier.Evaluation.Verdict.ToString()]</NavLink></li> }</ul></section> }
+    </div>
+}
+@code {
+    [Parameter] public string CourseId { get; set; } = "";
+    [Parameter] public string ResultId { get; set; } = "";
+    private ImportedPracticeResult? _result; private PracticeSession? _session; private UnitContent? _unit; private IReadOnlyList<ImportedPracticeResult> _history = []; private string? _error, _grammarSection; private bool _hasVocabulary, _loading = true;
+    protected override async Task OnParametersSetAsync()
+    {
+        _loading = true; _result = null; _error = null;
+        try
+        {
+            _result = await Results.FindAsync(CourseId, ResultId);
+            if (_result is null) return;
+            _session = (await Sessions.GetAsync(CourseId)).FirstOrDefault(s => s.Request.RequestId == _result.RequestId);
+            _history = (await Results.GetResultsAsync(CourseId)).Where(r => r.Result.UnitId == _result.Result.UnitId && r.Result.TaskId == _result.Result.TaskId).OrderByDescending(r => r.ImportedAt).ToList();
+            var entry = await Catalog.FindAvailableAsync(CourseId) ?? throw new CourseContentException(T["CourseUnavailable"]);
+            var manifest = await Manifests.GetManifestAsync(entry);
+            _unit = (await Units.GetUnitAsync(entry, manifest, _result.Result.UnitId)).Content;
+            _grammarSection = _unit.Sections.FirstOrDefault(s => s.Blocks.Any(b => b is GrammarBlock))?.SectionId;
+            _hasVocabulary = _unit.Sections.Any(s => s.Blocks.Any(b => b is VocabularyBlock));
+        }
+        catch (Exception ex) when (ex is LearningStorageException or CourseContentException or HttpRequestException or JsonException) { _error = ex.Message; _result = null; }
+        finally { _loading = false; }
+    }
+}

@@ -1,0 +1,25 @@
+@inject TextToSpeechService Speech
+@inject OfflineCourseService Offline
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<div class="speech-controls">
+    @if (Offline.OnlineHint == false) { <p role="status">@T["SpeechOfflineWarning"]</p> }
+    @if (!Speech.Available) { <p role="status">@T["SpeechUnavailable"]</p> }
+    else
+    {
+        <label>@T["SpeechLanguage"] <select value="@Language" @onchange="ChangeLanguage">@foreach (var languageCode in Languages) { <option value="@languageCode">@languageCode</option> }</select></label>
+        <label>@T["Voice"] <select value="@Speech.SelectVoice(Language)?.VoiceUri" @onchange="ChangeVoice">@foreach (var voice in Speech.Voices.Where(v => v.Lang.StartsWith(Language[..2], StringComparison.OrdinalIgnoreCase))) { <option value="@voice.VoiceUri">@voice.Name (@voice.Lang)</option> }</select></label>
+        <label>@T["SpeechSpeed"] <input type="range" min="0.6" max="1.4" step="0.1" value="@Speech.Rate.ToString(System.Globalization.CultureInfo.InvariantCulture)" @onchange="ChangeRate" /> @Speech.Rate.ToString("0.0")×</label>
+        <button type="button" class="reader-control" @onclick="Speech.StopAsync">@T["StopSpeech"]</button>
+    }
+    <button type="button" class="reader-control" @onclick="Speech.RefreshVoicesAsync">@T["RefreshVoices"]</button>
+    @if (Speech.Error is not null && Speech.Error != "SpeechUnavailable") { <p role="alert">@T[Speech.Error]</p> }
+</div>
+@code {
+    [Parameter] public string Language { get; set; } = "en-US";
+    [Parameter] public EventCallback<string> LanguageChanged { get; set; }
+    private static readonly string[] Languages = ["en-US", "en-GB", "ja-JP", "zh-CN"];
+    protected override async Task OnInitializedAsync() => await Speech.InitializeAsync();
+    private Task ChangeLanguage(ChangeEventArgs e) { Language = e.Value?.ToString() is { } code && Languages.Contains(code) ? code : "en-US"; return LanguageChanged.InvokeAsync(Language); }
+    private Task ChangeVoice(ChangeEventArgs e) => Speech.SetVoiceAsync(Language, e.Value?.ToString() ?? "");
+    private Task ChangeRate(ChangeEventArgs e) => Speech.SetRateAsync(double.TryParse(e.Value?.ToString(), System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var value) ? value : 1);
+}

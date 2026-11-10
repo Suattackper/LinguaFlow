@@ -1,0 +1,87 @@
+@page "/courses/{CourseId}/practice/import"
+@using LinguaFlow.Core.Practice
+@using System.Text
+@using System.Text.Json
+@inject PracticeResultService Results
+@inject NavigationManager Navigation
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<PageTitle>@T["ImportAssessment"] - LinguaFlow</PageTitle>
+<PageHeading Eyebrow="LinguaFlow" Title="@T["ImportAssessment"]" Description="@T["ExternalAiNotice"]" />
+<NavLink class="back-link" href="@($"courses/{CourseId}/practice")">← @T["PracticeCenter"]</NavLink>
+<NavLink class="reader-control" href="help#chatgpt">@T["Help"] →</NavLink>
+<div class="practice-wizard">
+    <section class="info-panel"><h2>1. @T["ChooseResult"]</h2>
+        <p>@T["ImportJsonHint"]</p>
+        <label>@T["JsonFile"] <InputFile OnChange="ReadFile" accept=".json,application/json" /></label>
+        <label>@T["PasteJson"] <textarea rows="10" @bind="_text" @bind:event="oninput" maxlength="65536"></textarea></label>
+        <button type="button" class="button course-action" disabled="@_busy" @onclick="Preview">@T["PreviewAssessment"]</button>
+        @if (_error is not null) { <p role="alert" class="content-warning">@T["ImportError"] @FriendlyError(_error)</p> }
+    </section>
+    @if (_preview is not null)
+    {
+        <section class="info-panel"><h2>2. @T["PreviewAssessment"]</h2>
+            <p><strong>@_preview.Session.Request.CourseTitle</strong> · @_preview.Session.Request.UnitTitle · @_preview.Session.Request.PracticeType</p>
+            <p>@T["SessionDate"]: @_preview.Session.Request.GeneratedAt.ToLocalTime().ToString("g") · @T["Evaluator"]: @_preview.Result.Evaluator</p>
+            <p class="external-ai-notice">@T["ExternalAiNotice"]</p>
+            <h3>@T["RubricResult"]: @_preview.Evaluation.EarnedPoints / @_preview.Evaluation.MaximumPoints (@_preview.Evaluation.Percentage%)</h3>
+            <p>@T["ProposedStatus"]: @T[_preview.Evaluation.Verdict.ToString()]</p>
+            <p>@T["Evidence"]: @_preview.Result.Evidence.Modality — @_preview.Result.Evidence.Description</p>
+            @foreach (var warning in _preview.Evaluation.Warnings) { <p class="content-warning">@warning</p> }
+            <div class="practice-criteria">@foreach (var criterion in _preview.Result.CriterionAssessments) { <div><strong>@_preview.Session.Request.AssessmentCriteria.First(c => c.CriterionId == criterion.CriterionId).Title</strong><span>@(criterion.AwardedPoints?.ToString() ?? T["Unscored"]) / @criterion.MaxPoints</span><small>@criterion.EvidenceSummary</small></div> }</div>
+            <h3>@T["Strengths"]</h3><ul>@foreach (var item in _preview.Result.Strengths) { <li>@item</li> }</ul>
+            <h3>@T["AreasToImprove"]</h3><ul>@foreach (var item in _preview.Result.Mistakes) { <li>@item.Original → @item.Correction · @item.Explanation</li> }</ul>
+            <h3>@T["VocabularySuggestions"]</h3><ul>@foreach (var item in _preview.Result.VocabularySuggestions) { <li>@item</li> }</ul>
+            <h3>@T["ImprovementSuggestions"]</h3><ul>@foreach (var item in _preview.Result.ImprovementSuggestions) { <li>@item</li> }</ul>
+            <p>@_preview.Result.Summary</p>
+            @if (_preview.Duplicate) { <p role="status">@T["DuplicateResult"]</p> }
+            <div class="practice-actions"><button type="button" class="button course-action" disabled="@(_busy || _preview.Duplicate)" @onclick="Confirm">@T["ConfirmImport"]</button><button type="button" class="reader-control" @onclick="Cancel">@T["Cancel"]</button></div>
+        </section>
+    }
+</div>
+@code {
+    [Parameter] public string CourseId { get; set; } = "";
+    private string _text = ""; private string? _error; private bool _busy; private PracticeImportPreview? _preview;
+    private async Task ReadFile(InputFileChangeEventArgs e)
+    {
+        _preview = null; _error = null;
+        try
+        {
+            var file = e.File;
+            if (!file.Name.EndsWith(".json", StringComparison.OrdinalIgnoreCase) || file.Size is <= 0 or > PracticeResultValidator.MaxBytes) throw new PracticeImportException(T["InvalidResultFile"]);
+            await using var stream = file.OpenReadStream(PracticeResultValidator.MaxBytes);
+            using var reader = new StreamReader(stream, new System.Text.UTF8Encoding(false, true));
+            _text = await reader.ReadToEndAsync();
+        }
+        catch (Exception ex) when (ex is PracticeImportException or IOException or DecoderFallbackException) { _error = ex.Message; }
+    }
+    private async Task Preview()
+    {
+        _busy = true; _error = null; _preview = null;
+        try { _preview = await Results.PreviewAsync(CourseId, _text); }
+        catch (Exception ex) when (ex is PracticeImportException or LearningStorageException or CourseContentException or HttpRequestException or JsonException) { _error = ex.Message; }
+        finally { _busy = false; }
+    }
+    private async Task Confirm()
+    {
+        if (_preview is null || _busy) return;
+        _busy = true;
+        try
+        {
+            var result = await Results.ConfirmAsync(CourseId, _text);
+            Navigation.NavigateTo($"courses/{CourseId}/practice/results/{result.ResultId}");
+        }
+        catch (Exception ex) when (ex is PracticeImportException or LearningStorageException or CourseContentException or HttpRequestException) { _error = ex.Message; _preview = null; }
+        finally { _busy = false; }
+    }
+    private void Cancel() { _preview = null; _error = null; }
+    private string FriendlyError(string message)
+    {
+        if (System.Globalization.CultureInfo.CurrentUICulture.Name == "en-US") return message;
+        if (message.Contains("Original exported session", StringComparison.OrdinalIgnoreCase)) return T["MissingPracticeSession"];
+        if (message.Contains("Course content version", StringComparison.OrdinalIgnoreCase)) return T["PracticeVersionMismatch"];
+        if (message.Contains("already been imported", StringComparison.OrdinalIgnoreCase)) return T["DuplicateResult"];
+        if (message.Contains("JSON", StringComparison.OrdinalIgnoreCase)) return T["InvalidPracticeJson"];
+        if (message.Contains("ID", StringComparison.OrdinalIgnoreCase) || message.Contains("Rubric", StringComparison.OrdinalIgnoreCase) || message.Contains("Skill", StringComparison.OrdinalIgnoreCase)) return T["PracticeReferenceMismatch"] + " " + message;
+        return T["InvalidPracticeJson"] + " " + message;
+    }
+}

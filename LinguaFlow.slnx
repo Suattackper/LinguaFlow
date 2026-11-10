@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/LinguaFlow.Core/LinguaFlow.Core.csproj" />
+    <Project Path="src/LinguaFlow.Web/LinguaFlow.Web.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/LinguaFlow.Core.Tests/LinguaFlow.Core.Tests.csproj" />
+    <Project Path="tests/LinguaFlow.CourseConverter.Tests/LinguaFlow.CourseConverter.Tests.csproj" />
+    <Project Path="tests/LinguaFlow.E2E/LinguaFlow.E2E.csproj" />
+    <Project Path="tests/LinguaFlow.Web.Tests/LinguaFlow.Web.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tools/">
+    <Project Path="tools/LinguaFlow.CourseConverter/LinguaFlow.CourseConverter.csproj" />
+  </Folder>
+</Solution>

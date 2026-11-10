@@ -1,0 +1,6 @@
+@page "/privacy"
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<PageTitle>@T["Privacy"] - LinguaFlow</PageTitle>
+<PageHeading Eyebrow="LinguaFlow" Title="@T["Privacy"]" Description="@T["PrivacyIntro"]" />
+<div class="privacy-list"><section class="info-panel"><h2>@T["PrivacyStorageTitle"]</h2><p>@T["PrivacyStorage"]</p></section><section class="info-panel"><h2>@T["PrivacyTransferTitle"]</h2><p>@T["PrivacyTransfer"]</p></section><section class="info-panel"><h2>@T["PrivacyBackupTitle"]</h2><p>@T["PrivacyBackup"]</p></section><section class="info-panel"><h2>@T["PrivacyChatTitle"]</h2><p>@T["PrivacyChat"]</p></section></div>
+<NavLink class="reader-control" href="help">@T["Help"] →</NavLink>

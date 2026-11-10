@@ -1,0 +1,13 @@
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<MudDialog>
+    <TitleContent><h2>@Title</h2></TitleContent>
+    <DialogContent><p>@Message</p></DialogContent>
+    <DialogActions><MudButton OnClick="Cancel">@T["Cancel"]</MudButton><MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="Confirm">@T["Confirm"]</MudButton></DialogActions>
+</MudDialog>
+@code {
+    [CascadingParameter] private IMudDialogInstance? Dialog { get; set; }
+    [Parameter] public string Title { get; set; } = "";
+    [Parameter] public string Message { get; set; } = "";
+    private void Cancel() => Dialog?.Cancel();
+    private void Confirm() => Dialog?.Close(DialogResult.Ok(true));
+}

@@ -1,0 +1,1398 @@
+{
+  "schemaVersion": 1,
+  "courseId": "english-life-office-it",
+  "unitId": "unit-01",
+  "title": "A Typical Day at Work",
+  "sections": [
+    {
+      "sectionId": "intro",
+      "title": "UNIT 01 \u2014 A Typical Day at Work",
+      "blocks": [
+        {
+          "type": "explanation",
+          "text": "**Ch\u1EE7 \u0111\u1EC1 ti\u1EBFng Vi\u1EC7t:** M\u1ED9t ng\u00E0y l\u00E0m vi\u1EC7c  \n**Tr\u00ECnh \u0111\u1ED9 d\u1EF1 ki\u1EBFn:** A2\u002B (c\u1EE7ng c\u1ED1 n\u1EC1n t\u1EA3ng)  \n**Th\u1EDDi l\u01B0\u1EE3ng g\u1EE3i \u00FD:** 5 bu\u1ED5i \u00D7 45\u201360 ph\u00FAt, th\u00EAm 1 bu\u1ED5i \u00F4n n\u1EBFu c\u1EA7n  \n**Tr\u1EA1ng th\u00E1i:** B\u00E0i h\u1ECDc chi ti\u1EBFt; \u0111\u00E1p \u00E1n \u0111\u1EC3 ri\u00EAng t\u1EA1i \u0060ANSWER_KEYS/Unit_01_Answers.md\u0060",
+          "blockId": "unit-01-intro-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "UNIT 01 \u2014 A Typical Day at Work"
+          }
+        }
+      ],
+      "order": 1,
+      "parentSectionId": null,
+      "originalHeading": "UNIT 01 \u2014 A Typical Day at Work",
+      "sourceMarkdown": "# UNIT 01 \u2014 A Typical Day at Work\n\n**Ch\u1EE7 \u0111\u1EC1 ti\u1EBFng Vi\u1EC7t:** M\u1ED9t ng\u00E0y l\u00E0m vi\u1EC7c  \n**Tr\u00ECnh \u0111\u1ED9 d\u1EF1 ki\u1EBFn:** A2\u002B (c\u1EE7ng c\u1ED1 n\u1EC1n t\u1EA3ng)  \n**Th\u1EDDi l\u01B0\u1EE3ng g\u1EE3i \u00FD:** 5 bu\u1ED5i \u00D7 45\u201360 ph\u00FAt, th\u00EAm 1 bu\u1ED5i \u00F4n n\u1EBFu c\u1EA7n  \n**Tr\u1EA1ng th\u00E1i:** B\u00E0i h\u1ECDc chi ti\u1EBFt; \u0111\u00E1p \u00E1n \u0111\u1EC3 ri\u00EAng t\u1EA1i \u0060ANSWER_KEYS/Unit_01_Answers.md\u0060",
+      "source": {
+        "file": "LESSONS/Unit_01.md",
+        "originalUnit": "01",
+        "originalSection": "UNIT 01 \u2014 A Typical Day at Work"
+      }
+    },
+    {
+      "sectionId": "objectives",
+      "title": "M\u1EE5c ti\u00EAu b\u00E0i h\u1ECDc / Learning objectives",
+      "blocks": [
+        {
+          "type": "explanation",
+          "text": "- M\u00F4 t\u1EA3 th\u00F3i quen l\u00E0m vi\u1EC7c v\u00E0 vi\u1EC7c \u0111ang l\u00E0m.\n- Ph\u00E2n bi\u1EC7t hi\u1EC7n t\u1EA1i \u0111\u01A1n v\u00E0 ti\u1EBFp di\u1EC5n.\n- H\u1ECFi/\u0111\u00E1p c\u00E2u h\u1ECFi v\u1EC1 daily stand-up.",
+          "blockId": "unit-01-objectives-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "M\u1EE5c ti\u00EAu b\u00E0i h\u1ECDc / Learning objectives"
+          }
+        }
+      ],
+      "order": 2,
+      "parentSectionId": null,
+      "originalHeading": "M\u1EE5c ti\u00EAu b\u00E0i h\u1ECDc / Learning objectives",
+      "sourceMarkdown": "## M\u1EE5c ti\u00EAu b\u00E0i h\u1ECDc / Learning objectives\n\n- M\u00F4 t\u1EA3 th\u00F3i quen l\u00E0m vi\u1EC7c v\u00E0 vi\u1EC7c \u0111ang l\u00E0m.\n- Ph\u00E2n bi\u1EC7t hi\u1EC7n t\u1EA1i \u0111\u01A1n v\u00E0 ti\u1EBFp di\u1EC5n.\n- H\u1ECFi/\u0111\u00E1p c\u00E2u h\u1ECFi v\u1EC1 daily stand-up.",
+      "source": {
+        "file": "LESSONS/Unit_01.md",
+        "originalUnit": "01",
+        "originalSection": "M\u1EE5c ti\u00EAu b\u00E0i h\u1ECDc / Learning objectives"
+      }
+    },
+    {
+      "sectionId": "a",
+      "title": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 t\u1EEB/c\u1EE5m t\u1EEB)",
+      "blocks": [
+        {
+          "type": "vocabulary",
+          "text": "\u003E C\u00E1ch h\u1ECDc: \u0111\u1ECDc IPA, h\u1ECDc t\u1EEB theo **c\u1EE5m t\u1EEB**, vi\u1EBFt m\u1ED9t v\u00ED d\u1EE5 li\u00EAn quan \u0111\u1EBFn ch\u00EDnh c\u00F4ng vi\u1EC7c c\u1EE7a b\u1EA1n. Ph\u00E2n chia 10 t\u1EEB/bu\u1ED5i, \u00F4n c\u00E1ch qu\u00E3ng. IPA ch\u1EE7 y\u1EBFu theo Anh-Anh.\n\n| STT | English \u002B IPA | Ngh\u0129a ti\u1EBFng Vi\u1EC7t | C\u1EE5m t\u1EEB th\u01B0\u1EDDng g\u1EB7p | V\u00ED d\u1EE5 |\n|---:|---|---|---|---|\n| 1 | **routine** /ru\u02D0\u02C8ti\u02D0n/ | th\u00F3i quen, l\u1ECBch th\u01B0\u1EDDng l\u1EC7 | daily routine | My daily routine starts with checking messages. |\n| 2 | **task** /t\u0251\u02D0sk/ | nhi\u1EC7m v\u1EE5 | complete a task | I have three tasks to finish today. |\n| 3 | **deadline** /\u02C8ded.la\u026An/ | h\u1EA1n ch\u00F3t | meet a deadline | We need to meet the deadline on Friday. |\n| 4 | **colleague** /\u02C8k\u0252l.i\u02D0\u0261/ | \u0111\u1ED3ng nghi\u1EC7p | help a colleague | I ask a colleague when I need support. |\n| 5 | **requirement** /r\u026A\u02C8kwa\u026A\u0259.m\u0259nt/ | y\u00EAu c\u1EA7u | clarify a requirement | I am clarifying a requirement with the customer. |\n| 6 | **update** /\u02C8\u028Cp.de\u026At/ | th\u00F4ng tin c\u1EADp nh\u1EADt | give an update | I give an update during the morning meeting. |\n| 7 | **currently** /\u02C8k\u028Cr.\u0259nt.li/ | hi\u1EC7n \u0111ang | currently working on | I am currently working on the login page. |\n| 8 | **usually** /\u02C8ju\u02D0.\u0292u.\u0259.li/ | th\u01B0\u1EDDng th\u01B0\u1EDDng | usually start | I usually start work at nine. |\n| 9 | **occasionally** /\u0259\u02C8ke\u026A.\u0292\u0259n.\u0259l.i/ | th\u1EC9nh tho\u1EA3ng | occasionally work late | We occasionally work late before a release. |\n| 10 | **focus** /\u02C8f\u0259\u028A.k\u0259s/ | t\u1EADp trung | focus on | I focus on one task at a time. |\n| 11 | **interrupt** /\u02CC\u026An.t\u0259\u02C8r\u028Cpt/ | l\u00E0m gi\u00E1n \u0111o\u1EA1n | interrupt someone | Please do not interrupt the speaker. |\n| 12 | **review** /r\u026A\u02C8vju\u02D0/ | xem x\u00E9t, r\u00E0 so\u00E1t | review code | I review code every afternoon. |\n| 13 | **assign** /\u0259\u02C8sa\u026An/ | giao vi\u1EC7c | assign a task | Our lead assigns tasks on Monday. |\n| 14 | **priority** /pra\u026A\u02C8\u0252r.\u0259.ti/ | m\u1EE9c \u01B0u ti\u00EAn | high priority | This bug is a high priority. |\n| 15 | **schedule** /\u02C8\u0283ed.ju\u02D0l/ | l\u1ECBch tr\u00ECnh | work schedule | My schedule is full today. |\n| 16 | **attend** /\u0259\u02C8tend/ | tham d\u1EF1 | attend a meeting | I attend the team meeting at ten. |\n| 17 | **available** /\u0259\u02C8ve\u026A.l\u0259.b\u0259l/ | r\u1EA3nh, c\u00F3 s\u1EB5n | be available | I am available after lunch. |\n| 18 | **request** /r\u026A\u02C8kwest/ | y\u00EAu c\u1EA7u, \u0111\u1EC1 ngh\u1ECB | send a request | The customer sends a new request. |\n| 19 | **issue** /\u02C8\u026A\u0283.u\u02D0/ | v\u1EA5n \u0111\u1EC1 | resolve an issue | I am resolving an issue right now. |\n| 20 | **deliver** /d\u026A\u02C8l\u026Av.\u0259r/ | b\u00E0n giao | deliver a feature | We deliver features every two weeks. |\n\n**Luy\u1EC7n d\u00F9ng t\u1EEB:** Vi\u1EBFt 5 c\u00E2u c\u1EE7a ch\u00EDnh b\u1EA1n v\u1EDBi 5 t\u1EEB trong b\u1EA3ng; \u00EDt nh\u1EA5t 2 c\u00E2u li\u00EAn quan m\u00F4i tr\u01B0\u1EDDng l\u00E0m vi\u1EC7c IT.",
+          "entries": [
+            {
+              "vocabularyId": "unit-01-vocab-01",
+              "unitId": "unit-01",
+              "term": "routine",
+              "ipa": "/ru\u02D0\u02C8ti\u02D0n/",
+              "vietnamese": "th\u00F3i quen, l\u1ECBch th\u01B0\u1EDDng l\u1EC7",
+              "context": "daily routine",
+              "source": {
+                "file": "LESSONS/Unit_01.md",
+                "originalUnit": "01",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 t\u1EEB/c\u1EE5m t\u1EEB)"
+              }
+            },
+            {
+              "vocabularyId": "unit-01-vocab-02",
+              "unitId": "unit-01",
+              "term": "task",
+              "ipa": "/t\u0251\u02D0sk/",
+              "vietnamese": "nhi\u1EC7m v\u1EE5",
+              "context": "complete a task",
+              "source": {
+                "file": "LESSONS/Unit_01.md",
+                "originalUnit": "01",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 t\u1EEB/c\u1EE5m t\u1EEB)"
+              }
+            },
+            {
+              "vocabularyId": "unit-01-vocab-03",
+              "unitId": "unit-01",
+              "term": "deadline",
+              "ipa": "/\u02C8ded.la\u026An/",
+              "vietnamese": "h\u1EA1n ch\u00F3t",
+              "context": "meet a deadline",
+              "source": {
+                "file": "LESSONS/Unit_01.md",
+                "originalUnit": "01",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 t\u1EEB/c\u1EE5m t\u1EEB)"
+              }
+            },
+            {
+              "vocabularyId": "unit-01-vocab-04",
+              "unitId": "unit-01",
+              "term": "colleague",
+              "ipa": "/\u02C8k\u0252l.i\u02D0\u0261/",
+              "vietnamese": "\u0111\u1ED3ng nghi\u1EC7p",
+              "context": "help a colleague",
+              "source": {
+                "file": "LESSONS/Unit_01.md",
+                "originalUnit": "01",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 t\u1EEB/c\u1EE5m t\u1EEB)"
+              }
+            },
+            {
+              "vocabularyId": "unit-01-vocab-05",
+              "unitId": "unit-01",
+              "term": "requirement",
+              "ipa": "/r\u026A\u02C8kwa\u026A\u0259.m\u0259nt/",
+              "vietnamese": "y\u00EAu c\u1EA7u",
+              "context": "clarify a requirement",
+              "source": {
+                "file": "LESSONS/Unit_01.md",
+                "originalUnit": "01",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 t\u1EEB/c\u1EE5m t\u1EEB)"
+              }
+            },
+            {
+              "vocabularyId": "unit-01-vocab-06",
+              "unitId": "unit-01",
+              "term": "update",
+              "ipa": "/\u02C8\u028Cp.de\u026At/",
+              "vietnamese": "th\u00F4ng tin c\u1EADp nh\u1EADt",
+              "context": "give an update",
+              "source": {
+                "file": "LESSONS/Unit_01.md",
+                "originalUnit": "01",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 t\u1EEB/c\u1EE5m t\u1EEB)"
+              }
+            },
+            {
+              "vocabularyId": "unit-01-vocab-07",
+              "unitId": "unit-01",
+              "term": "currently",
+              "ipa": "/\u02C8k\u028Cr.\u0259nt.li/",
+              "vietnamese": "hi\u1EC7n \u0111ang",
+              "context": "currently working on",
+              "source": {
+                "file": "LESSONS/Unit_01.md",
+                "originalUnit": "01",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 t\u1EEB/c\u1EE5m t\u1EEB)"
+              }
+            },
+            {
+              "vocabularyId": "unit-01-vocab-08",
+              "unitId": "unit-01",
+              "term": "usually",
+              "ipa": "/\u02C8ju\u02D0.\u0292u.\u0259.li/",
+              "vietnamese": "th\u01B0\u1EDDng th\u01B0\u1EDDng",
+              "context": "usually start",
+              "source": {
+                "file": "LESSONS/Unit_01.md",
+                "originalUnit": "01",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 t\u1EEB/c\u1EE5m t\u1EEB)"
+              }
+            },
+            {
+              "vocabularyId": "unit-01-vocab-09",
+              "unitId": "unit-01",
+              "term": "occasionally",
+              "ipa": "/\u0259\u02C8ke\u026A.\u0292\u0259n.\u0259l.i/",
+              "vietnamese": "th\u1EC9nh tho\u1EA3ng",
+              "context": "occasionally work late",
+              "source": {
+                "file": "LESSONS/Unit_01.md",
+                "originalUnit": "01",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 t\u1EEB/c\u1EE5m t\u1EEB)"
+              }
+            },
+            {
+              "vocabularyId": "unit-01-vocab-10",
+              "unitId": "unit-01",
+              "term": "focus",
+              "ipa": "/\u02C8f\u0259\u028A.k\u0259s/",
+              "vietnamese": "t\u1EADp trung",
+              "context": "focus on",
+              "source": {
+                "file": "LESSONS/Unit_01.md",
+                "originalUnit": "01",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 t\u1EEB/c\u1EE5m t\u1EEB)"
+              }
+            },
+            {
+              "vocabularyId": "unit-01-vocab-11",
+              "unitId": "unit-01",
+              "term": "interrupt",
+              "ipa": "/\u02CC\u026An.t\u0259\u02C8r\u028Cpt/",
+              "vietnamese": "l\u00E0m gi\u00E1n \u0111o\u1EA1n",
+              "context": "interrupt someone",
+              "source": {
+                "file": "LESSONS/Unit_01.md",
+                "originalUnit": "01",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 t\u1EEB/c\u1EE5m t\u1EEB)"
+              }
+            },
+            {
+              "vocabularyId": "unit-01-vocab-12",
+              "unitId": "unit-01",
+              "term": "review",
+              "ipa": "/r\u026A\u02C8vju\u02D0/",
+              "vietnamese": "xem x\u00E9t, r\u00E0 so\u00E1t",
+              "context": "review code",
+              "source": {
+                "file": "LESSONS/Unit_01.md",
+                "originalUnit": "01",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 t\u1EEB/c\u1EE5m t\u1EEB)"
+              }
+            },
+            {
+              "vocabularyId": "unit-01-vocab-13",
+              "unitId": "unit-01",
+              "term": "assign",
+              "ipa": "/\u0259\u02C8sa\u026An/",
+              "vietnamese": "giao vi\u1EC7c",
+              "context": "assign a task",
+              "source": {
+                "file": "LESSONS/Unit_01.md",
+                "originalUnit": "01",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 t\u1EEB/c\u1EE5m t\u1EEB)"
+              }
+            },
+            {
+              "vocabularyId": "unit-01-vocab-14",
+              "unitId": "unit-01",
+              "term": "priority",
+              "ipa": "/pra\u026A\u02C8\u0252r.\u0259.ti/",
+              "vietnamese": "m\u1EE9c \u01B0u ti\u00EAn",
+              "context": "high priority",
+              "source": {
+                "file": "LESSONS/Unit_01.md",
+                "originalUnit": "01",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 t\u1EEB/c\u1EE5m t\u1EEB)"
+              }
+            },
+            {
+              "vocabularyId": "unit-01-vocab-15",
+              "unitId": "unit-01",
+              "term": "schedule",
+              "ipa": "/\u02C8\u0283ed.ju\u02D0l/",
+              "vietnamese": "l\u1ECBch tr\u00ECnh",
+              "context": "work schedule",
+              "source": {
+                "file": "LESSONS/Unit_01.md",
+                "originalUnit": "01",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 t\u1EEB/c\u1EE5m t\u1EEB)"
+              }
+            },
+            {
+              "vocabularyId": "unit-01-vocab-16",
+              "unitId": "unit-01",
+              "term": "attend",
+              "ipa": "/\u0259\u02C8tend/",
+              "vietnamese": "tham d\u1EF1",
+              "context": "attend a meeting",
+              "source": {
+                "file": "LESSONS/Unit_01.md",
+                "originalUnit": "01",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 t\u1EEB/c\u1EE5m t\u1EEB)"
+              }
+            },
+            {
+              "vocabularyId": "unit-01-vocab-17",
+              "unitId": "unit-01",
+              "term": "available",
+              "ipa": "/\u0259\u02C8ve\u026A.l\u0259.b\u0259l/",
+              "vietnamese": "r\u1EA3nh, c\u00F3 s\u1EB5n",
+              "context": "be available",
+              "source": {
+                "file": "LESSONS/Unit_01.md",
+                "originalUnit": "01",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 t\u1EEB/c\u1EE5m t\u1EEB)"
+              }
+            },
+            {
+              "vocabularyId": "unit-01-vocab-18",
+              "unitId": "unit-01",
+              "term": "request",
+              "ipa": "/r\u026A\u02C8kwest/",
+              "vietnamese": "y\u00EAu c\u1EA7u, \u0111\u1EC1 ngh\u1ECB",
+              "context": "send a request",
+              "source": {
+                "file": "LESSONS/Unit_01.md",
+                "originalUnit": "01",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 t\u1EEB/c\u1EE5m t\u1EEB)"
+              }
+            },
+            {
+              "vocabularyId": "unit-01-vocab-19",
+              "unitId": "unit-01",
+              "term": "issue",
+              "ipa": "/\u02C8\u026A\u0283.u\u02D0/",
+              "vietnamese": "v\u1EA5n \u0111\u1EC1",
+              "context": "resolve an issue",
+              "source": {
+                "file": "LESSONS/Unit_01.md",
+                "originalUnit": "01",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 t\u1EEB/c\u1EE5m t\u1EEB)"
+              }
+            },
+            {
+              "vocabularyId": "unit-01-vocab-20",
+              "unitId": "unit-01",
+              "term": "deliver",
+              "ipa": "/d\u026A\u02C8l\u026Av.\u0259r/",
+              "vietnamese": "b\u00E0n giao",
+              "context": "deliver a feature",
+              "source": {
+                "file": "LESSONS/Unit_01.md",
+                "originalUnit": "01",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 t\u1EEB/c\u1EE5m t\u1EEB)"
+              }
+            }
+          ],
+          "blockId": "unit-01-a-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 t\u1EEB/c\u1EE5m t\u1EEB)"
+          }
+        }
+      ],
+      "order": 3,
+      "parentSectionId": null,
+      "originalHeading": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 t\u1EEB/c\u1EE5m t\u1EEB)",
+      "sourceMarkdown": "## A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 t\u1EEB/c\u1EE5m t\u1EEB)\n\n\u003E C\u00E1ch h\u1ECDc: \u0111\u1ECDc IPA, h\u1ECDc t\u1EEB theo **c\u1EE5m t\u1EEB**, vi\u1EBFt m\u1ED9t v\u00ED d\u1EE5 li\u00EAn quan \u0111\u1EBFn ch\u00EDnh c\u00F4ng vi\u1EC7c c\u1EE7a b\u1EA1n. Ph\u00E2n chia 10 t\u1EEB/bu\u1ED5i, \u00F4n c\u00E1ch qu\u00E3ng. IPA ch\u1EE7 y\u1EBFu theo Anh-Anh.\n\n| STT | English \u002B IPA | Ngh\u0129a ti\u1EBFng Vi\u1EC7t | C\u1EE5m t\u1EEB th\u01B0\u1EDDng g\u1EB7p | V\u00ED d\u1EE5 |\n|---:|---|---|---|---|\n| 1 | **routine** /ru\u02D0\u02C8ti\u02D0n/ | th\u00F3i quen, l\u1ECBch th\u01B0\u1EDDng l\u1EC7 | daily routine | My daily routine starts with checking messages. |\n| 2 | **task** /t\u0251\u02D0sk/ | nhi\u1EC7m v\u1EE5 | complete a task | I have three tasks to finish today. |\n| 3 | **deadline** /\u02C8ded.la\u026An/ | h\u1EA1n ch\u00F3t | meet a deadline | We need to meet the deadline on Friday. |\n| 4 | **colleague** /\u02C8k\u0252l.i\u02D0\u0261/ | \u0111\u1ED3ng nghi\u1EC7p | help a colleague | I ask a colleague when I need support. |\n| 5 | **requirement** /r\u026A\u02C8kwa\u026A\u0259.m\u0259nt/ | y\u00EAu c\u1EA7u | clarify a requirement | I am clarifying a requirement with the customer. |\n| 6 | **update** /\u02C8\u028Cp.de\u026At/ | th\u00F4ng tin c\u1EADp nh\u1EADt | give an update | I give an update during the morning meeting. |\n| 7 | **currently** /\u02C8k\u028Cr.\u0259nt.li/ | hi\u1EC7n \u0111ang | currently working on | I am currently working on the login page. |\n| 8 | **usually** /\u02C8ju\u02D0.\u0292u.\u0259.li/ | th\u01B0\u1EDDng th\u01B0\u1EDDng | usually start | I usually start work at nine. |\n| 9 | **occasionally** /\u0259\u02C8ke\u026A.\u0292\u0259n.\u0259l.i/ | th\u1EC9nh tho\u1EA3ng | occasionally work late | We occasionally work late before a release. |\n| 10 | **focus** /\u02C8f\u0259\u028A.k\u0259s/ | t\u1EADp trung | focus on | I focus on one task at a time. |\n| 11 | **interrupt** /\u02CC\u026An.t\u0259\u02C8r\u028Cpt/ | l\u00E0m gi\u00E1n \u0111o\u1EA1n | interrupt someone | Please do not interrupt the speaker. |\n| 12 | **review** /r\u026A\u02C8vju\u02D0/ | xem x\u00E9t, r\u00E0 so\u00E1t | review code | I review code every afternoon. |\n| 13 | **assign** /\u0259\u02C8sa\u026An/ | giao vi\u1EC7c | assign a task | Our lead assigns tasks on Monday. |\n| 14 | **priority** /pra\u026A\u02C8\u0252r.\u0259.ti/ | m\u1EE9c \u01B0u ti\u00EAn | high priority | This bug is a high priority. |\n| 15 | **schedule** /\u02C8\u0283ed.ju\u02D0l/ | l\u1ECBch tr\u00ECnh | work schedule | My schedule is full today. |\n| 16 | **attend** /\u0259\u02C8tend/ | tham d\u1EF1 | attend a meeting | I attend the team meeting at ten. |\n| 17 | **available** /\u0259\u02C8ve\u026A.l\u0259.b\u0259l/ | r\u1EA3nh, c\u00F3 s\u1EB5n | be available | I am available after lunch. |\n| 18 | **request** /r\u026A\u02C8kwest/ | y\u00EAu c\u1EA7u, \u0111\u1EC1 ngh\u1ECB | send a request | The customer sends a new request. |\n| 19 | **issue** /\u02C8\u026A\u0283.u\u02D0/ | v\u1EA5n \u0111\u1EC1 | resolve an issue | I am resolving an issue right now. |\n| 20 | **deliver** /d\u026A\u02C8l\u026Av.\u0259r/ | b\u00E0n giao | deliver a feature | We deliver features every two weeks. |\n\n**Luy\u1EC7n d\u00F9ng t\u1EEB:** Vi\u1EBFt 5 c\u00E2u c\u1EE7a ch\u00EDnh b\u1EA1n v\u1EDBi 5 t\u1EEB trong b\u1EA3ng; \u00EDt nh\u1EA5t 2 c\u00E2u li\u00EAn quan m\u00F4i tr\u01B0\u1EDDng l\u00E0m vi\u1EC7c IT.",
+      "source": {
+        "file": "LESSONS/Unit_01.md",
+        "originalUnit": "01",
+        "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 t\u1EEB/c\u1EE5m t\u1EEB)"
+      }
+    },
+    {
+      "sectionId": "b",
+      "title": "B. Grammar \u2014 Ng\u1EEF ph\u00E1p (gi\u1EA3i th\u00EDch b\u1EB1ng ti\u1EBFng Vi\u1EC7t)",
+      "blocks": [],
+      "order": 4,
+      "parentSectionId": null,
+      "originalHeading": "B. Grammar \u2014 Ng\u1EEF ph\u00E1p (gi\u1EA3i th\u00EDch b\u1EB1ng ti\u1EBFng Vi\u1EC7t)",
+      "sourceMarkdown": "## B. Grammar \u2014 Ng\u1EEF ph\u00E1p (gi\u1EA3i th\u00EDch b\u1EB1ng ti\u1EBFng Vi\u1EC7t)",
+      "source": {
+        "file": "LESSONS/Unit_01.md",
+        "originalUnit": "01",
+        "originalSection": "B. Grammar \u2014 Ng\u1EEF ph\u00E1p (gi\u1EA3i th\u00EDch b\u1EB1ng ti\u1EBFng Vi\u1EC7t)"
+      }
+    },
+    {
+      "sectionId": "b1",
+      "title": "B1. Present Simple \u2014 hi\u1EC7n t\u1EA1i \u0111\u01A1n",
+      "blocks": [
+        {
+          "type": "grammar",
+          "text": "- **C\u00F4ng th\u1EE9c:** \u0060S \u002B V(s/es); do/does \u002B S \u002B V?\u0060\n- **Khi n\u00E0o d\u00F9ng:** Th\u00F3i quen, l\u1ECBch c\u1ED1 \u0111\u1ECBnh, s\u1EF1 th\u1EADt. D\u1EA5u hi\u1EC7u: usually, every day, often.\n- **V\u00ED d\u1EE5:** *I check the ticket board every morning.*\n- **D\u1ECBch ngh\u0129a:** T\u00F4i ki\u1EC3m tra b\u1EA3ng c\u00F4ng vi\u1EC7c m\u1ED7i s\u00E1ng.\n- **L\u01B0u \u00FD d\u1EC5 sai:** Ch\u1EE7 ng\u1EEF he/she/it th\u00EAm -s/-es; sau does \u0111\u1ED9ng t\u1EEB tr\u1EDF v\u1EC1 nguy\u00EAn m\u1EABu.",
+          "blockId": "unit-01-b1-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "B1. Present Simple \u2014 hi\u1EC7n t\u1EA1i \u0111\u01A1n"
+          }
+        },
+        {
+          "type": "example",
+          "text": "V\u00ED d\u1EE5: *I check the ticket board every morning.*",
+          "blockId": "unit-01-b1-block-02",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "B1. Present Simple \u2014 hi\u1EC7n t\u1EA1i \u0111\u01A1n"
+          }
+        }
+      ],
+      "order": 5,
+      "parentSectionId": "b",
+      "originalHeading": "B1. Present Simple \u2014 hi\u1EC7n t\u1EA1i \u0111\u01A1n",
+      "sourceMarkdown": "### B1. Present Simple \u2014 hi\u1EC7n t\u1EA1i \u0111\u01A1n\n\n- **C\u00F4ng th\u1EE9c:** \u0060S \u002B V(s/es); do/does \u002B S \u002B V?\u0060\n- **Khi n\u00E0o d\u00F9ng:** Th\u00F3i quen, l\u1ECBch c\u1ED1 \u0111\u1ECBnh, s\u1EF1 th\u1EADt. D\u1EA5u hi\u1EC7u: usually, every day, often.\n- **V\u00ED d\u1EE5:** *I check the ticket board every morning.*\n- **D\u1ECBch ngh\u0129a:** T\u00F4i ki\u1EC3m tra b\u1EA3ng c\u00F4ng vi\u1EC7c m\u1ED7i s\u00E1ng.\n- **L\u01B0u \u00FD d\u1EC5 sai:** Ch\u1EE7 ng\u1EEF he/she/it th\u00EAm -s/-es; sau does \u0111\u1ED9ng t\u1EEB tr\u1EDF v\u1EC1 nguy\u00EAn m\u1EABu.",
+      "source": {
+        "file": "LESSONS/Unit_01.md",
+        "originalUnit": "01",
+        "originalSection": "B1. Present Simple \u2014 hi\u1EC7n t\u1EA1i \u0111\u01A1n"
+      }
+    },
+    {
+      "sectionId": "b2",
+      "title": "B2. Present Continuous \u2014 hi\u1EC7n t\u1EA1i ti\u1EBFp di\u1EC5n",
+      "blocks": [
+        {
+          "type": "grammar",
+          "text": "- **C\u00F4ng th\u1EE9c:** \u0060S \u002B am/is/are \u002B V-ing\u0060\n- **Khi n\u00E0o d\u00F9ng:** Vi\u1EC7c \u0111ang di\u1EC5n ra ho\u1EB7c t\u00ECnh hu\u1ED1ng t\u1EA1m th\u1EDDi. D\u1EA5u hi\u1EC7u: now, right now, this week.\n- **V\u00ED d\u1EE5:** *I am checking a payment issue right now.*\n- **D\u1ECBch ngh\u0129a:** Hi\u1EC7n t\u00F4i \u0111ang ki\u1EC3m tra m\u1ED9t l\u1ED7i thanh to\u00E1n.\n- **L\u01B0u \u00FD d\u1EC5 sai:** Tr\u00E1nh d\u00F9ng ti\u1EBFp di\u1EC5n v\u1EDBi m\u1ED9t s\u1ED1 \u0111\u1ED9ng t\u1EEB tr\u1EA1ng th\u00E1i nh\u01B0 know, believe trong ngh\u0129a th\u00F4ng th\u01B0\u1EDDng.",
+          "blockId": "unit-01-b2-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "B2. Present Continuous \u2014 hi\u1EC7n t\u1EA1i ti\u1EBFp di\u1EC5n"
+          }
+        },
+        {
+          "type": "example",
+          "text": "V\u00ED d\u1EE5: *I am checking a payment issue right now.*",
+          "blockId": "unit-01-b2-block-02",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "B2. Present Continuous \u2014 hi\u1EC7n t\u1EA1i ti\u1EBFp di\u1EC5n"
+          }
+        }
+      ],
+      "order": 6,
+      "parentSectionId": "b",
+      "originalHeading": "B2. Present Continuous \u2014 hi\u1EC7n t\u1EA1i ti\u1EBFp di\u1EC5n",
+      "sourceMarkdown": "### B2. Present Continuous \u2014 hi\u1EC7n t\u1EA1i ti\u1EBFp di\u1EC5n\n\n- **C\u00F4ng th\u1EE9c:** \u0060S \u002B am/is/are \u002B V-ing\u0060\n- **Khi n\u00E0o d\u00F9ng:** Vi\u1EC7c \u0111ang di\u1EC5n ra ho\u1EB7c t\u00ECnh hu\u1ED1ng t\u1EA1m th\u1EDDi. D\u1EA5u hi\u1EC7u: now, right now, this week.\n- **V\u00ED d\u1EE5:** *I am checking a payment issue right now.*\n- **D\u1ECBch ngh\u0129a:** Hi\u1EC7n t\u00F4i \u0111ang ki\u1EC3m tra m\u1ED9t l\u1ED7i thanh to\u00E1n.\n- **L\u01B0u \u00FD d\u1EC5 sai:** Tr\u00E1nh d\u00F9ng ti\u1EBFp di\u1EC5n v\u1EDBi m\u1ED9t s\u1ED1 \u0111\u1ED9ng t\u1EEB tr\u1EA1ng th\u00E1i nh\u01B0 know, believe trong ngh\u0129a th\u00F4ng th\u01B0\u1EDDng.",
+      "source": {
+        "file": "LESSONS/Unit_01.md",
+        "originalUnit": "01",
+        "originalSection": "B2. Present Continuous \u2014 hi\u1EC7n t\u1EA1i ti\u1EBFp di\u1EC5n"
+      }
+    },
+    {
+      "sectionId": "b3",
+      "title": "B3. So s\u00E1nh nhanh \u0026 l\u1ED7i th\u01B0\u1EDDng g\u1EB7p",
+      "blocks": [
+        {
+          "type": "grammar",
+          "text": "\u201CI work with customers\u201D = c\u00F4ng vi\u1EC7c th\u01B0\u1EDDng xuy\u00EAn. \u201CI am working with a new customer this week\u201D = d\u1EF1 \u00E1n/t\u00ECnh hu\u1ED1ng t\u1EA1m th\u1EDDi.\n\n**M\u1EB9o ki\u1EC3m tra:** Tr\u01B0\u1EDBc khi ch\u1ECDn \u0111\u00E1p \u00E1n, h\u00E3y g\u1EA1ch ch\u00E2n t\u00EDn hi\u1EC7u th\u1EDDi gian v\u00E0 h\u1ECFi \u201CM\u00ECnh mu\u1ED1n di\u1EC5n t\u1EA3 th\u00F3i quen, h\u00E0nh \u0111\u1ED9ng \u0111ang di\u1EC5n ra, k\u1EBFt qu\u1EA3, s\u1EF1 ki\u1EC7n qu\u00E1 kh\u1EE9, hay ngh\u0129a v\u1EE5?\u201D",
+          "blockId": "unit-01-b3-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "B3. So s\u00E1nh nhanh \u0026 l\u1ED7i th\u01B0\u1EDDng g\u1EB7p"
+          }
+        }
+      ],
+      "order": 7,
+      "parentSectionId": "b",
+      "originalHeading": "B3. So s\u00E1nh nhanh \u0026 l\u1ED7i th\u01B0\u1EDDng g\u1EB7p",
+      "sourceMarkdown": "### B3. So s\u00E1nh nhanh \u0026 l\u1ED7i th\u01B0\u1EDDng g\u1EB7p\n\n\u201CI work with customers\u201D = c\u00F4ng vi\u1EC7c th\u01B0\u1EDDng xuy\u00EAn. \u201CI am working with a new customer this week\u201D = d\u1EF1 \u00E1n/t\u00ECnh hu\u1ED1ng t\u1EA1m th\u1EDDi.\n\n**M\u1EB9o ki\u1EC3m tra:** Tr\u01B0\u1EDBc khi ch\u1ECDn \u0111\u00E1p \u00E1n, h\u00E3y g\u1EA1ch ch\u00E2n t\u00EDn hi\u1EC7u th\u1EDDi gian v\u00E0 h\u1ECFi \u201CM\u00ECnh mu\u1ED1n di\u1EC5n t\u1EA3 th\u00F3i quen, h\u00E0nh \u0111\u1ED9ng \u0111ang di\u1EC5n ra, k\u1EBFt qu\u1EA3, s\u1EF1 ki\u1EC7n qu\u00E1 kh\u1EE9, hay ngh\u0129a v\u1EE5?\u201D",
+      "source": {
+        "file": "LESSONS/Unit_01.md",
+        "originalUnit": "01",
+        "originalSection": "B3. So s\u00E1nh nhanh \u0026 l\u1ED7i th\u01B0\u1EDDng g\u1EB7p"
+      }
+    },
+    {
+      "sectionId": "c",
+      "title": "C. Controlled Practice \u2014 B\u00E0i t\u1EADp ng\u1EEF ph\u00E1p",
+      "blocks": [
+        {
+          "type": "explanation",
+          "text": "**Quy t\u1EAFc:** L\u00E0m b\u00E0i **tr\u01B0\u1EDBc khi xem** answer key. GPT Teacher n\u00EAn \u0111\u01B0a 3\u20135 c\u00E2u m\u1ED7i l\u01B0\u1EE3t v\u00E0 ch\u1EDD tr\u1EA3 l\u1EDDi. T\u1ED5ng c\u1ED9ng **23 c\u00E2u ng\u1EEF ph\u00E1p** (12 \u0111i\u1EC1n t\u1EEB \u002B 6 tr\u1EAFc nghi\u1EC7m \u002B 5 s\u1EEDa l\u1ED7i).",
+          "blockId": "unit-01-c-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C. Controlled Practice \u2014 B\u00E0i t\u1EADp ng\u1EEF ph\u00E1p"
+          }
+        }
+      ],
+      "order": 8,
+      "parentSectionId": null,
+      "originalHeading": "C. Controlled Practice \u2014 B\u00E0i t\u1EADp ng\u1EEF ph\u00E1p",
+      "sourceMarkdown": "## C. Controlled Practice \u2014 B\u00E0i t\u1EADp ng\u1EEF ph\u00E1p\n\n**Quy t\u1EAFc:** L\u00E0m b\u00E0i **tr\u01B0\u1EDBc khi xem** answer key. GPT Teacher n\u00EAn \u0111\u01B0a 3\u20135 c\u00E2u m\u1ED7i l\u01B0\u1EE3t v\u00E0 ch\u1EDD tr\u1EA3 l\u1EDDi. T\u1ED5ng c\u1ED9ng **23 c\u00E2u ng\u1EEF ph\u00E1p** (12 \u0111i\u1EC1n t\u1EEB \u002B 6 tr\u1EAFc nghi\u1EC7m \u002B 5 s\u1EEDa l\u1ED7i).",
+      "source": {
+        "file": "LESSONS/Unit_01.md",
+        "originalUnit": "01",
+        "originalSection": "C. Controlled Practice \u2014 B\u00E0i t\u1EADp ng\u1EEF ph\u00E1p"
+      }
+    },
+    {
+      "sectionId": "c1",
+      "title": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n d\u1EA1ng \u0111\u00FAng (12 c\u00E2u)",
+      "blocks": [
+        {
+          "type": "exercise-group",
+          "exerciseId": "unit-01-c1-group",
+          "title": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n d\u1EA1ng \u0111\u00FAng (12 c\u00E2u)",
+          "instructions": "",
+          "blockId": "unit-01-c1-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n d\u1EA1ng \u0111\u00FAng (12 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-c1-01",
+          "prompt": "He ___ (check) the dashboard every morning.",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-01-c1-block-02",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n d\u1EA1ng \u0111\u00FAng (12 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-c1-02",
+          "prompt": "I ___ (fix) a login bug right now.",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-01-c1-block-03",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n d\u1EA1ng \u0111\u00FAng (12 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-c1-03",
+          "prompt": "They ___ (not / work) on Sundays.",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-01-c1-block-04",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n d\u1EA1ng \u0111\u00FAng (12 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-c1-04",
+          "prompt": "Our lead ___ (assign) tasks on Mondays.",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-01-c1-block-05",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n d\u1EA1ng \u0111\u00FAng (12 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-c1-05",
+          "prompt": "We ___ (review) a pull request at the moment.",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-01-c1-block-06",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n d\u1EA1ng \u0111\u00FAng (12 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-c1-06",
+          "prompt": "___ she ___ (join) the meeting every Friday?",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-01-c1-block-07",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n d\u1EA1ng \u0111\u00FAng (12 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-c1-07",
+          "prompt": "The app ___ (run) on two servers.",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-01-c1-block-08",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n d\u1EA1ng \u0111\u00FAng (12 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-c1-08",
+          "prompt": "I ___ (not / use) that tool today.",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-01-c1-block-09",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n d\u1EA1ng \u0111\u00FAng (12 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-c1-09",
+          "prompt": "My colleagues ___ (usually / arrive) at nine.",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-01-c1-block-10",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n d\u1EA1ng \u0111\u00FAng (12 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-c1-10",
+          "prompt": "Why ___ you ___ (wait) outside?",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-01-c1-block-11",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n d\u1EA1ng \u0111\u00FAng (12 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-c1-11",
+          "prompt": "This week our team ___ (test) the new feature.",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-01-c1-block-12",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n d\u1EA1ng \u0111\u00FAng (12 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-c1-12",
+          "prompt": "She ___ (not / understand) this requirement.",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-01-c1-block-13",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n d\u1EA1ng \u0111\u00FAng (12 c\u00E2u)"
+          }
+        }
+      ],
+      "order": 9,
+      "parentSectionId": "c",
+      "originalHeading": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n d\u1EA1ng \u0111\u00FAng (12 c\u00E2u)",
+      "sourceMarkdown": "### C1. Fill in the blanks \u2014 \u0110i\u1EC1n d\u1EA1ng \u0111\u00FAng (12 c\u00E2u)\n\n1. He ___ (check) the dashboard every morning.\n2. I ___ (fix) a login bug right now.\n3. They ___ (not / work) on Sundays.\n4. Our lead ___ (assign) tasks on Mondays.\n5. We ___ (review) a pull request at the moment.\n6. ___ she ___ (join) the meeting every Friday?\n7. The app ___ (run) on two servers.\n8. I ___ (not / use) that tool today.\n9. My colleagues ___ (usually / arrive) at nine.\n10. Why ___ you ___ (wait) outside?\n11. This week our team ___ (test) the new feature.\n12. She ___ (not / understand) this requirement.",
+      "source": {
+        "file": "LESSONS/Unit_01.md",
+        "originalUnit": "01",
+        "originalSection": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n d\u1EA1ng \u0111\u00FAng (12 c\u00E2u)"
+      }
+    },
+    {
+      "sectionId": "c2",
+      "title": "C2. Multiple choice \u2014 Ch\u1ECDn A/B/C (6 c\u00E2u)",
+      "blocks": [
+        {
+          "type": "exercise-group",
+          "exerciseId": "unit-01-c2-group",
+          "title": "C2. Multiple choice \u2014 Ch\u1ECDn A/B/C (6 c\u00E2u)",
+          "instructions": "",
+          "blockId": "unit-01-c2-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C2. Multiple choice \u2014 Ch\u1ECDn A/B/C (6 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-c2-01",
+          "prompt": "Which sentence describes a habit?",
+          "options": [
+            "A. I am writing an email now.",
+            "B. I write a report every Friday.",
+            "C. I am working late today."
+          ],
+          "responseKind": "multiple-choice",
+          "blockId": "unit-01-c2-block-02",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C2. Multiple choice \u2014 Ch\u1ECDn A/B/C (6 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-c2-02",
+          "prompt": "Choose the correct sentence.",
+          "options": [
+            "A. He is know the answer.",
+            "B. He knows the answer.",
+            "C. He knowing the answer."
+          ],
+          "responseKind": "multiple-choice",
+          "blockId": "unit-01-c2-block-03",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C2. Multiple choice \u2014 Ch\u1ECDn A/B/C (6 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-c2-03",
+          "prompt": "Which sentence fits \u201Cright now\u201D?",
+          "options": [
+            "A. They test the app right now.",
+            "B. They are testing the app right now.",
+            "C. They tested the app right now."
+          ],
+          "responseKind": "multiple-choice",
+          "blockId": "unit-01-c2-block-04",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C2. Multiple choice \u2014 Ch\u1ECDn A/B/C (6 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-c2-04",
+          "prompt": "Complete: Does she ___ the tickets?",
+          "options": [
+            "A. reviews",
+            "B. review",
+            "C. reviewing"
+          ],
+          "responseKind": "multiple-choice",
+          "blockId": "unit-01-c2-block-05",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C2. Multiple choice \u2014 Ch\u1ECDn A/B/C (6 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-c2-05",
+          "prompt": "Which form is correct for a temporary project?",
+          "options": [
+            "A. We are developing a mobile app this month.",
+            "B. We develop a mobile app this month.",
+            "C. We developed a mobile app this month."
+          ],
+          "responseKind": "multiple-choice",
+          "blockId": "unit-01-c2-block-06",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C2. Multiple choice \u2014 Ch\u1ECDn A/B/C (6 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-c2-06",
+          "prompt": "Choose the correct negative habit.",
+          "options": [
+            "A. He does not attends meetings.",
+            "B. He do not attend meetings.",
+            "C. He does not attend meetings."
+          ],
+          "responseKind": "multiple-choice",
+          "blockId": "unit-01-c2-block-07",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C2. Multiple choice \u2014 Ch\u1ECDn A/B/C (6 c\u00E2u)"
+          }
+        }
+      ],
+      "order": 10,
+      "parentSectionId": "c",
+      "originalHeading": "C2. Multiple choice \u2014 Ch\u1ECDn A/B/C (6 c\u00E2u)",
+      "sourceMarkdown": "### C2. Multiple choice \u2014 Ch\u1ECDn A/B/C (6 c\u00E2u)\n\n1. Which sentence describes a habit?\n   - A. I am writing an email now.\n   - B. I write a report every Friday.\n   - C. I am working late today.\n2. Choose the correct sentence.\n   - A. He is know the answer.\n   - B. He knows the answer.\n   - C. He knowing the answer.\n3. Which sentence fits \u201Cright now\u201D?\n   - A. They test the app right now.\n   - B. They are testing the app right now.\n   - C. They tested the app right now.\n4. Complete: Does she ___ the tickets?\n   - A. reviews\n   - B. review\n   - C. reviewing\n5. Which form is correct for a temporary project?\n   - A. We are developing a mobile app this month.\n   - B. We develop a mobile app this month.\n   - C. We developed a mobile app this month.\n6. Choose the correct negative habit.\n   - A. He does not attends meetings.\n   - B. He do not attend meetings.\n   - C. He does not attend meetings.",
+      "source": {
+        "file": "LESSONS/Unit_01.md",
+        "originalUnit": "01",
+        "originalSection": "C2. Multiple choice \u2014 Ch\u1ECDn A/B/C (6 c\u00E2u)"
+      }
+    },
+    {
+      "sectionId": "c3",
+      "title": "C3. Error correction \u2014 T\u00ECm v\u00E0 s\u1EEDa l\u1ED7i (5 c\u00E2u)",
+      "blocks": [
+        {
+          "type": "exercise-group",
+          "exerciseId": "unit-01-c3-group",
+          "title": "C3. Error correction \u2014 T\u00ECm v\u00E0 s\u1EEDa l\u1ED7i (5 c\u00E2u)",
+          "instructions": "",
+          "blockId": "unit-01-c3-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C3. Error correction \u2014 T\u00ECm v\u00E0 s\u1EEDa l\u1ED7i (5 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-c3-01",
+          "prompt": "*He work on the backend every day.*",
+          "options": [],
+          "responseKind": "error-correction",
+          "blockId": "unit-01-c3-block-02",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C3. Error correction \u2014 T\u00ECm v\u00E0 s\u1EEDa l\u1ED7i (5 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-c3-02",
+          "prompt": "*I am usually start work at eight.*",
+          "options": [],
+          "responseKind": "error-correction",
+          "blockId": "unit-01-c3-block-03",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C3. Error correction \u2014 T\u00ECm v\u00E0 s\u1EEDa l\u1ED7i (5 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-c3-03",
+          "prompt": "*Does she reviews the requirements?*",
+          "options": [],
+          "responseKind": "error-correction",
+          "blockId": "unit-01-c3-block-04",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C3. Error correction \u2014 T\u00ECm v\u00E0 s\u1EEDa l\u1ED7i (5 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-c3-04",
+          "prompt": "*We is preparing a demo now.*",
+          "options": [],
+          "responseKind": "error-correction",
+          "blockId": "unit-01-c3-block-05",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C3. Error correction \u2014 T\u00ECm v\u00E0 s\u1EEDa l\u1ED7i (5 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-c3-05",
+          "prompt": "*I am knowing the answer.*",
+          "options": [],
+          "responseKind": "error-correction",
+          "blockId": "unit-01-c3-block-06",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "C3. Error correction \u2014 T\u00ECm v\u00E0 s\u1EEDa l\u1ED7i (5 c\u00E2u)"
+          }
+        }
+      ],
+      "order": 11,
+      "parentSectionId": "c",
+      "originalHeading": "C3. Error correction \u2014 T\u00ECm v\u00E0 s\u1EEDa l\u1ED7i (5 c\u00E2u)",
+      "sourceMarkdown": "### C3. Error correction \u2014 T\u00ECm v\u00E0 s\u1EEDa l\u1ED7i (5 c\u00E2u)\n\n1. *He work on the backend every day.*\n2. *I am usually start work at eight.*\n3. *Does she reviews the requirements?*\n4. *We is preparing a demo now.*\n5. *I am knowing the answer.*",
+      "source": {
+        "file": "LESSONS/Unit_01.md",
+        "originalUnit": "01",
+        "originalSection": "C3. Error correction \u2014 T\u00ECm v\u00E0 s\u1EEDa l\u1ED7i (5 c\u00E2u)"
+      }
+    },
+    {
+      "sectionId": "d",
+      "title": "D. Vocabulary Practice \u2014 \u0110i\u1EC1n t\u1EEB (5 c\u00E2u)",
+      "blocks": [
+        {
+          "type": "exercise-group",
+          "exerciseId": "unit-01-d-group",
+          "title": "D. Vocabulary Practice \u2014 \u0110i\u1EC1n t\u1EEB (5 c\u00E2u)",
+          "instructions": "**Word bank:** \u0060deadline\u0060, \u0060colleague\u0060, \u0060requirement\u0060, \u0060priority\u0060, \u0060review\u0060 (c\u00F3 th\u1EC3 c\u1EA7n \u0111\u1ED5i d\u1EA1ng s\u1ED1 \u00EDt/s\u1ED1 nhi\u1EC1u/\u0111\u1ED9ng t\u1EEB)",
+          "blockId": "unit-01-d-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "D. Vocabulary Practice \u2014 \u0110i\u1EC1n t\u1EEB (5 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-d-01",
+          "prompt": "A person you work with is a ___.",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-01-d-block-02",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "D. Vocabulary Practice \u2014 \u0110i\u1EC1n t\u1EEB (5 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-d-02",
+          "prompt": "The date by which work must finish is a ___.",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-01-d-block-03",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "D. Vocabulary Practice \u2014 \u0110i\u1EC1n t\u1EEB (5 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-d-03",
+          "prompt": "A customer asks for a new ___ to be clarified.",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-01-d-block-04",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "D. Vocabulary Practice \u2014 \u0110i\u1EC1n t\u1EEB (5 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-d-04",
+          "prompt": "We should ___ the code before merging.",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-01-d-block-05",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "D. Vocabulary Practice \u2014 \u0110i\u1EC1n t\u1EEB (5 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-d-05",
+          "prompt": "The most important task has the highest ___.",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-01-d-block-06",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "D. Vocabulary Practice \u2014 \u0110i\u1EC1n t\u1EEB (5 c\u00E2u)"
+          }
+        }
+      ],
+      "order": 12,
+      "parentSectionId": null,
+      "originalHeading": "D. Vocabulary Practice \u2014 \u0110i\u1EC1n t\u1EEB (5 c\u00E2u)",
+      "sourceMarkdown": "## D. Vocabulary Practice \u2014 \u0110i\u1EC1n t\u1EEB (5 c\u00E2u)\n\n**Word bank:** \u0060deadline\u0060, \u0060colleague\u0060, \u0060requirement\u0060, \u0060priority\u0060, \u0060review\u0060 (c\u00F3 th\u1EC3 c\u1EA7n \u0111\u1ED5i d\u1EA1ng s\u1ED1 \u00EDt/s\u1ED1 nhi\u1EC1u/\u0111\u1ED9ng t\u1EEB)\n\n1. A person you work with is a ___.\n2. The date by which work must finish is a ___.\n3. A customer asks for a new ___ to be clarified.\n4. We should ___ the code before merging.\n5. The most important task has the highest ___.",
+      "source": {
+        "file": "LESSONS/Unit_01.md",
+        "originalUnit": "01",
+        "originalSection": "D. Vocabulary Practice \u2014 \u0110i\u1EC1n t\u1EEB (5 c\u00E2u)"
+      }
+    },
+    {
+      "sectionId": "e",
+      "title": "E. Reading \u2014 \u0110\u1ECDc hi\u1EC3u",
+      "blocks": [
+        {
+          "type": "reading",
+          "text": "**\u0110\u1ECDc \u0111o\u1EA1n sau hai l\u1EA7n.** L\u1EA7n \u0111\u1EA7u l\u1EA5y \u00FD ch\u00EDnh, l\u1EA7n hai tr\u1EA3 l\u1EDDi c\u00E2u h\u1ECFi. Kh\u00F4ng tra ngay m\u1ECDi t\u1EEB.\n\n\u003E Every morning, Linh checks her task board before the team meeting. She usually reviews pull requests after lunch. This week, however, she is helping a new customer. Today she is investigating a payment issue. Her colleague Minh is testing a fix, and their lead is preparing a short update for the customer. The team usually finishes work at six, but today they are staying a little later.",
+          "blockId": "unit-01-e-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "E. Reading \u2014 \u0110\u1ECDc hi\u1EC3u"
+          }
+        }
+      ],
+      "order": 13,
+      "parentSectionId": null,
+      "originalHeading": "E. Reading \u2014 \u0110\u1ECDc hi\u1EC3u",
+      "sourceMarkdown": "## E. Reading \u2014 \u0110\u1ECDc hi\u1EC3u\n\n**\u0110\u1ECDc \u0111o\u1EA1n sau hai l\u1EA7n.** L\u1EA7n \u0111\u1EA7u l\u1EA5y \u00FD ch\u00EDnh, l\u1EA7n hai tr\u1EA3 l\u1EDDi c\u00E2u h\u1ECFi. Kh\u00F4ng tra ngay m\u1ECDi t\u1EEB.\n\n\u003E Every morning, Linh checks her task board before the team meeting. She usually reviews pull requests after lunch. This week, however, she is helping a new customer. Today she is investigating a payment issue. Her colleague Minh is testing a fix, and their lead is preparing a short update for the customer. The team usually finishes work at six, but today they are staying a little later.",
+      "source": {
+        "file": "LESSONS/Unit_01.md",
+        "originalUnit": "01",
+        "originalSection": "E. Reading \u2014 \u0110\u1ECDc hi\u1EC3u"
+      }
+    },
+    {
+      "sectionId": "reading-questions",
+      "title": "Reading questions \u2014 Tr\u1EA3 l\u1EDDi b\u1EB1ng ti\u1EBFng Anh (5 c\u00E2u)",
+      "blocks": [
+        {
+          "type": "exercise-group",
+          "exerciseId": "unit-01-e-group",
+          "title": "Reading questions \u2014 Tr\u1EA3 l\u1EDDi b\u1EB1ng ti\u1EBFng Anh (5 c\u00E2u)",
+          "instructions": "",
+          "blockId": "unit-01-reading-questions-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "Reading questions \u2014 Tr\u1EA3 l\u1EDDi b\u1EB1ng ti\u1EBFng Anh (5 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-e-01",
+          "prompt": "What does Linh do every morning?",
+          "options": [],
+          "responseKind": "reading-response",
+          "blockId": "unit-01-reading-questions-block-02",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "Reading questions \u2014 Tr\u1EA3 l\u1EDDi b\u1EB1ng ti\u1EBFng Anh (5 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-e-02",
+          "prompt": "What does she usually do after lunch?",
+          "options": [],
+          "responseKind": "reading-response",
+          "blockId": "unit-01-reading-questions-block-03",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "Reading questions \u2014 Tr\u1EA3 l\u1EDDi b\u1EB1ng ti\u1EBFng Anh (5 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-e-03",
+          "prompt": "Why is this week different?",
+          "options": [],
+          "responseKind": "reading-response",
+          "blockId": "unit-01-reading-questions-block-04",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "Reading questions \u2014 Tr\u1EA3 l\u1EDDi b\u1EB1ng ti\u1EBFng Anh (5 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-e-04",
+          "prompt": "What is Minh doing?",
+          "options": [],
+          "responseKind": "reading-response",
+          "blockId": "unit-01-reading-questions-block-05",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "Reading questions \u2014 Tr\u1EA3 l\u1EDDi b\u1EB1ng ti\u1EBFng Anh (5 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-01-e-05",
+          "prompt": "Are they leaving at their usual time today?",
+          "options": [],
+          "responseKind": "reading-response",
+          "blockId": "unit-01-reading-questions-block-06",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "Reading questions \u2014 Tr\u1EA3 l\u1EDDi b\u1EB1ng ti\u1EBFng Anh (5 c\u00E2u)"
+          }
+        }
+      ],
+      "order": 14,
+      "parentSectionId": "e",
+      "originalHeading": "Reading questions \u2014 Tr\u1EA3 l\u1EDDi b\u1EB1ng ti\u1EBFng Anh (5 c\u00E2u)",
+      "sourceMarkdown": "### Reading questions \u2014 Tr\u1EA3 l\u1EDDi b\u1EB1ng ti\u1EBFng Anh (5 c\u00E2u)\n\n1. What does Linh do every morning?\n2. What does she usually do after lunch?\n3. Why is this week different?\n4. What is Minh doing?\n5. Are they leaving at their usual time today?",
+      "source": {
+        "file": "LESSONS/Unit_01.md",
+        "originalUnit": "01",
+        "originalSection": "Reading questions \u2014 Tr\u1EA3 l\u1EDDi b\u1EB1ng ti\u1EBFng Anh (5 c\u00E2u)"
+      }
+    },
+    {
+      "sectionId": "f",
+      "title": "F. Writing \u2014 B\u00E0i vi\u1EBFt c\u00F3 ch\u1EA5m \u0111i\u1EC3m",
+      "blocks": [
+        {
+          "type": "writing",
+          "exerciseId": "unit-01-f-writing",
+          "prompt": "Vi\u1EBFt 70\u2013100 t\u1EEB m\u00F4 t\u1EA3 ng\u00E0y l\u00E0m vi\u1EC7c \u0111i\u1EC3n h\u00ECnh v\u00E0 vi\u1EC7c b\u1EA1n \u0111ang th\u1EF1c hi\u1EC7n tu\u1EA7n n\u00E0y. D\u00F9ng \u00EDt nh\u1EA5t 3 c\u00E2u Present Simple v\u00E0 3 c\u00E2u Present Continuous.\n\n**Rubric / Ti\u00EAu ch\u00ED:** N\u1ED9i dung 40%, d\u00F9ng \u0111\u00FAng ng\u1EEF ph\u00E1p b\u00E0i h\u1ECDc 35%, t\u1EEB v\u1EF1ng v\u00E0 s\u1EF1 r\u00F5 r\u00E0ng 25%. GPT ph\u1EA3i nh\u1EADn x\u00E9t b\u1EB1ng ti\u1EBFng Vi\u1EC7t, n\u00EAu phi\u00EAn b\u1EA3n s\u1EEDa **sau** khi h\u1ECDc vi\u00EAn n\u1ED9p b\u00E0i, kh\u00F4ng vi\u1EBFt h\u1ED9 tr\u01B0\u1EDBc.",
+          "blockId": "unit-01-f-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "F. Writing \u2014 B\u00E0i vi\u1EBFt c\u00F3 ch\u1EA5m \u0111i\u1EC3m"
+          }
+        }
+      ],
+      "order": 15,
+      "parentSectionId": null,
+      "originalHeading": "F. Writing \u2014 B\u00E0i vi\u1EBFt c\u00F3 ch\u1EA5m \u0111i\u1EC3m",
+      "sourceMarkdown": "## F. Writing \u2014 B\u00E0i vi\u1EBFt c\u00F3 ch\u1EA5m \u0111i\u1EC3m\n\nVi\u1EBFt 70\u2013100 t\u1EEB m\u00F4 t\u1EA3 ng\u00E0y l\u00E0m vi\u1EC7c \u0111i\u1EC3n h\u00ECnh v\u00E0 vi\u1EC7c b\u1EA1n \u0111ang th\u1EF1c hi\u1EC7n tu\u1EA7n n\u00E0y. D\u00F9ng \u00EDt nh\u1EA5t 3 c\u00E2u Present Simple v\u00E0 3 c\u00E2u Present Continuous.\n\n**Rubric / Ti\u00EAu ch\u00ED:** N\u1ED9i dung 40%, d\u00F9ng \u0111\u00FAng ng\u1EEF ph\u00E1p b\u00E0i h\u1ECDc 35%, t\u1EEB v\u1EF1ng v\u00E0 s\u1EF1 r\u00F5 r\u00E0ng 25%. GPT ph\u1EA3i nh\u1EADn x\u00E9t b\u1EB1ng ti\u1EBFng Vi\u1EC7t, n\u00EAu phi\u00EAn b\u1EA3n s\u1EEDa **sau** khi h\u1ECDc vi\u00EAn n\u1ED9p b\u00E0i, kh\u00F4ng vi\u1EBFt h\u1ED9 tr\u01B0\u1EDBc.",
+      "source": {
+        "file": "LESSONS/Unit_01.md",
+        "originalUnit": "01",
+        "originalSection": "F. Writing \u2014 B\u00E0i vi\u1EBFt c\u00F3 ch\u1EA5m \u0111i\u1EC3m"
+      }
+    },
+    {
+      "sectionId": "g",
+      "title": "G. Voice \u0026 Speaking \u2014 K\u1ECBch b\u1EA3n luy\u1EC7n n\u00F3i",
+      "blocks": [
+        {
+          "type": "explanation",
+          "text": "**Kh\u00F4ng c\u00F3 file audio \u0111\u00EDnh k\u00E8m.** D\u00F9ng Voice c\u1EE7a ChatGPT \u0111\u1EC3 t\u1EA1o ph\u1EA7n h\u1ED9i tho\u1EA1i b\u1EB1ng \u00E2m thanh; n\u1EBFu kh\u00F4ng b\u1EADt Voice, ch\u1EC9 t\u00EDnh l\u00E0 text role-play v\u00E0 reading, **kh\u00F4ng t\u00EDnh listening**.",
+          "blockId": "unit-01-g-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "G. Voice \u0026 Speaking \u2014 K\u1ECBch b\u1EA3n luy\u1EC7n n\u00F3i"
+          }
+        }
+      ],
+      "order": 16,
+      "parentSectionId": null,
+      "originalHeading": "G. Voice \u0026 Speaking \u2014 K\u1ECBch b\u1EA3n luy\u1EC7n n\u00F3i",
+      "sourceMarkdown": "## G. Voice \u0026 Speaking \u2014 K\u1ECBch b\u1EA3n luy\u1EC7n n\u00F3i\n\n**Kh\u00F4ng c\u00F3 file audio \u0111\u00EDnh k\u00E8m.** D\u00F9ng Voice c\u1EE7a ChatGPT \u0111\u1EC3 t\u1EA1o ph\u1EA7n h\u1ED9i tho\u1EA1i b\u1EB1ng \u00E2m thanh; n\u1EBFu kh\u00F4ng b\u1EADt Voice, ch\u1EC9 t\u00EDnh l\u00E0 text role-play v\u00E0 reading, **kh\u00F4ng t\u00EDnh listening**.",
+      "source": {
+        "file": "LESSONS/Unit_01.md",
+        "originalUnit": "01",
+        "originalSection": "G. Voice \u0026 Speaking \u2014 K\u1ECBch b\u1EA3n luy\u1EC7n n\u00F3i"
+      }
+    },
+    {
+      "sectionId": "g1",
+      "title": "G1. Pronunciation warm-up \u2014 Kh\u1EDFi \u0111\u1ED9ng ph\u00E1t \u00E2m",
+      "blocks": [
+        {
+          "type": "speaking",
+          "exerciseId": "unit-01-g1-speaking",
+          "prompt": "- Ch\u1ECDn 5 t\u1EEB t\u1EEB b\u1EA3ng A; nghe GPT \u0111\u1ECDc m\u1EABu t\u1EEBng t\u1EEB (n\u1EBFu c\u00F3 Voice).\n- N\u00F3i l\u1EA1i v\u00E0 \u0111\u1EB7t 1 c\u00E2u m\u1ED7i t\u1EEB.\n- GPT ch\u1EC9 nh\u1EADn x\u00E9t ph\u00E1t \u00E2m n\u1EBFu th\u1EF1c s\u1EF1 c\u00F3 d\u1EEF li\u1EC7u \u00E2m thanh \u0111\u1EE7 tin c\u1EADy.",
+          "blockId": "unit-01-g1-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "G1. Pronunciation warm-up \u2014 Kh\u1EDFi \u0111\u1ED9ng ph\u00E1t \u00E2m"
+          }
+        }
+      ],
+      "order": 17,
+      "parentSectionId": "g",
+      "originalHeading": "G1. Pronunciation warm-up \u2014 Kh\u1EDFi \u0111\u1ED9ng ph\u00E1t \u00E2m",
+      "sourceMarkdown": "### G1. Pronunciation warm-up \u2014 Kh\u1EDFi \u0111\u1ED9ng ph\u00E1t \u00E2m\n\n- Ch\u1ECDn 5 t\u1EEB t\u1EEB b\u1EA3ng A; nghe GPT \u0111\u1ECDc m\u1EABu t\u1EEBng t\u1EEB (n\u1EBFu c\u00F3 Voice).\n- N\u00F3i l\u1EA1i v\u00E0 \u0111\u1EB7t 1 c\u00E2u m\u1ED7i t\u1EEB.\n- GPT ch\u1EC9 nh\u1EADn x\u00E9t ph\u00E1t \u00E2m n\u1EBFu th\u1EF1c s\u1EF1 c\u00F3 d\u1EEF li\u1EC7u \u00E2m thanh \u0111\u1EE7 tin c\u1EADy.",
+      "source": {
+        "file": "LESSONS/Unit_01.md",
+        "originalUnit": "01",
+        "originalSection": "G1. Pronunciation warm-up \u2014 Kh\u1EDFi \u0111\u1ED9ng ph\u00E1t \u00E2m"
+      }
+    },
+    {
+      "sectionId": "g2",
+      "title": "G2. Guided role-play \u2014 H\u1ED9i tho\u1EA1i c\u00F3 h\u01B0\u1EDBng d\u1EABn",
+      "blocks": [
+        {
+          "type": "speaking",
+          "exerciseId": "unit-01-g2-speaking",
+          "prompt": "- **Role for GPT (English):** You are a teammate in a daily stand-up. Ask about routine duties, today\u2019s task and one blocker. Ask one question at a time.\n- **Gi\u1EA3i th\u00EDch ti\u1EBFng Vi\u1EC7t:** B\u1EA1n l\u00E0 \u0111\u1ED3ng nghi\u1EC7p trong daily stand-up. H\u1ECFi v\u1EC1 c\u00F4ng vi\u1EC7c th\u01B0\u1EDDng l\u1EC7, vi\u1EC7c h\u00F4m nay v\u00E0 m\u1ED9t tr\u1EDF ng\u1EA1i. M\u1ED7i l\u01B0\u1EE3t ch\u1EC9 h\u1ECFi m\u1ED9t c\u00E2u.\n- **Ph\u01B0\u01A1ng ph\u00E1p:** GPT h\u1ECFi **m\u1ED7i l\u01B0\u1EE3t m\u1ED9t c\u00E2u**, ch\u1EDD c\u00E2u tr\u1EA3 l\u1EDDi, h\u1ECFi ti\u1EBFp t\u1EF1 nhi\u00EAn. Kh\u00F4ng \u0111\u01B0a to\u00E0n b\u1ED9 h\u1ED9i tho\u1EA1i m\u1EABu tr\u01B0\u1EDBc.\n- **Feedback cu\u1ED1i:** 1 \u0111i\u1EC3m t\u1ED1t; 2 \u0111i\u1EC3m c\u1EA7n s\u1EEDa; 3 t\u1EEB/c\u1EE5m t\u1EEB n\u00EAn h\u1ECDc th\u00EAm; 1 c\u00E2u t\u1EF1 nhi\u00EAn h\u01A1n.",
+          "blockId": "unit-01-g2-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "G2. Guided role-play \u2014 H\u1ED9i tho\u1EA1i c\u00F3 h\u01B0\u1EDBng d\u1EABn"
+          }
+        }
+      ],
+      "order": 18,
+      "parentSectionId": "g",
+      "originalHeading": "G2. Guided role-play \u2014 H\u1ED9i tho\u1EA1i c\u00F3 h\u01B0\u1EDBng d\u1EABn",
+      "sourceMarkdown": "### G2. Guided role-play \u2014 H\u1ED9i tho\u1EA1i c\u00F3 h\u01B0\u1EDBng d\u1EABn\n\n- **Role for GPT (English):** You are a teammate in a daily stand-up. Ask about routine duties, today\u2019s task and one blocker. Ask one question at a time.\n- **Gi\u1EA3i th\u00EDch ti\u1EBFng Vi\u1EC7t:** B\u1EA1n l\u00E0 \u0111\u1ED3ng nghi\u1EC7p trong daily stand-up. H\u1ECFi v\u1EC1 c\u00F4ng vi\u1EC7c th\u01B0\u1EDDng l\u1EC7, vi\u1EC7c h\u00F4m nay v\u00E0 m\u1ED9t tr\u1EDF ng\u1EA1i. M\u1ED7i l\u01B0\u1EE3t ch\u1EC9 h\u1ECFi m\u1ED9t c\u00E2u.\n- **Ph\u01B0\u01A1ng ph\u00E1p:** GPT h\u1ECFi **m\u1ED7i l\u01B0\u1EE3t m\u1ED9t c\u00E2u**, ch\u1EDD c\u00E2u tr\u1EA3 l\u1EDDi, h\u1ECFi ti\u1EBFp t\u1EF1 nhi\u00EAn. Kh\u00F4ng \u0111\u01B0a to\u00E0n b\u1ED9 h\u1ED9i tho\u1EA1i m\u1EABu tr\u01B0\u1EDBc.\n- **Feedback cu\u1ED1i:** 1 \u0111i\u1EC3m t\u1ED1t; 2 \u0111i\u1EC3m c\u1EA7n s\u1EEDa; 3 t\u1EEB/c\u1EE5m t\u1EEB n\u00EAn h\u1ECDc th\u00EAm; 1 c\u00E2u t\u1EF1 nhi\u00EAn h\u01A1n.",
+      "source": {
+        "file": "LESSONS/Unit_01.md",
+        "originalUnit": "01",
+        "originalSection": "G2. Guided role-play \u2014 H\u1ED9i tho\u1EA1i c\u00F3 h\u01B0\u1EDBng d\u1EABn"
+      }
+    },
+    {
+      "sectionId": "g3",
+      "title": "G3. Listening comprehension \u2014 Nghe hi\u1EC3u c\u00F3 ki\u1EC3m ch\u1EE9ng",
+      "blocks": [
+        {
+          "type": "listening",
+          "exerciseId": "unit-01-g3-listening",
+          "prompt": "- B\u1EA3o GPT **n\u00F3i** m\u1ED9t \u0111o\u1EA1n 45\u201375 gi\u00E2y v\u1EC1 ch\u1EE7 \u0111\u1EC1 Unit m\u00E0 **kh\u00F4ng hi\u1EC7n transcript tr\u01B0\u1EDBc**.\n- Sau khi nghe, ng\u01B0\u1EDDi h\u1ECDc t\u00F3m t\u1EAFt \u00FD ch\u00EDnh v\u00E0 tr\u1EA3 l\u1EDDi 3 c\u00E2u h\u1ECFi do GPT \u0111\u1EB7t.\n- N\u1EBFu thi\u1EBFt b\u1ECB ch\u1EC9 hi\u1EC3n th\u1ECB transcript ho\u1EB7c thi\u1EBFu \u00E2m thanh, kh\u00F4ng ch\u1EA5m l\u00E0 listening; chuy\u1EC3n th\u00E0nh \u0111\u1ECDc hi\u1EC3u.\n\n**L\u1EC7nh Voice m\u1EABu:** \u0060Voice Partner Mode, Unit XX. Ask one question at a time. Speak naturally at A2\u002B/B1 pace. Explain in Vietnamese only when I ask. Give feedback at the end.\u0060",
+          "blockId": "unit-01-g3-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "G3. Listening comprehension \u2014 Nghe hi\u1EC3u c\u00F3 ki\u1EC3m ch\u1EE9ng"
+          }
+        }
+      ],
+      "order": 19,
+      "parentSectionId": "g",
+      "originalHeading": "G3. Listening comprehension \u2014 Nghe hi\u1EC3u c\u00F3 ki\u1EC3m ch\u1EE9ng",
+      "sourceMarkdown": "### G3. Listening comprehension \u2014 Nghe hi\u1EC3u c\u00F3 ki\u1EC3m ch\u1EE9ng\n\n- B\u1EA3o GPT **n\u00F3i** m\u1ED9t \u0111o\u1EA1n 45\u201375 gi\u00E2y v\u1EC1 ch\u1EE7 \u0111\u1EC1 Unit m\u00E0 **kh\u00F4ng hi\u1EC7n transcript tr\u01B0\u1EDBc**.\n- Sau khi nghe, ng\u01B0\u1EDDi h\u1ECDc t\u00F3m t\u1EAFt \u00FD ch\u00EDnh v\u00E0 tr\u1EA3 l\u1EDDi 3 c\u00E2u h\u1ECFi do GPT \u0111\u1EB7t.\n- N\u1EBFu thi\u1EBFt b\u1ECB ch\u1EC9 hi\u1EC3n th\u1ECB transcript ho\u1EB7c thi\u1EBFu \u00E2m thanh, kh\u00F4ng ch\u1EA5m l\u00E0 listening; chuy\u1EC3n th\u00E0nh \u0111\u1ECDc hi\u1EC3u.\n\n**L\u1EC7nh Voice m\u1EABu:** \u0060Voice Partner Mode, Unit XX. Ask one question at a time. Speak naturally at A2\u002B/B1 pace. Explain in Vietnamese only when I ask. Give feedback at the end.\u0060",
+      "source": {
+        "file": "LESSONS/Unit_01.md",
+        "originalUnit": "01",
+        "originalSection": "G3. Listening comprehension \u2014 Nghe hi\u1EC3u c\u00F3 ki\u1EC3m ch\u1EE9ng"
+      }
+    },
+    {
+      "sectionId": "h",
+      "title": "H. Unit Test \u2014 \u0110i\u1EC1u ki\u1EC7n ho\u00E0n th\u00E0nh",
+      "blocks": [
+        {
+          "type": "review",
+          "text": "- Grammar: **__/23** (C1\u002BC2\u002BC3)\n- Vocabulary: **__/5** (D)\n- Reading: **__/5** (E)\n- Writing: **\u0110\u1EA1t / C\u1EA7n \u00F4n / Ch\u01B0a l\u00E0m**\n- Voice speaking: **\u0110\u1EA1t / C\u1EA7n \u00F4n / Ch\u01B0a l\u00E0m**\n- Listening: **\u0110\u1EA1t / C\u1EA7n \u00F4n / Ch\u01B0a \u0111\u00E1nh gi\u00E1**\n\nG\u1EE3i \u00FD chuy\u1EC3n Unit khi grammar v\u00E0 vocab \u0111\u1EA1t \u226580% ngay sau l\u00E0m b\u00E0i \u0111\u1ED9c l\u1EADp (v\u00E0 hi\u1EC3u \u0111\u01B0\u1EE3c l\u1ED7i), reading \u22654/5; ho\u00E0n th\u00E0nh writing \u002B m\u1ED9t ho\u1EA1t \u0111\u1ED9ng speaking. \u0110i\u1EC3m kh\u00F4ng ph\u1EA3i ch\u1EE9ng nh\u1EADn CEFR.",
+          "blockId": "unit-01-h-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "H. Unit Test \u2014 \u0110i\u1EC1u ki\u1EC7n ho\u00E0n th\u00E0nh"
+          }
+        }
+      ],
+      "order": 20,
+      "parentSectionId": null,
+      "originalHeading": "H. Unit Test \u2014 \u0110i\u1EC1u ki\u1EC7n ho\u00E0n th\u00E0nh",
+      "sourceMarkdown": "## H. Unit Test \u2014 \u0110i\u1EC1u ki\u1EC7n ho\u00E0n th\u00E0nh\n\n- Grammar: **__/23** (C1\u002BC2\u002BC3)\n- Vocabulary: **__/5** (D)\n- Reading: **__/5** (E)\n- Writing: **\u0110\u1EA1t / C\u1EA7n \u00F4n / Ch\u01B0a l\u00E0m**\n- Voice speaking: **\u0110\u1EA1t / C\u1EA7n \u00F4n / Ch\u01B0a l\u00E0m**\n- Listening: **\u0110\u1EA1t / C\u1EA7n \u00F4n / Ch\u01B0a \u0111\u00E1nh gi\u00E1**\n\nG\u1EE3i \u00FD chuy\u1EC3n Unit khi grammar v\u00E0 vocab \u0111\u1EA1t \u226580% ngay sau l\u00E0m b\u00E0i \u0111\u1ED9c l\u1EADp (v\u00E0 hi\u1EC3u \u0111\u01B0\u1EE3c l\u1ED7i), reading \u22654/5; ho\u00E0n th\u00E0nh writing \u002B m\u1ED9t ho\u1EA1t \u0111\u1ED9ng speaking. \u0110i\u1EC3m kh\u00F4ng ph\u1EA3i ch\u1EE9ng nh\u1EADn CEFR.",
+      "source": {
+        "file": "LESSONS/Unit_01.md",
+        "originalUnit": "01",
+        "originalSection": "H. Unit Test \u2014 \u0110i\u1EC1u ki\u1EC7n ho\u00E0n th\u00E0nh"
+      }
+    },
+    {
+      "sectionId": "i",
+      "title": "I. Homework \u0026 Spaced Review \u2014 B\u00E0i v\u1EC1 nh\u00E0 v\u00E0 \u00F4n l\u1EB7p l\u1EA1i",
+      "blocks": [
+        {
+          "type": "homework",
+          "text": "1. T\u1EF1 \u0111\u1EB7t 8 c\u00E2u s\u1EED d\u1EE5ng t\u1EEB v\u1EF1ng Unit n\u00E0y (4 c\u00E2u \u0111\u1EDDi s\u1ED1ng, 4 c\u00E2u c\u00F4ng vi\u1EC7c).\n2. Vi\u1EBFt 5 c\u00E2u c\u00F3 c\u1EA5u tr\u00FAc ng\u1EEF ph\u00E1p m\u1EE5c ti\u00EAu.\n3. Luy\u1EC7n Voice 5\u201310 ph\u00FAt n\u1EBFu c\u00F3 \u0111i\u1EC1u ki\u1EC7n; ghi l\u1EA1i 3 \u0111i\u1EC3m m\u00ECnh n\u00F3i ch\u01B0a t\u1EF1 nhi\u00EAn.\n4. \u00D4n 10 t\u1EEB kh\u00F3 sau 1 ng\u00E0y, 3 ng\u00E0y, 7 ng\u00E0y, 14 ng\u00E0y v\u00E0 c\u1EADp nh\u1EADt \u0060TRACKING/PROGRESS.md\u0060.",
+          "blockId": "unit-01-i-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_01.md",
+            "originalUnit": "01",
+            "originalSection": "I. Homework \u0026 Spaced Review \u2014 B\u00E0i v\u1EC1 nh\u00E0 v\u00E0 \u00F4n l\u1EB7p l\u1EA1i"
+          }
+        }
+      ],
+      "order": 21,
+      "parentSectionId": null,
+      "originalHeading": "I. Homework \u0026 Spaced Review \u2014 B\u00E0i v\u1EC1 nh\u00E0 v\u00E0 \u00F4n l\u1EB7p l\u1EA1i",
+      "sourceMarkdown": "## I. Homework \u0026 Spaced Review \u2014 B\u00E0i v\u1EC1 nh\u00E0 v\u00E0 \u00F4n l\u1EB7p l\u1EA1i\n\n1. T\u1EF1 \u0111\u1EB7t 8 c\u00E2u s\u1EED d\u1EE5ng t\u1EEB v\u1EF1ng Unit n\u00E0y (4 c\u00E2u \u0111\u1EDDi s\u1ED1ng, 4 c\u00E2u c\u00F4ng vi\u1EC7c).\n2. Vi\u1EBFt 5 c\u00E2u c\u00F3 c\u1EA5u tr\u00FAc ng\u1EEF ph\u00E1p m\u1EE5c ti\u00EAu.\n3. Luy\u1EC7n Voice 5\u201310 ph\u00FAt n\u1EBFu c\u00F3 \u0111i\u1EC1u ki\u1EC7n; ghi l\u1EA1i 3 \u0111i\u1EC3m m\u00ECnh n\u00F3i ch\u01B0a t\u1EF1 nhi\u00EAn.\n4. \u00D4n 10 t\u1EEB kh\u00F3 sau 1 ng\u00E0y, 3 ng\u00E0y, 7 ng\u00E0y, 14 ng\u00E0y v\u00E0 c\u1EADp nh\u1EADt \u0060TRACKING/PROGRESS.md\u0060.",
+      "source": {
+        "file": "LESSONS/Unit_01.md",
+        "originalUnit": "01",
+        "originalSection": "I. Homework \u0026 Spaced Review \u2014 B\u00E0i v\u1EC1 nh\u00E0 v\u00E0 \u00F4n l\u1EB7p l\u1EA1i"
+      }
+    }
+  ],
+  "kind": "standard",
+  "objectives": [
+    "M\u00F4 t\u1EA3 th\u00F3i quen l\u00E0m vi\u1EC7c v\u00E0 vi\u1EC7c \u0111ang l\u00E0m.",
+    "Ph\u00E2n bi\u1EC7t hi\u1EC7n t\u1EA1i \u0111\u01A1n v\u00E0 ti\u1EBFp di\u1EC5n.",
+    "H\u1ECFi/\u0111\u00E1p c\u00E2u h\u1ECFi v\u1EC1 daily stand-up."
+  ],
+  "reviewScheduleDays": [
+    1,
+    3,
+    7,
+    14
+  ],
+  "source": {
+    "file": "LESSONS/Unit_01.md",
+    "originalUnit": "01",
+    "originalSection": "UNIT 01 \u2014 A Typical Day at Work"
+  }
+}

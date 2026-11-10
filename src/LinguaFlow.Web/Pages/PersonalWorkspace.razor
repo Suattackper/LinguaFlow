@@ -1,0 +1,60 @@
+@page "/courses/{CourseId}/workspace"
+@using System.Text.Json
+@using LinguaFlow.Core.Progress
+@using LinguaFlow.Core.Vocabulary
+@inject CourseCatalogService Catalog
+@inject CourseManifestService Manifests
+@inject VocabularyContentService Vocabulary
+@inject LearningRepository Store
+@inject IReaderWorkspace ReaderWorkspace
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<PageTitle>@T["PersonalWorkspace"] - LinguaFlow</PageTitle>
+<NavLink class="back-link" href="@($"courses/{CourseId}")">← @T["BackToCourse"]</NavLink>
+<PageHeading Eyebrow="LinguaFlow" Title="@T["PersonalWorkspace"]" Description="@T["WorkspacePrivateHint"]" />
+@if (_loading) { <StateMessage Kind="loading" Title="@T["LoadingCourses"]" /> }
+else if (_error is not null) { <StateMessage Kind="error" Title="@T["CourseLoadError"]" Description="@_error" /> }
+else
+{
+    <div class="workspace-filter"><label>@T["Search"] <input type="search" @bind="_search" @bind:event="oninput" /></label><label>@T["Filter"] <select @bind="_filter"><option value="all">@T["All"]</option><option value="notes">@T["PersonalNotes"]</option><option value="bookmarks">@T["Bookmarks"]</option><option value="examples">@T["SavedExamples"]</option><option value="drafts">@T["WritingDrafts"]</option><option value="favorites">@T["FavoriteWords"]</option></select></label></div>
+    @if (Visible.Count == 0) { <StateMessage Kind="empty" Title="@T["WorkspaceEmpty"]" /> }
+    else { <div class="workspace-grid">@foreach (var item in Visible) { <article class="info-panel"><small>@T[item.Kind] · @item.UnitId</small>@if (item.Kind == "notes") { <label>@T["PersonalNotes"] <textarea rows="4" value="@item.Text" @onchange="e => SaveNote(item, e)"></textarea></label> } else { <p>@item.Text</p> }@if (item.SectionId is not null) { <NavLink href="@($"courses/{CourseId}/units/{item.UnitId}#{item.SectionId}")">@T["OpenUnit"] →</NavLink> } else if (item.UnitId.Length > 0) { <NavLink href="@($"courses/{CourseId}/units/{item.UnitId}")">@T["OpenUnit"] →</NavLink> }</article> }</div> }
+}
+@code {
+    [Parameter] public string CourseId { get; set; } = "";
+    private sealed record Item(string Kind, string UnitId, string? SectionId, string Text, string Id = "");
+    private readonly List<Item> _items = [];
+    private string _search = "", _filter = "all"; private bool _loading = true; private string? _error;
+    private List<Item> Visible => _items.Where(i => (_filter == "all" || _filter == i.Kind) && (string.IsNullOrWhiteSpace(_search) || i.Text.Contains(_search, StringComparison.OrdinalIgnoreCase) || i.UnitId.Contains(_search, StringComparison.OrdinalIgnoreCase))).ToList();
+    protected override async Task OnParametersSetAsync()
+    {
+        _loading = true; _items.Clear(); _error = null;
+        try
+        {
+            var entry = await Catalog.FindAvailableAsync(CourseId) ?? throw new CourseContentException(T["CourseUnavailable"]);
+            var manifest = await Manifests.GetManifestAsync(entry);
+            var words = (await Vocabulary.GetAsync(entry, manifest)).Entries.ToDictionary(w => w.VocabularyId);
+            foreach (var record in await Store.GetCourseAsync(CourseId))
+            {
+                if (record.UnitId is null) continue;
+                try
+                {
+                    if (record.Kind == LearningRecordKind.Note && record.Data.ValueKind == JsonValueKind.String) _items.Add(new("notes", record.UnitId, record.SectionId, record.Data.GetString() ?? "", record.Id));
+                    else if (record.Kind == LearningRecordKind.CourseSetting && record.Id.StartsWith("saved-example-", StringComparison.Ordinal) && record.Data.ValueKind == JsonValueKind.String) _items.Add(new("examples", record.UnitId, record.SectionId, record.Data.GetString() ?? ""));
+                    else if (record.Kind == LearningRecordKind.Bookmark) _items.Add(new("bookmarks", record.UnitId, record.SectionId, record.SectionId ?? record.UnitId));
+                    else if (record.Kind == LearningRecordKind.WritingDraft && record.Data.ValueKind == JsonValueKind.String) _items.Add(new("drafts", record.UnitId, null, record.Data.GetString() ?? ""));
+                    else if (record.Kind == LearningRecordKind.VocabularyState && record.Data.Deserialize<VocabularyReviewState>() is { Favorite: true } word) _items.Add(new("favorites", record.UnitId, null, (words.TryGetValue(word.VocabularyId, out var source) ? source.Term + " — " + source.Vietnamese : word.VocabularyId) + (word.Note.Length > 0 ? " · " + word.Note : "")));
+                }
+                catch (JsonException) { }
+            }
+        }
+        catch (Exception ex) when (ex is CourseContentException or LearningStorageException or HttpRequestException) { _error = ex.Message; }
+        finally { _loading = false; }
+    }
+    private async Task SaveNote(Item item, ChangeEventArgs e)
+    {
+        if (item.SectionId is null) return;
+        var value = e.Value?.ToString() ?? "";
+        try { await ReaderWorkspace.LoadCourseAsync(CourseId); await ReaderWorkspace.SetNoteAsync(CourseId, item.UnitId, item.SectionId, value); await ReaderWorkspace.FlushAsync(); if (ReaderWorkspace.StorageError is not null) { _error = ReaderWorkspace.StorageError; return; } var index = _items.IndexOf(item); if (index >= 0) _items[index] = item with { Text = value }; }
+        catch (LearningStorageException ex) { _error = ex.Message; }
+    }
+}

@@ -1,0 +1,125 @@
+@page "/courses/{CourseId}/backup"
+@using System.Text.Json
+@implements IDisposable
+@inject CourseCatalogService CatalogService
+@inject CourseManifestService ManifestService
+@inject CourseBackupService Backups
+@inject LearningRepository Repository
+@inject IReaderWorkspace Workspace
+@inject IDialogService DialogService
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<PageTitle>@T["CourseBackup"] - LinguaFlow</PageTitle>
+@if (_loading) { <StateMessage Kind="loading" Title="@T["LoadingCourses"]" /> }
+else if (_error is not null) { <StateMessage Kind="error" Title="@T["CourseLoadError"]" Description="@_error" /> }
+else if (_manifest is not null)
+{
+    <NavLink class="back-link" href="@($"courses/{CourseId}")">← @T["BackToCourse"]</NavLink>
+    <PageHeading Eyebrow="@T["CourseBackup"]" Title="@_manifest.Title" Description="@T["BackupDescription"]" />
+    <p class="content-warning">@T["BackupPrivacy"]</p>
+    <NavLink class="reader-control" href="help#backup">@T["Help"] →</NavLink>
+    @if (_message is not null) { <p role="status" class="backup-message">@_message</p> }
+    @if (_storageError is not null) { <p role="alert" class="content-warning">@_storageError</p> }
+    <div class="backup-grid">
+        <section class="info-panel"><h2>@T["ExportProgress"]</h2><p>@T["ExportSummary"]</p><p>@T["LastBackup"]: @(_lastBackup?.ToLocalTime().ToString("g") ?? T["Never"])</p><button type="button" class="button course-action" @onclick="Export" disabled="@_busy">@T["DownloadBackup"]</button></section>
+        <section class="info-panel"><h2>@T["ImportProgress"]</h2><p>@T["ImportHint"]</p><InputFile OnChange="ChooseFile" accept=".json,application/json" /><p class="activity-count">@T["MaximumFileSize"]: 5 MB</p></section>
+    </div>
+    @if (_preview is not null)
+    {
+        <section class="info-panel"><h2>@T["ImportPreview"]</h2>
+        @if (_preview.Errors.Count > 0) { <ul class="content-warning" role="alert">@foreach (var error in _preview.Errors) { <li>@error</li> }</ul> }
+        else
+        {
+            <dl class="backup-summary"><div><dt>@T["CourseCatalog"]</dt><dd>@_preview.Backup.CourseId</dd></div><div><dt>@T["ContentVersion"]</dt><dd>@_preview.Backup.ContentVersion</dd></div><div><dt>@T["ExportedAt"]</dt><dd>@_preview.Backup.ExportedAt.ToLocalTime().ToString("g")</dd></div><div><dt>@T["IncomingRecords"]</dt><dd>@_preview.IncomingCount</dd></div><div><dt>@T["ExistingRecords"]</dt><dd>@_preview.ExistingCount</dd></div></dl>
+            <p class="content-warning">@T["ReplaceWarning"]</p><button type="button" class="button course-action" @onclick="ConfirmImport" disabled="@_busy">@T["ReplaceProgress"]</button>
+        }
+        </section>
+    }
+    <section class="info-panel"><h2>@T["StorageStatus"]</h2><p>@T["ManualReminder"]</p>@if (_estimate is not null) { <p>@T["StorageUsage"]: @(_estimate.Usage / 1024 / 1024) MB / @(_estimate.Quota / 1024 / 1024) MB</p> }<button type="button" class="reader-control" @onclick="RefreshStatus">@T["RefreshStatus"]</button></section>
+    <section class="info-panel"><h2>@T["RecoveryAndReset"]</h2>@if (_snapshot is not null) { <p>@T["RecoverySnapshot"]: @_snapshot.Records.Count @T["Records"] (@_snapshot.CreatedAt.ToLocalTime().ToString("g"))</p><button type="button" class="reader-control" @onclick="ConfirmRecover" disabled="@_busy">@T["RestoreSnapshot"]</button> }<button type="button" class="reader-control danger" @onclick="ConfirmResetCourse" disabled="@_busy">@T["ResetCourse"]</button></section>
+}
+@code {
+    [Parameter] public string CourseId { get; set; } = "";
+    private CancellationTokenSource _cts = new();
+    private CourseCatalogEntry? _entry;
+    private CourseManifest? _manifest;
+    private BackupPreview? _preview;
+    private RecoverySnapshot? _snapshot;
+    private StorageEstimate? _estimate;
+    private DateTimeOffset? _lastBackup;
+    private string? _error, _storageError, _message;
+    private bool _loading = true, _busy;
+    protected override async Task OnParametersSetAsync()
+    {
+        _cts.Cancel(); _cts.Dispose(); _cts = new(); _loading = true; _error = null;
+        try
+        {
+            _entry = await CatalogService.FindAvailableAsync(CourseId, _cts.Token);
+            if (_entry is null) { _error = T["CourseUnavailable"]; return; }
+            _manifest = await ManifestService.GetManifestAsync(_entry, _cts.Token);
+            await RefreshStatus();
+        }
+        catch (OperationCanceledException) { return; }
+        catch (Exception ex) when (ex is CourseContentException or HttpRequestException) { _error = ex.Message; }
+        finally { _loading = false; }
+    }
+    private async Task RefreshStatus()
+    {
+        try { _lastBackup = await Repository.GetLastBackupAsync(CourseId); _snapshot = await Repository.GetSnapshotAsync(CourseId); _estimate = await Repository.EstimateAsync(); _storageError = null; }
+        catch (LearningStorageException ex) { _storageError = ex.Message; }
+    }
+    private async Task Export()
+    {
+        if (_manifest is null) return;
+        _busy = true;
+        try { await Workspace.FlushAsync(); var result = await Backups.ExportAsync(_manifest); _message = $"{result.Filename} · {result.Count} {T["Records"]}"; await RefreshStatus(); }
+        catch (LearningStorageException ex) { _storageError = ex.Message; }
+        finally { _busy = false; }
+    }
+    private async Task ChooseFile(InputFileChangeEventArgs e)
+    {
+        if (_entry is null || _manifest is null) return;
+        _busy = true; _preview = null; _message = null; _storageError = null;
+        try
+        {
+            if (e.File.Size > 5_000_000) { _preview = new(null!, 0, 0, [T["FileTooLarge"]]); return; }
+            await using var stream = e.File.OpenReadStream(5_000_000, _cts.Token);
+            using var reader = new StreamReader(stream, System.Text.Encoding.UTF8, detectEncodingFromByteOrderMarks: true);
+            var json = await reader.ReadToEndAsync(_cts.Token);
+            _preview = await Backups.PreviewAsync(json, _entry, _manifest, _cts.Token);
+        }
+        catch (Exception ex) when (ex is IOException or CourseContentException or LearningStorageException or JsonException) { _storageError = ex.Message; }
+        finally { _busy = false; }
+    }
+    private async Task<bool> Confirm(string title, string message)
+    {
+        var parameters = new DialogParameters<ConfirmActionDialog> { { x => x.Title, title }, { x => x.Message, message } };
+        var dialog = await DialogService.ShowAsync<ConfirmActionDialog>(title, parameters);
+        return (await dialog.Result)?.Canceled == false;
+    }
+    private async Task ConfirmImport()
+    {
+        if (_preview is null || _entry is null || _manifest is null || _preview.Errors.Count > 0) return;
+        if (!await Confirm(T["ReplaceProgress"], T["ReplaceWarning"])) return;
+        _busy = true;
+        try { await Workspace.FlushAsync(); var count = await Backups.ImportReplaceAsync(_preview, _entry, _manifest, _cts.Token); Workspace.InvalidateCache(); _message = $"{T["ImportedRecords"]}: {count}"; _preview = null; await RefreshStatus(); }
+        catch (Exception ex) when (ex is LearningStorageException or CourseContentException or InvalidOperationException) { _storageError = ex.Message; }
+        finally { _busy = false; }
+    }
+    private async Task ConfirmRecover()
+    {
+        if (!await Confirm(T["RestoreSnapshot"], T["ReplaceWarning"])) return;
+        _busy = true;
+        try { await Workspace.FlushAsync(); var count = await Backups.RestoreSnapshotAsync(CourseId); Workspace.InvalidateCache(); _message = $"{T["RestoredRecords"]}: {count}"; await RefreshStatus(); }
+        catch (Exception ex) when (ex is LearningStorageException or InvalidOperationException) { _storageError = ex.Message; }
+        finally { _busy = false; }
+    }
+    private async Task ConfirmResetCourse()
+    {
+        if (!await Confirm(T["ResetCourse"], T["ResetCourseWarning"])) return;
+        _busy = true;
+        try { await Workspace.FlushAsync(); await Repository.ResetCourseAsync(CourseId); Workspace.InvalidateCache(); _message = T["CourseResetDone"]; await RefreshStatus(); }
+        catch (LearningStorageException ex) { _storageError = ex.Message; }
+        finally { _busy = false; }
+    }
+    public void Dispose() { _cts.Cancel(); _cts.Dispose(); }
+}

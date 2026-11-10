@@ -1,0 +1,42 @@
+@page "/courses/{CourseId}/goals"
+@using LinguaFlow.Core.Analytics
+@inject LearningAnalyticsService Analytics
+@inject CourseCatalogService Catalog
+@inject CourseManifestService Manifests
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<PageTitle>@T["LearningGoals"] - LinguaFlow</PageTitle>
+<NavLink class="back-link" href="@($"courses/{CourseId}")">← @T["BackToCourse"]</NavLink>
+<PageHeading Eyebrow="LinguaFlow" Title="@T["LearningGoals"]" Description="@T["GoalsIntro"]" />
+@if (_loading) { <StateMessage Kind="loading" Title="@T["LoadingCourses"]" /> }
+else if (_error is not null) { <p role="alert">@_error</p> }
+else if (_goals is not null)
+{
+    <div class="practice-wizard"><section class="info-panel"><h2>@T["SetLearningGoals"]</h2>
+        <label>@T["DailyStudyGoal"] <input type="number" min="5" max="240" @bind="_daily" /></label>
+        <label>@T["WeeklyStudyDays"] <input type="number" min="1" max="7" @bind="_weekly" /></label>
+        <label>@T["PreferredSessionDuration"] <input type="number" min="5" max="120" @bind="_session" /></label>
+        <label>@T["DailyReviewGoal"] <input type="number" min="0" max="200" @bind="_vocab" /></label>
+        <label>@T["PreferredStudyTime"] <select @bind="_time"><option value="any">@T["AnyTime"]</option><option value="morning">@T["Morning"]</option><option value="afternoon">@T["Afternoon"]</option><option value="evening">@T["Evening"]</option></select></label>
+        <label>@T["TargetCourse"] <select @bind="_target"><option value="">@T["NoTargetCourse"]</option><option value="@CourseId">@_courseTitle</option></select></label>
+        <button type="button" class="button course-action" @onclick="Save">@T["SaveSettings"]</button>@if (_saved) { <p role="status">@T["GoalsSaved"]</p> }
+    </section>
+    @if (_analytics is not null) { <section class="info-panel"><h2>@T["GoalProgress"]</h2><p>@T["TodayMinutes"]: @_analytics.TodayEstimatedMinutes / @_goals.DailyMinutes @T["Minutes"]</p><progress value="@Math.Min(_analytics.TodayEstimatedMinutes, _goals.DailyMinutes)" max="@_goals.DailyMinutes"></progress><p>@T["WeeklyStudyDays"]: @_analytics.WeeklyStudyDays / @_goals.WeeklyDays</p><progress value="@Math.Min(_analytics.WeeklyStudyDays, _goals.WeeklyDays)" max="@_goals.WeeklyDays"></progress><p>@T["DailyReviewGoal"]: @_analytics.TodayVocabularyReviews / @_goals.DailyVocabularyReviews</p><progress value="@Math.Min(_analytics.TodayVocabularyReviews, Math.Max(1, _goals.DailyVocabularyReviews))" max="@Math.Max(1, _goals.DailyVocabularyReviews)"></progress><small>@T["GentleGoalsHint"]</small></section> }
+    </div>
+}
+@code {
+    [Parameter] public string CourseId { get; set; } = "";
+    private LearningGoals? _goals; private CourseAnalytics? _analytics; private string _courseTitle = "", _time = "any", _target = "";
+    private int _daily, _weekly, _session, _vocab; private bool _loading = true, _saved; private string? _error;
+    protected override async Task OnParametersSetAsync()
+    {
+        try { var entry = await Catalog.FindAvailableAsync(CourseId) ?? throw new CourseContentException(T["CourseUnavailable"]); var manifest = await Manifests.GetManifestAsync(entry); _courseTitle = manifest.Title; _goals = await Analytics.GetGoalsAsync(CourseId); _analytics = await Analytics.GetAsync(entry, manifest); _daily = _goals.DailyMinutes; _weekly = _goals.WeeklyDays; _session = _goals.SessionMinutes; _vocab = _goals.DailyVocabularyReviews; _time = _goals.PreferredTime; _target = _goals.TargetCourseId ?? ""; }
+        catch (Exception ex) when (ex is CourseContentException or LearningStorageException or HttpRequestException) { _error = ex.Message; }
+        finally { _loading = false; }
+    }
+    private async Task Save()
+    {
+        _saved = false; _error = null;
+        try { _goals = new LearningGoals(CourseId, _daily, _weekly, _session, _vocab, _time, _target.Length == 0 ? null : _target); await Analytics.SaveGoalsAsync(_goals); _saved = true; }
+        catch (Exception ex) when (ex is ArgumentException or LearningStorageException) { _error = ex.Message; }
+    }
+}

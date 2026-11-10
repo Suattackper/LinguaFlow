@@ -1,0 +1,9 @@
+@using LinguaFlow.Core.Assessment
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+@if (Attempts.Count > 0)
+{
+    <details class="exercise-history"><summary>@T["PreviousAttempts"] (@Attempts.Count)</summary>
+        <ol>@foreach (var attempt in Attempts) { <li><time datetime="@attempt.SubmittedAt.ToString("O")">@attempt.SubmittedAt.ToLocalTime().ToString("g")</time> · @T[attempt.Feedback.Status.ToString()] @if (attempt.Feedback.Status is GradingStatus.Correct or GradingStatus.Incorrect or GradingStatus.Partial) { <span>(@attempt.Feedback.EarnedScore/@attempt.Feedback.MaximumScore)</span> }<div>@T["YourAnswer"]: @string.Join("; ", attempt.Answers)</div></li> }</ol>
+    </details>
+}
+@code { [Parameter] public IReadOnlyList<ExerciseAttempt> Attempts { get; set; } = []; }

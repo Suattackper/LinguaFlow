@@ -1,0 +1,64 @@
+@using LinguaFlow.Core.Assessment
+@inject ExerciseSessionService Sessions
+@inject ListeningEvidenceService ListeningEvidence
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<article class="interactive-exercise" id="@Definition.ExerciseId">
+    <div class="exercise-heading"><span class="eyebrow">@T[Definition.Kind.ToString()]</span><span>@(Number > 0 ? $"{T["Question"]} {Number}" : Definition.ExerciseId)</span></div>
+    <p class="exercise-prompt">@Definition.Prompt</p>
+    @if (Definition.Kind is ExerciseKind.Writing or ExerciseKind.Speaking or ExerciseKind.Listening)
+    { <OpenAssignment Definition="@Definition" Value="@_answer" ValueChanged="SetAnswer" Rubric="@Rubric" /> }
+    else { <ExerciseInput Definition="@Definition" Value="@_answer" ValueChanged="SetAnswer" /> }
+    @if (Mode == ExerciseMode.Test) { <p class="activity-count">@T["TestAnswerHeld"]</p> }
+    else
+    {
+        <div class="exercise-actions"><button type="button" class="reader-control exercise-submit" disabled="@(_busy || string.IsNullOrWhiteSpace(_answer))" @onclick="Submit">@(_latest is null ? T["SubmitAnswer"] : T["RetryExercise"])</button></div>
+    }
+    @if (_error is not null) { <p class="content-warning" role="alert">@_error</p> }
+    @if (_latest is not null && (Mode != ExerciseMode.Test || TestRound > 0)) { <ExerciseFeedbackView Feedback="@_latest.Feedback" /> }
+    @if (Mode != ExerciseMode.Test || TestRound > 0) { <ExerciseAttemptHistory Attempts="@_history" /> }
+</article>
+@code {
+    [Parameter, EditorRequired] public ExerciseDefinition Definition { get; set; } = default!;
+    [Parameter, EditorRequired] public IReaderWorkspace Workspace { get; set; } = default!;
+    [Parameter] public ExerciseMode Mode { get; set; }
+    [Parameter] public int TestRound { get; set; }
+    [Parameter] public string? Rubric { get; set; }
+    [Parameter] public int Number { get; set; }
+    [Parameter] public EventCallback<ExerciseAttempt> OnSubmitted { get; set; }
+    private string _answer = "";
+    private string? _loadedKey, _error;
+    private int _loadedRound = -1;
+    private bool _busy;
+    private ExerciseAttempt? _latest;
+    private IReadOnlyList<ExerciseAttempt> _history = [];
+    protected override async Task OnParametersSetAsync()
+    {
+        var key = $"{Definition.CourseId}|{Definition.UnitId}|{Definition.ExerciseId}";
+        if (_loadedKey == key && _loadedRound == TestRound) return;
+        _loadedKey = key; _loadedRound = TestRound;
+        _answer = Workspace.GetDraft(Definition.CourseId, Definition.UnitId, Definition.ExerciseId);
+        try { _history = await Sessions.GetHistoryAsync(Definition.CourseId, Definition.UnitId, Definition.ExerciseId); _latest = _history.FirstOrDefault(); }
+        catch (LearningStorageException ex) { _error = ex.Message; }
+    }
+    private async Task SetAnswer(string value)
+    {
+        _answer = value;
+        await Workspace.SetDraftAsync(Definition.CourseId, Definition.UnitId, Definition.ExerciseId, value);
+    }
+    private async Task Submit()
+    {
+        if (_busy || string.IsNullOrWhiteSpace(_answer)) return;
+        _busy = true; _error = null;
+        try
+        {
+            await Workspace.FlushAsync();
+            var answers = Definition.Kind is ExerciseKind.MultipleSelect or ExerciseKind.Matching or ExerciseKind.MultipleBlanks or ExerciseKind.SentenceOrdering or ExerciseKind.WordOrdering ? _answer.Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries) : [_answer];
+            var audioEvidence = Definition.Kind == ExerciseKind.Listening && await ListeningEvidence.HasPlaybackAsync(Definition.CourseId, Definition.UnitId);
+            _latest = await Sessions.SubmitAsync(Definition, new ExerciseResponse { ExerciseId = Definition.ExerciseId, Answers = answers, AudioEvidenceProvided = audioEvidence }, Mode);
+            _history = await Sessions.GetHistoryAsync(Definition.CourseId, Definition.UnitId, Definition.ExerciseId);
+            await OnSubmitted.InvokeAsync(_latest);
+        }
+        catch (Exception ex) when (ex is ArgumentException or LearningStorageException) { _error = ex.Message; }
+        finally { _busy = false; }
+    }
+}

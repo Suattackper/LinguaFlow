@@ -1,0 +1,4 @@
+@page "/not-found"
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<PageTitle>@T["NotFound"] - LinguaFlow</PageTitle>
+<StateMessage Kind="error" Title="@T["NotFound"]" Description="@T["NotFoundDescription"]"><NavLink class="button primary" href="">@T["BackHome"]</NavLink></StateMessage>

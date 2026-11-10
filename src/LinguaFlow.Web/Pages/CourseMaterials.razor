@@ -1,0 +1,68 @@
+@page "/courses/{CourseId}/materials"
+@implements IDisposable
+@using LinguaFlow.Core.Courses
+@inject CourseCatalogService Catalog
+@inject CourseManifestService Manifests
+@inject CoursePathResolver Paths
+@inject HttpClient Http
+@inject NavigationManager Navigation
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<PageTitle>@T["CourseMaterials"] - LinguaFlow</PageTitle>
+@if (_loading) { <StateMessage Kind="loading" Title="@T["LoadingCourses"]" /> }
+else if (_error is not null) { <StateMessage Kind="error" Title="@T["CourseLoadError"]" Description="@_error" /> }
+else if (_manifest is not null && _entry is not null)
+{
+    <NavLink class="back-link" href="@($"courses/{CourseId}")">← @T["BackToCourse"]</NavLink>
+    <PageHeading Eyebrow="@_manifest.Title" Title="@T["CourseMaterials"]" Description="@T["MaterialsIntro"]" />
+    @if (_manifest.Downloads.Any(x => x.Available && x.Category == "answer-key")) { <p class="content-warning">@T["AnswerKeyGuidance"]</p> }
+    @foreach (var category in Categories)
+    {
+        var items = _manifest.Downloads.Where(x => x.Available && _verified.Contains(x.Id) && x.Category == category.Key).OrderBy(x => x.DisplayOrder).ToArray();
+        @if (items.Length > 0)
+        {
+            <section class="materials-group" aria-labelledby="@category.Key"><h2 id="@category.Key">@T[category.Value]</h2><div class="materials-grid">
+                @foreach (var item in items)
+                {
+                    <article class="info-panel material-card"><span class="material-icon" aria-hidden="true">@(item.Format == "zip" ? "▣" : "▤")</span><div><h3>@item.Title</h3><p>@item.Description</p><small>@item.Format.ToUpperInvariant() · @(item.FileSize is > 0 ? $"{item.FileSize.Value / 1024d:0} KB" : T["UnknownSize"])</small></div><a class="button course-action" href="@Paths.ResolveContent(Paths.ResolveManifest(new Uri(Navigation.BaseUri), _entry), item.Path)" download="@System.IO.Path.GetFileName(item.Path)">@T["DownloadMaterial"] ↓</a></article>
+                }
+            </div></section>
+        }
+    }
+    @if (_verified.Count == 0) { <StateMessage Kind="empty" Title="@T["NoCourseMaterials"]" /> }
+    <p class="materials-note">@T["MaterialsVsBackup"] <NavLink href="@($"courses/{CourseId}/backup")">@T["CourseBackup"] →</NavLink></p>
+}
+@code {
+    [Parameter] public string CourseId { get; set; } = "";
+    private readonly CancellationTokenSource _cts = new();
+    private CourseCatalogEntry? _entry;
+    private CourseManifest? _manifest;
+    private readonly HashSet<string> _verified = [];
+    private string? _error;
+    private bool _loading = true;
+    private static readonly (string Key, string Value)[] Categories = [("student-book", "StudentBooks"), ("answer-key", "AnswerKeys"), ("supplementary", "SupplementaryMaterials"), ("full-package", "FullPackages")];
+    protected override async Task OnParametersSetAsync()
+    {
+        _loading = true; _error = null;
+        try
+        {
+            _verified.Clear();
+            _entry = await Catalog.FindAvailableAsync(CourseId, _cts.Token);
+            if (_entry is null) { _error = T["CourseUnavailable"]; return; }
+            _manifest = await Manifests.GetManifestAsync(_entry, _cts.Token);
+            var manifestUrl = Paths.ResolveManifest(new Uri(Navigation.BaseUri), _entry);
+            foreach (var item in _manifest.Downloads.Where(x => x.Available))
+            {
+                try
+                {
+                    using var request = new HttpRequestMessage(HttpMethod.Head, Paths.ResolveContent(manifestUrl, item.Path));
+                    using var response = await Http.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, _cts.Token);
+                    if (response.IsSuccessStatusCode && response.Content.Headers.ContentType?.MediaType != "text/html") _verified.Add(item.Id);
+                }
+                catch (HttpRequestException) { }
+            }
+        }
+        catch (Exception ex) when (ex is CourseContentException or HttpRequestException) { _error = ex.Message; }
+        finally { _loading = false; }
+    }
+    public void Dispose() { _cts.Cancel(); _cts.Dispose(); }
+}

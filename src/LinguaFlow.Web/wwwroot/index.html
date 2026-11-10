@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LinguaFlow</title><base href="/" /><meta name="theme-color" content="#4659b8" /><meta name="description" content="Structured, local-first language learning" /><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-status-bar-style" content="default" /><link rel="manifest" href="manifest.webmanifest" /><link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" /><link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" /><link rel="preload" id="webassembly" />
+<link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" /><link rel="stylesheet" href="css/app.css" />
+<link rel="icon" type="image/png" href="favicon.png" />
+<script type="importmap"></script><script src="js/preferences.js"></script>
+<script>const deepLink = new URLSearchParams(location.search).get('p'); if (deepLink && deepLink.startsWith('/') && !deepLink.startsWith('//')) { history.replaceState(null, '', new URL(deepLink.slice(1), document.baseURI)); }</script>
+</head><body>
+<div id="app"><div class="boot-loading" role="status" aria-live="polite">LinguaFlow · Đang tải / Loading…</div></div>
+<div id="blazor-error-ui" role="alert">Đã xảy ra lỗi / Something went wrong. <a href=".">Tải lại / Reload</a><span class="dismiss">×</span></div>
+<script src="_content/MudBlazor/MudBlazor.min.js"></script>
+<script src="_framework/blazor.webassembly#[.{fingerprint}].js"></script>
+<script>if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register(new URL('service-worker.js', document.baseURI), { updateViaCache: 'none' }).catch(() => {})); }</script>
+</body></html>

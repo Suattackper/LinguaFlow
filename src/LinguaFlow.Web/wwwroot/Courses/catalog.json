@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "courses": [
+    {
+      "courseId": "english-life-office-it",
+      "languageCode": "en",
+      "languageDirectory": "English",
+      "title": "English for Life, Office \u0026 IT",
+      "description": "B\u1ED9 gi\u00E1o tr\u00ECnh ri\u00EAng cho ng\u01B0\u1EDDi h\u1ECDc Vi\u1EC7t Nam l\u00E0m c\u00F4ng vi\u1EC7c ph\u1EA7n m\u1EC1m.",
+      "level": "A2\u002B \u2192 B2",
+      "status": "available",
+      "manifestPath": "Courses/English/english-life-office-it/manifest.json",
+      "coverImage": null,
+      "tags": [
+        "English",
+        "Office",
+        "IT"
+      ]
+    }
+  ]
+}

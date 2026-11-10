@@ -1,0 +1,2 @@
+<div class="state-message @Kind" role="@(Kind == "error" ? "alert" : "status")"><div class="state-icon">@(Kind == "error" ? "!" : Kind == "loading" ? "◌" : "✦")</div><h2>@Title</h2><p>@Description</p>@ChildContent</div>
+@code { [Parameter] public string Kind { get; set; } = "empty"; [Parameter] public string Title { get; set; } = ""; [Parameter] public string Description { get; set; } = ""; [Parameter] public RenderFragment? ChildContent { get; set; } }

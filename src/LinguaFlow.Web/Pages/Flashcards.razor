@@ -1,0 +1,133 @@
+@page "/courses/{CourseId}/flashcards"
+@implements IDisposable
+@using LinguaFlow.Core.Vocabulary
+@using System.Text.Json
+@inject NavigationManager Navigation
+@inject CourseCatalogService Catalogs
+@inject CourseManifestService Manifests
+@inject UnitContentService Units
+@inject VocabularyContentService Vocabulary
+@inject VocabularyLearningService Learning
+@inject LearningRepository Repository
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<PageTitle>@T["StudyFlashcards"] - LinguaFlow</PageTitle>
+@if (_loading) { <StateMessage Kind="loading" Title="@T["LoadingCourses"]" /> }
+else if (_error is not null) { <StateMessage Kind="error" Title="@T["CourseLoadError"]" Description="@_error" /> }
+else
+{
+    <NavLink class="back-link" href="@($"courses/{CourseId}/review")">← @T["ReviewDashboard"]</NavLink>
+    <PageHeading Eyebrow="@T["VocabularyLibrary"]" Title="@T["StudyFlashcards"]" Description="@T["FlashcardDescription"]" />
+    <SpeechControls Language="@SpeechLanguage" LanguageChanged="SetSpeechLanguage" />
+    @if (_deck.Count == 0) { <StateMessage Kind="empty" Title="@T["NoCardsInSession"]" Description="@T["NoReviewsDueDescription"]" /> }
+    else if (_index >= _deck.Count)
+    {
+        <section class="flashcard-summary info-panel"><h2>@T["SessionSummary"]</h2><p>@T["ReviewedWords"]: @_reviewed</p><p>@T["Remembered"]: @_remembered · @T["Forgotten"]: @_forgotten</p><NavLink class="button course-action" href="@($"courses/{CourseId}/review")">@T["ReviewDashboard"] →</NavLink></section>
+    }
+    else
+    {
+        var word = _deck[_index]; var state = State(word);
+        <div class="flashcard-session" tabindex="0" @onkeydown="HandleKey" aria-label="@T["FlashcardKeyboardHint"]">
+            <div class="flashcard-top"><span>@(_index + 1) / @_deck.Count</span><span>@T["ReviewStage"] @state.ReviewStage</span></div>
+            <div class="flashcard" aria-live="polite">
+                <span class="eyebrow">@(_meaningFirst ? T["MeaningToWord"] : T["WordToMeaning"])</span>
+                <h2>@(_meaningFirst ? word.Vietnamese : word.Term)</h2>
+                @if (_revealed)
+                {
+                    <div class="flashcard-back"><p>@(_meaningFirst ? word.Term : word.Vietnamese)</p>
+                        @if (!string.IsNullOrWhiteSpace(word.Ipa)) { <p class="vocab-ipa">@word.Ipa</p> }
+                        @if (!string.IsNullOrWhiteSpace(word.Context)) { <p>@word.Context</p> }
+                        @if (!string.IsNullOrWhiteSpace(word.Example)) { <p>@word.Example</p> }
+                        <PronounceButton Text="@word.Term" Language="@SpeechLanguage" AudioUrl="@Vocabulary.AudioUrl(_entry!, word)?.ToString()" />
+                    </div>
+                }
+                else if (!_meaningFirst) { <PronounceButton Text="@word.Term" Language="@SpeechLanguage" AudioUrl="@Vocabulary.AudioUrl(_entry!, word)?.ToString()" /> }
+            </div>
+            <div class="flashcard-actions">
+                @if (!_revealed) { <button type="button" class="button course-action" @onclick="() => _revealed = true">@T["RevealAnswer"]</button> }
+                else { <button type="button" class="reader-control" disabled="@_saving" @onclick="() => Mark(false)">@T["Forgotten"]</button><button type="button" class="button course-action" disabled="@_saving" @onclick="() => Mark(true)">@T["Remembered"]</button> }
+            </div>
+            @if (_lastDue is not null) { <p class="activity-count" role="status">@T["LastCardNextReview"]: @_lastDue.Value.ToLocalTime().ToString("g")</p> }
+            <p class="activity-count">@T["FlashcardKeyboardHint"]</p>
+        </div>
+    }
+    <label class="flashcard-direction"><input type="checkbox" @bind="_meaningFirst" /> @T["MeaningToWord"]</label>
+    @if (_storageError is not null) { <p class="content-warning" role="alert">@_storageError</p> }
+}
+@code {
+    [Parameter] public string CourseId { get; set; } = "";
+    private CancellationTokenSource _cts = new();
+    private CourseCatalogEntry? _entry;
+    private CourseManifest? _manifest;
+    private Dictionary<string, VocabularyReviewState> _states = [];
+    private readonly List<VocabularyEntry> _deck = [];
+    private string? _error, _storageError;
+    private string SpeechLanguage = "en-US";
+    private bool _loading = true, _revealed, _meaningFirst, _saving, _summarySaved;
+    private int _index, _reviewed, _remembered, _forgotten;
+    private DateTimeOffset? _lastDue;
+    private DateTimeOffset _startedAt;
+    private VocabularyReviewState State(VocabularyEntry word) => _states.GetValueOrDefault(word.VocabularyId) ?? VocabularyLearningService.NewState(CourseId, word);
+    protected override async Task OnParametersSetAsync()
+    {
+        _cts.Cancel(); _cts.Dispose(); _cts = new(); _loading = true; _error = null; _deck.Clear(); _index = 0; _startedAt = DateTimeOffset.UtcNow; _summarySaved = false;
+        try
+        {
+            _entry = await Catalogs.FindAvailableAsync(CourseId, _cts.Token);
+            if (_entry is null) { _error = T["CourseUnavailable"]; return; }
+            _manifest = await Manifests.GetManifestAsync(_entry, _cts.Token);
+            var document = await Vocabulary.GetAsync(_entry, _manifest, _cts.Token);
+            _states = await Learning.GetStatesAsync(CourseId);
+            SpeechLanguage = _manifest.LanguageCode switch { "ja" => "ja-JP", "zh" => "zh-CN", _ => "en-US" };
+            var mode = new Uri(Navigation.Uri).Query.TrimStart('?').Split('&').Select(x => x.Split('=', 2)).FirstOrDefault(x => x.Length == 2 && x[0] == "mode")?.LastOrDefault() ?? "due";
+            var now = DateTimeOffset.UtcNow;
+            IEnumerable<VocabularyEntry> selected = mode switch
+            {
+                "new" => document.Entries.Where(w => State(w).ReviewCount == 0),
+                "weak" => document.Entries.Where(w => State(w).Status == VocabularyLearningStatus.Difficult),
+                "favorite" => document.Entries.Where(w => State(w).Favorite),
+                "all" => document.Entries,
+                _ => document.Entries.Where(w => State(w).InReviewQueue || SpacedRepetitionService.IsDue(State(w), now))
+            };
+            _deck.AddRange(selected.Take(30));
+        }
+        catch (OperationCanceledException) { return; }
+        catch (Exception ex) when (ex is CourseContentException or HttpRequestException or LearningStorageException) { _error = ex.Message; }
+        finally { _loading = false; }
+    }
+    private async Task Mark(bool remembered)
+    {
+        if (_entry is null || _manifest is null || !_revealed || _index >= _deck.Count || _saving) return;
+        _saving = true;
+        try
+        {
+            var word = _deck[_index];
+            var unit = (await Units.GetUnitAsync(_entry, _manifest, word.UnitId, _cts.Token)).Content;
+            var next = await Learning.ReviewAsync(CourseId, word, State(word), remembered, unit.ReviewScheduleDays, DateTimeOffset.UtcNow);
+            _states[word.VocabularyId] = next; _lastDue = next.NextDueAt; _reviewed++; if (remembered) _remembered++; else _forgotten++;
+            _index++; _revealed = false; _storageError = null;
+            if (_index >= _deck.Count) await SaveSummary();
+        }
+        catch (Exception ex) when (ex is CourseContentException or LearningStorageException or HttpRequestException or ArgumentException) { _storageError = ex.Message; }
+        finally { _saving = false; }
+    }
+    private async Task SaveSummary()
+    {
+        if (_summarySaved || _reviewed == 0) return;
+        var now = DateTimeOffset.UtcNow;
+        var summary = new VocabularySessionSummary(CourseId, _startedAt, now, _reviewed, _remembered, _forgotten);
+        await Repository.StudySessions.SaveAsync(new LinguaFlow.Core.Progress.LearningRecord
+        {
+            CourseId = CourseId, Kind = LinguaFlow.Core.Progress.LearningRecordKind.StudySession,
+            Id = "vocab-session-" + Guid.NewGuid().ToString("N"), Data = JsonSerializer.SerializeToElement(summary), UpdatedAt = now, RecordSchemaVersion = 1
+        });
+        _summarySaved = true;
+    }
+    private async Task HandleKey(KeyboardEventArgs e)
+    {
+        if (e.Key == " " && !_revealed) _revealed = true;
+        else if (e.Key == "1" && _revealed) await Mark(false);
+        else if (e.Key == "2" && _revealed) await Mark(true);
+    }
+    private void SetSpeechLanguage(string code) => SpeechLanguage = code;
+    public void Dispose() { _cts.Cancel(); _cts.Dispose(); }
+}

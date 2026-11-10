@@ -1,0 +1,1208 @@
+{
+  "schemaVersion": 1,
+  "courseId": "english-life-office-it",
+  "unitId": "unit-26",
+  "title": "Negotiating Scope",
+  "sections": [
+    {
+      "sectionId": "intro",
+      "title": "UNIT 26 \u2014 Negotiating Scope",
+      "blocks": [
+        {
+          "type": "explanation",
+          "text": "**Ch\u1EE7 \u0111\u1EC1 ti\u1EBFng Vi\u1EC7t:** Th\u01B0\u01A1ng l\u01B0\u1EE3ng ph\u1EA1m vi c\u00F4ng vi\u1EC7c  \n**Tr\u00ECnh \u0111\u1ED9 d\u1EF1 ki\u1EBFn:** B1\u002B \u2192 B2 | Discussion  \n**Th\u1EDDi l\u01B0\u1EE3ng g\u1EE3i \u00FD:** 6 bu\u1ED5i \u00D7 60 ph\u00FAt; c\u00F3 th\u1EC3 h\u1ECDc ch\u1EADm h\u01A1n n\u1EBFu c\u1EA7n  \n**\u0110\u00E1p \u00E1n ri\u00EAng:** \u0060ANSWER_KEYS/Unit_26_Answers.md\u0060  \n**Ch\u1EBF \u0111\u1ED9:** Text Teacher / Voice Teacher / Voice Partner / Mixed",
+          "blockId": "unit-26-intro-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "UNIT 26 \u2014 Negotiating Scope"
+          }
+        }
+      ],
+      "order": 1,
+      "parentSectionId": null,
+      "originalHeading": "UNIT 26 \u2014 Negotiating Scope",
+      "sourceMarkdown": "# UNIT 26 \u2014 Negotiating Scope\n\n**Ch\u1EE7 \u0111\u1EC1 ti\u1EBFng Vi\u1EC7t:** Th\u01B0\u01A1ng l\u01B0\u1EE3ng ph\u1EA1m vi c\u00F4ng vi\u1EC7c  \n**Tr\u00ECnh \u0111\u1ED9 d\u1EF1 ki\u1EBFn:** B1\u002B \u2192 B2 | Discussion  \n**Th\u1EDDi l\u01B0\u1EE3ng g\u1EE3i \u00FD:** 6 bu\u1ED5i \u00D7 60 ph\u00FAt; c\u00F3 th\u1EC3 h\u1ECDc ch\u1EADm h\u01A1n n\u1EBFu c\u1EA7n  \n**\u0110\u00E1p \u00E1n ri\u00EAng:** \u0060ANSWER_KEYS/Unit_26_Answers.md\u0060  \n**Ch\u1EBF \u0111\u1ED9:** Text Teacher / Voice Teacher / Voice Partner / Mixed",
+      "source": {
+        "file": "LESSONS/Unit_26.md",
+        "originalUnit": "26",
+        "originalSection": "UNIT 26 \u2014 Negotiating Scope"
+      }
+    },
+    {
+      "sectionId": "objectives",
+      "title": "M\u1EE5c ti\u00EAu / Learning outcomes",
+      "blocks": [
+        {
+          "type": "explanation",
+          "text": "- S\u1EED d\u1EE5ng **20 t\u1EEB/c\u1EE5m t\u1EEB** thu\u1ED9c ch\u1EE7 \u0111\u1EC1 **th\u01B0\u01A1ng l\u01B0\u1EE3ng ph\u1EA1m vi c\u00F4ng vi\u1EC7c** v\u00E0 t\u1EF1 \u0111\u1EB7t c\u00E2u c\u00F3 ng\u1EEF c\u1EA3nh. \n- Ph\u00E2n bi\u1EC7t v\u00E0 d\u00F9ng \u0111\u00FAng **Polite hedging** v\u00E0 **Diplomatic negotiation**.\n- \u0110\u1ECDc t\u00ECnh hu\u1ED1ng th\u1EF1c t\u1EBF r\u1ED3i tr\u1EA3 l\u1EDDi c\u00E2u h\u1ECFi b\u1EB1ng ti\u1EBFng Anh.\n- Vi\u1EBFt \u0111o\u1EA1n/email theo y\u00EAu c\u1EA7u, luy\u1EC7n h\u1ED9i tho\u1EA1i v\u00E0 nghe qua Voice khi c\u00F3 \u00E2m thanh th\u1EADt.",
+          "blockId": "unit-26-objectives-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "M\u1EE5c ti\u00EAu / Learning outcomes"
+          }
+        }
+      ],
+      "order": 2,
+      "parentSectionId": null,
+      "originalHeading": "M\u1EE5c ti\u00EAu / Learning outcomes",
+      "sourceMarkdown": "## M\u1EE5c ti\u00EAu / Learning outcomes\n\n- S\u1EED d\u1EE5ng **20 t\u1EEB/c\u1EE5m t\u1EEB** thu\u1ED9c ch\u1EE7 \u0111\u1EC1 **th\u01B0\u01A1ng l\u01B0\u1EE3ng ph\u1EA1m vi c\u00F4ng vi\u1EC7c** v\u00E0 t\u1EF1 \u0111\u1EB7t c\u00E2u c\u00F3 ng\u1EEF c\u1EA3nh. \n- Ph\u00E2n bi\u1EC7t v\u00E0 d\u00F9ng \u0111\u00FAng **Polite hedging** v\u00E0 **Diplomatic negotiation**.\n- \u0110\u1ECDc t\u00ECnh hu\u1ED1ng th\u1EF1c t\u1EBF r\u1ED3i tr\u1EA3 l\u1EDDi c\u00E2u h\u1ECFi b\u1EB1ng ti\u1EBFng Anh.\n- Vi\u1EBFt \u0111o\u1EA1n/email theo y\u00EAu c\u1EA7u, luy\u1EC7n h\u1ED9i tho\u1EA1i v\u00E0 nghe qua Voice khi c\u00F3 \u00E2m thanh th\u1EADt.",
+      "source": {
+        "file": "LESSONS/Unit_26.md",
+        "originalUnit": "26",
+        "originalSection": "M\u1EE5c ti\u00EAu / Learning outcomes"
+      }
+    },
+    {
+      "sectionId": "learning-plan",
+      "title": "K\u1EBF ho\u1EA1ch 6 bu\u1ED5i / Six-session learning plan",
+      "blocks": [
+        {
+          "type": "explanation",
+          "text": "| Bu\u1ED5i | N\u1ED9i dung | K\u1EBFt qu\u1EA3 c\u1EA7n \u0111\u1EA1t |\n|---|---|---|\n| 1 | 10 t\u1EEB \u0111\u1EA7u \u002B Grammar 1 | Gi\u1EA3i th\u00EDch v\u00E0 vi\u1EBFt 5 c\u00E2u v\u00ED d\u1EE5 |\n| 2 | 10 t\u1EEB ti\u1EBFp \u002B Grammar 2 | Ph\u00E2n bi\u1EC7t hai c\u1EA5u tr\u00FAc |\n| 3 | B\u00E0i t\u1EADp ng\u1EEF ph\u00E1p \u002B t\u1EEB v\u1EF1ng | T\u1EF1 l\u00E0m, ch\u01B0a xem \u0111\u00E1p \u00E1n |\n| 4 | Reading \u002B Writing | Tr\u1EA3 l\u1EDDi 5 c\u00E2u \u0111\u1ECDc, n\u1ED9p b\u00E0i vi\u1EBFt |\n| 5 | Voice Teacher \u002B Partner | Nghe v\u00E0 n\u00F3i theo t\u00ECnh hu\u1ED1ng Unit |\n| 6 | Unit Test \u002B ch\u1EEFa b\u00E0i | Ghi l\u1ED7i sai v\u00E0 k\u1EBF ho\u1EA1ch \u00F4n v\u00E0o PROGRESS.md |",
+          "blockId": "unit-26-learning-plan-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "K\u1EBF ho\u1EA1ch 6 bu\u1ED5i / Six-session learning plan"
+          }
+        }
+      ],
+      "order": 3,
+      "parentSectionId": null,
+      "originalHeading": "K\u1EBF ho\u1EA1ch 6 bu\u1ED5i / Six-session learning plan",
+      "sourceMarkdown": "## K\u1EBF ho\u1EA1ch 6 bu\u1ED5i / Six-session learning plan\n\n| Bu\u1ED5i | N\u1ED9i dung | K\u1EBFt qu\u1EA3 c\u1EA7n \u0111\u1EA1t |\n|---|---|---|\n| 1 | 10 t\u1EEB \u0111\u1EA7u \u002B Grammar 1 | Gi\u1EA3i th\u00EDch v\u00E0 vi\u1EBFt 5 c\u00E2u v\u00ED d\u1EE5 |\n| 2 | 10 t\u1EEB ti\u1EBFp \u002B Grammar 2 | Ph\u00E2n bi\u1EC7t hai c\u1EA5u tr\u00FAc |\n| 3 | B\u00E0i t\u1EADp ng\u1EEF ph\u00E1p \u002B t\u1EEB v\u1EF1ng | T\u1EF1 l\u00E0m, ch\u01B0a xem \u0111\u00E1p \u00E1n |\n| 4 | Reading \u002B Writing | Tr\u1EA3 l\u1EDDi 5 c\u00E2u \u0111\u1ECDc, n\u1ED9p b\u00E0i vi\u1EBFt |\n| 5 | Voice Teacher \u002B Partner | Nghe v\u00E0 n\u00F3i theo t\u00ECnh hu\u1ED1ng Unit |\n| 6 | Unit Test \u002B ch\u1EEFa b\u00E0i | Ghi l\u1ED7i sai v\u00E0 k\u1EBF ho\u1EA1ch \u00F4n v\u00E0o PROGRESS.md |",
+      "source": {
+        "file": "LESSONS/Unit_26.md",
+        "originalUnit": "26",
+        "originalSection": "K\u1EBF ho\u1EA1ch 6 bu\u1ED5i / Six-session learning plan"
+      }
+    },
+    {
+      "sectionId": "a",
+      "title": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 m\u1EE5c)",
+      "blocks": [
+        {
+          "type": "vocabulary",
+          "text": "\u003E IPA tham kh\u1EA3o gi\u1ECDng Anh-Anh, \u0111\u01B0\u1EE3c t\u1EA1o b\u1EB1ng c\u00F4ng c\u1EE5 ph\u00E1t \u00E2m; khi luy\u1EC7n Voice, h\u00E3y ki\u1EC3m tra tr\u1ECDng \u00E2m v\u00E0 \u00E2m th\u1EF1c t\u1EBF. C\u1ED9t ng\u1EEF c\u1EA3nh tr\u00EDch t\u1EEB b\u00E0i \u0111\u1ECDc n\u1EBFu c\u00F3; c\u00E1c m\u1EE5c kh\u00E1c y\u00EAu c\u1EA7u t\u1EF1 \u0111\u1EB7t c\u00E2u.\n\n| STT | English / IPA | Ngh\u0129a ti\u1EBFng Vi\u1EC7t | Ng\u1EEF c\u1EA3nh / th\u1EF1c h\u00E0nh |\n|---:|---|---|---|\n| 1 | **negotiate** /n\u026A\u0261\u02C8\u0259\u028A\u0283\u026A\u02CCe\u026At/ | th\u01B0\u01A1ng l\u01B0\u1EE3ng | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 2 | **scope creep** /sk\u02C8\u0259\u028Ap k\u0279\u02C8i\u02D0p/ | ph\u1EA1m vi t\u0103ng kh\u00F4ng ki\u1EC3m so\u00E1t | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 3 | **deliverable** /d\u026Al\u02C8\u026Av\u0259\u0279\u0259b\u0259l/ | s\u1EA3n ph\u1EA9m b\u00E0n giao | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 4 | **estimate** /\u02C8\u025Bst\u026Am\u0259t/ | \u01B0\u1EDBc t\u00EDnh | The developer documented the new requirement and promised to provide an estimate after reviewing the technical impact. |\n| 5 | **capacity** /k\u0259p\u02C8as\u026Ati/ | n\u0103ng l\u1EF1c | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 6 | **constraint** /k\u0259nst\u0279\u02C8e\u026Ant/ | r\u00E0ng bu\u1ED9c | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 7 | **compromise** /k\u02C8\u0252mp\u0279\u0259m\u02CCa\u026Az/ | th\u1ECFa hi\u1EC7p | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 8 | **deadline** /d\u02C8\u025Bdla\u026An/ | h\u1EA1n ch\u00F3t | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 9 | **trade-off** /t\u0279\u02C8e\u026Ad\u02C8\u0252f/ | \u0111\u00E1nh \u0111\u1ED5i | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 10 | **priority** /p\u0279a\u026A\u02C8\u0252\u0279\u026Ati/ | m\u1EE9c \u01B0u ti\u00EAn | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 11 | **request** /\u0279\u026Akw\u02C8\u025Bst/ | y\u00EAu c\u1EA7u | Two days before a sprint ended, a customer requested an additional export format. |\n| 12 | **proposal** /p\u0279\u0259p\u02C8\u0259\u028Az\u0259l/ | \u0111\u1EC1 xu\u1EA5t | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 13 | **commitment** /k\u0259m\u02C8\u026Atm\u0259nt/ | cam k\u1EBFt | She did not say simply \u201Cno.\u201D Instead, she explained the current commitments and asked which export format was most important. |\n| 14 | **impact assessment** /\u02C8\u026Ampakt \u0250s\u02C8\u025Bsm\u0259nt/ | \u0111\u00E1nh gi\u00E1 t\u00E1c \u0111\u1ED9ng | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 15 | **revisit** /\u0279\u026Av\u02C8\u026Az\u026At/ | xem x\u00E9t l\u1EA1i | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 16 | **postpone** /p\u0259\u028Astp\u02C8\u0259\u028An/ | ho\u00E3n | She offered two options: release the original scope on Friday and add the new format next sprint, or postpone the whole release for several days. |\n| 17 | **feasible** /f\u02C8i\u02D0z\u0259b\u0259l/ | kh\u1EA3 thi | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 18 | **optional** /\u02C8\u0252p\u0283\u0259n\u0259l/ | kh\u00F4ng b\u1EAFt bu\u1ED9c | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 19 | **essential** /\u026As\u02C8\u025Bn\u0283\u0259l/ | thi\u1EBFt y\u1EBFu | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 20 | **agreement** /\u0250\u0261\u0279\u02C8i\u02D0m\u0259nt/ | th\u1ECFa thu\u1EADn | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n\n**Luy\u1EC7n t\u1EEB / Vocabulary production:** Vi\u1EBFt 8 c\u00E2u: 3 c\u00E2u \u0111\u1EDDi s\u1ED1ng, 3 c\u00E2u c\u00F4ng s\u1EDF, 2 c\u00E2u IT. D\u00F9ng t\u1EEB c\u1EE7a Unit v\u00E0 t\u1EF1 ki\u1EC3m tra ngh\u0129a, lo\u1EA1i t\u1EEB, c\u00E1ch ph\u1ED1i h\u1EE3p t\u1EEB.",
+          "entries": [
+            {
+              "vocabularyId": "unit-26-vocab-01",
+              "unitId": "unit-26",
+              "term": "negotiate",
+              "ipa": "/n\u026A\u0261\u02C8\u0259\u028A\u0283\u026A\u02CCe\u026At/",
+              "vietnamese": "th\u01B0\u01A1ng l\u01B0\u1EE3ng",
+              "context": "\u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y.",
+              "source": {
+                "file": "LESSONS/Unit_26.md",
+                "originalUnit": "26",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 m\u1EE5c)"
+              }
+            },
+            {
+              "vocabularyId": "unit-26-vocab-02",
+              "unitId": "unit-26",
+              "term": "scope creep",
+              "ipa": "/sk\u02C8\u0259\u028Ap k\u0279\u02C8i\u02D0p/",
+              "vietnamese": "ph\u1EA1m vi t\u0103ng kh\u00F4ng ki\u1EC3m so\u00E1t",
+              "context": "\u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y.",
+              "source": {
+                "file": "LESSONS/Unit_26.md",
+                "originalUnit": "26",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 m\u1EE5c)"
+              }
+            },
+            {
+              "vocabularyId": "unit-26-vocab-03",
+              "unitId": "unit-26",
+              "term": "deliverable",
+              "ipa": "/d\u026Al\u02C8\u026Av\u0259\u0279\u0259b\u0259l/",
+              "vietnamese": "s\u1EA3n ph\u1EA9m b\u00E0n giao",
+              "context": "\u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y.",
+              "source": {
+                "file": "LESSONS/Unit_26.md",
+                "originalUnit": "26",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 m\u1EE5c)"
+              }
+            },
+            {
+              "vocabularyId": "unit-26-vocab-04",
+              "unitId": "unit-26",
+              "term": "estimate",
+              "ipa": "/\u02C8\u025Bst\u026Am\u0259t/",
+              "vietnamese": "\u01B0\u1EDBc t\u00EDnh",
+              "context": "The developer documented the new requirement and promised to provide an estimate after reviewing the technical impact.",
+              "source": {
+                "file": "LESSONS/Unit_26.md",
+                "originalUnit": "26",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 m\u1EE5c)"
+              }
+            },
+            {
+              "vocabularyId": "unit-26-vocab-05",
+              "unitId": "unit-26",
+              "term": "capacity",
+              "ipa": "/k\u0259p\u02C8as\u026Ati/",
+              "vietnamese": "n\u0103ng l\u1EF1c",
+              "context": "\u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y.",
+              "source": {
+                "file": "LESSONS/Unit_26.md",
+                "originalUnit": "26",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 m\u1EE5c)"
+              }
+            },
+            {
+              "vocabularyId": "unit-26-vocab-06",
+              "unitId": "unit-26",
+              "term": "constraint",
+              "ipa": "/k\u0259nst\u0279\u02C8e\u026Ant/",
+              "vietnamese": "r\u00E0ng bu\u1ED9c",
+              "context": "\u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y.",
+              "source": {
+                "file": "LESSONS/Unit_26.md",
+                "originalUnit": "26",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 m\u1EE5c)"
+              }
+            },
+            {
+              "vocabularyId": "unit-26-vocab-07",
+              "unitId": "unit-26",
+              "term": "compromise",
+              "ipa": "/k\u02C8\u0252mp\u0279\u0259m\u02CCa\u026Az/",
+              "vietnamese": "th\u1ECFa hi\u1EC7p",
+              "context": "\u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y.",
+              "source": {
+                "file": "LESSONS/Unit_26.md",
+                "originalUnit": "26",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 m\u1EE5c)"
+              }
+            },
+            {
+              "vocabularyId": "unit-26-vocab-08",
+              "unitId": "unit-26",
+              "term": "deadline",
+              "ipa": "/d\u02C8\u025Bdla\u026An/",
+              "vietnamese": "h\u1EA1n ch\u00F3t",
+              "context": "\u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y.",
+              "source": {
+                "file": "LESSONS/Unit_26.md",
+                "originalUnit": "26",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 m\u1EE5c)"
+              }
+            },
+            {
+              "vocabularyId": "unit-26-vocab-09",
+              "unitId": "unit-26",
+              "term": "trade-off",
+              "ipa": "/t\u0279\u02C8e\u026Ad\u02C8\u0252f/",
+              "vietnamese": "\u0111\u00E1nh \u0111\u1ED5i",
+              "context": "\u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y.",
+              "source": {
+                "file": "LESSONS/Unit_26.md",
+                "originalUnit": "26",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 m\u1EE5c)"
+              }
+            },
+            {
+              "vocabularyId": "unit-26-vocab-10",
+              "unitId": "unit-26",
+              "term": "priority",
+              "ipa": "/p\u0279a\u026A\u02C8\u0252\u0279\u026Ati/",
+              "vietnamese": "m\u1EE9c \u01B0u ti\u00EAn",
+              "context": "\u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y.",
+              "source": {
+                "file": "LESSONS/Unit_26.md",
+                "originalUnit": "26",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 m\u1EE5c)"
+              }
+            },
+            {
+              "vocabularyId": "unit-26-vocab-11",
+              "unitId": "unit-26",
+              "term": "request",
+              "ipa": "/\u0279\u026Akw\u02C8\u025Bst/",
+              "vietnamese": "y\u00EAu c\u1EA7u",
+              "context": "Two days before a sprint ended, a customer requested an additional export format.",
+              "source": {
+                "file": "LESSONS/Unit_26.md",
+                "originalUnit": "26",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 m\u1EE5c)"
+              }
+            },
+            {
+              "vocabularyId": "unit-26-vocab-12",
+              "unitId": "unit-26",
+              "term": "proposal",
+              "ipa": "/p\u0279\u0259p\u02C8\u0259\u028Az\u0259l/",
+              "vietnamese": "\u0111\u1EC1 xu\u1EA5t",
+              "context": "\u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y.",
+              "source": {
+                "file": "LESSONS/Unit_26.md",
+                "originalUnit": "26",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 m\u1EE5c)"
+              }
+            },
+            {
+              "vocabularyId": "unit-26-vocab-13",
+              "unitId": "unit-26",
+              "term": "commitment",
+              "ipa": "/k\u0259m\u02C8\u026Atm\u0259nt/",
+              "vietnamese": "cam k\u1EBFt",
+              "context": "She did not say simply \u201Cno.\u201D Instead, she explained the current commitments and asked which export format was most important.",
+              "source": {
+                "file": "LESSONS/Unit_26.md",
+                "originalUnit": "26",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 m\u1EE5c)"
+              }
+            },
+            {
+              "vocabularyId": "unit-26-vocab-14",
+              "unitId": "unit-26",
+              "term": "impact assessment",
+              "ipa": "/\u02C8\u026Ampakt \u0250s\u02C8\u025Bsm\u0259nt/",
+              "vietnamese": "\u0111\u00E1nh gi\u00E1 t\u00E1c \u0111\u1ED9ng",
+              "context": "\u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y.",
+              "source": {
+                "file": "LESSONS/Unit_26.md",
+                "originalUnit": "26",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 m\u1EE5c)"
+              }
+            },
+            {
+              "vocabularyId": "unit-26-vocab-15",
+              "unitId": "unit-26",
+              "term": "revisit",
+              "ipa": "/\u0279\u026Av\u02C8\u026Az\u026At/",
+              "vietnamese": "xem x\u00E9t l\u1EA1i",
+              "context": "\u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y.",
+              "source": {
+                "file": "LESSONS/Unit_26.md",
+                "originalUnit": "26",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 m\u1EE5c)"
+              }
+            },
+            {
+              "vocabularyId": "unit-26-vocab-16",
+              "unitId": "unit-26",
+              "term": "postpone",
+              "ipa": "/p\u0259\u028Astp\u02C8\u0259\u028An/",
+              "vietnamese": "ho\u00E3n",
+              "context": "She offered two options: release the original scope on Friday and add the new format next sprint, or postpone the whole release for several days.",
+              "source": {
+                "file": "LESSONS/Unit_26.md",
+                "originalUnit": "26",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 m\u1EE5c)"
+              }
+            },
+            {
+              "vocabularyId": "unit-26-vocab-17",
+              "unitId": "unit-26",
+              "term": "feasible",
+              "ipa": "/f\u02C8i\u02D0z\u0259b\u0259l/",
+              "vietnamese": "kh\u1EA3 thi",
+              "context": "\u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y.",
+              "source": {
+                "file": "LESSONS/Unit_26.md",
+                "originalUnit": "26",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 m\u1EE5c)"
+              }
+            },
+            {
+              "vocabularyId": "unit-26-vocab-18",
+              "unitId": "unit-26",
+              "term": "optional",
+              "ipa": "/\u02C8\u0252p\u0283\u0259n\u0259l/",
+              "vietnamese": "kh\u00F4ng b\u1EAFt bu\u1ED9c",
+              "context": "\u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y.",
+              "source": {
+                "file": "LESSONS/Unit_26.md",
+                "originalUnit": "26",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 m\u1EE5c)"
+              }
+            },
+            {
+              "vocabularyId": "unit-26-vocab-19",
+              "unitId": "unit-26",
+              "term": "essential",
+              "ipa": "/\u026As\u02C8\u025Bn\u0283\u0259l/",
+              "vietnamese": "thi\u1EBFt y\u1EBFu",
+              "context": "\u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y.",
+              "source": {
+                "file": "LESSONS/Unit_26.md",
+                "originalUnit": "26",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 m\u1EE5c)"
+              }
+            },
+            {
+              "vocabularyId": "unit-26-vocab-20",
+              "unitId": "unit-26",
+              "term": "agreement",
+              "ipa": "/\u0250\u0261\u0279\u02C8i\u02D0m\u0259nt/",
+              "vietnamese": "th\u1ECFa thu\u1EADn",
+              "context": "\u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y.",
+              "source": {
+                "file": "LESSONS/Unit_26.md",
+                "originalUnit": "26",
+                "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 m\u1EE5c)"
+              }
+            }
+          ],
+          "blockId": "unit-26-a-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 m\u1EE5c)"
+          }
+        }
+      ],
+      "order": 4,
+      "parentSectionId": null,
+      "originalHeading": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 m\u1EE5c)",
+      "sourceMarkdown": "## A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 m\u1EE5c)\n\n\u003E IPA tham kh\u1EA3o gi\u1ECDng Anh-Anh, \u0111\u01B0\u1EE3c t\u1EA1o b\u1EB1ng c\u00F4ng c\u1EE5 ph\u00E1t \u00E2m; khi luy\u1EC7n Voice, h\u00E3y ki\u1EC3m tra tr\u1ECDng \u00E2m v\u00E0 \u00E2m th\u1EF1c t\u1EBF. C\u1ED9t ng\u1EEF c\u1EA3nh tr\u00EDch t\u1EEB b\u00E0i \u0111\u1ECDc n\u1EBFu c\u00F3; c\u00E1c m\u1EE5c kh\u00E1c y\u00EAu c\u1EA7u t\u1EF1 \u0111\u1EB7t c\u00E2u.\n\n| STT | English / IPA | Ngh\u0129a ti\u1EBFng Vi\u1EC7t | Ng\u1EEF c\u1EA3nh / th\u1EF1c h\u00E0nh |\n|---:|---|---|---|\n| 1 | **negotiate** /n\u026A\u0261\u02C8\u0259\u028A\u0283\u026A\u02CCe\u026At/ | th\u01B0\u01A1ng l\u01B0\u1EE3ng | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 2 | **scope creep** /sk\u02C8\u0259\u028Ap k\u0279\u02C8i\u02D0p/ | ph\u1EA1m vi t\u0103ng kh\u00F4ng ki\u1EC3m so\u00E1t | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 3 | **deliverable** /d\u026Al\u02C8\u026Av\u0259\u0279\u0259b\u0259l/ | s\u1EA3n ph\u1EA9m b\u00E0n giao | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 4 | **estimate** /\u02C8\u025Bst\u026Am\u0259t/ | \u01B0\u1EDBc t\u00EDnh | The developer documented the new requirement and promised to provide an estimate after reviewing the technical impact. |\n| 5 | **capacity** /k\u0259p\u02C8as\u026Ati/ | n\u0103ng l\u1EF1c | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 6 | **constraint** /k\u0259nst\u0279\u02C8e\u026Ant/ | r\u00E0ng bu\u1ED9c | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 7 | **compromise** /k\u02C8\u0252mp\u0279\u0259m\u02CCa\u026Az/ | th\u1ECFa hi\u1EC7p | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 8 | **deadline** /d\u02C8\u025Bdla\u026An/ | h\u1EA1n ch\u00F3t | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 9 | **trade-off** /t\u0279\u02C8e\u026Ad\u02C8\u0252f/ | \u0111\u00E1nh \u0111\u1ED5i | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 10 | **priority** /p\u0279a\u026A\u02C8\u0252\u0279\u026Ati/ | m\u1EE9c \u01B0u ti\u00EAn | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 11 | **request** /\u0279\u026Akw\u02C8\u025Bst/ | y\u00EAu c\u1EA7u | Two days before a sprint ended, a customer requested an additional export format. |\n| 12 | **proposal** /p\u0279\u0259p\u02C8\u0259\u028Az\u0259l/ | \u0111\u1EC1 xu\u1EA5t | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 13 | **commitment** /k\u0259m\u02C8\u026Atm\u0259nt/ | cam k\u1EBFt | She did not say simply \u201Cno.\u201D Instead, she explained the current commitments and asked which export format was most important. |\n| 14 | **impact assessment** /\u02C8\u026Ampakt \u0250s\u02C8\u025Bsm\u0259nt/ | \u0111\u00E1nh gi\u00E1 t\u00E1c \u0111\u1ED9ng | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 15 | **revisit** /\u0279\u026Av\u02C8\u026Az\u026At/ | xem x\u00E9t l\u1EA1i | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 16 | **postpone** /p\u0259\u028Astp\u02C8\u0259\u028An/ | ho\u00E3n | She offered two options: release the original scope on Friday and add the new format next sprint, or postpone the whole release for several days. |\n| 17 | **feasible** /f\u02C8i\u02D0z\u0259b\u0259l/ | kh\u1EA3 thi | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 18 | **optional** /\u02C8\u0252p\u0283\u0259n\u0259l/ | kh\u00F4ng b\u1EAFt bu\u1ED9c | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 19 | **essential** /\u026As\u02C8\u025Bn\u0283\u0259l/ | thi\u1EBFt y\u1EBFu | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n| 20 | **agreement** /\u0250\u0261\u0279\u02C8i\u02D0m\u0259nt/ | th\u1ECFa thu\u1EADn | \u0110\u1EB7t 1 c\u00E2u c\u1EE7a ri\u00EAng b\u1EA1n v\u1EDBi t\u1EEB n\u00E0y. |\n\n**Luy\u1EC7n t\u1EEB / Vocabulary production:** Vi\u1EBFt 8 c\u00E2u: 3 c\u00E2u \u0111\u1EDDi s\u1ED1ng, 3 c\u00E2u c\u00F4ng s\u1EDF, 2 c\u00E2u IT. D\u00F9ng t\u1EEB c\u1EE7a Unit v\u00E0 t\u1EF1 ki\u1EC3m tra ngh\u0129a, lo\u1EA1i t\u1EEB, c\u00E1ch ph\u1ED1i h\u1EE3p t\u1EEB.",
+      "source": {
+        "file": "LESSONS/Unit_26.md",
+        "originalUnit": "26",
+        "originalSection": "A. Vocabulary \u2014 T\u1EEB v\u1EF1ng (20 m\u1EE5c)"
+      }
+    },
+    {
+      "sectionId": "b",
+      "title": "B. Grammar \u2014 Gi\u1EA3i th\u00EDch song ng\u1EEF",
+      "blocks": [],
+      "order": 5,
+      "parentSectionId": null,
+      "originalHeading": "B. Grammar \u2014 Gi\u1EA3i th\u00EDch song ng\u1EEF",
+      "sourceMarkdown": "## B. Grammar \u2014 Gi\u1EA3i th\u00EDch song ng\u1EEF",
+      "source": {
+        "file": "LESSONS/Unit_26.md",
+        "originalUnit": "26",
+        "originalSection": "B. Grammar \u2014 Gi\u1EA3i th\u00EDch song ng\u1EEF"
+      }
+    },
+    {
+      "sectionId": "b1",
+      "title": "B1. Polite hedging",
+      "blocks": [
+        {
+          "type": "grammar",
+          "text": "- **C\u00F4ng th\u1EE9c / Form:** \u0060might / may / could / would; perhaps / possibly\u0060\n- **C\u00E1ch d\u00F9ng (ti\u1EBFng Vi\u1EC7t):** L\u00E0m m\u1EC1m \u0111\u1EC1 xu\u1EA5t \u0111\u1EC3 \u0111\u00E0m ph\u00E1n m\u00E0 v\u1EABn gi\u1EEF th\u00F4ng \u0111i\u1EC7p r\u00F5.\n- **Example:** *It might be difficult to deliver everything by Friday.*\n- **Ngh\u0129a:** C\u00F3 th\u1EC3 s\u1EBD kh\u00F3 b\u00E0n giao m\u1ECDi th\u1EE9 tr\u01B0\u1EDBc th\u1EE9 S\u00E1u.\n- **L\u1ED7i d\u1EC5 m\u1EAFc:** L\u1ECBch s\u1EF1 kh\u00F4ng c\u00F3 ngh\u0129a m\u01A1 h\u1ED3 v\u1EC1 cam k\u1EBFt.",
+          "blockId": "unit-26-b1-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "B1. Polite hedging"
+          }
+        },
+        {
+          "type": "example",
+          "text": "Example: *It might be difficult to deliver everything by Friday.*",
+          "blockId": "unit-26-b1-block-02",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "B1. Polite hedging"
+          }
+        }
+      ],
+      "order": 6,
+      "parentSectionId": "b",
+      "originalHeading": "B1. Polite hedging",
+      "sourceMarkdown": "### B1. Polite hedging\n\n- **C\u00F4ng th\u1EE9c / Form:** \u0060might / may / could / would; perhaps / possibly\u0060\n- **C\u00E1ch d\u00F9ng (ti\u1EBFng Vi\u1EC7t):** L\u00E0m m\u1EC1m \u0111\u1EC1 xu\u1EA5t \u0111\u1EC3 \u0111\u00E0m ph\u00E1n m\u00E0 v\u1EABn gi\u1EEF th\u00F4ng \u0111i\u1EC7p r\u00F5.\n- **Example:** *It might be difficult to deliver everything by Friday.*\n- **Ngh\u0129a:** C\u00F3 th\u1EC3 s\u1EBD kh\u00F3 b\u00E0n giao m\u1ECDi th\u1EE9 tr\u01B0\u1EDBc th\u1EE9 S\u00E1u.\n- **L\u1ED7i d\u1EC5 m\u1EAFc:** L\u1ECBch s\u1EF1 kh\u00F4ng c\u00F3 ngh\u0129a m\u01A1 h\u1ED3 v\u1EC1 cam k\u1EBFt.",
+      "source": {
+        "file": "LESSONS/Unit_26.md",
+        "originalUnit": "26",
+        "originalSection": "B1. Polite hedging"
+      }
+    },
+    {
+      "sectionId": "b2",
+      "title": "B2. Diplomatic negotiation",
+      "blocks": [
+        {
+          "type": "grammar",
+          "text": "- **C\u00F4ng th\u1EE9c / Form:** \u0060Would it be possible to\u2026? / Could we consider\u2026? / We could\u2026\u0060\n- **C\u00E1ch d\u00F9ng (ti\u1EBFng Vi\u1EC7t):** \u0110\u01B0a l\u1EF1a ch\u1ECDn v\u00E0 \u0111i\u1EC1u ki\u1EC7n r\u00F5 r\u00E0ng thay v\u00EC t\u1EEB ch\u1ED1i tr\u1EF1c di\u1EC7n.\n- **Example:** *Could we consider moving the new filter to next sprint?*\n- **Ngh\u0129a:** Ta c\u00F3 th\u1EC3 c\u00E2n nh\u1EAFc chuy\u1EC3n b\u1ED9 l\u1ECDc m\u1EDBi sang sprint sau kh\u00F4ng?\n- **L\u1ED7i d\u1EC5 m\u1EAFc:** N\u00EAu r\u00F5 \u0111\u00E1nh \u0111\u1ED5i: thay \u0111\u1ED5i ph\u1EA1m vi s\u1EBD \u1EA3nh h\u01B0\u1EDFng chi ph\u00ED ho\u1EB7c th\u1EDDi gian.",
+          "blockId": "unit-26-b2-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "B2. Diplomatic negotiation"
+          }
+        },
+        {
+          "type": "example",
+          "text": "Example: *Could we consider moving the new filter to next sprint?*",
+          "blockId": "unit-26-b2-block-02",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "B2. Diplomatic negotiation"
+          }
+        }
+      ],
+      "order": 7,
+      "parentSectionId": "b",
+      "originalHeading": "B2. Diplomatic negotiation",
+      "sourceMarkdown": "### B2. Diplomatic negotiation\n\n- **C\u00F4ng th\u1EE9c / Form:** \u0060Would it be possible to\u2026? / Could we consider\u2026? / We could\u2026\u0060\n- **C\u00E1ch d\u00F9ng (ti\u1EBFng Vi\u1EC7t):** \u0110\u01B0a l\u1EF1a ch\u1ECDn v\u00E0 \u0111i\u1EC1u ki\u1EC7n r\u00F5 r\u00E0ng thay v\u00EC t\u1EEB ch\u1ED1i tr\u1EF1c di\u1EC7n.\n- **Example:** *Could we consider moving the new filter to next sprint?*\n- **Ngh\u0129a:** Ta c\u00F3 th\u1EC3 c\u00E2n nh\u1EAFc chuy\u1EC3n b\u1ED9 l\u1ECDc m\u1EDBi sang sprint sau kh\u00F4ng?\n- **L\u1ED7i d\u1EC5 m\u1EAFc:** N\u00EAu r\u00F5 \u0111\u00E1nh \u0111\u1ED5i: thay \u0111\u1ED5i ph\u1EA1m vi s\u1EBD \u1EA3nh h\u01B0\u1EDFng chi ph\u00ED ho\u1EB7c th\u1EDDi gian.",
+      "source": {
+        "file": "LESSONS/Unit_26.md",
+        "originalUnit": "26",
+        "originalSection": "B2. Diplomatic negotiation"
+      }
+    },
+    {
+      "sectionId": "b3",
+      "title": "B3. So s\u00E1nh v\u00E0 t\u1EF1 ki\u1EC3m tra",
+      "blocks": [
+        {
+          "type": "grammar",
+          "text": "Tr\u01B0\u1EDBc khi ch\u1ECDn c\u1EA5u tr\u00FAc, t\u1EF1 h\u1ECFi: (1) th\u1EDDi gian n\u00E0o, (2) s\u1EF1 th\u1EADt hay gi\u1EA3 \u0111\u1ECBnh, (3) ai l\u00E0m h\u00E0nh \u0111\u1ED9ng, (4) \u0111i\u1EC1u g\u00EC c\u1EA7n nh\u1EA5n m\u1EA1nh?\nH\u00E3y gi\u1EA3i th\u00EDch l\u1EA1i b\u1EB1ng ti\u1EBFng Vi\u1EC7t hai c\u00E2u m\u1EABu ph\u00EDa tr\u00EAn, sau \u0111\u00F3 t\u1EF1 vi\u1EBFt hai c\u00E2u kh\u00E1c b\u1EB1ng ti\u1EBFng Anh.",
+          "blockId": "unit-26-b3-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "B3. So s\u00E1nh v\u00E0 t\u1EF1 ki\u1EC3m tra"
+          }
+        }
+      ],
+      "order": 8,
+      "parentSectionId": "b",
+      "originalHeading": "B3. So s\u00E1nh v\u00E0 t\u1EF1 ki\u1EC3m tra",
+      "sourceMarkdown": "### B3. So s\u00E1nh v\u00E0 t\u1EF1 ki\u1EC3m tra\n\nTr\u01B0\u1EDBc khi ch\u1ECDn c\u1EA5u tr\u00FAc, t\u1EF1 h\u1ECFi: (1) th\u1EDDi gian n\u00E0o, (2) s\u1EF1 th\u1EADt hay gi\u1EA3 \u0111\u1ECBnh, (3) ai l\u00E0m h\u00E0nh \u0111\u1ED9ng, (4) \u0111i\u1EC1u g\u00EC c\u1EA7n nh\u1EA5n m\u1EA1nh?\nH\u00E3y gi\u1EA3i th\u00EDch l\u1EA1i b\u1EB1ng ti\u1EBFng Vi\u1EC7t hai c\u00E2u m\u1EABu ph\u00EDa tr\u00EAn, sau \u0111\u00F3 t\u1EF1 vi\u1EBFt hai c\u00E2u kh\u00E1c b\u1EB1ng ti\u1EBFng Anh.",
+      "source": {
+        "file": "LESSONS/Unit_26.md",
+        "originalUnit": "26",
+        "originalSection": "B3. So s\u00E1nh v\u00E0 t\u1EF1 ki\u1EC3m tra"
+      }
+    },
+    {
+      "sectionId": "c",
+      "title": "C. Grammar practice \u2014 B\u00E0i t\u1EADp ng\u1EEF ph\u00E1p",
+      "blocks": [
+        {
+          "type": "explanation",
+          "text": "**Quy t\u1EAFc:** Ch\u01B0a xem Answer Key. Trong chat, GPT giao **3\u20135 c\u00E2u m\u1ED7i l\u01B0\u1EE3t** r\u1ED3i ch\u1EDD c\u00E2u tr\u1EA3 l\u1EDDi. **12 c\u00E2u (8 \u0111i\u1EC1n t\u1EEB \u002B 4 s\u1EEDa l\u1ED7i)**.",
+          "blockId": "unit-26-c-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "C. Grammar practice \u2014 B\u00E0i t\u1EADp ng\u1EEF ph\u00E1p"
+          }
+        }
+      ],
+      "order": 9,
+      "parentSectionId": null,
+      "originalHeading": "C. Grammar practice \u2014 B\u00E0i t\u1EADp ng\u1EEF ph\u00E1p",
+      "sourceMarkdown": "## C. Grammar practice \u2014 B\u00E0i t\u1EADp ng\u1EEF ph\u00E1p\n\n**Quy t\u1EAFc:** Ch\u01B0a xem Answer Key. Trong chat, GPT giao **3\u20135 c\u00E2u m\u1ED7i l\u01B0\u1EE3t** r\u1ED3i ch\u1EDD c\u00E2u tr\u1EA3 l\u1EDDi. **12 c\u00E2u (8 \u0111i\u1EC1n t\u1EEB \u002B 4 s\u1EEDa l\u1ED7i)**.",
+      "source": {
+        "file": "LESSONS/Unit_26.md",
+        "originalUnit": "26",
+        "originalSection": "C. Grammar practice \u2014 B\u00E0i t\u1EADp ng\u1EEF ph\u00E1p"
+      }
+    },
+    {
+      "sectionId": "c1",
+      "title": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n t\u1EEB / chia \u0111\u1ED9ng t\u1EEB (8 c\u00E2u)",
+      "blocks": [
+        {
+          "type": "exercise-group",
+          "exerciseId": "unit-26-c1-group",
+          "title": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n t\u1EEB / chia \u0111\u1ED9ng t\u1EEB (8 c\u00E2u)",
+          "instructions": "",
+          "blockId": "unit-26-c1-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n t\u1EEB / chia \u0111\u1ED9ng t\u1EEB (8 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-26-c1-01",
+          "prompt": "It ___ (might / be) better to defer this feature.",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-26-c1-block-02",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n t\u1EEB / chia \u0111\u1ED9ng t\u1EEB (8 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-26-c1-02",
+          "prompt": "Would it be possible ___ (extend) the deadline?",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-26-c1-block-03",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n t\u1EEB / chia \u0111\u1ED9ng t\u1EEB (8 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-26-c1-03",
+          "prompt": "Could we ___ (consider) another option?",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-26-c1-block-04",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n t\u1EEB / chia \u0111\u1ED9ng t\u1EEB (8 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-26-c1-04",
+          "prompt": "We would prefer ___ (keep) the current release date.",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-26-c1-block-05",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n t\u1EEB / chia \u0111\u1ED9ng t\u1EEB (8 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-26-c1-05",
+          "prompt": "This change may ___ (affect) the estimate.",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-26-c1-block-06",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n t\u1EEB / chia \u0111\u1ED9ng t\u1EEB (8 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-26-c1-06",
+          "prompt": "I suggest ___ (review) the scope together.",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-26-c1-block-07",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n t\u1EEB / chia \u0111\u1ED9ng t\u1EEB (8 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-26-c1-07",
+          "prompt": "Would you mind ___ (confirm) the priority?",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-26-c1-block-08",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n t\u1EEB / chia \u0111\u1ED9ng t\u1EEB (8 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-26-c1-08",
+          "prompt": "We could ___ (deliver) a smaller version first.",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-26-c1-block-09",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n t\u1EEB / chia \u0111\u1ED9ng t\u1EEB (8 c\u00E2u)"
+          }
+        }
+      ],
+      "order": 10,
+      "parentSectionId": "c",
+      "originalHeading": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n t\u1EEB / chia \u0111\u1ED9ng t\u1EEB (8 c\u00E2u)",
+      "sourceMarkdown": "### C1. Fill in the blanks \u2014 \u0110i\u1EC1n t\u1EEB / chia \u0111\u1ED9ng t\u1EEB (8 c\u00E2u)\n\n1. It ___ (might / be) better to defer this feature.\n2. Would it be possible ___ (extend) the deadline?\n3. Could we ___ (consider) another option?\n4. We would prefer ___ (keep) the current release date.\n5. This change may ___ (affect) the estimate.\n6. I suggest ___ (review) the scope together.\n7. Would you mind ___ (confirm) the priority?\n8. We could ___ (deliver) a smaller version first.",
+      "source": {
+        "file": "LESSONS/Unit_26.md",
+        "originalUnit": "26",
+        "originalSection": "C1. Fill in the blanks \u2014 \u0110i\u1EC1n t\u1EEB / chia \u0111\u1ED9ng t\u1EEB (8 c\u00E2u)"
+      }
+    },
+    {
+      "sectionId": "c2",
+      "title": "C2. Error correction \u2014 S\u1EEDa l\u1ED7i (4 c\u00E2u)",
+      "blocks": [
+        {
+          "type": "exercise-group",
+          "exerciseId": "unit-26-c2-group",
+          "title": "C2. Error correction \u2014 S\u1EEDa l\u1ED7i (4 c\u00E2u)",
+          "instructions": "",
+          "blockId": "unit-26-c2-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "C2. Error correction \u2014 S\u1EEDa l\u1ED7i (4 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-26-c2-01",
+          "prompt": "*Could you to confirm the deadline?*",
+          "options": [],
+          "responseKind": "error-correction",
+          "blockId": "unit-26-c2-block-02",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "C2. Error correction \u2014 S\u1EEDa l\u1ED7i (4 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-26-c2-02",
+          "prompt": "*It might to require more effort.*",
+          "options": [],
+          "responseKind": "error-correction",
+          "blockId": "unit-26-c2-block-03",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "C2. Error correction \u2014 S\u1EEDa l\u1ED7i (4 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-26-c2-03",
+          "prompt": "*Would it possible to defer the work?*",
+          "options": [],
+          "responseKind": "error-correction",
+          "blockId": "unit-26-c2-block-04",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "C2. Error correction \u2014 S\u1EEDa l\u1ED7i (4 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-26-c2-04",
+          "prompt": "*We suggest to postpone this task.*",
+          "options": [],
+          "responseKind": "error-correction",
+          "blockId": "unit-26-c2-block-05",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "C2. Error correction \u2014 S\u1EEDa l\u1ED7i (4 c\u00E2u)"
+          }
+        }
+      ],
+      "order": 11,
+      "parentSectionId": "c",
+      "originalHeading": "C2. Error correction \u2014 S\u1EEDa l\u1ED7i (4 c\u00E2u)",
+      "sourceMarkdown": "### C2. Error correction \u2014 S\u1EEDa l\u1ED7i (4 c\u00E2u)\n\n1. *Could you to confirm the deadline?*\n2. *It might to require more effort.*\n3. *Would it possible to defer the work?*\n4. *We suggest to postpone this task.*",
+      "source": {
+        "file": "LESSONS/Unit_26.md",
+        "originalUnit": "26",
+        "originalSection": "C2. Error correction \u2014 S\u1EEDa l\u1ED7i (4 c\u00E2u)"
+      }
+    },
+    {
+      "sectionId": "d",
+      "title": "D. Vocabulary practice \u2014 \u00D4n t\u1EEB v\u1EF1ng",
+      "blocks": [
+        {
+          "type": "exercise-group",
+          "exerciseId": "unit-26-d1-group",
+          "title": "D. Vocabulary practice \u2014 \u00D4n t\u1EEB v\u1EF1ng",
+          "instructions": "**D1. Vi\u1EBFt t\u1EEB/c\u1EE5m ti\u1EBFng Anh ph\u00F9 h\u1EE3p v\u1EDBi ngh\u0129a ti\u1EBFng Vi\u1EC7t (5 c\u00E2u).** Kh\u00F4ng nh\u00ECn b\u1EA3ng A tr\u01B0\u1EDBc khi l\u00E0m.",
+          "blockId": "unit-26-d-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "D. Vocabulary practice \u2014 \u00D4n t\u1EEB v\u1EF1ng"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-26-d1-01",
+          "prompt": "th\u01B0\u01A1ng l\u01B0\u1EE3ng \u2192 ______",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-26-d-block-02",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "D. Vocabulary practice \u2014 \u00D4n t\u1EEB v\u1EF1ng"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-26-d1-02",
+          "prompt": "ph\u1EA1m vi t\u0103ng kh\u00F4ng ki\u1EC3m so\u00E1t \u2192 ______",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-26-d-block-03",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "D. Vocabulary practice \u2014 \u00D4n t\u1EEB v\u1EF1ng"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-26-d1-03",
+          "prompt": "s\u1EA3n ph\u1EA9m b\u00E0n giao \u2192 ______",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-26-d-block-04",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "D. Vocabulary practice \u2014 \u00D4n t\u1EEB v\u1EF1ng"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-26-d1-04",
+          "prompt": "\u01B0\u1EDBc t\u00EDnh \u2192 ______",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-26-d-block-05",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "D. Vocabulary practice \u2014 \u00D4n t\u1EEB v\u1EF1ng"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-26-d1-05",
+          "prompt": "n\u0103ng l\u1EF1c \u2192 ______",
+          "options": [],
+          "responseKind": "text",
+          "blockId": "unit-26-d-block-06",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "D. Vocabulary practice \u2014 \u00D4n t\u1EEB v\u1EF1ng"
+          }
+        },
+        {
+          "type": "writing",
+          "exerciseId": "unit-26-d2-writing",
+          "prompt": "D2. Apply the words \u2014 \u1EE8ng d\u1EE5ng: Ch\u1ECDn 3 t\u1EEB b\u1EA5t k\u1EF3 trong b\u1EA3ng A, vi\u1EBFt m\u1ED9t \u0111o\u1EA1n h\u1ED9i tho\u1EA1i 5 l\u01B0\u1EE3t c\u00F3 ch\u1EE9a 3 t\u1EEB \u0111\u00F3. Vi\u1EBFt th\u00EAm 2 c\u00E2u v\u1EDBi t\u1EEB m\u1EDBi ch\u01B0a d\u00F9ng.",
+          "blockId": "unit-26-d-block-07",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "D. Vocabulary practice \u2014 \u00D4n t\u1EEB v\u1EF1ng"
+          }
+        }
+      ],
+      "order": 12,
+      "parentSectionId": null,
+      "originalHeading": "D. Vocabulary practice \u2014 \u00D4n t\u1EEB v\u1EF1ng",
+      "sourceMarkdown": "## D. Vocabulary practice \u2014 \u00D4n t\u1EEB v\u1EF1ng\n\n**D1. Vi\u1EBFt t\u1EEB/c\u1EE5m ti\u1EBFng Anh ph\u00F9 h\u1EE3p v\u1EDBi ngh\u0129a ti\u1EBFng Vi\u1EC7t (5 c\u00E2u).** Kh\u00F4ng nh\u00ECn b\u1EA3ng A tr\u01B0\u1EDBc khi l\u00E0m.\n\n1. th\u01B0\u01A1ng l\u01B0\u1EE3ng \u2192 ______\n2. ph\u1EA1m vi t\u0103ng kh\u00F4ng ki\u1EC3m so\u00E1t \u2192 ______\n3. s\u1EA3n ph\u1EA9m b\u00E0n giao \u2192 ______\n4. \u01B0\u1EDBc t\u00EDnh \u2192 ______\n5. n\u0103ng l\u1EF1c \u2192 ______\n\n**D2. Apply the words \u2014 \u1EE8ng d\u1EE5ng:** Ch\u1ECDn 3 t\u1EEB b\u1EA5t k\u1EF3 trong b\u1EA3ng A, vi\u1EBFt m\u1ED9t \u0111o\u1EA1n h\u1ED9i tho\u1EA1i 5 l\u01B0\u1EE3t c\u00F3 ch\u1EE9a 3 t\u1EEB \u0111\u00F3. Vi\u1EBFt th\u00EAm 2 c\u00E2u v\u1EDBi t\u1EEB m\u1EDBi ch\u01B0a d\u00F9ng.",
+      "source": {
+        "file": "LESSONS/Unit_26.md",
+        "originalUnit": "26",
+        "originalSection": "D. Vocabulary practice \u2014 \u00D4n t\u1EEB v\u1EF1ng"
+      }
+    },
+    {
+      "sectionId": "e",
+      "title": "E. Reading \u2014 \u0110\u1ECDc hi\u1EC3u",
+      "blocks": [
+        {
+          "type": "reading",
+          "text": "**C\u00E1ch h\u1ECDc:** \u0110\u1ECDc l\u01B0\u1EE3t m\u1ED9t l\u1EA5y \u00FD ch\u00EDnh; \u0111\u1ECDc l\u01B0\u1EE3t hai t\u00ECm ch\u1EE9ng c\u1EE9. Kh\u00F4ng d\u1ECBch t\u1EEBng t\u1EEB theo th\u00F3i quen.\n\n\u003E Two days before a sprint ended, a customer requested an additional export format. The developer understood the business need but knew that adding it immediately could threaten the release. She did not say simply \u201Cno.\u201D Instead, she explained the current commitments and asked which export format was most important. She offered two options: release the original scope on Friday and add the new format next sprint, or postpone the whole release for several days. The customer preferred to keep Friday\u0027s release. The developer documented the new requirement and promised to provide an estimate after reviewing the technical impact. Both sides left the conversation with clear expectations.",
+          "blockId": "unit-26-e-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "E. Reading \u2014 \u0110\u1ECDc hi\u1EC3u"
+          }
+        }
+      ],
+      "order": 13,
+      "parentSectionId": null,
+      "originalHeading": "E. Reading \u2014 \u0110\u1ECDc hi\u1EC3u",
+      "sourceMarkdown": "## E. Reading \u2014 \u0110\u1ECDc hi\u1EC3u\n\n**C\u00E1ch h\u1ECDc:** \u0110\u1ECDc l\u01B0\u1EE3t m\u1ED9t l\u1EA5y \u00FD ch\u00EDnh; \u0111\u1ECDc l\u01B0\u1EE3t hai t\u00ECm ch\u1EE9ng c\u1EE9. Kh\u00F4ng d\u1ECBch t\u1EEBng t\u1EEB theo th\u00F3i quen.\n\n\u003E Two days before a sprint ended, a customer requested an additional export format. The developer understood the business need but knew that adding it immediately could threaten the release. She did not say simply \u201Cno.\u201D Instead, she explained the current commitments and asked which export format was most important. She offered two options: release the original scope on Friday and add the new format next sprint, or postpone the whole release for several days. The customer preferred to keep Friday\u0027s release. The developer documented the new requirement and promised to provide an estimate after reviewing the technical impact. Both sides left the conversation with clear expectations.",
+      "source": {
+        "file": "LESSONS/Unit_26.md",
+        "originalUnit": "26",
+        "originalSection": "E. Reading \u2014 \u0110\u1ECDc hi\u1EC3u"
+      }
+    },
+    {
+      "sectionId": "reading-questions",
+      "title": "Reading questions \u2014 Tr\u1EA3 l\u1EDDi b\u1EB1ng ti\u1EBFng Anh (5 c\u00E2u)",
+      "blocks": [
+        {
+          "type": "exercise-group",
+          "exerciseId": "unit-26-e-group",
+          "title": "Reading questions \u2014 Tr\u1EA3 l\u1EDDi b\u1EB1ng ti\u1EBFng Anh (5 c\u00E2u)",
+          "instructions": "",
+          "blockId": "unit-26-reading-questions-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "Reading questions \u2014 Tr\u1EA3 l\u1EDDi b\u1EB1ng ti\u1EBFng Anh (5 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-26-e-01",
+          "prompt": "When did the customer request a change?",
+          "options": [],
+          "responseKind": "reading-response",
+          "blockId": "unit-26-reading-questions-block-02",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "Reading questions \u2014 Tr\u1EA3 l\u1EDDi b\u1EB1ng ti\u1EBFng Anh (5 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-26-e-02",
+          "prompt": "Why was the request difficult?",
+          "options": [],
+          "responseKind": "reading-response",
+          "blockId": "unit-26-reading-questions-block-03",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "Reading questions \u2014 Tr\u1EA3 l\u1EDDi b\u1EB1ng ti\u1EBFng Anh (5 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-26-e-03",
+          "prompt": "What two options were offered?",
+          "options": [],
+          "responseKind": "reading-response",
+          "blockId": "unit-26-reading-questions-block-04",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "Reading questions \u2014 Tr\u1EA3 l\u1EDDi b\u1EB1ng ti\u1EBFng Anh (5 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-26-e-04",
+          "prompt": "Which option did the customer choose?",
+          "options": [],
+          "responseKind": "reading-response",
+          "blockId": "unit-26-reading-questions-block-05",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "Reading questions \u2014 Tr\u1EA3 l\u1EDDi b\u1EB1ng ti\u1EBFng Anh (5 c\u00E2u)"
+          }
+        },
+        {
+          "type": "question",
+          "exerciseId": "unit-26-e-05",
+          "prompt": "What did the developer promise to provide?",
+          "options": [],
+          "responseKind": "reading-response",
+          "blockId": "unit-26-reading-questions-block-06",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "Reading questions \u2014 Tr\u1EA3 l\u1EDDi b\u1EB1ng ti\u1EBFng Anh (5 c\u00E2u)"
+          }
+        }
+      ],
+      "order": 14,
+      "parentSectionId": "e",
+      "originalHeading": "Reading questions \u2014 Tr\u1EA3 l\u1EDDi b\u1EB1ng ti\u1EBFng Anh (5 c\u00E2u)",
+      "sourceMarkdown": "### Reading questions \u2014 Tr\u1EA3 l\u1EDDi b\u1EB1ng ti\u1EBFng Anh (5 c\u00E2u)\n\n1. When did the customer request a change?\n2. Why was the request difficult?\n3. What two options were offered?\n4. Which option did the customer choose?\n5. What did the developer promise to provide?\n\n**Reading extension:** T\u00F3m t\u1EAFt \u0111o\u1EA1n \u0111\u1ECDc b\u1EB1ng 3 c\u00E2u ti\u1EBFng Anh. D\u00F9ng \u00EDt nh\u1EA5t hai t\u1EEB m\u1EDBi c\u1EE7a Unit.",
+      "source": {
+        "file": "LESSONS/Unit_26.md",
+        "originalUnit": "26",
+        "originalSection": "Reading questions \u2014 Tr\u1EA3 l\u1EDDi b\u1EB1ng ti\u1EBFng Anh (5 c\u00E2u)"
+      }
+    },
+    {
+      "sectionId": "f",
+      "title": "F. Writing \u2014 B\u00E0i vi\u1EBFt c\u00F3 h\u01B0\u1EDBng d\u1EABn",
+      "blocks": [
+        {
+          "type": "writing",
+          "exerciseId": "unit-26-f-writing",
+          "prompt": "**Writing assignment:** Write a scope negotiation email using at least five softening phrases and two clear options.\n\n**Tr\u01B0\u1EDBc khi vi\u1EBFt:** l\u1EADp d\u00E0n \u00FD b\u1EB1ng 3\u20135 g\u1EA1ch \u0111\u1EA7u d\u00F2ng; ki\u1EC3m tra th\u00EC/c\u1EA5u tr\u00FAc, t\u1EEB n\u1ED1i v\u00E0 s\u1EF1 r\u00F5 r\u00E0ng.\n\n**Rubric (100 \u0111i\u1EC3m):** N\u1ED9i dung \u0026 nhi\u1EC7m v\u1EE5 40; ng\u1EEF ph\u00E1p tr\u1ECDng t\u00E2m 35; t\u1EEB v\u1EF1ng, m\u1EA1ch l\u1EA1c v\u00E0 gi\u1ECDng \u0111i\u1EC7u 25. GPT ch\u1EC9 cung c\u1EA5p b\u1EA3n s\u1EEDa sau khi b\u1EA1n \u0111\u00E3 n\u1ED9p.",
+          "blockId": "unit-26-f-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "F. Writing \u2014 B\u00E0i vi\u1EBFt c\u00F3 h\u01B0\u1EDBng d\u1EABn"
+          }
+        }
+      ],
+      "order": 15,
+      "parentSectionId": null,
+      "originalHeading": "F. Writing \u2014 B\u00E0i vi\u1EBFt c\u00F3 h\u01B0\u1EDBng d\u1EABn",
+      "sourceMarkdown": "## F. Writing \u2014 B\u00E0i vi\u1EBFt c\u00F3 h\u01B0\u1EDBng d\u1EABn\n\n**Writing assignment:** Write a scope negotiation email using at least five softening phrases and two clear options.\n\n**Tr\u01B0\u1EDBc khi vi\u1EBFt:** l\u1EADp d\u00E0n \u00FD b\u1EB1ng 3\u20135 g\u1EA1ch \u0111\u1EA7u d\u00F2ng; ki\u1EC3m tra th\u00EC/c\u1EA5u tr\u00FAc, t\u1EEB n\u1ED1i v\u00E0 s\u1EF1 r\u00F5 r\u00E0ng.\n\n**Rubric (100 \u0111i\u1EC3m):** N\u1ED9i dung \u0026 nhi\u1EC7m v\u1EE5 40; ng\u1EEF ph\u00E1p tr\u1ECDng t\u00E2m 35; t\u1EEB v\u1EF1ng, m\u1EA1ch l\u1EA1c v\u00E0 gi\u1ECDng \u0111i\u1EC7u 25. GPT ch\u1EC9 cung c\u1EA5p b\u1EA3n s\u1EEDa sau khi b\u1EA1n \u0111\u00E3 n\u1ED9p.",
+      "source": {
+        "file": "LESSONS/Unit_26.md",
+        "originalUnit": "26",
+        "originalSection": "F. Writing \u2014 B\u00E0i vi\u1EBFt c\u00F3 h\u01B0\u1EDBng d\u1EABn"
+      }
+    },
+    {
+      "sectionId": "g",
+      "title": "G. Speaking \u0026 Listening \u2014 Voice v\u00E0 v\u0103n b\u1EA3n",
+      "blocks": [],
+      "order": 16,
+      "parentSectionId": null,
+      "originalHeading": "G. Speaking \u0026 Listening \u2014 Voice v\u00E0 v\u0103n b\u1EA3n",
+      "sourceMarkdown": "## G. Speaking \u0026 Listening \u2014 Voice v\u00E0 v\u0103n b\u1EA3n",
+      "source": {
+        "file": "LESSONS/Unit_26.md",
+        "originalUnit": "26",
+        "originalSection": "G. Speaking \u0026 Listening \u2014 Voice v\u00E0 v\u0103n b\u1EA3n"
+      }
+    },
+    {
+      "sectionId": "g1",
+      "title": "G1. Warm-up \u0026 pronunciation",
+      "blocks": [
+        {
+          "type": "speaking",
+          "exerciseId": "unit-26-g1-speaking",
+          "prompt": "- Ch\u1ECDn 5 m\u1EE5c t\u1EEB trong b\u1EA3ng A: nghe GPT \u0111\u1ECDc t\u1EEBng m\u1EE5c v\u00E0 l\u1EB7p l\u1EA1i n\u1EBFu Voice c\u00F3 ph\u00E1t \u00E2m thanh.\n- V\u1EDBi m\u1ED7i t\u1EEB, \u0111\u1ECDc m\u1ED9t c\u00E2u ch\u1EE9a t\u1EEB \u0111\u00F3; gi\u00E1o vi\u00EAn gi\u1EA3i th\u00EDch tr\u1ECDng \u00E2m/c\u1EE5m n\u1ED1i \u00E2m khi c\u1EA7n.\n- **Kh\u00F4ng t\u1EF1 ch\u1EA5m ph\u00E1t \u00E2m** n\u1EBFu GPT ch\u1EC9 nh\u1EADn v\u0103n b\u1EA3n ho\u1EB7c transcript.",
+          "blockId": "unit-26-g1-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "G1. Warm-up \u0026 pronunciation"
+          }
+        }
+      ],
+      "order": 17,
+      "parentSectionId": "g",
+      "originalHeading": "G1. Warm-up \u0026 pronunciation",
+      "sourceMarkdown": "### G1. Warm-up \u0026 pronunciation\n\n- Ch\u1ECDn 5 m\u1EE5c t\u1EEB trong b\u1EA3ng A: nghe GPT \u0111\u1ECDc t\u1EEBng m\u1EE5c v\u00E0 l\u1EB7p l\u1EA1i n\u1EBFu Voice c\u00F3 ph\u00E1t \u00E2m thanh.\n- V\u1EDBi m\u1ED7i t\u1EEB, \u0111\u1ECDc m\u1ED9t c\u00E2u ch\u1EE9a t\u1EEB \u0111\u00F3; gi\u00E1o vi\u00EAn gi\u1EA3i th\u00EDch tr\u1ECDng \u00E2m/c\u1EE5m n\u1ED1i \u00E2m khi c\u1EA7n.\n- **Kh\u00F4ng t\u1EF1 ch\u1EA5m ph\u00E1t \u00E2m** n\u1EBFu GPT ch\u1EC9 nh\u1EADn v\u0103n b\u1EA3n ho\u1EB7c transcript.",
+      "source": {
+        "file": "LESSONS/Unit_26.md",
+        "originalUnit": "26",
+        "originalSection": "G1. Warm-up \u0026 pronunciation"
+      }
+    },
+    {
+      "sectionId": "g2",
+      "title": "G2. Partner role-play / H\u1ED9i tho\u1EA1i t\u00ECnh hu\u1ED1ng",
+      "blocks": [
+        {
+          "type": "speaking",
+          "exerciseId": "unit-26-g2-speaking",
+          "prompt": "- **Role for GPT (English):** You are a customer pushing for a late feature. I negotiate politely and propose realistic alternatives.\n- **H\u01B0\u1EDBng d\u1EABn ti\u1EBFng Vi\u1EC7t:** GPT \u0111\u00F3ng vai \u0111\u1ED1i tho\u1EA1i, h\u1ECFi m\u1ED7i l\u1EA7n 1 c\u00E2u v\u00E0 ch\u1EDD h\u1ECDc vi\u00EAn tr\u1EA3 l\u1EDDi; ch\u1EC9 s\u1EEDa l\u1ED7i c\u1EA3n tr\u1EDF hi\u1EC3u trong l\u00FAc n\u00F3i, c\u00F2n l\u1EA1i t\u1ED5ng k\u1EBFt \u1EDF cu\u1ED1i.\n- **Text Mode:** Th\u1EF1c h\u00E0nh d\u01B0\u1EDBi d\u1EA1ng chat, ch\u1EA5m \u0111\u1ED9 r\u00F5 v\u00E0 ng\u1EEF ph\u00E1p; **kh\u00F4ng t\u00EDnh** ph\u00E1t \u00E2m ho\u1EB7c nghe.\n- **Voice Mode:** Gi\u1EEF 80\u201390% \u0111\u1ED1i tho\u1EA1i b\u1EB1ng ti\u1EBFng Anh; gi\u1EA3i th\u00EDch ti\u1EBFng Vi\u1EC7t theo y\u00EAu c\u1EA7u.",
+          "blockId": "unit-26-g2-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "G2. Partner role-play / H\u1ED9i tho\u1EA1i t\u00ECnh hu\u1ED1ng"
+          }
+        }
+      ],
+      "order": 18,
+      "parentSectionId": "g",
+      "originalHeading": "G2. Partner role-play / H\u1ED9i tho\u1EA1i t\u00ECnh hu\u1ED1ng",
+      "sourceMarkdown": "### G2. Partner role-play / H\u1ED9i tho\u1EA1i t\u00ECnh hu\u1ED1ng\n\n- **Role for GPT (English):** You are a customer pushing for a late feature. I negotiate politely and propose realistic alternatives.\n- **H\u01B0\u1EDBng d\u1EABn ti\u1EBFng Vi\u1EC7t:** GPT \u0111\u00F3ng vai \u0111\u1ED1i tho\u1EA1i, h\u1ECFi m\u1ED7i l\u1EA7n 1 c\u00E2u v\u00E0 ch\u1EDD h\u1ECDc vi\u00EAn tr\u1EA3 l\u1EDDi; ch\u1EC9 s\u1EEDa l\u1ED7i c\u1EA3n tr\u1EDF hi\u1EC3u trong l\u00FAc n\u00F3i, c\u00F2n l\u1EA1i t\u1ED5ng k\u1EBFt \u1EDF cu\u1ED1i.\n- **Text Mode:** Th\u1EF1c h\u00E0nh d\u01B0\u1EDBi d\u1EA1ng chat, ch\u1EA5m \u0111\u1ED9 r\u00F5 v\u00E0 ng\u1EEF ph\u00E1p; **kh\u00F4ng t\u00EDnh** ph\u00E1t \u00E2m ho\u1EB7c nghe.\n- **Voice Mode:** Gi\u1EEF 80\u201390% \u0111\u1ED1i tho\u1EA1i b\u1EB1ng ti\u1EBFng Anh; gi\u1EA3i th\u00EDch ti\u1EBFng Vi\u1EC7t theo y\u00EAu c\u1EA7u.",
+      "source": {
+        "file": "LESSONS/Unit_26.md",
+        "originalUnit": "26",
+        "originalSection": "G2. Partner role-play / H\u1ED9i tho\u1EA1i t\u00ECnh hu\u1ED1ng"
+      }
+    },
+    {
+      "sectionId": "g3",
+      "title": "G3. Listening check \u2014 Nghe hi\u1EC3u qua Voice",
+      "blocks": [
+        {
+          "type": "listening",
+          "exerciseId": "unit-26-g3-listening",
+          "prompt": "- \u0110\u1EC1 ngh\u1ECB GPT n\u00F3i **m\u1ED9t th\u00F4ng \u0111i\u1EC7p m\u1EDBi 60\u201390 t\u1EEB** theo ch\u1EE7 \u0111\u1EC1 n\u00E0y, kh\u00F4ng hi\u1EC7n b\u1EA3n ch\u00E9p tr\u01B0\u1EDBc khi nghe; sau \u0111\u00F3 tr\u1EA3 l\u1EDDi ba c\u00E2u v\u1EC1 **v\u1EA5n \u0111\u1EC1 / h\u00E0nh \u0111\u1ED9ng / b\u01B0\u1EDBc ti\u1EBFp theo**.\n- GPT c\u00F3 th\u1EC3 d\u1EF1a v\u00E0o t\u00ECnh hu\u1ED1ng g\u1EE3i \u00FD trong Answer Key \u0111\u1EC3 t\u1EA1o n\u1ED9i dung m\u1EDBi, **kh\u00F4ng \u0111\u1ECDc nguy\u00EAn b\u00E0i Reading** \u0111\u00E3 th\u1EA5y.\n- Ch\u1EC9 ghi \u0060Listening: \u0111\u00E3 ki\u1EC3m tra\u0060 khi ng\u01B0\u1EDDi h\u1ECDc **th\u1EF1c s\u1EF1 nghe \u00E2m thanh** tr\u01B0\u1EDBc khi th\u1EA5y ch\u1EEF.\n\n**L\u1EC7nh Voice:** \u0060Voice Partner Mode, Unit 26. You are a customer pushing for a late feature. I negotiate politely and propose realistic alternatives. Ask one question at a time; give feedback in Vietnamese after the role-play.\u0060",
+          "blockId": "unit-26-g3-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "G3. Listening check \u2014 Nghe hi\u1EC3u qua Voice"
+          }
+        }
+      ],
+      "order": 19,
+      "parentSectionId": "g",
+      "originalHeading": "G3. Listening check \u2014 Nghe hi\u1EC3u qua Voice",
+      "sourceMarkdown": "### G3. Listening check \u2014 Nghe hi\u1EC3u qua Voice\n\n- \u0110\u1EC1 ngh\u1ECB GPT n\u00F3i **m\u1ED9t th\u00F4ng \u0111i\u1EC7p m\u1EDBi 60\u201390 t\u1EEB** theo ch\u1EE7 \u0111\u1EC1 n\u00E0y, kh\u00F4ng hi\u1EC7n b\u1EA3n ch\u00E9p tr\u01B0\u1EDBc khi nghe; sau \u0111\u00F3 tr\u1EA3 l\u1EDDi ba c\u00E2u v\u1EC1 **v\u1EA5n \u0111\u1EC1 / h\u00E0nh \u0111\u1ED9ng / b\u01B0\u1EDBc ti\u1EBFp theo**.\n- GPT c\u00F3 th\u1EC3 d\u1EF1a v\u00E0o t\u00ECnh hu\u1ED1ng g\u1EE3i \u00FD trong Answer Key \u0111\u1EC3 t\u1EA1o n\u1ED9i dung m\u1EDBi, **kh\u00F4ng \u0111\u1ECDc nguy\u00EAn b\u00E0i Reading** \u0111\u00E3 th\u1EA5y.\n- Ch\u1EC9 ghi \u0060Listening: \u0111\u00E3 ki\u1EC3m tra\u0060 khi ng\u01B0\u1EDDi h\u1ECDc **th\u1EF1c s\u1EF1 nghe \u00E2m thanh** tr\u01B0\u1EDBc khi th\u1EA5y ch\u1EEF.\n\n**L\u1EC7nh Voice:** \u0060Voice Partner Mode, Unit 26. You are a customer pushing for a late feature. I negotiate politely and propose realistic alternatives. Ask one question at a time; give feedback in Vietnamese after the role-play.\u0060",
+      "source": {
+        "file": "LESSONS/Unit_26.md",
+        "originalUnit": "26",
+        "originalSection": "G3. Listening check \u2014 Nghe hi\u1EC3u qua Voice"
+      }
+    },
+    {
+      "sectionId": "h",
+      "title": "H. Unit Test \u2014 \u0110i\u1EC1u ki\u1EC7n chuy\u1EC3n Unit",
+      "blocks": [
+        {
+          "type": "review",
+          "text": "- Grammar C1 \u002B C2: **__/12** (m\u1EE5c ti\u00EAu \u226510/12 v\u00E0 hi\u1EC3u c\u00E1ch s\u1EEDa l\u1ED7i).\n- Vocabulary D1: **__/5** (m\u1EE5c ti\u00EAu \u22654/5).\n- Reading E: **__/5** (m\u1EE5c ti\u00EAu \u22654/5).\n- Writing: **\u0110\u1EA1t / C\u1EA7n \u00F4n / Ch\u01B0a l\u00E0m** theo rubric.\n- Speaking: **\u0110\u1EA1t / C\u1EA7n \u00F4n / Ch\u01B0a l\u00E0m**. Listening: **\u0110\u1EA1t / C\u1EA7n \u00F4n / Ch\u01B0a \u0111\u00E1nh gi\u00E1**.\n- Sau Unit 12, 18, 24, 30, 36 th\u1EF1c hi\u1EC7n th\u00EAm \u0111\u00E1nh gi\u00E1 t\u1ED5ng h\u1EE3p ph\u1EA7n t\u01B0\u01A1ng \u1EE9ng.\n- N\u1EBFu ch\u01B0a \u0111\u1EA1t, h\u1ECDc ti\u1EBFp bu\u1ED5i \u00F4n v\u00E0 t\u1EA1o c\u00E2u ki\u1EC3m tra m\u1EDBi, kh\u00F4ng ch\u1EC9 h\u1ECDc thu\u1ED9c \u0111\u00E1p \u00E1n.",
+          "blockId": "unit-26-h-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "H. Unit Test \u2014 \u0110i\u1EC1u ki\u1EC7n chuy\u1EC3n Unit"
+          }
+        }
+      ],
+      "order": 20,
+      "parentSectionId": null,
+      "originalHeading": "H. Unit Test \u2014 \u0110i\u1EC1u ki\u1EC7n chuy\u1EC3n Unit",
+      "sourceMarkdown": "## H. Unit Test \u2014 \u0110i\u1EC1u ki\u1EC7n chuy\u1EC3n Unit\n\n- Grammar C1 \u002B C2: **__/12** (m\u1EE5c ti\u00EAu \u226510/12 v\u00E0 hi\u1EC3u c\u00E1ch s\u1EEDa l\u1ED7i).\n- Vocabulary D1: **__/5** (m\u1EE5c ti\u00EAu \u22654/5).\n- Reading E: **__/5** (m\u1EE5c ti\u00EAu \u22654/5).\n- Writing: **\u0110\u1EA1t / C\u1EA7n \u00F4n / Ch\u01B0a l\u00E0m** theo rubric.\n- Speaking: **\u0110\u1EA1t / C\u1EA7n \u00F4n / Ch\u01B0a l\u00E0m**. Listening: **\u0110\u1EA1t / C\u1EA7n \u00F4n / Ch\u01B0a \u0111\u00E1nh gi\u00E1**.\n- Sau Unit 12, 18, 24, 30, 36 th\u1EF1c hi\u1EC7n th\u00EAm \u0111\u00E1nh gi\u00E1 t\u1ED5ng h\u1EE3p ph\u1EA7n t\u01B0\u01A1ng \u1EE9ng.\n- N\u1EBFu ch\u01B0a \u0111\u1EA1t, h\u1ECDc ti\u1EBFp bu\u1ED5i \u00F4n v\u00E0 t\u1EA1o c\u00E2u ki\u1EC3m tra m\u1EDBi, kh\u00F4ng ch\u1EC9 h\u1ECDc thu\u1ED9c \u0111\u00E1p \u00E1n.",
+      "source": {
+        "file": "LESSONS/Unit_26.md",
+        "originalUnit": "26",
+        "originalSection": "H. Unit Test \u2014 \u0110i\u1EC1u ki\u1EC7n chuy\u1EC3n Unit"
+      }
+    },
+    {
+      "sectionId": "i",
+      "title": "I. Homework \u0026 spaced review \u2014 B\u00E0i v\u1EC1 nh\u00E0",
+      "blocks": [
+        {
+          "type": "homework",
+          "text": "- \u00D4n t\u1EEB sau 1, 3, 7, 14 ng\u00E0y d\u1EF1a tr\u00EAn ng\u00E0y h\u1ECDc th\u1EF1c t\u1EBF; vi\u1EBFt 5 c\u00E2u m\u1EDBi kh\u00F4ng nh\u00ECn b\u1EA3ng.\n- Ghi 3 l\u1ED7i ti\u00EAu bi\u1EC3u v\u00E0o \u0060TRACKING/PROGRESS.md\u0060; k\u00E8m c\u00E2u s\u1EEDa v\u00E0 l\u00FD do ti\u1EBFng Vi\u1EC7t.\n- Tr\u01B0\u1EDBc Unit ti\u1EBFp theo, n\u00F3i l\u1EA1i n\u1ED9i dung Unit hi\u1EC7n t\u1EA1i b\u1EB1ng 60\u201390 gi\u00E2y ti\u1EBFng Anh.",
+          "blockId": "unit-26-i-block-01",
+          "optional": false,
+          "localizedText": null,
+          "source": {
+            "file": "LESSONS/Unit_26.md",
+            "originalUnit": "26",
+            "originalSection": "I. Homework \u0026 spaced review \u2014 B\u00E0i v\u1EC1 nh\u00E0"
+          }
+        }
+      ],
+      "order": 21,
+      "parentSectionId": null,
+      "originalHeading": "I. Homework \u0026 spaced review \u2014 B\u00E0i v\u1EC1 nh\u00E0",
+      "sourceMarkdown": "## I. Homework \u0026 spaced review \u2014 B\u00E0i v\u1EC1 nh\u00E0\n\n- \u00D4n t\u1EEB sau 1, 3, 7, 14 ng\u00E0y d\u1EF1a tr\u00EAn ng\u00E0y h\u1ECDc th\u1EF1c t\u1EBF; vi\u1EBFt 5 c\u00E2u m\u1EDBi kh\u00F4ng nh\u00ECn b\u1EA3ng.\n- Ghi 3 l\u1ED7i ti\u00EAu bi\u1EC3u v\u00E0o \u0060TRACKING/PROGRESS.md\u0060; k\u00E8m c\u00E2u s\u1EEDa v\u00E0 l\u00FD do ti\u1EBFng Vi\u1EC7t.\n- Tr\u01B0\u1EDBc Unit ti\u1EBFp theo, n\u00F3i l\u1EA1i n\u1ED9i dung Unit hi\u1EC7n t\u1EA1i b\u1EB1ng 60\u201390 gi\u00E2y ti\u1EBFng Anh.",
+      "source": {
+        "file": "LESSONS/Unit_26.md",
+        "originalUnit": "26",
+        "originalSection": "I. Homework \u0026 spaced review \u2014 B\u00E0i v\u1EC1 nh\u00E0"
+      }
+    }
+  ],
+  "kind": "standard",
+  "objectives": [
+    "S\u1EED d\u1EE5ng 20 t\u1EEB/c\u1EE5m t\u1EEB thu\u1ED9c ch\u1EE7 \u0111\u1EC1 th\u01B0\u01A1ng l\u01B0\u1EE3ng ph\u1EA1m vi c\u00F4ng vi\u1EC7c v\u00E0 t\u1EF1 \u0111\u1EB7t c\u00E2u c\u00F3 ng\u1EEF c\u1EA3nh.",
+    "Ph\u00E2n bi\u1EC7t v\u00E0 d\u00F9ng \u0111\u00FAng Polite hedging v\u00E0 Diplomatic negotiation.",
+    "\u0110\u1ECDc t\u00ECnh hu\u1ED1ng th\u1EF1c t\u1EBF r\u1ED3i tr\u1EA3 l\u1EDDi c\u00E2u h\u1ECFi b\u1EB1ng ti\u1EBFng Anh.",
+    "Vi\u1EBFt \u0111o\u1EA1n/email theo y\u00EAu c\u1EA7u, luy\u1EC7n h\u1ED9i tho\u1EA1i v\u00E0 nghe qua Voice khi c\u00F3 \u00E2m thanh th\u1EADt."
+  ],
+  "reviewScheduleDays": [
+    1,
+    3,
+    7,
+    14
+  ],
+  "source": {
+    "file": "LESSONS/Unit_26.md",
+    "originalUnit": "26",
+    "originalSection": "UNIT 26 \u2014 Negotiating Scope"
+  }
+}

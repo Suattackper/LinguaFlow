@@ -1,0 +1,50 @@
+@page "/courses/{CourseId}/review"
+@implements IDisposable
+@using LinguaFlow.Core.Vocabulary
+@inject CourseCatalogService Catalogs
+@inject CourseManifestService Manifests
+@inject VocabularyContentService Vocabulary
+@inject VocabularyLearningService Learning
+@inject SpacedRepetitionService Spacing
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<PageTitle>@T["ReviewDashboard"] - LinguaFlow</PageTitle>
+@if (_loading) { <StateMessage Kind="loading" Title="@T["LoadingCourses"]" /> }
+else if (_error is not null) { <StateMessage Kind="error" Title="@T["CourseLoadError"]" Description="@_error" /> }
+else if (_counts is not null)
+{
+    <NavLink class="back-link" href="@($"courses/{CourseId}")">← @T["BackToCourse"]</NavLink>
+    <PageHeading Eyebrow="@T["VocabularyLibrary"]" Title="@T["ReviewDashboard"]" Description="@T["ReviewDashboardDescription"]" />
+    <NavLink class="reader-control" href="help#vocabulary">@T["Help"] →</NavLink>
+    <div class="review-stats"><article><strong>@_counts.DueToday</strong><span>@T["DueToday"]</span></article><article><strong>@_counts.Overdue</strong><span>@T["Overdue"]</span></article><article><strong>@_counts.NewWords</strong><span>@T["NewWords"]</span></article><article><strong>@_counts.DifficultWords</strong><span>@T["DifficultWords"]</span></article><article><strong>@_counts.ReviewedRecently</strong><span>@T["RecentlyReviewed"]</span></article></div>
+    @if (_dueCount == 0) { <StateMessage Kind="empty" Title="@T["NoReviewsDue"]" Description="@T["NoReviewsDueDescription"]" /> }
+    else { <NavLink class="button course-action" href="@($"courses/{CourseId}/flashcards?mode=due")">@T["StartReview"] (@_dueCount) →</NavLink> }
+    <div class="review-mode-links"><NavLink class="reader-control" href="@($"courses/{CourseId}/flashcards?mode=new")">@T["StudyNewWords"]</NavLink><NavLink class="reader-control" href="@($"courses/{CourseId}/flashcards?mode=weak")">@T["ReviewWeakWords"]</NavLink><NavLink class="reader-control" href="@($"courses/{CourseId}/flashcards?mode=favorite")">@T["Favorites"]</NavLink><NavLink class="reader-control" href="@($"courses/{CourseId}/vocabulary")">@T["VocabularyLibrary"]</NavLink></div>
+    <p class="activity-count">@T["ReviewTimingNote"]</p>
+}
+@code {
+    [Parameter] public string CourseId { get; set; } = "";
+    private CancellationTokenSource _cts = new();
+    private ReviewDashboardCounts? _counts;
+    private int _dueCount;
+    private string? _error;
+    private bool _loading = true;
+    protected override async Task OnParametersSetAsync()
+    {
+        _cts.Cancel(); _cts.Dispose(); _cts = new(); _loading = true; _error = null;
+        try
+        {
+            var entry = await Catalogs.FindAvailableAsync(CourseId, _cts.Token);
+            if (entry is null) { _error = T["CourseUnavailable"]; return; }
+            var manifest = await Manifests.GetManifestAsync(entry, _cts.Token);
+            var words = await Vocabulary.GetAsync(entry, manifest, _cts.Token);
+            var states = await Learning.GetStatesAsync(CourseId);
+            var now = DateTimeOffset.UtcNow;
+            _counts = Spacing.Count(states.Values, words.Entries.Count, now, TimeZoneInfo.Local);
+            _dueCount = words.Entries.Count(w => states.TryGetValue(w.VocabularyId, out var state) && (SpacedRepetitionService.IsDue(state, now) || state.InReviewQueue));
+        }
+        catch (OperationCanceledException) { return; }
+        catch (Exception ex) when (ex is CourseContentException or HttpRequestException or LearningStorageException) { _error = ex.Message; }
+        finally { _loading = false; }
+    }
+    public void Dispose() { _cts.Cancel(); _cts.Dispose(); }
+}

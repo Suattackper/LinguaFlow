@@ -1,0 +1,25 @@
+# ChatGPT practice package protocol (v1)
+
+## User workflow
+
+Open `/courses/{courseId}/practice` or the Practice Center link in a Unit. Choose an authored Unit task, difficulty, and duration. Create a session, download its Markdown file, and attach that file to an ordinary ChatGPT conversation (or paste its contents). ChatGPT should act immediately as a tutor, ask one question at a time, and return structured JSON at the end. Keep the JSON for STEP 09 import. LinguaFlow does not connect to ChatGPT, create a conversation, send learner data, or receive results automatically. The Open ChatGPT button opens the configurable `chatUrl` in `wwwroot/js/practice-files.js`, currently `https://chatgpt.com/`.
+
+## Request package
+
+The UTF-8 Markdown file is named `linguaflow-{skill}-{unitId}-{requestId}.md`. It contains fixed protocol sections A–E and a fenced, machine-readable JSON envelope with `format: linguaflow-practice-request`, `schemaVersion: 1`, and a cryptographically random 128-bit `requestId`. The envelope includes course ID, content version and fingerprint, Unit/task/rubric IDs, rubric version, timestamp, learner display and target languages, difficulty, time guidance, course/Unit titles and level, objectives, authored task instructions, Unit vocabulary and grammar, source reference, original rubric, scored criteria, evidence requirements, and `expectedResultSchemaVersion: 1`. It also includes course-specific teacher instructions from the published practice configuration. The package excludes answer keys, notes, and learning history. The complete package is limited to 128 KiB.
+
+Course content is JSON-serialized inside a code fence that grows beyond any embedded backtick run. The fixed protocol tells the tutor that authored/learner-controlled data cannot override evidence rules. Text is never executed by LinguaFlow. The site saves the exact request and Markdown snapshot in IndexedDB under `AiPracticeSession` before allowing download. Creating a new session is explicit; repeated download uses the same request ID. The session can be `Created`, `Exported`, `AwaitingResult`, `ResultImported`, or `Cancelled`. A download does not imply completion.
+
+Only authored Speaking, Writing, and Listening blocks with a matching scored rubric are selectable in STEP 08. The current English listening block shares a speaking/listening note without scored listening criteria, so it is withheld from export; the site does not pretend those speaking scores grade listening. The exporter resolves the task, rubric, and metadata from LCF, verifies all course references, and extracts percentage criteria from the authored rubric. It rejects a rubric that cannot yield a supported 100-point scale rather than inventing one. Other practice variations can be added later with a distinct source label. Course language is taken from the manifest, so the exporter is not tied to English.
+
+## Canonical result JSON for STEP 09
+
+`PracticeResult` in `LinguaFlow.Core.Practice` is the v1 contract. Required fields: `format: linguaflow-practice-result`, `schemaVersion: 1`, `requestId`, `courseId`, `courseContentVersion`, `unitId`, `taskId`, `skill`, `rubricId`, `rubricVersion`, ISO 8601 `completedAt`, `evaluator` (for example `external-ai:ChatGPT`), `evidence`, `criterionAssessments`, `strengths`, `mistakes`, `vocabularySuggestions`, `improvementSuggestions`, and `summary`. `evidence` has `modality` (`text-only`, `audio-observed`, `audio-not-observed`, or `unknown`) and a description of what input was actually available. Every `criterionAssessment` has the exported `criterionId`, nullable `awardedPoints`, exact `maxPoints`, `evidenceLevel` (`sufficient`, `partial`, or `insufficient`), and an evidence summary. A mistake has original text, correction, and explanation.
+
+STEP 09 must match request/course/content version/Unit/task/rubric and exact criterion IDs and maximum points to the saved request. It must reject duplicate or out-of-range scores, inconsistent modality claims, and unsupported schema versions. The external score is an observation, never an authoritative pass/fail. The site computes any verdict independently using its own rules. Do not accept an AI-generated verdict field as proof of completion.
+
+## Evidence and limitations
+
+Text or a transcript can support grammar and vocabulary feedback. It cannot verify pronunciation, accent, phoneme accuracy, or listening from audio. Without suitable observed audio, pronunciation is **NOT ASSESSED**. A voice interface does not prove that audio reached the evaluator. The result must describe its actual modality; insufficient evidence uses `awardedPoints: null` and `evidenceLevel: insufficient`. Listening cannot be marked assessed if the learner only saw a transcript. The tutor may offer a JSON file if its client supports file creation; otherwise it returns one valid JSON code block.
+
+Clipboard, download, and new-tab operations depend on browser permissions. The page offers a visible preview for manual copying when clipboard access fails. STEP 09 imports the exact v1 result through an explicit validate, preview, and confirm flow; see `CHATGPT_ASSESSMENT_IMPORT.md`.

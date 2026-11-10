@@ -1,0 +1,14 @@
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<div class="nav-brand">✦ <span>LinguaFlow</span><small>@T["BrandTag"]</small></div>
+<nav class="nav-links">
+<NavLink href="" Match="NavLinkMatch.All">⌂ <span>@T["Home"]</span></NavLink>
+<div class="nav-label">@T["Learn"]</div>
+<NavLink href="languages/en">◉ <span>@T["English"]</span></NavLink>
+<NavLink href="languages/ja">◌ <span>@T["Japanese"]</span></NavLink>
+<NavLink href="languages/zh">◌ <span>@T["Chinese"]</span></NavLink>
+<div class="nav-label">@T["Explore"]</div>
+<NavLink href="help">? <span>@T["Help"]</span></NavLink>
+<NavLink href="about">ⓘ <span>@T["About"]</span></NavLink>
+<NavLink href="privacy">◇ <span>@T["Privacy"]</span></NavLink>
+<NavLink href="settings">⚙ <span>@T["Settings"]</span></NavLink>
+</nav><div class="nav-note">@T["LocalFirst"]</div>

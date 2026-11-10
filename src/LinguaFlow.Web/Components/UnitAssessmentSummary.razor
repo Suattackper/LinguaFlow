@@ -1,0 +1,8 @@
+@using LinguaFlow.Core.Assessment
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<section class="info-panel unit-assessment" aria-label="@T["UnitAssessment"]">
+    <h2>@T["UnitAssessment"]</h2><p><strong>@T[Assessment.Status.ToString()]</strong></p>
+    @foreach (var skill in Assessment.Skills) { <div class="assessment-skill"><strong>@skill.Skill</strong><span>@T[skill.Status.ToString()]</span><small>@skill.Requirement</small></div> }
+    @if (Assessment.RemainingRequirements.Count > 0) { <details><summary>@T["RemainingRequirements"] (@Assessment.RemainingRequirements.Count)</summary><ul>@foreach (var requirement in Assessment.RemainingRequirements) { <li>@requirement</li> }</ul></details> }
+</section>
+@code { [Parameter, EditorRequired] public UnitAssessment Assessment { get; set; } = default!; }

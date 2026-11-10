@@ -1,0 +1,108 @@
+@using LinguaFlow.Core.Courses
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+@inject IJSRuntime JS
+@inject LearningRepository LearningStore
+@using LinguaFlow.Core.Progress
+@using System.Text.Json
+@if (_saveError is not null) { <p role="alert" class="content-warning">@_saveError</p> }
+@if (Block.LocalizedText is { Count: > 0 } && Block.LocalizedText.TryGetValue("vi-VN", out var translation))
+{
+    <button type="button" class="reader-control" @onclick="() => _showTranslation = !_showTranslation">@T["ToggleTranslation"]</button>
+    @if (_showTranslation) { <div class="activity-card translation" lang="vi">@translation</div> }
+}
+@if (Block is VocabularyBlock vocabulary && vocabulary.Entries is { Count: > 0 })
+{
+    <div class="vocabulary-scroll">
+        <table class="vocabulary-table">
+            <thead><tr><th scope="col">@T["Term"]</th><th scope="col">IPA</th><th scope="col">@T["VietnameseMeaning"]</th><th scope="col">@T["Context"]</th></tr></thead>
+            <tbody>
+                @foreach (var entry in vocabulary.Entries)
+                {
+                    <tr><th scope="row">@entry.Term <PronounceButton Text="@entry.Term" Language="@SpeechLanguage" AudioUrl="@SafeAudioUrl(entry.AudioPath)" /></th><td>@entry.Ipa</td><td>@entry.Vietnamese</td><td>@entry.Context</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else if (Block is QuestionBlock question)
+{
+    <div class="question-block"><p>@question.Prompt</p>
+        @if (question.Options is { Count: > 0 })
+        {
+            <fieldset><legend class="visually-hidden">@question.Prompt</legend>@foreach (var option in question.Options) { <label class="answer-option"><input type="radio" name="@question.ExerciseId" value="@option" checked="@(Draft(question.ExerciseId) == option)" @onchange="e => SaveAndFlush(question.ExerciseId, e)" /> @option</label> }</fieldset>
+        }
+        else if (question.ResponseKind is "matching" or "ordering" or "reading-response") { <label class="visually-hidden" for="@question.ExerciseId">@question.Prompt</label><textarea id="@question.ExerciseId" class="answer-input" rows="3" value="@Draft(question.ExerciseId)" @oninput="e => Save(question.ExerciseId, e)" @onchange="e => SaveAndFlush(question.ExerciseId, e)"></textarea> }
+        else { <label class="visually-hidden" for="@question.ExerciseId">@question.Prompt</label><input id="@question.ExerciseId" class="answer-input" type="text" value="@Draft(question.ExerciseId)" @oninput="e => Save(question.ExerciseId, e)" @onchange="e => SaveAndFlush(question.ExerciseId, e)" /> }
+    </div>
+}
+else if (Block is ExerciseGroupBlock group)
+{
+    <div class="activity-card"><strong>@group.Title</strong>@if (!string.IsNullOrWhiteSpace(group.Instructions)) { <div class="lesson-block instructions">@group.Instructions</div> }</div>
+}
+else if (Block is WritingBlock writing)
+{
+    <div class="activity-card writing"><strong>@T["WritingActivity"]</strong><p>@writing.Prompt</p><NavLink class="reader-control" href="@($"courses/{CourseId}/practice?unit={UnitId}")">@T["PracticeCenter"] →</NavLink> <NavLink class="reader-control" href="@($"courses/{CourseId}/practice/import")">@T["ImportAssessment"] →</NavLink><textarea rows="6" aria-label="@writing.Prompt" value="@Draft(writing.ExerciseId)" @oninput="e => Save(writing.ExerciseId, e)" @onchange="e => SaveAndFlush(writing.ExerciseId, e)"></textarea></div>
+}
+else if (Block is SpeakingBlock speaking)
+{
+    <div class="activity-card speaking"><strong>@T["SpeakingActivity"]</strong><p>@speaking.Prompt</p><NavLink class="reader-control" href="@($"courses/{CourseId}/practice?unit={UnitId}")">@T["PracticeCenter"] →</NavLink> <NavLink class="reader-control" href="@($"courses/{CourseId}/practice/import")">@T["ImportAssessment"] →</NavLink><textarea rows="3" aria-label="@T["PersonalNotes"]" value="@Draft(speaking.ExerciseId)" @oninput="e => Save(speaking.ExerciseId, e)" @onchange="e => SaveAndFlush(speaking.ExerciseId, e)"></textarea></div>
+}
+else if (Block is ListeningBlock listening)
+{
+    <div class="activity-card listening"><strong>@T["ListeningActivity"]</strong><p>@listening.Prompt</p><textarea rows="3" aria-label="@T["PersonalNotes"]" value="@Draft(listening.ExerciseId)" @oninput="e => Save(listening.ExerciseId, e)" @onchange="e => SaveAndFlush(listening.ExerciseId, e)"></textarea></div>
+}
+else if (Block is ExplanationBlock explanation)
+{
+    <details class="activity-card explanation"><summary>@T["ShowExplanation"]</summary><div class="lesson-block">@explanation.Text</div></details>
+}
+else if (Block is ExampleBlock example)
+{
+    <div class="lesson-block example-block">@example.Text <button type="button" class="reader-control" @onclick="() => Copy(example.Text)">@T["CopyExample"]</button><button type="button" class="reader-control" @onclick="() => SaveExample(example)">@T["SaveExample"]</button><PronounceButton Text="@example.Text" Language="@SpeechLanguage" /></div>
+}
+else if (Block is DialogueBlock dialogue)
+{
+    <DialoguePractice Text="@dialogue.Text" Language="@SpeechLanguage" />
+}
+else if (Block is ImageBlock picture)
+{
+    <figure class="activity-card"><img src="@AssetUrl(picture.Path)" alt="@picture.Alt" loading="lazy" /><figcaption>@picture.Alt</figcaption></figure>
+}
+else if (Block is AudioBlock audio)
+{
+    <ListeningPlayback CourseId="@CourseId" UnitId="@UnitId" BlockId="@audio.BlockId" AudioUrl="@AssetUrl(audio.Path)" Transcript="@audio.Transcript" Language="@SpeechLanguage" RevealTranscript="@RevealTranscript" />
+}
+else
+{
+    <div class="lesson-block activity-card @Block.GetType().Name.ToLowerInvariant()">@Text(Block)</div>
+}
+@code {
+    [Parameter, EditorRequired] public ContentBlock Block { get; set; } = default!;
+    [Parameter] public string CourseId { get; set; } = "";
+    [Parameter] public string UnitId { get; set; } = "";
+    [Parameter] public string SectionId { get; set; } = "";
+    [Parameter] public IReaderWorkspace? Workspace { get; set; }
+    [Parameter] public string AssetBase { get; set; } = "";
+    [Parameter] public bool RevealTranscript { get; set; }
+    [Parameter] public string SpeechLanguage { get; set; } = "en-US";
+    private string? SafeAudioUrl(string? path) => path is not null && CoursePathResolver.IsSafeRelativePath(path) && path.StartsWith("Assets/", StringComparison.Ordinal) ? AssetUrl(path) : null;
+    private string AssetUrl(string path) => Uri.TryCreate(AssetBase, UriKind.Absolute, out var baseUri) ? new Uri(baseUri, path).ToString() : path;
+    private bool _showTranslation;
+    private string? _saveError;
+    private string Draft(string id) => Workspace?.GetDraft(CourseId, UnitId, id) ?? "";
+    private Task Save(string id, ChangeEventArgs e) => Workspace?.SetDraftAsync(CourseId, UnitId, id, e.Value?.ToString() ?? "") ?? Task.CompletedTask;
+    private async Task SaveAndFlush(string id, ChangeEventArgs e) { await Save(id, e); if (Workspace is not null) await Workspace.FlushAsync(); }
+    private Task Copy(string value) => JS.InvokeVoidAsync("linguaFlow.copyText", value).AsTask();
+    private async Task SaveExample(ExampleBlock example)
+    {
+        try { await LearningStore.CourseSettings.SaveAsync(new LearningRecord { CourseId = CourseId, UnitId = UnitId, SectionId = SectionId, Kind = LearningRecordKind.CourseSetting, Id = "saved-example-" + example.BlockId, Data = JsonSerializer.SerializeToElement(example.Text), UpdatedAt = DateTimeOffset.UtcNow, RecordSchemaVersion = 1 }); _saveError = null; }
+        catch (LearningStorageException ex) { _saveError = ex.Message; }
+    }
+    private static string Text(ContentBlock block) => block switch
+    {
+        HeadingBlock b => b.Text, ExplanationBlock b => b.Text, GrammarBlock b => b.Text,
+        ExampleBlock b => b.Text, DialogueBlock b => b.Text, ReadingBlock b => b.Text,
+        VocabularyBlock b => b.Text, HomeworkBlock b => b.Text, ReviewBlock b => b.Text,
+        WritingBlock b => b.Prompt, SpeakingBlock b => b.Prompt, ListeningBlock b => b.Prompt,
+        ImageBlock b => b.Alt, AudioBlock b => b.Transcript, _ => ""
+    };
+}
