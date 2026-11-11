@@ -675,6 +675,56 @@
 <data name="NoSearchResults" xml:space="preserve"><value>Không tìm thấy trang hoặc Unit phù hợp.</value></data>
 <data name="CloseSearch" xml:space="preserve"><value>Đóng tìm kiếm</value></data>
 <data name="SearchHint" xml:space="preserve"><value>Enter để mở kết quả đầu tiên · Esc để đóng</value></data>
+<data name="SaveSettings" xml:space="preserve"><value>Lưu mục tiêu</value></data>
+<data name="Filter" xml:space="preserve"><value>Bộ lọc</value></data>
+<data name="Search" xml:space="preserve"><value>Tìm kiếm</value></data>
+<data name="All" xml:space="preserve"><value>Tất cả</value></data>
+<data name="FavoriteWords" xml:space="preserve"><value>Từ yêu thích</value></data>
+<data name="StorageUnavailable" xml:space="preserve"><value>Không thể truy cập bộ nhớ trên thiết bị này.</value></data>
+<data name="ChooseJsonFile" xml:space="preserve"><value>Chọn tệp JSON</value></data>
+<data name="NoFileSelected" xml:space="preserve"><value>Chưa chọn tệp</value></data>
+<data name="Created" xml:space="preserve"><value>Đã tạo</value></data>
+<data name="Exported" xml:space="preserve"><value>Đã xuất tệp</value></data>
+<data name="AwaitingResult" xml:space="preserve"><value>Đang chờ kết quả</value></data>
+<data name="ResultImported" xml:space="preserve"><value>Đã nhập kết quả</value></data>
+<data name="Cancelled" xml:space="preserve"><value>Đã hủy</value></data>
+<data name="Editing" xml:space="preserve"><value>Đang soạn câu trả lời</value></data>
+<data name="AcceptedVariant" xml:space="preserve"><value>Đúng — biến thể được chấp nhận</value></data>
+<data name="SelfReviewNeeded" xml:space="preserve"><value>Cần tự đối chiếu</value></data>
+<data name="PendingExternalEvaluation" xml:space="preserve"><value>Chờ đánh giá bên ngoài</value></data>
+<data name="Evaluated" xml:space="preserve"><value>Đã đánh giá</value></data>
+<data name="Locked" xml:space="preserve"><value>Đang làm bài kiểm tra</value></data>
+<data name="AutomaticScore" xml:space="preserve"><value>Điểm tự động</value></data>
+<data name="NoAutomaticScore" xml:space="preserve"><value>Chưa có điểm tự động</value></data>
+<data name="CompletionChecklist" xml:space="preserve"><value>Điều kiện hoàn thành</value></data>
+<data name="AssessmentScoreHint" xml:space="preserve"><value>Chỉ bài được chấm chắc chắn mới có điểm tự động. Bài viết, nói và nghe cần bằng chứng hoặc đánh giá riêng; điểm trong mẫu giáo trình không phải điểm đã đạt.</value></data>
+<data name="ProgressionRequirement" xml:space="preserve"><value>Điều kiện bổ sung</value></data>
+<data name="TargetScore" xml:space="preserve"><value>Mục tiêu</value></data>
+<data name="TargetPercent" xml:space="preserve"><value>Mục tiêu</value></data>
+<data name="OpenActivity" xml:space="preserve"><value>Đến hoạt động</value></data>
+  <data name="LearningJourney" xml:space="preserve"><value>Hành trình bài học</value></data>
+  <data name="JourneyLearn" xml:space="preserve"><value>Học</value></data>
+  <data name="JourneyPractice" xml:space="preserve"><value>Luyện</value></data>
+  <data name="JourneyTest" xml:space="preserve"><value>Kiểm tra</value></data>
+  <data name="JourneyReview" xml:space="preserve"><value>Ôn tập</value></data>
+  <data name="CurrentSection" xml:space="preserve"><value>Mục đang học</value></data>
+  <data name="ContinueSection" xml:space="preserve"><value>Tiếp tục mục này</value></data>
+  <data name="SectionNavigation" xml:space="preserve"><value>Điều hướng mục bài học</value></data>
+  <data name="PreviousSection" xml:space="preserve"><value>Mục trước</value></data>
+  <data name="CourseCompleted" xml:space="preserve"><value>Bạn đã hoàn thành khóa học</value></data>
+  <data name="CourseCompletedHint" xml:space="preserve"><value>Xem lại lộ trình hoặc chọn hoạt động ôn tập phù hợp.</value></data>
+  <data name="ResumeHint" xml:space="preserve"><value>Tiếp tục từ vị trí bạn đã lưu trên thiết bị này.</value></data>
+  <data name="ViewRoadmap" xml:space="preserve"><value>Xem lộ trình</value></data>
+  <data name="AdvancedFilters" xml:space="preserve"><value>Bộ lọc nâng cao</value></data>
+  <data name="VocabularyFromUnit" xml:space="preserve"><value>Từ vựng trong bài</value></data>
+  <data name="RoadmapGroup" xml:space="preserve"><value>Chặng</value></data>
+  <data name="AllUnitsAvailable" xml:space="preserve"><value>Bạn có thể mở mọi bài học trong lộ trình.</value></data>
+  <data name="Support" xml:space="preserve"><value>Hỗ trợ</value></data>
+  <data name="PracticeSteps" xml:space="preserve"><value>Các bước luyện tập</value></data>
+  <data name="UndoLastCard" xml:space="preserve"><value>Hoàn tác thẻ trước</value></data>
+  <data name="LessonContent" xml:space="preserve"><value>Nội dung bài học</value></data>
+  <data name="FlashcardInvalidUnit" xml:space="preserve"><value>Không tìm thấy Unit này trong khóa học.</value></data>
+  <data name="SpeechFallbackHelp" xml:space="preserve"><value>Kiểm tra giọng đọc trong cài đặt thiết bị hoặc thử trình duyệt khác; bạn vẫn có thể đọc phiên âm và ví dụ.</value></data>
 </root>
 
 

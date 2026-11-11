@@ -72,6 +72,18 @@ export async function putBatch(records) {
   catch (error) { try { tx.abort(); } catch {} await done.catch(() => {}); throw error; }
 }
 
+export async function mutateBatch(records, keysToDelete) {
+  const db = await openStore();
+  const tx = db.transaction("records", "readwrite");
+  const done = complete(tx);
+  const store = tx.objectStore("records");
+  try {
+    for (const key of keysToDelete) store.delete(key);
+    for (const record of records) store.put(record);
+    await done;
+  } catch (error) { try { tx.abort(); } catch {} await done.catch(() => {}); throw error; }
+}
+
 export async function deleteRecord(key) {
   const db = await openStore();
   const tx = db.transaction("records", "readwrite");

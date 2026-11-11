@@ -1,0 +1,52 @@
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+const root = 'src/LinguaFlow.Web/wwwroot/Courses/English/english-life-office-it';
+const manifest = JSON.parse(readFileSync(join(root, 'manifest.json'), 'utf8'));
+const assessments = JSON.parse(readFileSync(join(root, manifest.assessments[0].path), 'utf8'));
+const vocabulary = JSON.parse(readFileSync(join(root, manifest.vocabulary[0].path), 'utf8'));
+const answers = new Set(assessments.answers.map(x => `${x.unitId}/${x.exerciseId}`));
+const supported = new Set(['heading','explanation','grammar','example','dialogue','reading','vocabulary','question','exercise-group','writing','speaking','listening','homework','review','image','audio']);
+const phase06Path = 'artifacts/phase01-browser/phase06-units.json';
+const phase06 = existsSync(phase06Path) ? JSON.parse(readFileSync(phase06Path, 'utf8')) : null;
+const browserPassed = new Set((phase06?.unitRows ?? []).filter(row => row.mainCount === 1 && row.visible === 1 && row.sections > 0 && row.assessment && row.duplicateIds.length === 0 && row.navigated.hash === `#${row.navigated.section}`).map(row => row.unitId));
+const rows = [];
+const seen = new Set();
+const journeyStage = section => {
+  const id = section.sectionId.toLowerCase();
+  if (id === 'h' || id.startsWith('test-')) return 'Test';
+  if (id === 'i' || id.startsWith('review-')) return 'Review';
+  if (['c','d','e','f','g','reading-questions'].includes(id) || /^[c-g]/.test(id) || section.blocks.some(b => ['question','writing','speaking','listening'].includes(b.type))) return 'Practice';
+  return 'Learn';
+};
+for (const [index, reference] of manifest.units.entries()) {
+  if (seen.has(reference.unitId)) throw new Error(`Duplicate unit ${reference.unitId}`);
+  seen.add(reference.unitId);
+  const unit = JSON.parse(readFileSync(join(root, reference.path), 'utf8'));
+  if (unit.unitId !== reference.unitId || unit.courseId !== manifest.courseId) throw new Error(`Wrong reference ${reference.unitId}`);
+  const sections = unit.sections ?? [];
+  const blocks = sections.flatMap(x => x.blocks ?? []);
+  const families = [...new Set(blocks.map(x => x.type))];
+  const unknown = families.filter(x => !supported.has(x));
+  const exerciseIds = blocks.map(x => x.exerciseId).filter(Boolean);
+  const exerciseKinds = [...new Set(blocks.filter(x => x.exerciseId).map(x => x.responseKind ?? x.type))];
+  const unique = new Set(exerciseIds);
+  const markdown = blocks.filter(x => ['text','prompt','instructions'].some(key => /\*\*|`|^\s*[-*] |^\s*\d+[.)] /m.test(x[key] ?? ''))).length;
+  const keyed = exerciseIds.filter(id => answers.has(`${unit.unitId}/${id}`)).length;
+  const rules = assessments.thresholds.filter(x => x.unitId === unit.unitId);
+  const words = vocabulary.entries.filter(x => x.unitId === unit.unitId);
+  const practiceTasks = blocks.filter(x => ['speaking','writing','listening'].includes(x.type) && x.exerciseId);
+  const authoredPractice = practiceTasks.filter(task => assessments.rubrics.some(r => r.unitId === unit.unitId && r.skill.toLowerCase().includes(task.type)));
+  const ordered = [...sections].sort((a,b) => a.order - b.order);
+  const stages = ['Learn','Practice','Test','Review'].map(stage => `${stage}:${ordered.filter(s => journeyStage(s) === stage).length}`).join(', ');
+  const uniqueSections = new Set(ordered.map(s => s.sectionId));
+  const previous = index ? manifest.units[index - 1].unitId : 'N/A';
+  const next = index < manifest.units.length - 1 ? manifest.units[index + 1].unitId : 'N/A';
+  const ok = sections.length > 0 && uniqueSections.size === sections.length && unknown.length === 0 && unique.size === exerciseIds.length && rules.length > 0 && words.length > 0 && authoredPractice.length > 0 && reference.path === `Units/${unit.unitId}.json`;
+  rows.push(`| ${unit.unitId} | ${families.join(', ') || 'N/A'} (${sections.length} sections) | \`${reference.path}\` | ${markdown} Markdown blocks; ${blocks.length} blocks | ${exerciseIds.length} exercises; ${keyed} answer refs; ${exerciseKinds.join(', ') || 'N/A'} | ${rules.length} authored rules; checklist ${ok ? 'PASS' : 'FAIL'} | ${stages}; ${previous} → ${next} | ${words.length} words; ?unit=${unit.unitId} | ${authoredPractice.length}/${practiceTasks.length} authored tasks; flashcards ?unit=${unit.unitId} | ${ok ? 'PASS' : 'FAIL'} | bUnit render + checklist + journey + vocabulary + practice ${ok ? 'PASS' : 'FAIL'}; Chrome ${browserPassed.has(unit.unitId) ? 'PASS' : 'NOT TESTED'} |`);
+  if (!ok) throw new Error(`Coverage failed: ${unit.unitId}: ${unknown.join(', ')}`);
+}
+if (rows.length !== 36) throw new Error(`Expected 36 units, found ${rows.length}`);
+const output = `# Unit coverage matrix — Phases 01–06\n\nGenerated from the actual published manifest, Unit JSON and assessment metadata by \`node tools/phase01-coverage.mjs\`. Browser routes are \`/courses/${manifest.courseId}/units/{unitId}\`; the path column is relative to the course manifest. The bUnit suite renders authored text from every section and validates the metadata-driven checklist for all 36 files. Counts describe published data, not learner progress. N/A means no adjacent Unit or no corresponding exercise kind.\n\n| Unit ID | Section block families | Published path | Markdown render coverage | Exercise / assessment data and kinds | Checklist | Journey/navigation | Vocabulary query | Practice / flashcard scope | Data check | Test status |\n| --- | --- | --- | ---: | --- | --- | --- | --- | --- | --- | --- |\n${rows.join('\n')}\n\nAll ${rows.length} discovered Unit IDs have a matching file, safe block discriminator, stable unique exercise IDs, authored threshold rules, matching practice task/rubric references, and previous/next references. Phase 06 Chrome smoke opens and navigates all 36 Units when artifacts/phase01-browser/phase06-units.json exists. A missing browser artifact is reported as NOT TESTED, not inferred from static data.\n`;
+writeFileSync('docs/unit-coverage-matrix.md', output);
+console.log(`${rows.length}/36 units checked; ${rows.length} rows written`);

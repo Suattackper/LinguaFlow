@@ -1,10 +1,14 @@
 @using LinguaFlow.Core.Assessment
 @inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
 <div class="exercise-feedback @Feedback.Status.ToString().ToLowerInvariant()" role="status">
-    <strong>@T[Feedback.Status.ToString()]</strong>
-    @if (Feedback.Status is GradingStatus.Correct or GradingStatus.Incorrect or GradingStatus.Partial) { <span> · @Feedback.EarnedScore / @Feedback.MaximumScore</span> }
+    <strong>@T[State?.ToString() ?? Feedback.Status.ToString()]</strong>
+    @if (Feedback.Status is GradingStatus.Correct or GradingStatus.Incorrect or GradingStatus.Partial) { <span class="feedback-score"> · @T["AutomaticScore"]: @Feedback.EarnedScore / @Feedback.MaximumScore</span> }
+    else { <span class="feedback-score"> · @T["NoAutomaticScore"]</span> }
     <p>@T[Feedback.Message]</p>
-    @if (!string.IsNullOrWhiteSpace(Feedback.CorrectAnswer)) { <p><strong>@T["AuthoredAnswer"]:</strong> @Feedback.CorrectAnswer</p> }
-    @if (!string.IsNullOrWhiteSpace(Feedback.Explanation)) { <p><strong>@T["AnswerExplanation"]:</strong> @Feedback.Explanation</p> }
+    @if (!string.IsNullOrWhiteSpace(Feedback.CorrectAnswer)) { <div class="feedback-reference"><strong>@T["AuthoredAnswer"]:</strong><SafeMarkdown Text="@Feedback.CorrectAnswer" /></div> }
+    @if (!string.IsNullOrWhiteSpace(Feedback.Explanation)) { <details class="feedback-explanation"><summary>@T["ShowExplanation"]</summary><SafeMarkdown Text="@Feedback.Explanation" /></details> }
 </div>
-@code { [Parameter, EditorRequired] public ExerciseFeedback Feedback { get; set; } = default!; }
+@code {
+    [Parameter, EditorRequired] public ExerciseFeedback Feedback { get; set; } = default!;
+    [Parameter] public LinguaFlow.Web.Services.ExerciseUiState? State { get; set; }
+}

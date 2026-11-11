@@ -1,6 +1,28 @@
 @using LinguaFlow.Core.Assessment
+@using LinguaFlow.Core.Courses
+@using LinguaFlow.Web.Services
 @inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
 
+<section class="assessment-overview" aria-labelledby="assessment-overview-heading">
+    <div class="assessment-overview-heading"><div><span class="eyebrow">@T["UnitAssessment"]</span><h2 id="assessment-overview-heading">@T["CompletionChecklist"]</h2></div><span class="status @(Assessment.Status == SkillStatus.Completed ? "available" : "soon")">@T[Assessment.Status.ToString()]</span></div>
+    <p class="assessment-explainer">@T["AssessmentScoreHint"]</p>
+    <div class="assessment-skill-strip">
+        @foreach (var group in Assessment.Skills.GroupBy(x => x.Skill))
+        {
+            var representative = group.OrderByDescending(x => x.Maximum).First();
+            <div class="assessment-skill"><strong>@SkillName(group.Key)</strong><span>@T[GroupStatus(group).ToString()]</span><small>@ScoreSummary(representative)</small></div>
+        }
+    </div>
+    @if (Checklist.Count > 0)
+    {
+        <ol class="assessment-checklist">
+            @foreach (var item in Checklist)
+            {
+                <li><span class="assessment-check-icon" aria-hidden="true">@(item.Status == SkillStatus.Passed ? "✓" : "○")</span><div><strong>@(item.IsProgression && item.Skill == "progression" ? T["ProgressionRequirement"] : SkillName(item.Skill))</strong><small>@T[item.Status.ToString()]@if (item.MinimumScore is { } minimum && item.TotalScore is { } total) { <text> · @T["TargetScore"] @minimum/@total</text> } else if (item.MinimumPercent is { } percent) { <text> · @T["TargetPercent"] @percent%</text> }</small><SafeMarkdown Class="assessment-rule-text" Text="@CleanRequirement(item.Text)" /></div>@if (item.SectionId is { } sectionId) { <button type="button" class="reader-control" @onclick="() => OnSectionRequested.InvokeAsync(sectionId)">@T["OpenActivity"] →</button> }</li>
+            }
+        </ol>
+    }
+</section>
 <details class="unit-assessment" aria-label="@T["UnitAssessment"]">
     <summary class="unit-assessment-summary">
         <span class="unit-assessment-icon" aria-hidden="true">◎</span>
@@ -17,7 +39,7 @@
                     {
                         @if (!string.IsNullOrWhiteSpace(item.Requirement))
                         {
-                            <p class="skill-requirement">@PlainText(item.Requirement)</p>
+                            <SafeMarkdown Class="skill-requirement" Text="@CleanRequirement(item.Requirement)" />
                         }
                     }
                 </section>
@@ -26,7 +48,7 @@
         @if (Assessment.RemainingRequirements.Count > 0)
         {
             <details class="remaining-requirements"><summary>@T["RemainingRequirements"] (@Assessment.RemainingRequirements.Count)</summary>
-                <ul>@foreach (var requirement in Assessment.RemainingRequirements) { <li>@PlainText(requirement)</li> }</ul>
+                <ul>@foreach (var requirement in Assessment.RemainingRequirements) { <li><SafeMarkdown Text="@CleanRequirement(requirement)" /></li> }</ul>
             </details>
         }
     </div>
@@ -34,6 +56,13 @@
 
 @code {
     [Parameter, EditorRequired] public UnitAssessment Assessment { get; set; } = default!;
+    [Parameter] public UnitContent? Unit { get; set; }
+    [Parameter] public IReadOnlyList<ThresholdRule> Rules { get; set; } = [];
+    [Parameter] public EventCallback<string> OnSectionRequested { get; set; }
+    private IReadOnlyList<AssessmentChecklistItem> Checklist => Unit is null ? [] : AssessmentChecklistBuilder.Build(Unit, Rules, Assessment);
+    private string ScoreSummary(SkillAssessment item) => item.Maximum > 0 && item.Status is not (SkillStatus.NeedsReview or SkillStatus.InsufficientEvidence or SkillStatus.Submitted)
+        ? $"{T["AutomaticScore"]}: {item.Earned:0.##}/{item.Maximum:0.##}" : T["NoAutomaticScore"];
+    private string CleanRequirement(string value) => System.Text.RegularExpressions.Regex.Replace(value, @"\*\*__/\d+\*\*", $"**{T["NoAutomaticScore"]}**");
 
     private string SkillName(string skill) => skill.ToLowerInvariant() switch
     {
@@ -55,7 +84,4 @@
 
     private static string StatusClass(IEnumerable<SkillAssessment> items) => GroupStatus(items) == SkillStatus.Passed ? "available" : "soon";
 
-    // Course-authored Markdown is displayed as encoded plain text here. No HTML is executed.
-    private static string PlainText(string text) => text.Replace("**", "", StringComparison.Ordinal)
-        .Replace("__", "", StringComparison.Ordinal).Replace("`", "", StringComparison.Ordinal).Trim();
 }

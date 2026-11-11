@@ -1,14 +1,37 @@
 @inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+@inject NavigationManager Navigation
+@implements IDisposable
 <div class="nav-brand"><span class="nav-brand-icon" aria-hidden="true">✦</span><span class="nav-brand-text">LinguaFlow</span><small>@T["BrandTag"]</small></div>
 <nav class="nav-links" aria-label="@T["PrimaryNavigation"]">
 <NavLink href="" Match="NavLinkMatch.All" title="@T["Home"]"><span class="nav-icon" aria-hidden="true">⌂</span><span class="nav-text">@T["Home"]</span></NavLink>
 <div class="nav-label">@T["Learn"]</div>
 <NavLink href="languages/en" title="@T["English"]"><span class="nav-icon" aria-hidden="true">◉</span><span class="nav-text">@T["English"]</span></NavLink>
+@if (CurrentCoursePath is { } coursePath)
+{
+<NavLink href="@coursePath" title="@T["ContinueLearning"]"><span class="nav-icon" aria-hidden="true">↗</span><span class="nav-text">@T["ContinueLearning"]</span></NavLink>
+<NavLink href="@($"{coursePath}/roadmap")" title="@T["UnitRoadmap"]"><span class="nav-icon" aria-hidden="true">▦</span><span class="nav-text">@T["UnitRoadmap"]</span></NavLink>
+<NavLink href="@($"{coursePath}/review")" title="@T["ReviewDashboard"]"><span class="nav-icon" aria-hidden="true">◷</span><span class="nav-text">@T["ReviewDashboard"]</span></NavLink>
+<NavLink href="@($"{coursePath}/practice")" title="@T["PracticeCenter"]"><span class="nav-icon" aria-hidden="true">✧</span><span class="nav-text">@T["PracticeCenter"]</span></NavLink>
+}
+<div class="nav-label">@T["Explore"]</div>
 <NavLink href="languages/ja" title="@T["Japanese"]"><span class="nav-icon" aria-hidden="true">◌</span><span class="nav-text">@T["Japanese"]</span></NavLink>
 <NavLink href="languages/zh" title="@T["Chinese"]"><span class="nav-icon" aria-hidden="true">◌</span><span class="nav-text">@T["Chinese"]</span></NavLink>
-<div class="nav-label">@T["Explore"]</div>
+<div class="nav-label">@T["Support"]</div>
 <NavLink href="help" title="@T["Help"]"><span class="nav-icon" aria-hidden="true">?</span><span class="nav-text">@T["Help"]</span></NavLink>
 <NavLink href="about" title="@T["About"]"><span class="nav-icon" aria-hidden="true">ⓘ</span><span class="nav-text">@T["About"]</span></NavLink>
 <NavLink href="privacy" title="@T["Privacy"]"><span class="nav-icon" aria-hidden="true">◇</span><span class="nav-text">@T["Privacy"]</span></NavLink>
 <NavLink href="settings" title="@T["Settings"]"><span class="nav-icon" aria-hidden="true">⚙</span><span class="nav-text">@T["Settings"]</span></NavLink>
 </nav><div class="nav-note">@T["LocalFirst"]</div>
+@code {
+    private string? CurrentCoursePath
+    {
+        get
+        {
+            var path = Navigation.ToBaseRelativePath(Navigation.Uri).Split('?', '#')[0].Split('/', StringSplitOptions.RemoveEmptyEntries);
+            return path.Length >= 2 && path[0] == "courses" && path[1].Length > 0 ? $"courses/{Uri.EscapeDataString(path[1])}" : null;
+        }
+    }
+    protected override void OnInitialized() => Navigation.LocationChanged += LocationChanged;
+    private void LocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs args) => _ = InvokeAsync(StateHasChanged);
+    public void Dispose() => Navigation.LocationChanged -= LocationChanged;
+}

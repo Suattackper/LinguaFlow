@@ -156,6 +156,24 @@ try {
   }
   if (process.argv.includes('--controls')) {
     const controls = [];
+    await evaluate("localStorage.setItem('linguaflow.theme', 'dark'); localStorage.setItem('linguaflow.language', 'vi-VN')");
+    await send('Emulation.setDeviceMetricsOverride', { width: 390, height: 850, deviceScaleFactor: 1, mobile: true });
+    await send('Page.navigate', { url: new URL('settings', target).href });
+    await until(() => evaluate("!!document.querySelector('.settings-group .language-trigger') && !document.querySelector('.boot-loading')"));
+    await evaluate("document.querySelector('.settings-group .language-trigger').scrollIntoView({block:'center'}); document.querySelector('.settings-group .language-trigger').click()");
+    await until(() => evaluate("!!document.querySelector('.settings-group .language-option')"));
+    await pause(700);
+    const settingsLanguageMenu = await evaluate("(() => { const options=[...document.querySelectorAll('.settings-group .language-option')], menu=document.querySelector('.settings-group .language-menu'), card=document.querySelector('.settings-group'), next=card.nextElementSibling, m=menu.getBoundingClientRect(); return {visible:options.every(option=>{const r=option.getBoundingClientRect(); return !!document.elementFromPoint(r.left+Math.min(40,r.width/2),r.top+r.height/2)?.closest('.language-option')}),hits:options.map(option=>{const r=option.getBoundingClientRect(); return document.elementFromPoint(r.left+Math.min(40,r.width/2),r.top+r.height/2)?.className}),cardZ:getComputedStyle(card).zIndex,nextZ:getComputedStyle(next).zIndex,menuX:m.left,menuBeyondCard:m.bottom>card.getBoundingClientRect().bottom,overlapsNext:m.bottom>next.getBoundingClientRect().top,viewport:innerWidth,scroll:document.documentElement.scrollWidth}; })()");
+    const languageShot = await send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false });
+    writeFileSync(join(folder,'settings-language-mobile.png'),Buffer.from(languageShot.data,'base64'));
+    await send('Page.navigate', { url: new URL('', target).href });
+    await until(() => evaluate("!!document.querySelector('.hero') && !document.querySelector('.boot-loading')"));
+    await evaluate("if (!document.querySelector('.dashboard-catalog-link')) { const link=document.createElement('a'); link.className='reader-control dashboard-catalog-link'; link.textContent='Danh mục khóa học →'; document.querySelector('.hero').before(link); }");
+    const homeSpacing = await evaluate("(() => { const link=document.querySelector('.dashboard-catalog-link').getBoundingClientRect(), hero=document.querySelector('.hero').getBoundingClientRect(); return {gap:Math.round(hero.top-link.bottom),overlap:hero.top<link.bottom,viewport:innerWidth,scroll:document.documentElement.scrollWidth}; })()");
+    const homeShot = await send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false });
+    writeFileSync(join(folder,'home-dashboard-mobile.png'),Buffer.from(homeShot.data,'base64'));
+    console.log('mobile layout',JSON.stringify({settingsLanguageMenu,homeSpacing}));
+    if (!settingsLanguageMenu.visible || settingsLanguageMenu.overlapsNext || settingsLanguageMenu.scroll>settingsLanguageMenu.viewport+1 || homeSpacing.overlap || homeSpacing.gap<20 || homeSpacing.scroll>homeSpacing.viewport+1) throw new Error('Mobile language menu or dashboard spacing failed');
     const paths = ['settings', 'courses/english-life-office-it/practice', 'courses/english-life-office-it/vocabulary', 'courses/english-life-office-it/goals', 'courses/english-life-office-it/workspace'];
     for (const [theme, language, width] of [['light', 'vi-VN', 390], ['dark', 'en-US', 1692]]) {
       await evaluate(`localStorage.setItem('linguaflow.theme', '${theme}'); localStorage.setItem('linguaflow.language', '${language}')`);

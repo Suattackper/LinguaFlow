@@ -1,6 +1,6 @@
 @inject IJSRuntime JS
 <div class="app-select @(Open ? "is-open" : "")" @ref="_root">
-    <button type="button" class="app-select-trigger" aria-label="@Label" aria-haspopup="listbox" aria-expanded="@Open" disabled="@(Disabled || Options.Count == 0)" @onclick="Toggle">
+    <button type="button" class="app-select-trigger" aria-label="@Label" aria-haspopup="listbox" aria-expanded="@(Open ? "true" : "false")" disabled="@(Disabled || Options.Count == 0)" @onclick="Toggle">
         <span class="app-select-value">@(Options.FirstOrDefault(x => x.Value == Value)?.Label ?? (Value.Length == 0 ? Label : Value))</span>
         <span class="app-select-chevron" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3.5 6 4.5 4 4.5-4" /></svg></span>
     </button>

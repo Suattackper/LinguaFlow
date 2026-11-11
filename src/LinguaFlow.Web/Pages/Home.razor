@@ -3,31 +3,42 @@
 @inject CourseCatalogService Catalog
 @inject CourseManifestService Manifests
 @inject LearningAnalyticsService Analytics
+@inject IReaderWorkspace Workspace
+@using LinguaFlow.Web.Services
 @inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
 <PageTitle>LinguaFlow</PageTitle>
-@if (_loading) { <StateMessage Kind="loading" Title="@T["LoadingCourses"]" /> }
+@if (_loading) { <LearningPageSkeleton /> }
 else if (_loadError is not null) { <StateMessage Kind="error" Title="@T["CourseLoadError"]" Description="@_loadError" /><button type="button" class="reader-control" @onclick="() => Navigation.NavigateTo(Navigation.Uri, forceLoad: true)">@T["RetryLoading"]</button> }
 else if (_recent.Count > 0)
 {
     <PageHeading Eyebrow="LinguaFlow" Title="@T["WelcomeBack"]" Description="@T["DashboardIntro"]" />
-    <section class="section"><h2>@T["RecentCourses"]</h2><div class="dashboard-course-grid">@foreach (var item in _recent) { <article class="info-panel"><h3>@item.Entry.Title</h3><p>@item.Analytics.CompletedUnits / @item.Analytics.TotalUnits @T["CompletedUnits"] · @item.Analytics.CompletionPercent%</p><p>@T["LastStudy"]: @item.Analytics.LastStudyAt?.ToLocalTime().ToString("g")</p>@if (item.Analytics.CurrentUnitId is { } current) { <NavLink class="button course-action" href="@($"courses/{item.Entry.CourseId}/units/{current}")">@T["ContinueLearning"] →</NavLink> }<NavLink class="card-link" href="@($"courses/{item.Entry.CourseId}")">@T["CourseProgress"] →</NavLink></article> }</div></section>
+    @if (_recent.FirstOrDefault() is { } lead)
+    {
+        var resume = _resumes.GetValueOrDefault(lead.Entry.CourseId);
+        <section class="home-resume" aria-labelledby="home-resume-title"><div><span class="eyebrow">@T["ContinueLearning"]</span><h2 id="home-resume-title">@(resume?.Unit.Title ?? lead.Entry.Title)</h2><p>@lead.Entry.Title</p><div class="resume-progress"><progress value="@lead.Analytics.CompletedUnits" max="@Math.Max(1, lead.Analytics.TotalUnits)"></progress><span>@lead.Analytics.CompletedUnits / @lead.Analytics.TotalUnits @T["CompletedUnits"]</span></div></div><div class="resume-actions">@if (resume is not null) { <NavLink class="button primary" href="@resume.Href">@T["ContinueLearning"] →</NavLink> } else { <NavLink class="button primary" href="@($"courses/{lead.Entry.CourseId}/roadmap")">@T["UnitRoadmap"] →</NavLink> }<NavLink class="reader-control" href="@($"courses/{lead.Entry.CourseId}")">@T["CourseProgress"]</NavLink></div></section>
+    }
+    <section class="section"><h2>@T["RecentCourses"]</h2><div class="dashboard-course-grid">@foreach (var item in _recent) { <article class="info-panel"><h3>@item.Entry.Title</h3><p>@item.Analytics.CompletedUnits / @item.Analytics.TotalUnits @T["CompletedUnits"] · @item.Analytics.CompletionPercent%</p><p>@T["LastStudy"]: @item.Analytics.LastStudyAt?.ToLocalTime().ToString("g")</p>@if (_resumes.GetValueOrDefault(item.Entry.CourseId) is { } courseResume) { <NavLink class="card-link" href="@courseResume.Href">@T["ContinueLearning"] →</NavLink> }<NavLink class="card-link" href="@($"courses/{item.Entry.CourseId}")">@T["CourseProgress"] →</NavLink></article> }</div></section>
     <section class="section"><h2>@T["StudyToday"]</h2><div class="dashboard-plan">@foreach (var item in _recent.SelectMany(x => x.Analytics.Recommendations).Take(4)) { <article class="info-panel"><h3>@T[item.Id]</h3><p>@T["reason-" + item.Id]</p><small>~@item.SuggestedMinutes @T["SuggestedMinutes"]</small><NavLink class="card-link" href="@item.Href">@T["StartLearning"] →</NavLink></article> }</div></section>
     @if (_recent.Any(x => x.Analytics.Achievements.Count > 0)) { <section class="section"><h2>@T["RecentAchievements"]</h2><ul>@foreach (var achievement in _recent.SelectMany(x => x.Analytics.Achievements).Take(4)) { <li>@T[achievement.Id] · @achievement.EarnedAt.ToLocalTime().ToString("d")</li> }</ul></section> }
     <section class="section"><h2>@T["UpcomingReviews"]</h2>@foreach (var item in _recent.Where(x => x.Analytics.DueVocabulary > 0)) { <p><NavLink href="@($"courses/{item.Entry.CourseId}/review")">@item.Entry.Title: @item.Analytics.DueVocabulary →</NavLink></p> }</section>
-    <NavLink class="reader-control" href="languages/en">@T["CourseCatalog"] →</NavLink>
+    <NavLink class="reader-control dashboard-catalog-link" href="languages/en">@T["CourseCatalog"] →</NavLink>
 }
-else { <p class="dashboard-onboarding">@T["FirstVisitHint"]</p> }
-<section class="hero"><div class="eyebrow">@T["HeroEyebrow"]</div><h1>@T["HeroTitle"]</h1><p>@T["HeroDescription"]</p><div class="hero-actions"><NavLink class="button primary" href="languages/en">@T["StartLearning"] →</NavLink><NavLink class="button secondary" href="help">@T["HowItWorks"]</NavLink></div><div class="hero-glow" aria-hidden="true">✦</div></section>
+@if (!_loading && _loadError is null)
+{
+<section class="hero"><div class="eyebrow">@T["HeroEyebrow"]</div>@if (_recent.Count > 0) { <h2 class="hero-title">@T["HeroTitle"]</h2> } else { <h1 class="hero-title">@T["HeroTitle"]</h1> }<p>@T["HeroDescription"]</p><div class="hero-actions"><NavLink class="button primary" href="languages/en">@T["StartLearning"] →</NavLink><NavLink class="button secondary" href="help">@T["HowItWorks"]</NavLink></div><div class="hero-glow" aria-hidden="true">✦</div></section>
+@if (_recent.Count == 0) { <p class="dashboard-onboarding">@T["FirstVisitHint"]</p> }
 <section class="section"><div class="section-heading"><div><div class="eyebrow">@T["ChoosePath"]</div><h2>@T["Languages"]</h2></div><p>@T["CourseIntro"]</p></div><div class="language-grid">
 <article class="language-card"><div class="language-icon english">EN</div><span class="status available">@T["Available"]</span><h3>@T["English"]</h3><p>@T["EnglishDescription"]</p><NavLink class="card-link" href="languages/en">@T["ExploreEnglish"] →</NavLink></article>
 <article class="language-card"><div class="language-icon japanese">日</div><span class="status soon">@T["ComingSoon"]</span><h3>@T["Japanese"]</h3><p>@T["ComingSoonDescription"]</p><span class="disabled-link" aria-disabled="true">@T["Unavailable"]</span></article>
 <article class="language-card"><div class="language-icon chinese">中</div><span class="status soon">@T["ComingSoon"]</span><h3>@T["Chinese"]</h3><p>@T["ComingSoonDescription"]</p><span class="disabled-link" aria-disabled="true">@T["Unavailable"]</span></article>
 </div></section>
+}
 @code {
     [Inject] private NavigationManager Navigation { get; set; } = default!;
     private bool _loading = true;
     private string? _loadError;
     private readonly List<(LinguaFlow.Core.Courses.CourseCatalogEntry Entry, CourseAnalytics Analytics)> _recent = [];
+    private readonly Dictionary<string, CourseResume?> _resumes = [];
     protected override async Task OnInitializedAsync()
     {
         try
@@ -39,7 +50,14 @@ else { <p class="dashboard-onboarding">@T["FirstVisitHint"]</p> }
                 {
                     var manifest = await Manifests.GetManifestAsync(entry);
                     var snapshot = await Analytics.GetAsync(entry, manifest);
-                    if (snapshot.LastStudyAt is not null || snapshot.CompletedUnits > 0 || snapshot.ReviewedVocabulary > 0 || snapshot.PendingPracticeResults > 0) _recent.Add((entry, snapshot));
+                    if (snapshot.LastStudyAt is not null || snapshot.CompletedUnits > 0 || snapshot.ReviewedVocabulary > 0 || snapshot.PendingPracticeResults > 0)
+                    {
+                        try { await Workspace.LoadCourseAsync(entry.CourseId); }
+                        catch (LearningStorageException) { /* The analytics destination still works without a saved section. */ }
+                        var lastUnit = Workspace.GetLastUnit(entry.CourseId);
+                        _resumes[entry.CourseId] = CourseResumeResolver.Resolve(manifest, snapshot, lastUnit, lastUnit is null ? null : Workspace.GetLastSection(entry.CourseId, lastUnit));
+                        _recent.Add((entry, snapshot));
+                    }
                 }
                 catch (Exception ex) when (ex is CourseContentException or LearningStorageException or HttpRequestException) { _loadError ??= ex is LearningStorageException ? ex.Message : T["CourseLoadError"]; }
             }

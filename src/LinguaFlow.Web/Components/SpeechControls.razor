@@ -3,11 +3,12 @@
 @inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
 <div class="speech-controls">
     @if (Offline.OnlineHint == false) { <p role="status">@T["SpeechOfflineWarning"]</p> }
-    @if (!Speech.Available) { <p role="status">@T["SpeechUnavailable"]</p> }
+    @if (!Speech.Available) { <p role="status">@T["SpeechUnavailable"] @T["SpeechFallbackHelp"]</p> }
     else
     {
         <label>@T["SpeechLanguage"] <AppSelect Label="@T["SpeechLanguage"]" Value="@Language" ValueChanged="value => ChangeLanguage(new ChangeEventArgs { Value = value })" Options="LanguageOptions" /></label>
-        <label>@T["Voice"] <AppSelect Label="@T["Voice"]" Value="@(Speech.SelectVoice(Language)?.VoiceUri ?? "")" ValueChanged="value => ChangeVoice(new ChangeEventArgs { Value = value })" Options="VoiceOptions" /></label>
+        @if (VoiceOptions.Count > 0) { <label>@T["Voice"] <AppSelect Label="@T["Voice"]" Value="@(Speech.SelectVoice(Language)?.VoiceUri ?? "")" ValueChanged="value => ChangeVoice(new ChangeEventArgs { Value = value })" Options="VoiceOptions" /></label> }
+        else { <p role="status">@T["SpeechVoiceMissing"] @T["SpeechFallbackHelp"]</p> }
         <label>@T["SpeechSpeed"] <input type="range" min="0.6" max="1.4" step="0.1" value="@Speech.Rate.ToString(System.Globalization.CultureInfo.InvariantCulture)" @onchange="ChangeRate" /> @Speech.Rate.ToString("0.0")×</label>
         <button type="button" class="reader-control" @onclick="Speech.StopAsync">@T["StopSpeech"]</button>
     }

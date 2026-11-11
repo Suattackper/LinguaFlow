@@ -1,0 +1,18 @@
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+<div class="localized-file-picker">
+    <label class="reader-control file-picker-button">
+        <span>@T["ChooseJsonFile"]</span>
+        <InputFile class="visually-hidden" OnChange="Changed" accept="@Accept" />
+    </label>
+    <span class="file-picker-name" role="status">@(_fileName ?? T["NoFileSelected"])</span>
+</div>
+@code {
+    [Parameter] public string Accept { get; set; } = ".json,application/json";
+    [Parameter] public EventCallback<InputFileChangeEventArgs> OnChange { get; set; }
+    private string? _fileName;
+    private async Task Changed(InputFileChangeEventArgs e)
+    {
+        _fileName = e.File.Name;
+        await OnChange.InvokeAsync(e);
+    }
+}

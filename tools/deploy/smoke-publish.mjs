@@ -91,7 +91,7 @@ try {
   await waitFor(() => cdp.eval("!!document.querySelector('pre.practice-preview')"));
   const packagePreview = await cdp.eval("document.querySelector('pre.practice-preview').textContent");
   assert(packagePreview.includes('linguaflow-practice-request') && packagePreview.includes('linguaflow-practice-result'), 'Practice package needs request and result contracts');
-  await cdp.eval("document.querySelectorAll('.practice-wizard > section.info-panel')[1].querySelector('button.button.course-action').click()");
+  await cdp.eval("document.querySelector('.practice-preview').closest('section').querySelector('button.button.course-action').click()");
   const session = await waitFor(() => cdp.eval(`(async () => { const records = await (await import('./js/learning-store.js')).getCourse('english-life-office-it'); return records.find(x => x.kind === 11 && x.data?.Status === 1)?.data; })()`));
   assert.equal(session.Request.Format, 'linguaflow-practice-request');
   assert.equal(session.Request.UnitId, 'unit-01');

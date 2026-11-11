@@ -9,34 +9,40 @@
 @using System.Text.Json
 @inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
 <PageTitle>@T["UnitRoadmap"] - LinguaFlow</PageTitle>
-@if (_loading) { <StateMessage Kind="loading" Title="@T["LoadingCourses"]" /> }
+@if (_loading) { <LearningPageSkeleton /> }
 else if (_error is not null) { <StateMessage Kind="error" Title="@T["CourseLoadError"]" Description="@_error" /> }
 else if (_manifest is not null)
 {
     <NavLink class="back-link" href="@($"courses/{CourseId}")">← @T["BackToCourse"]</NavLink>
     <PageHeading Eyebrow="@T["UnitRoadmap"]" Title="@_manifest.Title" Description="@_manifest.Subtitle" />
-    @if (_manifest.Units.Count > 0)
+    @if (ContinueUnit is { } continueUnit)
     {
-        <NavLink class="button course-action" href="@($"courses/{CourseId}/units/{ContinueUnit}")">@T["ContinueLearning"] →</NavLink>
+        <NavLink class="button course-action" href="@ResumeHref(continueUnit.UnitId)">@T["ContinueLearning"] →</NavLink>
     }
+    <p class="roadmap-availability">@T["AllUnitsAvailable"]</p>
     @if (Workspace.StorageError is not null) { <p class="content-warning" role="alert">@Workspace.StorageError</p> }
-    <div class="roadmap-grid">
-    @foreach (var item in _units.OrderBy(x => x.Reference.Order))
+    @for (var start = 0; start < _units.Count; start += 6)
     {
-        <article class="roadmap-card @(item.Reference.UnitId == Workspace.GetLastUnit(CourseId) ? "current" : "")">
+        var group = _units.OrderBy(x => x.Reference.Order).Skip(start).Take(6).ToList();
+        <details class="roadmap-group" open="@(start == 0 || group.Any(x => x.Reference.UnitId == ContinueUnit?.UnitId))"><summary><strong>@T["RoadmapGroup"] @(start / 6 + 1)</strong><span>@T["Unit"] @group.First().Reference.Order.ToString("00")–@group.Last().Reference.Order.ToString("00")</span></summary><div class="roadmap-grid">
+        @foreach (var item in group)
+        {
+        <article class="roadmap-card @(item.Reference.UnitId == ContinueUnit?.UnitId ? "current" : "")">
             <div class="roadmap-meta"><span>@T["Unit"] @item.Reference.Order.ToString("00")</span>@if (item.Content?.Kind is "checkpoint" or "capstone" or "integrated-assessment") { <span class="status soon">@item.Content.Kind</span> }</div>
             <h2>@item.Reference.Title</h2>
-            @if (_statuses.TryGetValue(item.Reference.UnitId, out var status)) { <span class="status soon">@T[status.ToString()]</span> }
+            @if (_statuses.TryGetValue(item.Reference.UnitId, out var status)) { <span class="status @(status == SkillStatus.Completed ? "available" : "soon")">@T[status.ToString()]</span> }
+            else { <span class="status available">@T["Available"]</span> }
             @if (item.Content is not null)
             {
                 <ul class="objective-list">@foreach (var objective in item.Content.Objectives) { <li>@objective</li> }</ul>
                 <p class="activity-count">@item.Content.Sections.Count @T["Sections"] · @item.Content.Sections.Sum(s => s.Blocks.Count) @T["Activities"]</p>
             }
             else { <p class="content-warning">@T["UnitPreviewUnavailable"]</p> }
-            <NavLink class="card-link" href="@($"courses/{CourseId}/units/{item.Reference.UnitId}")">@T["OpenUnit"] →</NavLink>
+            <NavLink class="card-link" href="@ResumeHref(item.Reference.UnitId)">@(item.Reference.UnitId == ContinueUnit?.UnitId ? T["ContinueLearning"] : T["OpenUnit"]) →</NavLink>
         </article>
+        }
+        </div></details>
     }
-    </div>
 }
 @code {
     [Parameter] public string CourseId { get; set; } = "";
@@ -46,7 +52,15 @@ else if (_manifest is not null)
     private readonly Dictionary<string, SkillStatus> _statuses = [];
     private string? _error;
     private bool _loading = true;
-    private string ContinueUnit => _manifest?.Units.Any(x => x.UnitId == Workspace.GetLastUnit(CourseId)) == true ? Workspace.GetLastUnit(CourseId)! : _manifest!.Units.OrderBy(x => x.Order).First().UnitId;
+    private UnitReference? ContinueUnit
+    {
+        get
+        {
+            var remaining = _manifest?.Units.OrderBy(x => x.Order).Where(x => !_statuses.TryGetValue(x.UnitId, out var status) || status != SkillStatus.Completed).ToList();
+            return remaining?.FirstOrDefault(x => x.UnitId == Workspace.GetLastUnit(CourseId)) ?? remaining?.FirstOrDefault();
+        }
+    }
+    private string ResumeHref(string unitId) => $"courses/{Uri.EscapeDataString(CourseId)}/units/{Uri.EscapeDataString(unitId)}" + (unitId == Workspace.GetLastUnit(CourseId) && Workspace.GetLastSection(CourseId, unitId) is { } section ? $"#{Uri.EscapeDataString(section)}" : "");
     protected override async Task OnParametersSetAsync()
     {
         _cts.Cancel(); _cts.Dispose(); _cts = new(); _loading = true; _error = null; _units.Clear(); _statuses.Clear();
@@ -55,7 +69,7 @@ else if (_manifest is not null)
             var entry = await CatalogService.FindAvailableAsync(CourseId, _cts.Token);
             if (entry is null) { _error = T["CourseUnavailable"]; return; }
             await Workspace.LoadCourseAsync(CourseId);
-            try { foreach (var row in await LearningStore.UnitProgress.GetByCourseAsync(CourseId)) { var summary = row.Data.Deserialize<UnitAssessment>(); if (summary is not null) _statuses[summary.UnitId] = summary.Status; } }
+            try { foreach (var row in await LearningStore.UnitProgress.GetByCourseAsync(CourseId)) { try { var summary = row.Data.Deserialize<UnitAssessment>(); if (summary is not null && summary.UnitId == row.UnitId) _statuses[summary.UnitId] = summary.Status; } catch (JsonException) { /* Ignore one corrupt optional progress summary. */ } } }
             catch (LearningStorageException) { }
             _manifest = await ManifestService.GetManifestAsync(entry, _cts.Token);
             foreach (var unit in _manifest.Units.OrderBy(x => x.Order))

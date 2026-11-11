@@ -8,7 +8,7 @@
 @if (Block.LocalizedText is { Count: > 0 } && Block.LocalizedText.TryGetValue("vi-VN", out var translation))
 {
     <button type="button" class="reader-control" @onclick="() => _showTranslation = !_showTranslation">@T["ToggleTranslation"]</button>
-    @if (_showTranslation) { <div class="activity-card translation" lang="vi">@translation</div> }
+    @if (_showTranslation) { <div class="activity-card translation" lang="vi"><SafeMarkdown Text="@translation" /></div> }
 }
 @if (Block is VocabularyBlock vocabulary && vocabulary.Entries is { Count: > 0 })
 {
@@ -26,7 +26,7 @@
 }
 else if (Block is QuestionBlock question)
 {
-    <div class="question-block"><p>@question.Prompt</p>
+    <div class="question-block"><SafeMarkdown Text="@question.Prompt" />
         @if (question.Options is { Count: > 0 })
         {
             <fieldset><legend class="visually-hidden">@question.Prompt</legend>@foreach (var option in question.Options) { <label class="answer-option"><input type="radio" name="@question.ExerciseId" value="@option" checked="@(Draft(question.ExerciseId) == option)" @onchange="e => SaveAndFlush(question.ExerciseId, e)" /> @option</label> }</fieldset>
@@ -37,27 +37,27 @@ else if (Block is QuestionBlock question)
 }
 else if (Block is ExerciseGroupBlock group)
 {
-    <div class="activity-card"><strong>@group.Title</strong>@if (!string.IsNullOrWhiteSpace(group.Instructions)) { <div class="lesson-block instructions">@group.Instructions</div> }</div>
+    <div class="activity-card"><strong>@group.Title</strong>@if (!string.IsNullOrWhiteSpace(group.Instructions)) { <SafeMarkdown Class="lesson-block instructions" Text="@group.Instructions" /> }</div>
 }
 else if (Block is WritingBlock writing)
 {
-    <div class="activity-card writing"><strong>@T["WritingActivity"]</strong><p>@writing.Prompt</p><NavLink class="reader-control" href="@($"courses/{CourseId}/practice?unit={UnitId}")">@T["PracticeCenter"] →</NavLink> <NavLink class="reader-control" href="@($"courses/{CourseId}/practice/import")">@T["ImportAssessment"] →</NavLink><textarea rows="6" aria-label="@writing.Prompt" value="@Draft(writing.ExerciseId)" @oninput="e => Save(writing.ExerciseId, e)" @onchange="e => SaveAndFlush(writing.ExerciseId, e)"></textarea></div>
+    <div class="activity-card writing"><strong>@T["WritingActivity"]</strong><SafeMarkdown Text="@writing.Prompt" /><NavLink class="reader-control" href="@($"courses/{CourseId}/practice?unit={UnitId}")">@T["PracticeCenter"] →</NavLink> <NavLink class="reader-control" href="@($"courses/{CourseId}/practice/import?unit={UnitId}")">@T["ImportAssessment"] →</NavLink><textarea rows="6" aria-label="@writing.Prompt" value="@Draft(writing.ExerciseId)" @oninput="e => Save(writing.ExerciseId, e)" @onchange="e => SaveAndFlush(writing.ExerciseId, e)"></textarea></div>
 }
 else if (Block is SpeakingBlock speaking)
 {
-    <div class="activity-card speaking"><strong>@T["SpeakingActivity"]</strong><p>@speaking.Prompt</p><NavLink class="reader-control" href="@($"courses/{CourseId}/practice?unit={UnitId}")">@T["PracticeCenter"] →</NavLink> <NavLink class="reader-control" href="@($"courses/{CourseId}/practice/import")">@T["ImportAssessment"] →</NavLink><textarea rows="3" aria-label="@T["PersonalNotes"]" value="@Draft(speaking.ExerciseId)" @oninput="e => Save(speaking.ExerciseId, e)" @onchange="e => SaveAndFlush(speaking.ExerciseId, e)"></textarea></div>
+    <div class="activity-card speaking"><strong>@T["SpeakingActivity"]</strong><SafeMarkdown Text="@speaking.Prompt" /><NavLink class="reader-control" href="@($"courses/{CourseId}/practice?unit={UnitId}")">@T["PracticeCenter"] →</NavLink> <NavLink class="reader-control" href="@($"courses/{CourseId}/practice/import?unit={UnitId}")">@T["ImportAssessment"] →</NavLink><textarea rows="3" aria-label="@T["PersonalNotes"]" value="@Draft(speaking.ExerciseId)" @oninput="e => Save(speaking.ExerciseId, e)" @onchange="e => SaveAndFlush(speaking.ExerciseId, e)"></textarea></div>
 }
 else if (Block is ListeningBlock listening)
 {
-    <div class="activity-card listening"><strong>@T["ListeningActivity"]</strong><p>@listening.Prompt</p><textarea rows="3" aria-label="@T["PersonalNotes"]" value="@Draft(listening.ExerciseId)" @oninput="e => Save(listening.ExerciseId, e)" @onchange="e => SaveAndFlush(listening.ExerciseId, e)"></textarea></div>
+    <div class="activity-card listening"><strong>@T["ListeningActivity"]</strong><SafeMarkdown Text="@listening.Prompt" /><textarea rows="3" aria-label="@T["PersonalNotes"]" value="@Draft(listening.ExerciseId)" @oninput="e => Save(listening.ExerciseId, e)" @onchange="e => SaveAndFlush(listening.ExerciseId, e)"></textarea></div>
 }
 else if (Block is ExplanationBlock explanation)
 {
-    <details class="activity-card explanation"><summary>@T["ShowExplanation"]</summary><div class="lesson-block">@explanation.Text</div></details>
+    <details class="activity-card explanation"><summary>@T["ShowExplanation"]</summary><SafeMarkdown Class="lesson-block" Text="@explanation.Text" /></details>
 }
 else if (Block is ExampleBlock example)
 {
-    <div class="lesson-block example-block">@example.Text <button type="button" class="reader-control" @onclick="() => Copy(example.Text)">@T["CopyExample"]</button><button type="button" class="reader-control" @onclick="() => SaveExample(example)">@T["SaveExample"]</button><PronounceButton Text="@example.Text" Language="@SpeechLanguage" /></div>
+    <div class="lesson-block example-block"><SafeMarkdown Text="@example.Text" /><button type="button" class="reader-control" @onclick="() => Copy(example.Text)">@T["CopyExample"]</button><button type="button" class="reader-control" @onclick="() => SaveExample(example)">@T["SaveExample"]</button><PronounceButton Text="@example.Text" Language="@SpeechLanguage" /></div>
 }
 else if (Block is DialogueBlock dialogue)
 {
@@ -73,7 +73,7 @@ else if (Block is AudioBlock audio)
 }
 else
 {
-    <div class="lesson-block activity-card @Block.GetType().Name.ToLowerInvariant()">@Text(Block)</div>
+    <SafeMarkdown Class="@($"lesson-block activity-card {Block.GetType().Name.ToLowerInvariant()}")" Text="@Text(Block)" />
 }
 @code {
     [Parameter, EditorRequired] public ContentBlock Block { get; set; } = default!;

@@ -672,5 +672,55 @@
 <data name="NoSearchResults" xml:space="preserve"><value>No matching page or unit.</value></data>
 <data name="CloseSearch" xml:space="preserve"><value>Close search</value></data>
 <data name="SearchHint" xml:space="preserve"><value>Enter to open the first result · Esc to close</value></data>
+<data name="SaveSettings" xml:space="preserve"><value>Save goals</value></data>
+<data name="Filter" xml:space="preserve"><value>Filter</value></data>
+<data name="Search" xml:space="preserve"><value>Search</value></data>
+<data name="All" xml:space="preserve"><value>All</value></data>
+<data name="FavoriteWords" xml:space="preserve"><value>Favorite words</value></data>
+<data name="StorageUnavailable" xml:space="preserve"><value>Storage is unavailable on this device.</value></data>
+<data name="ChooseJsonFile" xml:space="preserve"><value>Choose JSON file</value></data>
+<data name="NoFileSelected" xml:space="preserve"><value>No file selected</value></data>
+<data name="Created" xml:space="preserve"><value>Created</value></data>
+<data name="Exported" xml:space="preserve"><value>Exported</value></data>
+<data name="AwaitingResult" xml:space="preserve"><value>Awaiting result</value></data>
+<data name="ResultImported" xml:space="preserve"><value>Result imported</value></data>
+<data name="Cancelled" xml:space="preserve"><value>Cancelled</value></data>
+<data name="Editing" xml:space="preserve"><value>Editing answer</value></data>
+<data name="AcceptedVariant" xml:space="preserve"><value>Correct — accepted variant</value></data>
+<data name="SelfReviewNeeded" xml:space="preserve"><value>Self-review needed</value></data>
+<data name="PendingExternalEvaluation" xml:space="preserve"><value>Awaiting external evaluation</value></data>
+<data name="Evaluated" xml:space="preserve"><value>Evaluated</value></data>
+<data name="Locked" xml:space="preserve"><value>Test in progress</value></data>
+<data name="AutomaticScore" xml:space="preserve"><value>Automatic score</value></data>
+<data name="NoAutomaticScore" xml:space="preserve"><value>No automatic score yet</value></data>
+<data name="CompletionChecklist" xml:space="preserve"><value>Completion checklist</value></data>
+<data name="AssessmentScoreHint" xml:space="preserve"><value>Only reliably graded work receives an automatic score. Writing, speaking and listening need separate evidence or evaluation; a worksheet score template is not an earned score.</value></data>
+<data name="ProgressionRequirement" xml:space="preserve"><value>Additional requirement</value></data>
+<data name="TargetScore" xml:space="preserve"><value>Target</value></data>
+<data name="TargetPercent" xml:space="preserve"><value>Target</value></data>
+<data name="OpenActivity" xml:space="preserve"><value>Open activity</value></data>
+  <data name="LearningJourney" xml:space="preserve"><value>Lesson journey</value></data>
+  <data name="JourneyLearn" xml:space="preserve"><value>Learn</value></data>
+  <data name="JourneyPractice" xml:space="preserve"><value>Practice</value></data>
+  <data name="JourneyTest" xml:space="preserve"><value>Test</value></data>
+  <data name="JourneyReview" xml:space="preserve"><value>Review</value></data>
+  <data name="CurrentSection" xml:space="preserve"><value>Current section</value></data>
+  <data name="ContinueSection" xml:space="preserve"><value>Continue here</value></data>
+  <data name="SectionNavigation" xml:space="preserve"><value>Lesson section navigation</value></data>
+  <data name="PreviousSection" xml:space="preserve"><value>Previous section</value></data>
+  <data name="CourseCompleted" xml:space="preserve"><value>Course completed</value></data>
+  <data name="CourseCompletedHint" xml:space="preserve"><value>Revisit the roadmap or choose a review activity.</value></data>
+  <data name="ResumeHint" xml:space="preserve"><value>Continue from the position saved on this device.</value></data>
+  <data name="ViewRoadmap" xml:space="preserve"><value>View roadmap</value></data>
+  <data name="AdvancedFilters" xml:space="preserve"><value>Advanced filters</value></data>
+  <data name="VocabularyFromUnit" xml:space="preserve"><value>Vocabulary in this Unit</value></data>
+  <data name="RoadmapGroup" xml:space="preserve"><value>Stage</value></data>
+  <data name="AllUnitsAvailable" xml:space="preserve"><value>You can open every Unit in this roadmap.</value></data>
+  <data name="Support" xml:space="preserve"><value>Support</value></data>
+  <data name="PracticeSteps" xml:space="preserve"><value>Practice steps</value></data>
+  <data name="UndoLastCard" xml:space="preserve"><value>Undo previous card</value></data>
+  <data name="LessonContent" xml:space="preserve"><value>Lesson content</value></data>
+  <data name="FlashcardInvalidUnit" xml:space="preserve"><value>This Unit is not in the course.</value></data>
+  <data name="SpeechFallbackHelp" xml:space="preserve"><value>Check your device's installed voices or try another browser; you can still read the pronunciation guide and examples.</value></data>
 </root>
 

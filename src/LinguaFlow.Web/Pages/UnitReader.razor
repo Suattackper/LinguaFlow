@@ -17,6 +17,8 @@
 @inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
 @using LinguaFlow.Core.Assessment
 @using LinguaFlow.Core.Progress
+@using LinguaFlow.Web.Services
+@using Microsoft.AspNetCore.Components.Routing
 @using System.Text.Json
 <PageTitle>@(_unit?.Title ?? T["Unit"]) - LinguaFlow</PageTitle>
 @if (_loading) { <StateMessage Kind="loading" Title="@T["LoadingUnit"]" /> }
@@ -24,6 +26,7 @@ else if (_error is not null) { <StateMessage Kind="error" Title="@T["CourseLoadE
 else if (_unit is not null)
 {
     <div class="reader @(_focus ? "reader-focus" : "")">
+    <nav class="lesson-breadcrumb" aria-label="@T["Breadcrumbs"]"><NavLink href="@($"courses/{CourseId}")">@(_manifest?.Title ?? CourseId)</NavLink><span aria-hidden="true">›</span><NavLink href="@($"courses/{CourseId}/roadmap")">@_unit.Title</NavLink><span aria-hidden="true">›</span><span>@StageName(CurrentStage)</span></nav>
     <div class="reader-toolbar"><NavLink class="back-link" href="@($"courses/{CourseId}/roadmap")">← @T["UnitRoadmap"]</NavLink><div><button type="button" class="reader-control" @onclick="() => _focus = !_focus">@(_focus ? T["ExitFocus"] : T["FocusMode"])</button><button type="button" class="reader-control" @onclick="CompleteStudy">@T["FinishStudySession"]</button><button type="button" class="reader-control" @onclick="Print">@T["PrintLesson"]</button></div></div>
     @if (_studyMessage is not null) { <p role="status">@_studyMessage</p> }
     <PageHeading Eyebrow="@T["Unit"]" Title="@_unit.Title" />
@@ -36,31 +39,33 @@ else if (_unit is not null)
     <div class="exercise-mode-bar" role="group" aria-label="@T["ExerciseMode"]"><button type="button" class="reader-control @(_mode == ExerciseMode.Practice ? "active" : "")" @onclick="() => ChangeMode(ExerciseMode.Practice)">@T["PracticeMode"]</button><button type="button" class="reader-control @(_mode == ExerciseMode.Test ? "active" : "")" @onclick="() => ChangeMode(ExerciseMode.Test)">@T["TestMode"]</button><button type="button" class="reader-control @(_mode == ExerciseMode.Review ? "active" : "")" @onclick="() => ChangeMode(ExerciseMode.Review)">@T["ReviewMode"] (@_mistakes.Count)</button>@if (_mode != ExerciseMode.Test || _testRound > 0) { <NavLink href="@($"courses/{CourseId}/mistakes")">@T["MistakeNotebook"] →</NavLink> }</div>
     @if (_mode == ExerciseMode.Review) { <p class="reader-objectives">@T["ReviewRecommendation"]</p> }
     @if (_mode == ExerciseMode.Test) { <div class="test-submit"><p>@T["TestModeHint"]</p><button type="button" class="button course-action" disabled="@(_testBusy || _testRound > 0)" @onclick="SubmitTest">@T["SubmitTest"]</button>@if (_testMessage is not null) { <p role="status">@_testMessage</p> }</div> }
-    @if (_assessment is not null) { <UnitAssessmentSummary Assessment="@_assessment" /><NavLink class="reader-control" href="help#lessons"><span aria-hidden="true">ⓘ</span> @T["Help"]</NavLink> }
+    @if (_unit.Sections.Count > 0) { <nav class="lesson-journey" aria-label="@T["LearningJourney"]">@foreach (var stage in LessonJourneyBuilder.Available(_unit)) { var first = LessonJourneyBuilder.First(_unit, stage); <button type="button" class="journey-stage @(CurrentStage == stage ? "active" : "")" aria-current="@(CurrentStage == stage ? "step" : null)" @onclick="() => GoToSection(first!.SectionId)"><span>@StageNumber(stage)</span><strong>@StageName(stage)</strong><small>@_unit.Sections.Count(s => LessonJourneyBuilder.StageFor(s) == stage) @T["Sections"]</small></button> }</nav>
+    <div class="journey-current" role="status"><div><strong>@T["CurrentSection"]</strong><span>@(_unit.Sections.FirstOrDefault(s => s.SectionId == _activeSection)?.Title)</span></div><span>@T["SectionProgress"] @(_unit.Sections.FindIndex(s => s.SectionId == _activeSection) + 1) / @_unit.Sections.Count</span><button type="button" class="reader-control" @onclick="() => GoToSection(_activeSection)">@T["ContinueSection"] →</button></div> }
+    @if (_assessment is not null) { <UnitAssessmentSummary Assessment="@_assessment" Unit="@_unit" Rules="@(_assessments?.Thresholds ?? [])" OnSectionRequested="GoToSection" /><NavLink class="reader-control" href="help#lessons"><span aria-hidden="true">ⓘ</span> @T["Help"]</NavLink> }
     <div class="reader-mobile-nav"><button type="button" class="reader-control" @onclick="() => _navOpen = !_navOpen" aria-expanded="@_navOpen">@T["Sections"] ☰</button></div>
-    <div class="reader-layout"><aside class="reader-sidebar @(_navOpen ? "open" : "")" aria-label="@T["Sections"]"><label class="visually-hidden" for="unit-search">@T["SearchUnit"]</label><input id="unit-search" type="search" placeholder="@T["SearchUnit"]" @bind="_search" @bind:event="oninput" /><nav><ol>@foreach (var section in VisibleSections) { <li><button type="button" class="section-link @(section.SectionId == _activeSection ? "active" : "")" @onclick="() => GoToSection(section.SectionId)">@section.Title</button></li> }</ol></nav></aside><main class="reader-main" id="lesson-content">
+    <div class="reader-layout"><aside class="reader-sidebar @(_navOpen ? "open" : "")" aria-label="@T["Sections"]"><label class="visually-hidden" for="unit-search">@T["SearchUnit"]</label><input id="unit-search" type="search" placeholder="@T["SearchUnit"]" @bind="_search" @bind:event="oninput" /><nav>@foreach (var stage in LessonJourneyBuilder.Available(_unit)) { <details class="journey-toc-group" open="@(CurrentStage == stage || !string.IsNullOrWhiteSpace(_search))"><summary>@StageName(stage) <span>@_unit.Sections.Count(s => LessonJourneyBuilder.StageFor(s) == stage)</span></summary><ol>@foreach (var section in _unit.Sections.Where(s => LessonJourneyBuilder.StageFor(s) == stage && MatchesSearch(s))) { <li><button type="button" class="section-link @(section.SectionId == _activeSection ? "active" : "")" aria-current="@(section.SectionId == _activeSection ? "location" : null)" @onclick="() => GoToSection(section.SectionId)">@section.Title</button></li> }</ol></details> }</nav></aside><div class="reader-main" id="lesson-content" role="region" aria-label="@T["LessonContent"]">
     @if (_unit.Sections.Count == 0) { <StateMessage Kind="empty" Title="@T["EmptyUnit"]" /> }
     else { <div class="reader-progress" role="status">@T["SectionProgress"] @(_unit.Sections.FindIndex(s => s.SectionId == _activeSection) + 1) / @_unit.Sections.Count</div> }
-    @foreach (var section in VisibleSections)
+    @foreach (var section in _unit.Sections.OrderBy(s => s.Order))
     {
-        <section class="lesson-section" id="@section.SectionId" aria-labelledby="@($"heading-{section.SectionId}")">
-            <header class="lesson-section-header"><h2 id="@($"heading-{section.SectionId}")">@section.Title</h2><div><button type="button" class="reader-control" disabled="@_completedSections.Contains(section.SectionId)" @onclick="() => CompleteSection(section.SectionId)">@(_completedSections.Contains(section.SectionId) ? T["SectionCompleted"] : T["MarkSectionComplete"])</button><button type="button" class="reader-control" aria-label="@T["BookmarkSection"]" aria-pressed="@Workspace.IsBookmarked(CourseId, UnitId, section.SectionId)" @onclick="() => ToggleBookmark(section.SectionId)">@(Workspace.IsBookmarked(CourseId, UnitId, section.SectionId) ? "★" : "☆")</button></div></header>
+        <section class="lesson-section @(IsSectionVisible(section) ? "journey-visible" : "journey-hidden")" id="@section.SectionId" aria-labelledby="@($"heading-{section.SectionId}")" aria-hidden="@(!IsSectionVisible(section))">
+            <header class="lesson-section-header"><h2 id="@($"heading-{section.SectionId}")" tabindex="-1">@section.Title</h2><div><button type="button" class="reader-control" disabled="@_completedSections.Contains(section.SectionId)" @onclick="() => CompleteSection(section.SectionId)">@(_completedSections.Contains(section.SectionId) ? T["SectionCompleted"] : T["MarkSectionComplete"])</button><button type="button" class="reader-control" aria-label="@T["BookmarkSection"]" aria-pressed="@Workspace.IsBookmarked(CourseId, UnitId, section.SectionId)" @onclick="() => ToggleBookmark(section.SectionId)">@(Workspace.IsBookmarked(CourseId, UnitId, section.SectionId) ? "★" : "☆")</button></div></header>
             @foreach (var block in section.Blocks)
             {
                 @if (block is QuestionBlock or WritingBlock or SpeakingBlock or ListeningBlock)
                 {
                     var definition = Definition(section, block);
                     @if (_mode != ExerciseMode.Review || _mistakes.Contains(definition.ExerciseId))
-                    { <ExerciseRenderer @key="definition.ExerciseId" Definition="@definition" Workspace="@Workspace" Mode="@_mode" TestRound="@_testRound" Number="@(block is QuestionBlock question ? section.Blocks.OfType<QuestionBlock>().ToList().FindIndex(q => q.ExerciseId == question.ExerciseId) + 1 : 0)" Rubric="@Rubric(definition.Skill)" OnSubmitted="AttemptSubmitted" />@if (block is WritingBlock or SpeakingBlock) { <NavLink class="reader-control" href="@($"courses/{CourseId}/practice?unit={UnitId}")">@T["PracticeCenter"] →</NavLink> <NavLink class="reader-control" href="@($"courses/{CourseId}/practice/import")">@T["ImportAssessment"] →</NavLink> } }
+                    { <ExerciseRenderer @key="definition.ExerciseId" Definition="@definition" Workspace="@Workspace" Mode="@_mode" TestRound="@_testRound" Number="@(block is QuestionBlock question ? section.Blocks.OfType<QuestionBlock>().ToList().FindIndex(q => q.ExerciseId == question.ExerciseId) + 1 : 0)" Rubric="@Rubric(definition.Skill)" OnSubmitted="AttemptSubmitted" NextSectionId="@(_unit.Sections.IndexOf(section) + 1 < _unit.Sections.Count ? _unit.Sections[_unit.Sections.IndexOf(section) + 1].SectionId : null)" OnNextSection="GoToSection" />@if (block is WritingBlock or SpeakingBlock) { <NavLink class="reader-control" href="@($"courses/{CourseId}/practice?unit={UnitId}")">@T["PracticeCenter"] →</NavLink> <NavLink class="reader-control" href="@($"courses/{CourseId}/practice/import?unit={UnitId}")">@T["ImportAssessment"] →</NavLink> } }
                 }
                 else { <ContentBlockView Block="@block" CourseId="@CourseId" UnitId="@UnitId" SectionId="@section.SectionId" Workspace="@Workspace" AssetBase="@_assetBase" RevealTranscript="@_hasListeningSubmission" SpeechLanguage="@(_manifest?.LanguageCode switch { "ja" => "ja-JP", "zh" => "zh-CN", _ => "en-US" })" /> }
             }
             <details class="section-notes"><summary>@T["PersonalNotes"]</summary><textarea rows="4" aria-label="@T["PersonalNotes"]" value="@Workspace.GetNote(CourseId, UnitId, section.SectionId)" @oninput="e => SaveNote(section.SectionId, e)" @onchange="e => SaveNoteAndFlush(section.SectionId, e)"></textarea></details>
-            @if (_unit.Sections.IndexOf(section) < _unit.Sections.Count - 1) { <button type="button" class="reader-control next-section" @onclick="() => GoToSection(_unit.Sections[_unit.Sections.IndexOf(section) + 1].SectionId)">@T["NextSection"] →</button> }
+            <nav class="section-steps" aria-label="@T["SectionNavigation"]">@if (LessonJourneyBuilder.Next(_unit, section.SectionId, -1) is { } previousSection) { <button type="button" class="reader-control" @onclick="() => GoToSection(previousSection.SectionId)">← @T["PreviousSection"]</button> }@if (LessonJourneyBuilder.Next(_unit, section.SectionId, 1) is { } nextSection) { <button type="button" class="reader-control next-section" @onclick="() => GoToSection(nextSection.SectionId)">@T["NextSection"] →</button> }</nav>
         </section>
     }
     <nav class="reader-pager" aria-label="@T["UnitNavigation"]">@if (Previous is not null) { <NavLink href="@($"courses/{CourseId}/units/{Previous.UnitId}")">← @Previous.Title</NavLink> }<NavLink href="@($"courses/{CourseId}/roadmap")">@T["UnitRoadmap"]</NavLink>@if (Next is not null) { <NavLink href="@($"courses/{CourseId}/units/{Next.UnitId}")">@Next.Title →</NavLink> }</nav>
-    </main></div></div>
+    </div></div></div>
 }
 @code {
     [Parameter] public string CourseId { get; set; } = "";
@@ -83,16 +88,30 @@ else if (_unit is not null)
     private bool _timerStarted, _sessionFinished;
     private string? _studyMessage;
     private readonly HashSet<string> _completedSections = [];
-    private bool _restoreSection;
+    private string? _pendingScroll;
+    private bool _focusHeading;
     private string _search = "", _activeSection = "";
     private string _assetBase = "";
-    private IEnumerable<UnitSection> VisibleSections => _unit?.Sections.Where(s => string.IsNullOrWhiteSpace(_search) || s.Title.Contains(_search, StringComparison.OrdinalIgnoreCase) || s.Blocks.Any(b => b.ToString()!.Contains(_search, StringComparison.OrdinalIgnoreCase))) ?? [];
+    private LessonStage CurrentStage => _unit?.Sections.FirstOrDefault(s => s.SectionId == _activeSection) is { } section ? LessonJourneyBuilder.StageFor(section) : LessonStage.Learn;
+    private static int StageNumber(LessonStage stage) => (int)stage + 1;
+    private string StageName(LessonStage stage) => T[$"Journey{stage}"];
+    private bool MatchesSearch(UnitSection section) => string.IsNullOrWhiteSpace(_search) || section.Title.Contains(_search, StringComparison.OrdinalIgnoreCase) || section.Blocks.Any(b => b.ToString()?.Contains(_search, StringComparison.OrdinalIgnoreCase) == true);
+    private bool IsSectionVisible(UnitSection section) => !string.IsNullOrWhiteSpace(_search) ? MatchesSearch(section) : section.SectionId == _activeSection;
+    private string? FragmentSection(string location)
+    {
+        if (_unit is null) return null;
+        var fragment = new Uri(location).Fragment.TrimStart('#');
+        if (fragment.Length == 0) return null;
+        var id = Uri.UnescapeDataString(fragment);
+        return _unit.Sections.Any(s => s.SectionId == id) ? id : null;
+    }
     private UnitReference? Previous => Adjacent(-1);
     private UnitReference? Next => Adjacent(1);
     private UnitReference? Adjacent(int offset) { var units = _manifest?.Units.OrderBy(x => x.Order).ToList(); var index = units?.FindIndex(x => x.UnitId == UnitId) ?? -1; return units is not null && index + offset >= 0 && index + offset < units.Count ? units[index + offset] : null; }
+    protected override void OnInitialized() => Navigation.LocationChanged += OnLocationChanged;
     protected override async Task OnParametersSetAsync()
     {
-        _cts.Cancel(); _cts.Dispose(); _cts = new(); _loading = true; _error = null; _unit = null; _assessments = null; _assessmentError = null; _search = ""; _navOpen = false; _restoreSection = false; _mode = ExerciseMode.Practice; _testRound = 0; _timerStarted = false; _sessionFinished = false; _completedSections.Clear();
+        _cts.Cancel(); _cts.Dispose(); _cts = new(); _loading = true; _error = null; _unit = null; _assessments = null; _assessmentError = null; _search = ""; _navOpen = false; _pendingScroll = null; _mode = ExerciseMode.Practice; _testRound = 0; _timerStarted = false; _sessionFinished = false; _completedSections.Clear();
         try
         {
             var entry = await CatalogService.FindAvailableAsync(CourseId, _cts.Token);
@@ -111,9 +130,11 @@ else if (_unit is not null)
             catch (Exception ex) when (ex is CourseContentException or HttpRequestException) { _assessmentError = ex.Message; }
             try { await RefreshAssessment(); await RefreshMistakes(); }
             catch (LearningStorageException ex) { _assessmentError = ex.Message; }
+            var deepLink = FragmentSection(Navigation.Uri);
             var saved = Workspace.GetLastSection(CourseId, UnitId);
-            _restoreSection = saved is not null && _unit.Sections.Any(s => s.SectionId == saved);
-            _activeSection = _restoreSection ? saved! : _unit.Sections.FirstOrDefault()?.SectionId ?? "";
+            var validSaved = saved is not null && _unit.Sections.Any(s => s.SectionId == saved);
+            _activeSection = deepLink ?? (validSaved ? saved! : _unit.Sections.OrderBy(s => s.Order).FirstOrDefault()?.SectionId ?? "");
+            _pendingScroll = deepLink ?? (validSaved ? saved : null);
             if (_activeSection.Length > 0) await Workspace.SetPositionAsync(CourseId, UnitId, _activeSection);
         }
         catch (OperationCanceledException) { return; }
@@ -124,9 +145,29 @@ else if (_unit is not null)
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!_timerStarted && !_sessionFinished && !_loading && _unit is not null) { try { await StudyTimer.StartAsync(); _timerStarted = true; } catch (JSException) { } }
-        if (_restoreSection && !_loading && _error is null) { _restoreSection = false; await JS.InvokeVoidAsync("linguaFlow.scrollToSection", _activeSection); }
+        if (_pendingScroll is { } scroll && !_loading && _error is null) { _pendingScroll = null; await JS.InvokeVoidAsync("linguaFlow.scrollToSection", scroll, _focusHeading); _focusHeading = false; }
     }
-    private async Task GoToSection(string id) { _activeSection = id; _navOpen = false; await Workspace.FlushAsync(); await Workspace.SetPositionAsync(CourseId, UnitId, id); await JS.InvokeVoidAsync("linguaFlow.scrollToSection", id); }
+    private async Task GoToSection(string id)
+    {
+        if (_unit?.Sections.Any(s => s.SectionId == id) != true) return;
+        _activeSection = id; _search = ""; _navOpen = false; _pendingScroll = id; _focusHeading = true;
+        await Workspace.FlushAsync();
+        await Workspace.SetPositionAsync(CourseId, UnitId, id);
+        Navigation.NavigateTo($"courses/{Uri.EscapeDataString(CourseId)}/units/{Uri.EscapeDataString(UnitId)}#{Uri.EscapeDataString(id)}");
+    }
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs args)
+    {
+        var expected = new Uri(new Uri(Navigation.BaseUri), $"courses/{Uri.EscapeDataString(CourseId)}/units/{Uri.EscapeDataString(UnitId)}").AbsolutePath;
+        if (!string.Equals(new Uri(args.Location).AbsolutePath, expected, StringComparison.OrdinalIgnoreCase)) return;
+        var id = FragmentSection(args.Location);
+        if (id is null || id == _activeSection) return;
+        _ = InvokeAsync(async () =>
+        {
+            _activeSection = id; _search = ""; _navOpen = false; _pendingScroll = id; _focusHeading = true;
+            await Workspace.SetPositionAsync(CourseId, UnitId, id);
+            StateHasChanged();
+        });
+    }
     private Task ToggleBookmark(string id) => Workspace.SetBookmarkAsync(CourseId, UnitId, id, !Workspace.IsBookmarked(CourseId, UnitId, id));
     private async Task CompleteSection(string id)
     {
@@ -189,5 +230,5 @@ else if (_unit is not null)
         catch (Exception ex) when (ex is ArgumentException or LearningStorageException) { _testMessage = ex.Message; }
         finally { _testBusy = false; }
     }
-    public async ValueTask DisposeAsync() { _cts.Cancel(); _cts.Dispose(); try { await StudyTimer.StopAsync(); } catch (JSException) { } }
+    public async ValueTask DisposeAsync() { Navigation.LocationChanged -= OnLocationChanged; _cts.Cancel(); _cts.Dispose(); try { await StudyTimer.StopAsync(); } catch (JSException) { } }
 }

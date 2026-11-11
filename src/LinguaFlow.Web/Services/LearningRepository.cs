@@ -61,6 +61,12 @@ public sealed class LearningRepository(IJSRuntime js) : IAsyncDisposable
     public Task<List<LearningRecord>> GetAllAsync() => Call<List<LearningRecord>>("getAllRecords");
     public Task UpsertAsync(LearningRecord record) { ValidateRecord(record); return Call("putRecord", Stored(record)); }
     public Task UpsertBatchAsync(IReadOnlyList<LearningRecord> records) { foreach (var record in records) ValidateRecord(record); return Call("putBatch", (object)records.Select(Stored).ToArray()); }
+    public Task MutateBatchAsync(IReadOnlyList<LearningRecord> records, IReadOnlyList<string> keysToDelete)
+    {
+        foreach (var record in records) ValidateRecord(record);
+        if (keysToDelete.Any(key => string.IsNullOrWhiteSpace(key))) throw new ArgumentException("Invalid record key.");
+        return Call("mutateBatch", records.Select(Stored).ToArray(), keysToDelete);
+    }
     public Task DeleteAsync(string courseId, LearningRecordKind kind, string id) => Call("deleteRecord", $"{courseId}|{kind}|{id}");
     public Task ReplaceCourseAsync(string courseId, IReadOnlyList<LearningRecord> incoming, IReadOnlyList<LearningRecord> snapshot, DateTimeOffset importedAt)
     {

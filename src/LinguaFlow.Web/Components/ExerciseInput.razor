@@ -20,13 +20,13 @@ else if (Definition.Kind == ExerciseKind.MultipleSelect)
 }
 else if (Definition.Kind is ExerciseKind.Matching or ExerciseKind.SentenceOrdering or ExerciseKind.WordOrdering or ExerciseKind.MultipleBlanks)
 {
-    <label class="visually-hidden" for="@Definition.ExerciseId">@Definition.Prompt</label>
-    <textarea id="@Definition.ExerciseId" class="answer-input" rows="4" value="@Value" placeholder="@T["OneAnswerPerLine"]" @oninput="InputChanged"></textarea>
+    <label class="visually-hidden" for="@($"input-{Definition.ExerciseId}")">@Definition.Prompt</label>
+    <textarea id="@($"input-{Definition.ExerciseId}")" class="answer-input" rows="4" value="@Value" placeholder="@T["OneAnswerPerLine"]" @oninput="InputChanged"></textarea>
 }
 else
 {
-    <label class="visually-hidden" for="@Definition.ExerciseId">@Definition.Prompt</label>
-    <textarea id="@Definition.ExerciseId" class="answer-input" rows="2" value="@Value" @oninput="InputChanged"></textarea>
+    <label class="visually-hidden" for="@($"input-{Definition.ExerciseId}")">@Definition.Prompt</label>
+    <textarea id="@($"input-{Definition.ExerciseId}")" class="answer-input" rows="2" value="@Value" @oninput="InputChanged"></textarea>
 }
 @code {
     [Parameter, EditorRequired] public ExerciseDefinition Definition { get; set; } = default!;

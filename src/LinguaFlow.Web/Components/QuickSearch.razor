@@ -5,7 +5,7 @@
 @inject CourseManifestService Manifests
 @inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
 
-<button type="button" class="quick-search-trigger" aria-label="@T["QuickSearch"]" title="Ctrl+K" @onclick="Toggle"><span aria-hidden="true">⌕</span><span class="quick-search-label">@T["QuickSearch"]</span><kbd>Ctrl K</kbd></button>
+<button type="button" class="quick-search-trigger" aria-label="@T["QuickSearch"]" aria-haspopup="dialog" aria-expanded="@_open" title="Ctrl+K" @ref="_trigger" @onclick="Toggle"><span aria-hidden="true">⌕</span><span class="quick-search-label">@T["QuickSearch"]</span><kbd>Ctrl K</kbd></button>
 @if (_open)
 {
     <div class="command-overlay" @ref="_overlay" @onclick="Close">
@@ -23,10 +23,11 @@
 
 @code {
     private record SearchItem(string Title, string Href, string Group, string Icon);
-    private bool _open, _loading, _loaded, _needsReveal, _needsLoad;
+    private bool _open, _loading, _loaded, _needsReveal, _needsLoad, _needsRestore;
     private string _query = "";
     private readonly List<SearchItem> _units = [];
     private ElementReference _overlay;
+    private ElementReference _trigger;
     private IJSObjectReference? _module;
     private List<SearchItem> Results => StaticItems.Concat(_units)
         .Where(x => string.IsNullOrWhiteSpace(_query) || x.Title.Contains(_query, StringComparison.OrdinalIgnoreCase) || x.Group.Contains(_query, StringComparison.OrdinalIgnoreCase))
@@ -50,7 +51,12 @@
             if (_needsReveal && _module is not null)
             {
                 _needsReveal = false;
-                await _module.InvokeVoidAsync("showCommandPalette", _overlay);
+                await _module.InvokeVoidAsync("showCommandPalette", _overlay, _trigger);
+            }
+            if (_needsRestore && _module is not null)
+            {
+                _needsRestore = false;
+                await _module.InvokeVoidAsync("hideCommandPalette");
             }
             if (_needsLoad)
             {
@@ -64,7 +70,7 @@
 
     private Task Toggle()
     {
-        _open = !_open; _needsReveal = _open;
+        _open = !_open; _needsReveal = _open; _needsRestore = !_open;
         if (_open && !_loaded) { _loading = true; _needsLoad = true; }
         return Task.CompletedTask;
     }
@@ -89,7 +95,7 @@
         catch (Exception ex) when (ex is CourseContentException or HttpRequestException) { _loaded = false; }
         finally { _loading = false; }
     }
-    private void Close() { _open = false; _query = ""; }
+    private void Close() { _open = false; _query = ""; _needsRestore = true; }
     private void Go(string href) { Close(); Navigation.NavigateTo(href); }
     private void HandleKeys(KeyboardEventArgs e)
     {
@@ -100,7 +106,7 @@
     {
         try
         {
-            if (_module is not null) await _module.DisposeAsync();
+            if (_module is not null) { await _module.InvokeVoidAsync("hideCommandPalette"); await _module.DisposeAsync(); }
         }
         catch (JSDisconnectedException) { }
     }

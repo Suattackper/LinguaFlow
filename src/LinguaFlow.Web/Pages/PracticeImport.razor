@@ -3,17 +3,20 @@
 @using System.Text
 @using System.Text.Json
 @inject PracticeResultService Results
+@inject CourseCatalogService Catalog
+@inject CourseManifestService Manifests
 @inject NavigationManager Navigation
 @inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
 <PageTitle>@T["ImportAssessment"] - LinguaFlow</PageTitle>
+<nav class="practice-breadcrumb" aria-label="@T["Breadcrumbs"]"><NavLink href="@($"courses/{CourseId}")">@T["BackToCourse"]</NavLink> <span aria-hidden="true">/</span> @if (_unitTitle is not null) { <NavLink href="@($"courses/{CourseId}/units/{UnitQuery}")">@_unitTitle</NavLink> <span aria-hidden="true">/</span> } <span aria-current="page">@T["ImportAssessment"]</span></nav>
 <PageHeading Eyebrow="LinguaFlow" Title="@T["ImportAssessment"]" Description="@T["ExternalAiNotice"]" />
 <NavLink class="back-link" href="@($"courses/{CourseId}/practice")">← @T["PracticeCenter"]</NavLink>
 <NavLink class="reader-control" href="help#chatgpt"><span aria-hidden="true">ⓘ</span> @T["Help"]</NavLink>
 <div class="practice-wizard">
     <section class="info-panel"><h2>1. @T["ChooseResult"]</h2>
         <p>@T["ImportJsonHint"]</p>
-        <label>@T["JsonFile"] <InputFile OnChange="ReadFile" accept=".json,application/json" /></label>
-        <label>@T["PasteJson"] <textarea rows="10" @bind="_text" @bind:event="oninput" maxlength="65536"></textarea></label>
+        <div><span>@T["JsonFile"]</span><LocalizedFilePicker OnChange="ReadFile" /></div>
+        <label>@T["PasteJson"] <textarea rows="10" @bind="InputText" @bind:event="oninput" maxlength="65536"></textarea></label>
         <button type="button" class="button course-action" disabled="@_busy" @onclick="Preview">@T["PreviewAssessment"]</button>
         @if (_error is not null) { <p role="alert" class="content-warning">@T["ImportError"] @FriendlyError(_error)</p> }
     </section>
@@ -40,7 +43,22 @@
 </div>
 @code {
     [Parameter] public string CourseId { get; set; } = "";
+    [SupplyParameterFromQuery(Name = "unit")] public string? UnitQuery { get; set; }
+    private string? _unitTitle;
+    protected override async Task OnParametersSetAsync()
+    {
+        _unitTitle = null;
+        try
+        {
+            var entry = await Catalog.FindAvailableAsync(CourseId);
+            if (entry is null) return;
+            var manifest = await Manifests.GetManifestAsync(entry);
+            _unitTitle = manifest.Units.FirstOrDefault(u => u.UnitId == UnitQuery)?.Title;
+        }
+        catch (Exception ex) when (ex is CourseContentException or HttpRequestException) { }
+    }
     private string _text = ""; private string? _error; private bool _busy; private PracticeImportPreview? _preview;
+    private string InputText { get => _text; set { if (value != _text) { _text = value; _preview = null; _error = null; } } }
     private async Task ReadFile(InputFileChangeEventArgs e)
     {
         _preview = null; _error = null;

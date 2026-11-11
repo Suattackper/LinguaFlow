@@ -5,32 +5,37 @@ const selectors = [
   '.hero', '.hero-actions > *', '.language-card', '.course-tile',
   '.dashboard-metrics article', '.dashboard-card', '.info-panel', '.page-heading',
   '.roadmap-card', '.lesson-section', '.reader-toolbar', '.exercise-card',
-  '.interactive-exercise', '.exercise-feedback', '.vocabulary-tile',
+  '.interactive-exercise', '.vocabulary-tile',
   '.flashcard', '.practice-wizard > section', '.practice-wizard > .info-panel',
+  '.journey-current',
   '.settings-group', '.material-card', '.help-article', '.help-faq details',
   '.unit-progress-chart', '.course-detail', '.state-message'
 ].join(',');
-let root, intersection, mutations;
+let root, intersection, mutations, frame, motionPreference;
 let seen = new WeakSet();
 const active = new Set();
 const reduced = () => document.documentElement.dataset.reducedMotion === 'true' ||
   matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function enter(element) {
-  if (reduced() || !element.isConnected) return;
+  if (reduced() || !element.isConnected || element.closest('.journey-hidden')) return;
   const animation = animate(element, {
-    opacity: [0.78, 1], y: [10, 0], duration: 420, ease: 'out(3)',
+    opacity: [0.9, 1], y: [6, 0], duration: 240, ease: 'out(3)',
     onComplete: () => active.delete(animation)
   });
   active.add(animation);
 }
 
-function scan() {
+function scan(nodes = [root]) {
   if (!root || !intersection) return;
-  for (const element of root.querySelectorAll(selectors)) {
-    if (seen.has(element)) continue;
-    seen.add(element);
-    intersection.observe(element);
+  for (const node of nodes) {
+    if (!(node instanceof Element)) continue;
+    const matches = node.matches(selectors) ? [node] : [];
+    for (const element of [...matches, ...node.querySelectorAll(selectors)]) {
+      if (seen.has(element)) continue;
+      seen.add(element);
+      intersection.observe(element);
+    }
   }
 }
 
@@ -45,10 +50,19 @@ export function initialize(selector = '#main') {
       enter(entry.target);
     }
   }, { threshold: .06, rootMargin: '0px 0px -16px 0px' });
-  mutations = new MutationObserver(scan);
+  const pending = new Set();
+  mutations = new MutationObserver(records => {
+    for (const record of records) for (const node of record.addedNodes) if (node instanceof Element) pending.add(node);
+    if (frame || !pending.size) return;
+    frame = requestAnimationFrame(() => { frame = undefined; scan(pending); pending.clear(); });
+  });
   mutations.observe(root, { childList: true, subtree: true });
+  motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+  motionPreference.addEventListener('change', stopIfReduced);
   scan();
 }
+
+function stopIfReduced() { if (reduced()) { for (const animation of active) animation.cancel(); active.clear(); } }
 
 export function revealMenu(element) {
   if (reduced()) return;
@@ -77,10 +91,14 @@ export function revealPalette(element) {
 export function dispose() {
   mutations?.disconnect();
   intersection?.disconnect();
+  motionPreference?.removeEventListener('change', stopIfReduced);
+  if (frame) cancelAnimationFrame(frame);
   for (const animation of active) animation.cancel();
   active.clear();
   mutations = undefined;
   intersection = undefined;
+  motionPreference = undefined;
+  frame = undefined;
   root = undefined;
   seen = new WeakSet();
 }

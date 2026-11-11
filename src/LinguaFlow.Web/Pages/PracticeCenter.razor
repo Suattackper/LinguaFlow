@@ -14,6 +14,7 @@
 @inject OfflineCourseService Offline
 @inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
 <PageTitle>@T["PracticeCenter"] - LinguaFlow</PageTitle>
+<nav class="practice-breadcrumb" aria-label="@T["Breadcrumbs"]"><NavLink href="@($"courses/{CourseId}")">@T["BackToCourse"]</NavLink> <span aria-hidden="true">/</span> @if (_unit is not null) { <NavLink href="@($"courses/{CourseId}/units/{_unit.UnitId}")">@_unit.Title</NavLink> <span aria-hidden="true">/</span> } <span aria-current="page">@T["PracticeCenter"]</span></nav>
 <PageHeading Eyebrow="LinguaFlow" Title="@T["PracticeCenter"]" Description="@T["PracticeCenterIntro"]" />
 <NavLink class="reader-control" href="help#chatgpt"><span aria-hidden="true">ⓘ</span> @T["Help"]</NavLink>
 @if (Offline.OnlineHint == false) { <p class="content-warning" role="status">@T["PracticeOfflineWarning"]</p> }
@@ -22,8 +23,15 @@
 @if (_manifest is not null)
 {
     <div class="practice-wizard">
-        <NavLink class="reader-control" href="@($"courses/{CourseId}/practice/import")">@T["ImportAssessment"] →</NavLink>
-        <section class="info-panel"><h2>1. @T["ChoosePractice"]</h2><p><strong>@_manifest.Title</strong> · @_manifest.LearningLevel</p>
+        <nav class="practice-steps" aria-label="@T["PracticeSteps"]">
+            @for (var step = 1; step <= 4; step++)
+            {
+                var current = step;
+                <button type="button" class="reader-control @(current == _step ? "is-active" : "")" aria-current="@(current == _step ? "step" : null)" disabled="@(current is 2 or 3 && _session is null)" @onclick="() => _step = current">@current. @T[StepTitle(current)]</button>
+            }
+        </nav>
+        @if (_step == 1)
+        {<section class="info-panel"><h2>1. @T["ChoosePractice"]</h2><p><strong>@_manifest.Title</strong> · @_manifest.LearningLevel</p>
             <label>@T["Unit"] <AppSelect Label="@T["Unit"]" Value="@_unitId" ValueChanged="value => ChooseUnit(new ChangeEventArgs { Value = value })" Options="UnitOptions" /></label>
             @if (_unit is not null)
             {
@@ -32,28 +40,29 @@
                 @if (_tasks.Count == 0) { <p>@T["NoAuthoredPractice"]</p> }
                 <label>@T["Difficulty"] <AppSelect Label="@T["Difficulty"]" @bind-Value="_difficulty" Options="DifficultyOptions" /></label>
                 <label>@T["Duration"] <AppSelect Label="@T["Duration"]" Value="@_minutes.ToString()" ValueChanged="SetMinutes" Options="DurationOptions" /></label>
-                @if (SelectedTask is { } selected) { <h3>@T["AuthoredTask"]</h3><p class="lesson-block">@selected.Prompt</p> }
-                @if (_unit.Objectives.Count > 0) { <h3>@T["Objectives"]</h3><ul>@foreach (var item in _unit.Objectives) { <li>@item</li> }</ul> }
+                @if (SelectedTask is { } selected) { <details><summary>@T["AuthoredTask"]</summary><SafeMarkdown Class="lesson-block" Text="@selected.Prompt" /></details> }
+                @if (_unit.Objectives.Count > 0) { <details><summary>@T["Objectives"]</summary><ul>@foreach (var item in _unit.Objectives) { <li>@item</li> }</ul></details> }
                 @if (_vocabulary is not null) { <details><summary>@T["PracticeVocabulary"]</summary><ul>@foreach (var item in _vocabulary.Entries.Where(v => v.UnitId == _unitId).Take(20)) { <li>@item.Term — @item.Vietnamese</li> }</ul></details> }
-                @if (_unit.Sections.SelectMany(s => s.Blocks).OfType<GrammarBlock>().Any()) { <details><summary>@T["PracticeGrammar"]</summary>@foreach (var item in _unit.Sections.SelectMany(s => s.Blocks).OfType<GrammarBlock>().Take(3)) { <p class="lesson-block">@item.Text</p> }</details> }
-                @if (SelectedRubric is { } rubric) { <h3>@T["OriginalRubric"]</h3><p class="lesson-block">@rubric.Text</p> }
+                @if (_unit.Sections.SelectMany(s => s.Blocks).OfType<GrammarBlock>().Any()) { <details><summary>@T["PracticeGrammar"]</summary>@foreach (var item in _unit.Sections.SelectMany(s => s.Blocks).OfType<GrammarBlock>().Take(3)) { <SafeMarkdown Class="lesson-block" Text="@item.Text" /> }</details> }
+                @if (SelectedRubric is { } rubric) { <details><summary>@T["OriginalRubric"]</summary><SafeMarkdown Class="lesson-block" Text="@rubric.Text" /></details> }
                 <button type="button" class="button course-action" disabled="@(SelectedTask is null || SelectedRubric is null || _working)" @onclick="Create">@T["GeneratePractice"]</button>
             }
-        </section>
+        </section>}
         @if (_session is not null)
         {
-            <section class="info-panel"><h2>2. @T["ExportPractice"]</h2><p>@T["PracticeExportNote"]</p>
-                <div class="practice-actions"><button type="button" class="button course-action" disabled="@_working" @onclick="Download">@T["DownloadPractice"]</button><button type="button" class="reader-control" @onclick="Copy">@T["CopyInstructions"]</button><button type="button" class="reader-control" disabled="@(Offline.OnlineHint == false)" @onclick="OpenChat">@T["OpenChatGPT"]</button><button type="button" class="reader-control" @onclick="Create">@T["RegeneratePractice"]</button></div>
+            @if (_step == 2) { <section class="info-panel"><h2>2. @T["ExportPractice"]</h2><p>@T["PracticeExportNote"]</p>
+                <div class="practice-actions"><button type="button" class="button course-action" disabled="@_working" @onclick="Download">@T["DownloadPractice"]</button><button type="button" class="reader-control" @onclick="Copy">@T["CopyInstructions"]</button><button type="button" class="reader-control" @onclick="Create">@T["RegeneratePractice"]</button></div>
                 <details><summary>@T["PreviewInstructions"]</summary><pre class="practice-preview">@_session.PackageMarkdown</pre></details>
-            </section>
-            <section class="info-panel"><h2>3. @T["PracticeInChat"]</h2><p>@T["PracticeChatSteps"]</p></section>
-            <section class="info-panel"><h2>4. @T["ImportAssessment"]</h2><p>@T["ImportJsonHint"]</p><NavLink class="button course-action" href="@($"courses/{CourseId}/practice/import")">@T["ImportAssessment"] →</NavLink></section>
+                <button type="button" class="reader-control" @onclick="() => _step = 3">@T["PracticeInChat"] →</button>
+            </section> }
+            @if (_step == 3) { <section class="info-panel"><h2>3. @T["PracticeInChat"]</h2><p>@T["PracticeChatSteps"]</p><button type="button" class="button course-action" disabled="@(Offline.OnlineHint == false)" @onclick="OpenChat">@T["OpenChatGPT"] →</button><button type="button" class="reader-control" @onclick="() => _step = 4">@T["ImportAssessment"] →</button></section> }
         }
-        <section class="info-panel"><h2>@T["PreviousPractice"]</h2>
+        @if (_step == 4) { <section class="info-panel"><h2>4. @T["ImportAssessment"]</h2><p>@T["ImportJsonHint"]</p><NavLink class="button course-action" href="@($"courses/{CourseId}/practice/import?unit={_session?.Request.UnitId ?? _unitId}")">@T["ImportAssessment"] →</NavLink></section> }
+        <details class="info-panel practice-history"><summary>@T["PreviousPractice"]</summary>
             @if (_previous.Count == 0) { <p>@T["NoPreviousPractice"]</p> }
-            else { <ul>@foreach (var s in _previous.Take(12)) { <li><button type="button" class="reader-control" @onclick="() => _session = s">@s.Request.UnitTitle · @s.Request.Skill · @s.Request.GeneratedAt.ToLocalTime().ToString("g") · @s.Status</button> <NavLink href="@($"courses/{CourseId}/practice/import")">@T["ImportAssessment"]</NavLink></li> }</ul> }
-            @if (_results.Count > 0) { <h3>@T["ImportedResults"]</h3><ul>@foreach (var r in _results.Take(12)) { <li><NavLink href="@($"courses/{CourseId}/practice/results/{r.ResultId}")">@r.Result.UnitId · @r.Result.Skill · @r.ImportedAt.ToLocalTime().ToString("g") · @r.Evaluation.Percentage%</NavLink></li> }</ul> }
-        </section>
+            else { <ul>@foreach (var s in _previous.Take(12)) { <li><button type="button" class="reader-control" @onclick="() => SelectSession(s)">@s.Request.UnitTitle · @SkillName(s.Request.Skill) · @s.Request.GeneratedAt.ToLocalTime().ToString("g") · @T[s.Status.ToString()]</button> <NavLink href="@($"courses/{CourseId}/practice/import")">@T["ImportAssessment"]</NavLink></li> }</ul> }
+            @if (_results.Count > 0) { <h3>@T["ImportedResults"]</h3><ul>@foreach (var r in _results.Take(12)) { <li><NavLink href="@($"courses/{CourseId}/practice/results/{r.ResultId}")">@r.Result.UnitId · @SkillName(r.Result.Skill) · @r.ImportedAt.ToLocalTime().ToString("g") · @r.Evaluation.Percentage%</NavLink></li> }</ul> }
+        </details>
     </div>
 }
 @code {
@@ -67,11 +76,23 @@
     private IReadOnlyList<ImportedPracticeResult> _results = [];
     private PracticeSession? _session; private string _unitId = ""; private string _skill = ""; private string _taskId = "";
     private string _difficulty = "standard"; private int _minutes = 15; private bool _busy = true; private bool _working; private string? _error;
+    private int _step = 1;
+    private static string StepTitle(int step) => step switch { 1 => "ChoosePractice", 2 => "ExportPractice", 3 => "PracticeInChat", _ => "ImportAssessment" };
+    private void SelectSession(PracticeSession session) { _session = session; _step = session.Status == PracticeSessionStatus.ResultImported ? 4 : 2; }
     private IReadOnlyList<SelectItem> UnitOptions => _manifest?.Units.OrderBy(u => u.Order).Select(u => new SelectItem(u.UnitId, u.Title)).ToList() ?? [];
-    private IReadOnlyList<SelectItem> SkillOptions => _tasks.Select(t => t.Skill).Distinct().Select(skill => new SelectItem(skill, skill)).ToList();
+    private IReadOnlyList<SelectItem> SkillOptions => _tasks.Select(t => t.Skill).Distinct().Select(skill => new SelectItem(skill, SkillName(skill))).ToList();
+    private string SkillName(string skill) => skill.ToLowerInvariant() switch { "speaking" => T["Speaking"], "writing" => T["Writing"], "listening" => T["Listening"], "grammar" => T["Grammar"], "vocabulary" => T["Vocabulary"], _ => skill };
     private IReadOnlyList<SelectItem> TaskOptions => _tasks.Where(t => t.Skill == _skill).Select(t => new SelectItem(t.Id, t.Label)).ToList();
     private IReadOnlyList<SelectItem> DifficultyOptions => [new("guided", T["Guided"]), new("standard", T["Standard"]), new("challenge", T["Challenge"])];
     private static readonly IReadOnlyList<SelectItem> DurationOptions = [new("10", "10"), new("15", "15"), new("20", "20"), new("30", "30")];
+    protected override async Task OnParametersSetAsync()
+    {
+        if (_manifest is not null && _manifest.Units.Any(u => u.UnitId == UnitQuery) && _unitId != UnitQuery)
+        {
+            _unitId = UnitQuery!;
+            await LoadUnit();
+        }
+    }
     private Task SetMinutes(string value) { if (int.TryParse(value, out var minutes)) _minutes = minutes; return Task.CompletedTask; }
     private (string Id, string Skill, string Label, string Prompt, ContentBlock Block)? SelectedTask => _tasks.Any(t => t.Id == _taskId) ? _tasks.First(t => t.Id == _taskId) : null;
     private RubricRecord? SelectedRubric => _assessments?.Rubrics.FirstOrDefault(r => r.UnitId == _unitId && r.Skill.Contains(_skill, StringComparison.OrdinalIgnoreCase));
@@ -94,7 +115,7 @@
     private async Task LoadUnit()
     {
         if (_entry is null || _manifest is null || _unitId.Length == 0) return;
-        _busy = true; _error = null; _session = null;
+        _busy = true; _error = null; _session = null; _step = 1;
         try
         {
             _unit = (await Units.GetUnitAsync(_entry, _manifest, _unitId, _cts.Token)).Content;
@@ -114,8 +135,8 @@
     }
     private static string s_label(string prompt) => prompt.Replace('\n', ' ').Trim().Length > 85 ? prompt.Replace('\n', ' ').Trim()[..85] + "…" : prompt.Replace('\n', ' ').Trim();
     private async Task ChooseUnit(ChangeEventArgs e) { _unitId = e.Value?.ToString() ?? ""; await LoadUnit(); }
-    private void ChooseSkill(ChangeEventArgs e) { _skill = e.Value?.ToString() ?? ""; _taskId = _tasks.FirstOrDefault(t => t.Skill == _skill).Id ?? ""; _session = null; }
-    private void ChooseTask(ChangeEventArgs e) { _taskId = e.Value?.ToString() ?? ""; _session = null; }
+    private void ChooseSkill(ChangeEventArgs e) { _skill = e.Value?.ToString() ?? ""; _taskId = _tasks.FirstOrDefault(t => t.Skill == _skill).Id ?? ""; _session = null; _step = 1; }
+    private void ChooseTask(ChangeEventArgs e) { _taskId = e.Value?.ToString() ?? ""; _session = null; _step = 1; }
     private async Task Create()
     {
         if (_manifest is null || _unit is null || _config is null || _vocabulary is null || SelectedTask is not { } task || SelectedRubric is not { } rubric || _working) return;
@@ -124,7 +145,7 @@
         {
             var request = PracticePackageBuilder.Create(_manifest, _unit, task.Block, rubric, _config, _vocabulary, System.Globalization.CultureInfo.CurrentUICulture.Name, _difficulty, _minutes);
             var session = new PracticeSession { Request = request, PackageMarkdown = PracticePackageBuilder.BuildMarkdown(request), Status = PracticeSessionStatus.Created, UpdatedAt = DateTimeOffset.UtcNow };
-            await Sessions.SaveAsync(session); _session = session; _previous = await Sessions.GetAsync(CourseId);
+            await Sessions.SaveAsync(session); _session = session; _previous = await Sessions.GetAsync(CourseId); _step = 2;
         }
         catch (Exception ex) when (ex is ArgumentException or LearningStorageException) { _error = ex.Message; }
         finally { _working = false; }
@@ -137,7 +158,7 @@
         {
             await Files.DownloadAsync(PracticePackageBuilder.Filename(_session.Request), _session.PackageMarkdown);
             _session = _session with { Status = PracticeSessionStatus.Exported, UpdatedAt = DateTimeOffset.UtcNow };
-            await Sessions.SaveAsync(_session); _previous = await Sessions.GetAsync(CourseId);
+            await Sessions.SaveAsync(_session); _previous = await Sessions.GetAsync(CourseId); _step = 3;
         }
         catch (Exception ex) when (ex is JSException or LearningStorageException) { _error = T["PracticeDownloadFailed"] + " " + ex.Message; }
         finally { _working = false; }

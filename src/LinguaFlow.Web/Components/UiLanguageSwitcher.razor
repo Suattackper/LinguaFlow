@@ -5,7 +5,7 @@
 @inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
 
 <div class="language-switcher">
-    <button type="button" class="language-trigger" aria-label="@T["UiLanguage"]" aria-haspopup="listbox" aria-expanded="@_open" @onclick="Toggle">
+    <button type="button" class="language-trigger" aria-label="@T["UiLanguage"]" aria-haspopup="listbox" aria-expanded="@(_open ? "true" : "false")" @ref="_trigger" @onclick="Toggle">
         <img class="flag-icon" src="@(Navigation.BaseUri + (Preferences.Language == "en-US" ? "flags/en.svg" : "flags/vi.svg"))" alt="" />
         <span>@(Preferences.Language == "en-US" ? "EN" : "VI")</span>
         <span class="language-chevron" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3.5 6 4.5 4 4.5-4" /></svg></span>
@@ -20,8 +20,9 @@
 </div>
 
 @code {
-    private bool _open, _needsReveal;
+    private bool _open, _needsReveal, _needsHide;
     private ElementReference _menu;
+    private ElementReference _trigger;
     private IJSObjectReference? _module;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -35,16 +36,21 @@
             if (_needsReveal && _module is not null)
             {
                 _needsReveal = false;
-                await _module.InvokeVoidAsync("showLanguageMenu", _menu);
+                await _module.InvokeVoidAsync("showLanguageMenu", _menu, _trigger);
+            }
+            if (_needsHide && _module is not null)
+            {
+                _needsHide = false;
+                await _module.InvokeVoidAsync("hideLanguageMenu");
             }
         }
         catch (JSException) { /* The control remains usable without animation. */ }
     }
 
-    private void Toggle() { _open = !_open; _needsReveal = _open; }
+    private void Toggle() { _open = !_open; _needsReveal = _open; _needsHide = !_open; }
     private async Task Select(string culture)
     {
-        _open = false;
+        _open = false; _needsHide = true;
         if (culture == Preferences.Language) return;
         await Preferences.SetLanguageAsync(culture);
         Navigation.NavigateTo(Navigation.Uri, forceLoad: true);
@@ -53,7 +59,7 @@
     {
         try
         {
-            if (_module is not null) await _module.DisposeAsync();
+            if (_module is not null) { await _module.InvokeVoidAsync("hideLanguageMenu", false); await _module.DisposeAsync(); }
         }
         catch (JSDisconnectedException) { }
     }

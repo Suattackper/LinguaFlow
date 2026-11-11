@@ -21,7 +21,7 @@ else if (_manifest is not null)
     @if (_storageError is not null) { <p role="alert" class="content-warning">@_storageError</p> }
     <div class="backup-grid">
         <section class="info-panel"><h2>@T["ExportProgress"]</h2><p>@T["ExportSummary"]</p><p>@T["LastBackup"]: @(_lastBackup?.ToLocalTime().ToString("g") ?? T["Never"])</p><button type="button" class="button course-action" @onclick="Export" disabled="@_busy">@T["DownloadBackup"]</button></section>
-        <section class="info-panel"><h2>@T["ImportProgress"]</h2><p>@T["ImportHint"]</p><InputFile OnChange="ChooseFile" accept=".json,application/json" /><p class="activity-count">@T["MaximumFileSize"]: 5 MB</p></section>
+        <section class="info-panel"><h2>@T["ImportProgress"]</h2><p>@T["ImportHint"]</p><LocalizedFilePicker OnChange="ChooseFile" /><p class="activity-count">@T["MaximumFileSize"]: 5 MB</p></section>
     </div>
     @if (_preview is not null)
     {

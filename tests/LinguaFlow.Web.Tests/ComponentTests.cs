@@ -11,6 +11,35 @@ namespace LinguaFlow.Web.Tests;
 public sealed class ComponentTests : BunitContext
 {
     [Fact]
+    public void SafeMarkdown_RendersAuthoredFormattingAndEncodesUnsafeInput()
+    {
+        var source = "# Tiếng Việt\n\n- **Làm việc** với *nhóm* và `code`\n- [Tài liệu](https://example.org/guide)\n\n<script>alert(1)</script> [unsafe](javascript:alert(1))";
+        var cut = Render<SafeMarkdown>(p => p.Add(x => x.Text, source));
+        Assert.Equal("Tiếng Việt", cut.Find("h1").TextContent);
+        Assert.Equal(2, cut.FindAll("li").Count);
+        Assert.Equal("Làm việc", cut.Find("strong").TextContent);
+        Assert.Equal("nhóm", cut.Find("em").TextContent);
+        Assert.Equal("code", cut.Find("code").TextContent);
+        Assert.Equal("https://example.org/guide", cut.Find("a").GetAttribute("href"));
+        Assert.Empty(cut.FindAll("script"));
+        Assert.DoesNotContain("javascript:", string.Join(" ", cut.FindAll("a").Select(x => x.GetAttribute("href"))));
+        Assert.Contains("&lt;script&gt;", cut.Markup);
+    }
+
+    [Fact]
+    public void SafeMarkdown_HandlesEmptyLongAndLiteralExamples()
+    {
+        var empty = Render<SafeMarkdown>(p => p.Add(x => x.Text, ""));
+        Assert.Empty(empty.FindAll("p"));
+        var source = "1. `**literal**`\n2. " + new string('a', 5000) + "\n\n**đậm *lồng nhau***";
+        var cut = Render<SafeMarkdown>(p => p.Add(x => x.Text, source));
+        Assert.Equal(2, cut.FindAll("ol li").Count);
+        Assert.Equal("**literal**", cut.Find("code").TextContent);
+        Assert.Equal(5000, cut.FindAll("ol li")[1].TextContent.Length);
+        Assert.Equal("lồng nhau", cut.Find("strong em").TextContent);
+    }
+
+    [Fact]
     public void AppSelect_ShowsOneValueAndReportsChosenOption()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;

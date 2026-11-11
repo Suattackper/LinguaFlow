@@ -4,7 +4,7 @@
     <div class="dialogue-actions"><button type="button" class="reader-control" @onclick="PlayAll">@T["PlayDialogue"]</button><button type="button" class="reader-control" @onclick="StopDialogue">@T["StopSpeech"]</button></div>
     @foreach (var line in Lines)
     {
-        <div class="dialogue-line"><strong>@line.Speaker</strong><span>@line.Text</span><PronounceButton Text="@line.Text" Language="@Language" /></div>
+        <div class="dialogue-line"><strong>@line.Speaker</strong><SafeMarkdown Class="dialogue-text" Text="@line.Text" /><PronounceButton Text="@line.Text" Language="@Language" /></div>
     }
 </div>
 @code {

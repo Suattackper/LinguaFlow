@@ -5,12 +5,14 @@
 @inject VocabularyContentService VocabularyService
 @inject VocabularyLearningService VocabularyLearning
 @inject LearningAnalyticsService Analytics
+@inject IReaderWorkspace Workspace
+@using LinguaFlow.Web.Services
 @inject CoursePathResolver Paths
 @inject NavigationManager Navigation
 @using LinguaFlow.Core.Analytics
 @inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
 <PageTitle>@(_manifest?.Title ?? T["CourseCatalog"]) - LinguaFlow</PageTitle>
-@if (_loading) { <StateMessage Kind="loading" Title="@T["LoadingCourses"]" /> }
+@if (_loading) { <LearningPageSkeleton /> }
 else if (_error is not null) { <StateMessage Kind="error" Title="@T["CourseLoadError"]" Description="@_error" /><button type="button" class="reader-control" @onclick="() => Navigation.NavigateTo(Navigation.Uri, forceLoad: true)">@T["RetryLoading"]</button> }
 else if (_manifest is not null)
 {
@@ -18,13 +20,14 @@ else if (_manifest is not null)
     @if (_storageWarning is not null) { <p role="alert" class="content-warning">@_storageWarning</p> }
     @if (_analytics is not null)
     {
+        var resume = _manifest is null ? null : CourseResumeResolver.Resolve(_manifest, _analytics, Workspace.GetLastUnit(CourseId), Workspace.GetLastUnit(CourseId) is { } lastUnit ? Workspace.GetLastSection(CourseId, lastUnit) : null);
+        <section class="course-resume" aria-labelledby="course-resume-title"><div><span class="eyebrow">@T["ContinueLearning"]</span><h2 id="course-resume-title">@(resume?.Unit.Title ?? T["CourseCompleted"])</h2><p>@(resume is null ? T["CourseCompletedHint"] : _analytics.LastStudyAt is null ? T["FirstVisitHint"] : T["ResumeHint"])</p><div class="resume-progress"><progress value="@_analytics.CompletedUnits" max="@Math.Max(1, _analytics.TotalUnits)"></progress><span>@_analytics.CompletedUnits / @_analytics.TotalUnits @T["CompletedUnits"]</span></div></div><div class="resume-actions">@if (resume is not null) { <NavLink class="button primary" href="@resume.Href">@(_analytics.LastStudyAt is null ? T["StartLearning"] : T["ContinueLearning"]) →</NavLink> } else { <NavLink class="button primary" href="@($"courses/{CourseId}/roadmap")">@T["UnitRoadmap"] →</NavLink> }<NavLink class="reader-control" href="@($"courses/{CourseId}/roadmap")">@T["ViewRoadmap"]</NavLink></div></section>
         <div class="dashboard-metrics" aria-label="@T["CourseProgress"]">
             <article><small>@T["CompletedUnits"]</small><strong>@_analytics.CompletedUnits / @_analytics.TotalUnits</strong><span>@T["CompletedUnitsHint"]</span></article>
             <article><small>@T["CourseProgress"]</small><strong>@_analytics.CompletionPercent%</strong><progress value="@_analytics.CompletedUnits" max="@Math.Max(1, _analytics.TotalUnits)"></progress></article>
             <article><small>@T["LastStudy"]</small><strong>@(_analytics.LastStudyAt?.ToLocalTime().ToString("d") ?? T["NoActivityYet"])</strong><span>@T["LastStudyHint"]</span></article>
             <article><small>@T["DueNow"]</small><strong>@_analytics.DueVocabulary</strong><span>@T["DueVocabularyHint"]</span></article>
         </div>
-        @if (_analytics.CurrentUnitId is { } current) { <NavLink class="button course-action" href="@($"courses/{CourseId}/units/{current}")">@T["ContinueLearning"] →</NavLink> }
         <div class="course-learning-links"><NavLink class="reader-control" href="@($"courses/{CourseId}/progress")">@T["LearningProgress"] →</NavLink><NavLink class="reader-control" href="@($"courses/{CourseId}/goals")">@T["LearningGoals"] →</NavLink><NavLink class="reader-control" href="@($"courses/{CourseId}/workspace")">@T["PersonalWorkspace"] →</NavLink><NavLink class="reader-control" href="@($"courses/{CourseId}/mistakes")">@T["MistakeNotebook"] →</NavLink></div>
         @if (_analytics.RecentSkill is not null) { <p>@T["RecentSkill"]: @_analytics.RecentSkill</p> }
         @if (_analytics.Recommendations.Count > 0) { <section class="info-panel"><h2>@T["StudyToday"]</h2><div class="dashboard-plan">@foreach (var item in _analytics.Recommendations.Where(x => !_skipped.Contains(x.Id)).Take(3)) { <article><NavLink href="@item.Href">@T[item.Id] →</NavLink><p>@T["reason-" + item.Id]</p><small>~@item.SuggestedMinutes @T["Minutes"]</small><button type="button" class="reader-control" @onclick="() => _skipped.Add(item.Id)">@T["SkipSuggestion"]</button></article> }</div><button type="button" class="reader-control" @onclick="RefreshPlan">@T["RefreshSuggestions"]</button></section> }
@@ -33,8 +36,8 @@ else if (_manifest is not null)
         @if (_analytics.LastStudyAt is not null && (_analytics.DaysSinceBackup is null or > 14)) { <p>@T["BackupReminder"]</p> }
     }
     <div class="course-detail">
-        <div class="course-meta"><span>@T["Level"]: @_manifest.LearningLevel</span><span>@_manifest.Units.Count @T["Units"]</span><span>@T["Available"]</span></div>
-        <p>@_manifest.Subtitle</p>
+        <div class="course-meta"><span>@T["Level"]: @_manifest!.LearningLevel</span><span>@_manifest!.Units.Count @T["Units"]</span><span>@T["Available"]</span></div>
+        <p>@_manifest!.Subtitle</p>
         <NavLink class="back-link" href="@($"courses/{CourseId}/backup")">@T["CourseBackup"] →</NavLink>
         <div class="course-learning-links"><NavLink class="reader-control" href="@($"courses/{CourseId}/vocabulary")">@T["VocabularyLibrary"] →</NavLink><NavLink class="reader-control" href="@($"courses/{CourseId}/review")">@T["ReviewDashboard"] →</NavLink><NavLink class="reader-control" href="@($"courses/{CourseId}/practice")">@T["PracticeCenter"] →</NavLink><NavLink class="reader-control" href="@($"courses/{CourseId}/roadmap")">@T["UnitRoadmap"] →</NavLink></div>
         <NavLink class="reader-control" href="@($"courses/{CourseId}/materials")">@T["CourseMaterials"] →</NavLink>
@@ -73,6 +76,8 @@ else if (_manifest is not null)
             if (entry is null) { _error = T["CourseUnavailable"]; return; }
             _entry = entry;
             _manifest = await ManifestService.GetManifestAsync(entry, _cts.Token);
+            try { await Workspace.LoadCourseAsync(CourseId); }
+            catch (LearningStorageException ex) { _storageWarning = ex.Message; }
             try { _analytics = await Analytics.GetAsync(entry, _manifest, _cts.Token); }
             catch (LearningStorageException ex) { _storageWarning = ex.Message; }
             try { var document = await VocabularyService.GetAsync(entry, _manifest, _cts.Token); var states = await VocabularyLearning.GetStatesAsync(CourseId); _reviewDue = document.Entries.Count(w => states.TryGetValue(w.VocabularyId, out var state) && (state.InReviewQueue || LinguaFlow.Core.Vocabulary.SpacedRepetitionService.IsDue(state, DateTimeOffset.UtcNow))); }

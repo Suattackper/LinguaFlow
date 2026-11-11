@@ -1,6 +1,7 @@
 @page "/courses/{CourseId}/vocabulary"
 @implements IDisposable
 @using LinguaFlow.Core.Vocabulary
+@using LinguaFlow.Web.Services
 @inject CourseCatalogService Catalogs
 @inject CourseManifestService Manifests
 @inject VocabularyContentService Vocabulary
@@ -9,23 +10,23 @@
 @inject NavigationManager Navigation
 @inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
 <PageTitle>@T["VocabularyLibrary"] - LinguaFlow</PageTitle>
-@if (_loading) { <StateMessage Kind="loading" Title="@T["LoadingCourses"]" /> }
+@if (_loading) { <LearningPageSkeleton /> }
 else if (_error is not null) { <StateMessage Kind="error" Title="@T["CourseLoadError"]" Description="@_error" /> }
 else if (_document is not null && _manifest is not null)
 {
     <NavLink class="back-link" href="@($"courses/{CourseId}")">← @T["BackToCourse"]</NavLink>
     <PageHeading Eyebrow="@_manifest.Title" Title="@T["VocabularyLibrary"]" Description="@($"{_document.Entries.Count} {T["OriginalWords"]}")" />
-    <nav class="vocab-links"><NavLink class="button course-action" href="@($"courses/{CourseId}/review")">@T["ReviewDashboard"] →</NavLink><NavLink class="reader-control" href="@($"courses/{CourseId}/flashcards?mode=new")">@T["StudyFlashcards"]</NavLink></nav>
-    <SpeechControls Language="@SpeechLanguage" LanguageChanged="SetSpeechLanguage" />
+    <nav class="vocab-links vocab-primary-actions"><NavLink class="button course-action" href="@($"courses/{CourseId}/flashcards?mode=new{(_unitFilter.Length > 0 ? $"&unit={Uri.EscapeDataString(_unitFilter)}" : "")}")">@T["StudyFlashcards"] →</NavLink><NavLink class="reader-control" href="@($"courses/{CourseId}/review")">@T["ReviewDashboard"] →</NavLink></nav>
+    @if (_unitFilter.Length > 0) { <p class="vocab-scope">@T["VocabularyFromUnit"]: <strong>@_manifest.Units.First(u => u.UnitId == _unitFilter).Title</strong> <NavLink href="@($"courses/{CourseId}/vocabulary")">@T["AllUnits"]</NavLink></p> }
     @if (_storageError is not null) { <p role="alert" class="content-warning">@_storageError</p> }
-    <div class="vocab-filters">
-        <label>@T["SearchVocabulary"] <input type="search" @bind="_search" @bind:event="oninput" /></label>
+    <label class="vocab-quick-search">@T["SearchVocabulary"] <input type="search" @bind="_search" @bind:event="oninput" /></label>
+    <p class="activity-count" role="status">@Filtered.Count @T["MatchingWords"]</p>
+    <details class="vocab-advanced"><summary>@T["AdvancedFilters"]</summary><div class="vocab-filters">
         <label>@T["Unit"] <AppSelect Label="@T["Unit"]" @bind-Value="_unitFilter" Options="UnitOptions" /></label>
         <label>@T["LearningStatus"] <AppSelect Label="@T["LearningStatus"]" @bind-Value="_statusFilter" Options="StatusOptions" /></label>
         <label>@T["SortBy"] <AppSelect Label="@T["SortBy"]" @bind-Value="_sort" Options="SortOptions" /></label>
         <label>@T["GroupBy"] <AppSelect Label="@T["GroupBy"]" @bind-Value="_group" Options="GroupOptions" /></label>
-    </div>
-    <p class="activity-count" role="status">@Filtered.Count @T["MatchingWords"]</p>
+    </div><SpeechControls Language="@SpeechLanguage" LanguageChanged="SetSpeechLanguage" /></details>
     @if (Filtered.Count == 0) { <StateMessage Kind="empty" Title="@T["NoMatchingWords"]" /> }
     else
     {
@@ -35,17 +36,17 @@ else if (_document is not null && _manifest is not null)
                 <div class="vocabulary-grid">@foreach (var word in group)
                 {
                     var state = State(word);
-                    <article class="vocabulary-tile"><div class="vocab-word-top"><h3>@word.Term</h3><button type="button" class="reader-control" aria-label="@T["FavoriteWord"]" aria-pressed="@state.Favorite" @onclick="() => Update(word, state, favorite: !state.Favorite)">@(state.Favorite ? "★" : "☆")</button></div>
+                    <article class="vocabulary-tile" data-unit-id="@word.UnitId"><div class="vocab-word-top"><h3>@word.Term</h3><button type="button" class="reader-control" aria-label="@T["FavoriteWord"]" aria-pressed="@(state.Favorite ? "true" : "false")" @onclick="() => Update(word, favorite: !state.Favorite)">@(state.Favorite ? "★" : "☆")</button></div>
                         @if (!string.IsNullOrWhiteSpace(word.Ipa)) { <p class="vocab-ipa">@word.Ipa</p> }
                         <p>@word.Vietnamese</p>
                         @if (!string.IsNullOrWhiteSpace(word.Context)) { <p class="vocab-context">@word.Context</p> }
                         @if (!string.IsNullOrWhiteSpace(word.PartOfSpeech)) { <small>@word.PartOfSpeech</small> }
                         @if (!string.IsNullOrWhiteSpace(word.Topic)) { <small>@word.Topic</small> }
-                        @if (!string.IsNullOrWhiteSpace(word.Example)) { <p>@word.Example</p> }
-                        @if (!string.IsNullOrWhiteSpace(word.Explanation)) { <p>@word.Explanation</p> }
+                        @if (!string.IsNullOrWhiteSpace(word.Example)) { <SafeMarkdown Text="@word.Example" /> }
+                        @if (!string.IsNullOrWhiteSpace(word.Explanation)) { <SafeMarkdown Text="@word.Explanation" /> }
                         <PronounceButton Text="@word.Term" Language="@SpeechLanguage" AudioUrl="@Vocabulary.AudioUrl(_entry!, word)?.ToString()" />
                         <div class="vocab-status"><span>@T[state.Status.ToString()]</span>@if (state.NextDueAt is { } due) { <span>@T["NextReview"]: @due.ToLocalTime().ToString("d")</span> }</div>
-                        <button type="button" class="reader-control" @onclick="() => Update(word, state, inQueue: !state.InReviewQueue)">@(state.InReviewQueue ? T["RemoveFromQueue"] : T["AddToReviewQueue"])</button>
+                        <button type="button" class="reader-control" @onclick="() => Update(word, inQueue: !state.InReviewQueue)">@(state.InReviewQueue ? T["RemoveFromQueue"] : T["AddToReviewQueue"])</button>
                         <details><summary>@T["PersonalNotes"]</summary><textarea rows="2" aria-label="@T["PersonalNotes"]" value="@state.Note" @onchange="e => NoteChanged(word, e)"></textarea></details>
                         @if (state.History.Count > 0) { <details><summary>@T["ReviewHistory"] (@state.History.Count)</summary><ol>@foreach (var item in state.History.OrderByDescending(x => x.ReviewedAt).Take(10)) { <li>@item.ReviewedAt.ToLocalTime().ToString("g") · @(item.Remembered ? T["Remembered"] : T["Forgotten"])</li> }</ol></details> }
                     </article>
@@ -71,6 +72,7 @@ else if (_document is not null && _manifest is not null)
     private IReadOnlyList<SelectItem> GroupOptions => [new("unit", T["Unit"]), new("topic", T["Topic"]), new("status", T["LearningStatus"]), new("due", T["ReviewDate"])];
     private string SpeechLanguage = "en-US";
     private int _page;
+    private readonly SemaphoreSlim _stateGate = new(1, 1);
     private const int PageSize = 24;
     private VocabularyReviewState State(VocabularyEntry word) => _states.GetValueOrDefault(word.VocabularyId) ?? VocabularyLearningService.NewState(CourseId, word);
     private string UnitTitle(VocabularyEntry word) => _manifest?.Units.FirstOrDefault(u => u.UnitId == word.UnitId)?.Title ?? word.UnitId;
@@ -108,8 +110,7 @@ else if (_document is not null && _manifest is not null)
             if (_entry is null) { _error = T["CourseUnavailable"]; return; }
             _manifest = await Manifests.GetManifestAsync(_entry, _cts.Token);
             _document = await Vocabulary.GetAsync(_entry, _manifest, _cts.Token);
-            var queryUnit = new Uri(Navigation.Uri).Query.TrimStart('?').Split('&').Select(x => x.Split('=', 2)).FirstOrDefault(x => x.Length == 2 && x[0] == "unit")?.LastOrDefault();
-            _unitFilter = _manifest.Units.Any(u => u.UnitId == queryUnit) ? queryUnit! : "";
+            _unitFilter = VocabularyUnitFilter.Resolve(Navigation.Uri, _manifest);
             SpeechLanguage = _manifest.LanguageCode switch { "ja" => "ja-JP", "zh" => "zh-CN", _ => "en-US" };
             try { _states = await Learning.GetStatesAsync(CourseId); }
             catch (LearningStorageException ex) { _storageError = ex.Message; }
@@ -118,15 +119,19 @@ else if (_document is not null && _manifest is not null)
         catch (Exception ex) when (ex is CourseContentException or HttpRequestException) { _error = ex.Message; }
         finally { _loading = false; }
     }
-    private async Task Update(VocabularyEntry word, VocabularyReviewState state, bool? favorite = null, bool? inQueue = null)
+    private async Task Update(VocabularyEntry word, bool? favorite = null, bool? inQueue = null)
     {
-        try { _states[word.VocabularyId] = await Learning.UpdateAsync(CourseId, word, state, favorite, inQueue); _storageError = null; }
+        await _stateGate.WaitAsync();
+        try { _states[word.VocabularyId] = await Learning.UpdateAsync(CourseId, word, State(word), favorite, inQueue); _storageError = null; }
         catch (LearningStorageException ex) { _storageError = ex.Message; }
+        finally { _stateGate.Release(); }
     }
     private async Task SaveNote(VocabularyEntry word, string note)
     {
+        await _stateGate.WaitAsync();
         try { _states[word.VocabularyId] = await Learning.UpdateAsync(CourseId, word, State(word), note: note); _storageError = null; }
         catch (LearningStorageException ex) { _storageError = ex.Message; }
+        finally { _stateGate.Release(); }
     }
     private Task NoteChanged(VocabularyEntry word, ChangeEventArgs e) => SaveNote(word, e.Value?.ToString() ?? "");
     private void SetSpeechLanguage(string code) => SpeechLanguage = code;

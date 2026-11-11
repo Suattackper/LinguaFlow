@@ -8,6 +8,7 @@ namespace LinguaFlow.Web.Services;
 
 public sealed class VocabularyLearningService(LearningRepository repository, SpacedRepetitionService spacing)
 {
+    public sealed record ReviewReceipt(VocabularyReviewState State, VocabularyReviewState? Previous, string ActivityId);
     public async Task<Dictionary<string, VocabularyReviewState>> GetStatesAsync(string courseId)
     {
         var records = await repository.VocabularyStates.GetByCourseAsync(courseId);
@@ -24,12 +25,26 @@ public sealed class VocabularyLearningService(LearningRepository repository, Spa
     }
     public static VocabularyReviewState NewState(string courseId, VocabularyEntry word) => new() { CourseId = courseId, UnitId = word.UnitId, VocabularyId = word.VocabularyId };
     public async Task<VocabularyReviewState> ReviewAsync(string courseId, VocabularyEntry word, VocabularyReviewState? prior, bool remembered, IReadOnlyList<int>? unitIntervals, DateTimeOffset now)
+        => (await ReviewWithReceiptAsync(courseId, word, prior, remembered, unitIntervals, now)).State;
+
+    public async Task<ReviewReceipt> ReviewWithReceiptAsync(string courseId, VocabularyEntry word, VocabularyReviewState? prior, bool remembered, IReadOnlyList<int>? unitIntervals, DateTimeOffset now)
     {
         var state = prior ?? NewState(courseId, word);
         Validate(courseId, word, state);
         var next = spacing.Review(state, remembered, now, unitIntervals);
-        await repository.UpsertBatchAsync([StateRecord(next), StudyActivityService.Record(courseId, word.UnitId, StudyActivityKind.VocabularyReviewed, now)]);
-        return next;
+        var activity = StudyActivityService.Record(courseId, word.UnitId, StudyActivityKind.VocabularyReviewed, now);
+        await repository.UpsertBatchAsync([StateRecord(next), activity]);
+        return new(next, prior, activity.Id);
+    }
+    public Task UndoReviewAsync(string courseId, VocabularyEntry word, ReviewReceipt receipt, string? summaryId = null)
+    {
+        Validate(courseId, word, receipt.State);
+        if (receipt.Previous is not null) Validate(courseId, word, receipt.Previous);
+        var records = receipt.Previous is null ? Array.Empty<LearningRecord>() : new[] { StateRecord(receipt.Previous) };
+        var deletes = new List<string> { $"{courseId}|{LearningRecordKind.StudySession}|{receipt.ActivityId}" };
+        if (receipt.Previous is null) deletes.Add($"{courseId}|{LearningRecordKind.VocabularyState}|{word.VocabularyId}");
+        if (summaryId is not null) deletes.Add($"{courseId}|{LearningRecordKind.StudySession}|{summaryId}");
+        return repository.MutateBatchAsync(records, deletes);
     }
     public async Task<VocabularyReviewState> UpdateAsync(string courseId, VocabularyEntry word, VocabularyReviewState? prior, bool? favorite = null, bool? inQueue = null, string? note = null)
     {
