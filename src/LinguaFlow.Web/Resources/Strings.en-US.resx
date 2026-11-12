@@ -722,5 +722,8 @@
   <data name="LessonContent" xml:space="preserve"><value>Lesson content</value></data>
   <data name="FlashcardInvalidUnit" xml:space="preserve"><value>This Unit is not in the course.</value></data>
   <data name="SpeechFallbackHelp" xml:space="preserve"><value>Check your device's installed voices or try another browser; you can still read the pronunciation guide and examples.</value></data>
+  <data name="FlashcardScope" xml:space="preserve"><value>Card scope</value></data>
+  <data name="FlashcardDeckSize" xml:space="preserve"><value>{0} cards in this session (up to 30)</value></data>
+  <data name="SelectUnit" xml:space="preserve"><value>Choose a Unit</value></data>
 </root>
 

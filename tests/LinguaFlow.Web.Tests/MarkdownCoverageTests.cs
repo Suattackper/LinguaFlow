@@ -8,6 +8,15 @@ namespace LinguaFlow.Web.Tests;
 public sealed class MarkdownCoverageTests : BunitContext
 {
     [Fact]
+    public void AuthoredMarkdownHeadingsStayBelowLessonSectionHeading()
+    {
+        var rendered = Render<SafeMarkdown>(p => p.Add(x => x.Text, "# Tiêu đề **đậm**\n\n- Một mục\n- Mục hai"));
+        Assert.Empty(rendered.FindAll("h1, h2"));
+        Assert.Equal("Tiêu đề đậm", rendered.Find("h3").TextContent);
+        Assert.Equal(2, rendered.FindAll("li").Count);
+    }
+
+    [Fact]
     public void EveryPublishedUnitSectionHasAReadableSafeSample()
     {
         var root = new DirectoryInfo(AppContext.BaseDirectory);

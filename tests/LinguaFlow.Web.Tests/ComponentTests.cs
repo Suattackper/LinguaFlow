@@ -15,7 +15,7 @@ public sealed class ComponentTests : BunitContext
     {
         var source = "# Tiếng Việt\n\n- **Làm việc** với *nhóm* và `code`\n- [Tài liệu](https://example.org/guide)\n\n<script>alert(1)</script> [unsafe](javascript:alert(1))";
         var cut = Render<SafeMarkdown>(p => p.Add(x => x.Text, source));
-        Assert.Equal("Tiếng Việt", cut.Find("h1").TextContent);
+        Assert.Equal("Tiếng Việt", cut.Find("h3").TextContent);
         Assert.Equal(2, cut.FindAll("li").Count);
         Assert.Equal("Làm việc", cut.Find("strong").TextContent);
         Assert.Equal("nhóm", cut.Find("em").TextContent);

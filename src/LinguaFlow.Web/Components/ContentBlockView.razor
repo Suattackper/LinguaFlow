@@ -23,6 +23,17 @@
             </tbody>
         </table>
     </div>
+    <div class="lesson-vocabulary-cards">
+        @foreach (var entry in vocabulary.Entries)
+        {
+            <article class="lesson-vocabulary-card">
+                <div class="lesson-vocabulary-card-head"><strong>@entry.Term</strong><PronounceButton Text="@entry.Term" Language="@SpeechLanguage" AudioUrl="@SafeAudioUrl(entry.AudioPath)" /></div>
+                @if (!string.IsNullOrWhiteSpace(entry.Ipa)) { <span class="vocab-ipa">@entry.Ipa</span> }
+                <p>@entry.Vietnamese</p>
+                @if (!string.IsNullOrWhiteSpace(entry.Context)) { <small>@entry.Context</small> }
+            </article>
+        }
+    </div>
 }
 else if (Block is QuestionBlock question)
 {

@@ -725,6 +725,9 @@
   <data name="LessonContent" xml:space="preserve"><value>Nội dung bài học</value></data>
   <data name="FlashcardInvalidUnit" xml:space="preserve"><value>Không tìm thấy Unit này trong khóa học.</value></data>
   <data name="SpeechFallbackHelp" xml:space="preserve"><value>Kiểm tra giọng đọc trong cài đặt thiết bị hoặc thử trình duyệt khác; bạn vẫn có thể đọc phiên âm và ví dụ.</value></data>
+  <data name="FlashcardScope" xml:space="preserve"><value>Phạm vi thẻ</value></data>
+  <data name="FlashcardDeckSize" xml:space="preserve"><value>{0} thẻ trong phiên này (tối đa 30)</value></data>
+  <data name="SelectUnit" xml:space="preserve"><value>Chọn Unit</value></data>
 </root>
 
 

@@ -17,6 +17,12 @@ else
 {
     <NavLink class="back-link" href="@($"courses/{CourseId}/review")">← @T["ReviewDashboard"]</NavLink>
     <PageHeading Eyebrow="@T["VocabularyLibrary"]" Title="@T["StudyFlashcards"]" Description="@T["FlashcardDescription"]" />
+    <nav class="flashcard-scope" aria-label="@T["FlashcardScope"]">
+        <span>@T["FlashcardScope"]: <strong>@(string.IsNullOrWhiteSpace(UnitQuery) ? T["AllUnits"] : _manifest?.Units.FirstOrDefault(u => u.UnitId == UnitQuery)?.Title ?? UnitQuery)</strong></span>
+        <span>@T["FlashcardDeckSize", _deck.Count]</span>
+        @if (!string.IsNullOrWhiteSpace(UnitQuery)) { <NavLink class="reader-control" href="@($"courses/{CourseId}/flashcards?mode=new")">@T["AllUnits"] →</NavLink> }
+        else { <NavLink class="reader-control" href="@($"courses/{CourseId}/vocabulary")">@T["SelectUnit"] →</NavLink> }
+    </nav>
     @if (_deck.Count == 0) { <StateMessage Kind="empty" Title="@T["NoCardsInSession"]" Description="@T["NoReviewsDueDescription"]" /> }
     else if (_index >= _deck.Count)
     {

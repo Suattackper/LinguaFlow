@@ -211,6 +211,21 @@ try {
   }
   if(process.argv.includes('--phase06')) {
     const manifest=JSON.parse(readFileSync('src/LinguaFlow.Web/wwwroot/Courses/English/english-life-office-it/manifest.json','utf8'));
+    if(process.argv.includes('--mobile-unit-capture')) {
+      await visit('',320,'light','vi-VN','.hero,.home-resume');
+      for(const width of [320,390,768,1366]) for(const [theme,lang] of [['light','vi-VN'],['light','en-US'],['dark','vi-VN'],['dark','en-US']]) {
+        await visit(`${course}units/${manifest.units[0].unitId}`,width,theme,lang,'.reader-main');
+        const clicked=await evaluate("(() => { const link=[...document.querySelectorAll('.reader-sidebar .section-link')].find(x=>x.textContent.includes('Vocabulary'));link?.click();return {found:!!link,links:[...document.querySelectorAll('.reader-sidebar .section-link')].slice(0,5).map(x=>x.textContent),cards:document.querySelectorAll('.lesson-vocabulary-card').length} })()");
+        if(!clicked.found) throw new Error(`Vocabulary section link missing: ${JSON.stringify(clicked)}`);
+        await until(()=>evaluate("document.querySelector('.journey-visible')?.id==='a'"),5000).catch(async()=>{throw new Error(`Vocabulary navigation failed: ${JSON.stringify(await evaluate("({visible:document.querySelector('.journey-visible')?.id,hash:location.hash,cards:document.querySelectorAll('.lesson-vocabulary-card').length})"))}`)});
+        const layout=await evaluate("({cards:[...document.querySelectorAll('.lesson-vocabulary-card')].filter(x=>getComputedStyle(x).display!=='none').length,cardList:document.querySelector('.lesson-vocabulary-cards') && getComputedStyle(document.querySelector('.lesson-vocabulary-cards')).display,table:document.querySelector('.vocabulary-scroll') && getComputedStyle(document.querySelector('.vocabulary-scroll')).display,scroll:document.documentElement.scrollWidth})");
+        if(width<=390 && (layout.cards<1 || layout.table!=='none')) throw new Error(`Mobile lesson vocabulary failed: ${width} ${theme} ${lang} ${JSON.stringify(layout)}`);
+        if(width>=768 && layout.cardList!=='none') throw new Error(`Desktop lesson table failed: ${width} ${theme} ${lang} ${JSON.stringify(layout)}`);
+        const shot=await send('Page.captureScreenshot',{format:'png'});
+        writeFileSync(join(output,`mobile-unit-vocabulary-${width}-${theme}-${lang}.png`),Buffer.from(shot.data,'base64'));
+      }
+      console.log('16 lesson vocabulary layouts and screenshots passed');
+    }
     const unitRows=[];
     for(const reference of process.argv.includes('--phase06-pages-only') ? [] : manifest.units) {
       const started=performance.now();
@@ -228,15 +243,15 @@ try {
     const pageRows=[];
     const routes=[['','.hero,.home-resume'],[`${course.slice(0,-1)}`,'.course-detail'],[`${course}roadmap`,'.roadmap-card'],[`${course}vocabulary?unit=${manifest.units[0].unitId}`,'.vocabulary-tile'],[`${course}flashcards?mode=new&unit=${manifest.units[0].unitId}`,'.flashcard-session'],[`${course}practice?unit=${manifest.units[0].unitId}`,'.practice-steps'],[`${course}practice/import`,'.localized-file-picker'],['settings','.settings-card'],['help','.help-article']];
     const combinations=[['light','vi-VN'],['light','en-US'],['dark','vi-VN'],['dark','en-US']];
-    for(const width of process.argv.includes('--phase06-units-only') ? [] : [360,390,768,1024,1366,1920]) for(const [theme,lang] of combinations) {
-      if(process.argv.includes('--phase06-page-quick') && (width!==(process.argv.includes('--phase06-capture') ? 390 : 360) || theme!==(process.argv.includes('--phase06-dark') ? 'dark' : 'light') || lang!==(process.argv.includes('--phase06-dark') ? 'en-US' : 'vi-VN'))) continue;
-      const targets=process.argv.includes('--phase06-baseline') ? routes.filter((_,index)=>index%3===0) : process.argv.includes('--phase06-targeted') ? routes.filter((_,index)=>[0,4].includes(index)) : routes;
+    for(const width of process.argv.includes('--phase06-units-only') ? [] : process.argv.includes('--mobile-plan') ? [320,390,768,1366] : [360,390,768,1024,1366,1920]) for(const [theme,lang] of combinations) {
+      if(process.argv.includes('--phase06-page-quick') && (width!==(process.argv.includes('--help-only') ? 1366 : process.argv.includes('--phase06-capture') ? 390 : 360) || theme!==(process.argv.includes('--phase06-dark') ? 'dark' : 'light') || lang!==(process.argv.includes('--help-only') || process.argv.includes('--phase06-dark') ? 'en-US' : 'vi-VN'))) continue;
+      const targets=process.argv.includes('--help-only') ? routes.filter(([path])=>path==='help') : process.argv.includes('--phase06-baseline') ? routes.filter((_,index)=>index%3===0) : process.argv.includes('--phase06-targeted') ? routes.filter((_,index)=>[0,4].includes(index)) : routes;
       for(const [path,marker] of targets) {
         const started=performance.now();
         await visit(path,width,theme,lang,marker);
         const result=await evaluate("(() => {const style=getComputedStyle(document.documentElement);return {headings:[...document.querySelectorAll('#main h1')].map(x=>x.innerText),landmarks:document.querySelectorAll('main').length,focusables:[...document.querySelectorAll('#main button,#main a[href],#main input,#main textarea')].filter(x=>x.getClientRects().length>0).length,fcp:performance.getEntriesByType('paint').find(x=>x.name==='first-contentful-paint')?.startTime||null,vitals:window.__linguaVitals||null,tokens:Object.fromEntries(['--text','--muted','--primary','--surface','--bg'].map(key=>[key,style.getPropertyValue(key).trim()]))}})()");
         if(result.headings.length!==1 || result.landmarks!==1) throw new Error(`Heading/landmark failed ${path} ${width} ${theme} ${lang}: ${JSON.stringify(result)}`);
-        if(width===390 && theme==='light' && lang==='vi-VN' && ['','settings',`${course}practice/import`].includes(path)) { const shot=await send('Page.captureScreenshot',{format:'png'});writeFileSync(join(output,`phase06-${path ? path.split('/').at(-1) : 'home'}-mobile.png`),Buffer.from(shot.data,'base64')); }
+        if((width===390 && theme==='light' && lang==='vi-VN' && ['','settings',`${course}practice/import`].includes(path)) || (process.argv.includes('--mobile-plan') && ['','settings',`${course}vocabulary?unit=${manifest.units[0].unitId}`,`${course}flashcards?mode=new&unit=${manifest.units[0].unitId}`].includes(path))) { const shot=await send('Page.captureScreenshot',{format:'png'});writeFileSync(join(output,`mobile-${path ? path.split('/').at(-1).replace(/[^a-z0-9-]/gi,'-') : 'home'}-${width}-${theme}-${lang}.png`),Buffer.from(shot.data,'base64')); }
         pageRows.push({path,width,theme,lang,loadMs:Math.round(performance.now()-started),...result});
       }
       console.log('phase06 pages',width,theme,lang,targets.length);
@@ -261,7 +276,7 @@ try {
     await evaluate("document.activeElement?.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true,cancelable:true}))");
     await until(()=>evaluate("!document.querySelector('.topbar .language-menu') && document.activeElement?.classList.contains('language-trigger')"));
     console.log('phase06 keyboard dialogs and reduced motion passed');
-    const phase06Name=process.argv.includes('--phase06-baseline')?'phase06-baseline.json':process.argv.includes('--phase06-units-only')?'phase06-units.json':process.argv.includes('--phase06-page-quick')?'phase06-quick.json':'phase06-results.json';
+    const phase06Name=process.argv.includes('--phase06-baseline')?'phase06-baseline.json':process.argv.includes('--phase06-units-only')?'phase06-units.json':process.argv.includes('--mobile-plan')?'mobile-plan.json':process.argv.includes('--phase06-page-quick')?'phase06-quick.json':'phase06-results.json';
     writeFileSync(join(output,phase06Name),JSON.stringify({unitRows,pageRows,exceptions:errors.length},null,2));
     console.log(`phase06 ${unitRows.length} Units and ${pageRows.length} page states passed`);
   }

@@ -30,7 +30,9 @@ public static class SafeMarkdownRenderer
             var hashes = trimmed.TakeWhile(c => c == '#').Count();
             if (hashes is >= 1 and <= 6 && trimmed.Length > hashes && trimmed[hashes] == ' ')
             {
-                builder.OpenElement(sequence++, $"h{hashes}"); RenderInline(builder, trimmed[(hashes + 1)..], ref sequence); builder.CloseElement(); i++; continue;
+                // Markdown belongs inside a page or lesson section; it must not create
+                // another page heading or compete with the section's h2.
+                builder.OpenElement(sequence++, $"h{Math.Min(6, hashes + 2)}"); RenderInline(builder, trimmed[(hashes + 1)..], ref sequence); builder.CloseElement(); i++; continue;
             }
             if (ListItem(trimmed, out var ordered, out _))
             {
