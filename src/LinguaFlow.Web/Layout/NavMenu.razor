@@ -1,7 +1,7 @@
 @inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
 @inject NavigationManager Navigation
 @implements IDisposable
-<div class="nav-brand"><span class="nav-brand-icon" aria-hidden="true">✦</span><span class="nav-brand-text">LinguaFlow</span><small>@T["BrandTag"]</small></div>
+<div class="nav-brand"><img class="nav-brand-icon" src="icon-192.png" width="28" height="28" alt="" /><span class="nav-brand-text">LinguaFlow</span><small>@T["BrandTag"]</small></div>
 <nav class="nav-links" aria-label="@T["PrimaryNavigation"]">
 <NavLink href="" Match="NavLinkMatch.All" title="@T["Home"]"><span class="nav-icon" aria-hidden="true">⌂</span><span class="nav-text">@T["Home"]</span></NavLink>
 <div class="nav-label">@T["Learn"]</div>

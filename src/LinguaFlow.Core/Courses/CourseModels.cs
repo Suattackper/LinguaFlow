@@ -168,11 +168,11 @@ public sealed record VocabularyEntry
     public required string Vietnamese { get; init; }
     public required string Context { get; init; }
     public required SourceProvenance Source { get; init; }
-    public string? PartOfSpeech { get; init; }
-    public string? Example { get; init; }
-    public string? Explanation { get; init; }
-    public string? Topic { get; init; }
-    public string? AudioPath { get; init; }
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] public string? PartOfSpeech { get; init; }
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] public string? Example { get; init; }
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] public string? Explanation { get; init; }
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] public string? Topic { get; init; }
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] public string? AudioPath { get; init; }
 }
 
 public sealed record AssessmentDocument
@@ -193,8 +193,11 @@ public sealed record AnswerRecord
     public required string AssessmentMode { get; init; }
     public required SourceProvenance Source { get; init; }
     public bool Ambiguous { get; init; }
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public List<string>? ValidAnswers { get; init; }
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
     public bool AllowPartialCredit { get; init; }
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
     public bool IgnorePunctuation { get; init; }
 }
 

@@ -7,156 +7,184 @@
       "unitId": "unit-01",
       "answer": "checks",
       "explanation": "Every morning \u2192 hi\u1EC7n t\u1EA1i \u0111\u01A1n; he \u002B checks.",
-      "assessmentMode": "manual-review",
+      "assessmentMode": "auto-exact",
       "source": {
         "file": "ANSWER_KEYS/Unit_01_Answers.md",
         "originalUnit": "01",
         "originalSection": "C1. Grammar \u2014 Fill in the blanks (12)"
       },
-      "ambiguous": false
+      "ambiguous": false,
+      "ignorePunctuation": true
     },
     {
       "exerciseId": "unit-01-c1-02",
       "unitId": "unit-01",
       "answer": "am fixing",
       "explanation": "Right now \u2192 am/is/are \u002B V-ing.",
-      "assessmentMode": "manual-review",
+      "assessmentMode": "auto-exact",
       "source": {
         "file": "ANSWER_KEYS/Unit_01_Answers.md",
         "originalUnit": "01",
         "originalSection": "C1. Grammar \u2014 Fill in the blanks (12)"
       },
-      "ambiguous": false
+      "ambiguous": false,
+      "ignorePunctuation": true
     },
     {
       "exerciseId": "unit-01-c1-03",
       "unitId": "unit-01",
       "answer": "do not work",
       "explanation": "Th\u00F3i quen ph\u1EE7 \u0111\u1ECBnh: do not \u002B V.",
-      "assessmentMode": "manual-review",
+      "assessmentMode": "auto-exact",
       "source": {
         "file": "ANSWER_KEYS/Unit_01_Answers.md",
         "originalUnit": "01",
         "originalSection": "C1. Grammar \u2014 Fill in the blanks (12)"
       },
-      "ambiguous": false
+      "ambiguous": false,
+      "validAnswers": [
+        "do not work",
+        "don\u0027t work"
+      ],
+      "ignorePunctuation": true
     },
     {
       "exerciseId": "unit-01-c1-04",
       "unitId": "unit-01",
       "answer": "assigns",
       "explanation": "On Mondays \u2192 hi\u1EC7n t\u1EA1i \u0111\u01A1n.",
-      "assessmentMode": "manual-review",
+      "assessmentMode": "auto-exact",
       "source": {
         "file": "ANSWER_KEYS/Unit_01_Answers.md",
         "originalUnit": "01",
         "originalSection": "C1. Grammar \u2014 Fill in the blanks (12)"
       },
-      "ambiguous": false
+      "ambiguous": false,
+      "ignorePunctuation": true
     },
     {
       "exerciseId": "unit-01-c1-05",
       "unitId": "unit-01",
       "answer": "are reviewing",
       "explanation": "At the moment \u2192 ti\u1EBFp di\u1EC5n.",
-      "assessmentMode": "manual-review",
+      "assessmentMode": "auto-exact",
       "source": {
         "file": "ANSWER_KEYS/Unit_01_Answers.md",
         "originalUnit": "01",
         "originalSection": "C1. Grammar \u2014 Fill in the blanks (12)"
       },
-      "ambiguous": false
+      "ambiguous": false,
+      "ignorePunctuation": true
     },
     {
       "exerciseId": "unit-01-c1-06",
       "unitId": "unit-01",
       "answer": "Does; join",
       "explanation": "Does \u002B ch\u1EE7 ng\u1EEF \u002B \u0111\u1ED9ng t\u1EEB nguy\u00EAn m\u1EABu.",
-      "assessmentMode": "manual-review",
+      "assessmentMode": "auto-exact",
       "source": {
         "file": "ANSWER_KEYS/Unit_01_Answers.md",
         "originalUnit": "01",
         "originalSection": "C1. Grammar \u2014 Fill in the blanks (12)"
       },
-      "ambiguous": true
+      "ambiguous": false,
+      "validAnswers": [
+        "Does",
+        "join"
+      ],
+      "ignorePunctuation": true
     },
     {
       "exerciseId": "unit-01-c1-07",
       "unitId": "unit-01",
       "answer": "runs",
       "explanation": "M\u00F4 t\u1EA3 s\u1EF1 th\u1EADt h\u1EC7 th\u1ED1ng.",
-      "assessmentMode": "manual-review",
+      "assessmentMode": "auto-exact",
       "source": {
         "file": "ANSWER_KEYS/Unit_01_Answers.md",
         "originalUnit": "01",
         "originalSection": "C1. Grammar \u2014 Fill in the blanks (12)"
       },
-      "ambiguous": false
+      "ambiguous": false,
+      "ignorePunctuation": true
     },
     {
       "exerciseId": "unit-01-c1-08",
       "unitId": "unit-01",
       "answer": "am not using",
       "explanation": "Today g\u1EAFn v\u1EDBi t\u00ECnh hu\u1ED1ng t\u1EA1m th\u1EDDi.",
-      "assessmentMode": "manual-review",
+      "assessmentMode": "auto-exact",
       "source": {
         "file": "ANSWER_KEYS/Unit_01_Answers.md",
         "originalUnit": "01",
         "originalSection": "C1. Grammar \u2014 Fill in the blanks (12)"
       },
-      "ambiguous": false
+      "ambiguous": false,
+      "ignorePunctuation": true
     },
     {
       "exerciseId": "unit-01-c1-09",
       "unitId": "unit-01",
       "answer": "usually arrive",
       "explanation": "Tr\u1EA1ng t\u1EEB t\u1EA7n su\u1EA5t \u0111\u1EB7t tr\u01B0\u1EDBc \u0111\u1ED9ng t\u1EEB th\u01B0\u1EDDng.",
-      "assessmentMode": "manual-review",
+      "assessmentMode": "auto-exact",
       "source": {
         "file": "ANSWER_KEYS/Unit_01_Answers.md",
         "originalUnit": "01",
         "originalSection": "C1. Grammar \u2014 Fill in the blanks (12)"
       },
-      "ambiguous": false
+      "ambiguous": false,
+      "ignorePunctuation": true
     },
     {
       "exerciseId": "unit-01-c1-10",
       "unitId": "unit-01",
       "answer": "are; waiting",
       "explanation": "H\u00E0nh \u0111\u1ED9ng ngay l\u00FAc n\u00F3i.",
-      "assessmentMode": "manual-review",
+      "assessmentMode": "auto-exact",
       "source": {
         "file": "ANSWER_KEYS/Unit_01_Answers.md",
         "originalUnit": "01",
         "originalSection": "C1. Grammar \u2014 Fill in the blanks (12)"
       },
-      "ambiguous": true
+      "ambiguous": false,
+      "validAnswers": [
+        "are",
+        "waiting"
+      ],
+      "ignorePunctuation": true
     },
     {
       "exerciseId": "unit-01-c1-11",
       "unitId": "unit-01",
       "answer": "is testing",
       "explanation": "This week t\u1EA1m th\u1EDDi.",
-      "assessmentMode": "manual-review",
+      "assessmentMode": "auto-exact",
       "source": {
         "file": "ANSWER_KEYS/Unit_01_Answers.md",
         "originalUnit": "01",
         "originalSection": "C1. Grammar \u2014 Fill in the blanks (12)"
       },
-      "ambiguous": false
+      "ambiguous": false,
+      "ignorePunctuation": true
     },
     {
       "exerciseId": "unit-01-c1-12",
       "unitId": "unit-01",
       "answer": "does not understand",
       "explanation": "Understand th\u01B0\u1EDDng kh\u00F4ng d\u00F9ng d\u1EA1ng ti\u1EBFp di\u1EC5n.",
-      "assessmentMode": "manual-review",
+      "assessmentMode": "auto-exact",
       "source": {
         "file": "ANSWER_KEYS/Unit_01_Answers.md",
         "originalUnit": "01",
         "originalSection": "C1. Grammar \u2014 Fill in the blanks (12)"
       },
-      "ambiguous": false
+      "ambiguous": false,
+      "validAnswers": [
+        "does not understand",
+        "doesn\u0027t understand"
+      ],
+      "ignorePunctuation": true
     },
     {
       "exerciseId": "unit-01-c2-01",
@@ -306,65 +334,70 @@
       "unitId": "unit-01",
       "answer": "colleague",
       "explanation": "",
-      "assessmentMode": "manual-review",
+      "assessmentMode": "auto-exact",
       "source": {
         "file": "ANSWER_KEYS/Unit_01_Answers.md",
         "originalUnit": "01",
         "originalSection": "D. Vocabulary Practice (5)"
       },
-      "ambiguous": false
+      "ambiguous": false,
+      "ignorePunctuation": true
     },
     {
       "exerciseId": "unit-01-d-02",
       "unitId": "unit-01",
       "answer": "deadline",
       "explanation": "",
-      "assessmentMode": "manual-review",
+      "assessmentMode": "auto-exact",
       "source": {
         "file": "ANSWER_KEYS/Unit_01_Answers.md",
         "originalUnit": "01",
         "originalSection": "D. Vocabulary Practice (5)"
       },
-      "ambiguous": false
+      "ambiguous": false,
+      "ignorePunctuation": true
     },
     {
       "exerciseId": "unit-01-d-03",
       "unitId": "unit-01",
       "answer": "requirement",
       "explanation": "",
-      "assessmentMode": "manual-review",
+      "assessmentMode": "auto-exact",
       "source": {
         "file": "ANSWER_KEYS/Unit_01_Answers.md",
         "originalUnit": "01",
         "originalSection": "D. Vocabulary Practice (5)"
       },
-      "ambiguous": false
+      "ambiguous": false,
+      "ignorePunctuation": true
     },
     {
       "exerciseId": "unit-01-d-04",
       "unitId": "unit-01",
       "answer": "review",
       "explanation": "",
-      "assessmentMode": "manual-review",
+      "assessmentMode": "auto-exact",
       "source": {
         "file": "ANSWER_KEYS/Unit_01_Answers.md",
         "originalUnit": "01",
         "originalSection": "D. Vocabulary Practice (5)"
       },
-      "ambiguous": false
+      "ambiguous": false,
+      "ignorePunctuation": true
     },
     {
       "exerciseId": "unit-01-d-05",
       "unitId": "unit-01",
       "answer": "priority",
       "explanation": "",
-      "assessmentMode": "manual-review",
+      "assessmentMode": "auto-exact",
       "source": {
         "file": "ANSWER_KEYS/Unit_01_Answers.md",
         "originalUnit": "01",
         "originalSection": "D. Vocabulary Practice (5)"
       },
-      "ambiguous": false
+      "ambiguous": false,
+      "ignorePunctuation": true
     },
     {
       "exerciseId": "unit-01-e-01",

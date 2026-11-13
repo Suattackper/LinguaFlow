@@ -92,7 +92,7 @@ public static class UnitParser
                 {
                     var exerciseId = $"{unitId}-{group}-{question.Number:00}";
                     if (!usedExercises.Add(exerciseId)) warnings.Add($"{source.File}: duplicate exercise {exerciseId}.");
-                    var responseKind = group == "c2" && question.Options.Count > 0 ? "multiple-choice" : group == "c2" || group == "c3" ? "error-correction" : group == "e" ? "reading-response" : "text";
+                    var responseKind = group == "c2" && question.Options.Count > 0 ? "multiple-choice" : group == "c2" || group == "c3" ? "error-correction" : group == "e" ? "reading-response" : unitId == "unit-01" && group == "c1" && question.Number is 6 or 10 && Regex.Matches(question.Prompt, "___").Count == 2 ? "multiple-blanks" : "text";
                     blocks.Add(new QuestionBlock { BlockId = BlockId(), ExerciseId = exerciseId, Prompt = question.Prompt, Options = question.Options, ResponseKind = responseKind, Source = source });
                 }
             }

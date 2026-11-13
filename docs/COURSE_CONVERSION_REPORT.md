@@ -9,7 +9,7 @@ Generated from the discovered original source files by `LinguaFlow.CourseConvert
 - Individual lessons: **36**; combined Student Book Unit boundaries: **36**; Curriculum table Units: **36**
 - Individual answer keys: **36**; combined Answer Key Book Unit boundaries: **36**
 - Source priority: individual lessons and answer keys; combined books and Curriculum used for cross-checks; vocabulary bank for global indexing; GPT-TEACHER for practice configuration.
-- PDFs, README, and `TRACKING/PROGRESS.md` were not converted into LCF lesson content. In a later publishing step, the two approved original PDFs were copied to `Downloads/` and included in the verified public ZIP. README and `TRACKING/PROGRESS.md` remain unpublished. Source files were not modified.
+- PDFs, README, and `TRACKING/PROGRESS.md` were discovered but not published as content. Source files were not modified.
 
 ## Conversion totals
 
@@ -19,14 +19,14 @@ Generated from the discovered original source files by `LinguaFlow.CourseConvert
 - Grammar blocks: **112**; extracted examples: **76**; reading blocks: **36**; vocabulary blocks: **36**
 - Writing tasks: **66**; speaking tasks: **72**; listening tasks: **36**; homework blocks: **36**
 - Units with parsed review schedules: **36**
-- Automatically gradable **candidates** identified from unambiguous multiple-choice keys: **36**. Automatic grading is not implemented in Step 03.
-- Manual-review numbered exercises: **822**; additional open tasks: **174**
-- Matched answer-key items: **858**; missing numbered answers: **0**; ambiguous/multi-part mappings flagged: **52**
+- Numbered exercises with a declared automatic assessment mode: **53**. Unit 01 has **17** exact-answer and **6** choice keys; semantic writing, speaking, listening, C3, and E responses still require review.
+- Manual-review numbered exercises: **805**; additional open tasks: **174**
+- Matched answer-key items: **858**; missing numbered answers: **0**; ambiguous/multi-part mappings flagged: **50**
 - Vocabulary bank entries: **720** across **36** Units
 - Rubric sections: **72**; threshold/rule lines: **252**
 - Authored dialogue passages detected: **0**. Role-play and dialogue-writing instructions remain speaking/writing tasks; no dialogue was invented.
 - Unresolved source discrepancies/missing references: **0**; see warnings below.
-- Deterministic content fingerprint: `sha256:0818b5eb0a159e10d19257a1b1af01849ee02055215fbda78a9757522807261c`
+- Deterministic content fingerprint: `sha256:a5bf7267189c280419cdfdc4459e1e36d6eeb87009292faf923310ba6211d517`
 
 ## Representative source review
 
@@ -36,8 +36,6 @@ Generated from the discovered original source files by `LinguaFlow.CourseConvert
 
 ## Conversion warnings and manual review
 
-- ANSWER_KEYS/Unit_01_Answers.md: unit-01-c1-06 has alternatives or multiple blanks; manual review required.
-- ANSWER_KEYS/Unit_01_Answers.md: unit-01-c1-10 has alternatives or multiple blanks; manual review required.
 - ANSWER_KEYS/Unit_02_Answers.md: unit-02-c3-01 has alternatives or multiple blanks; manual review required.
 - ANSWER_KEYS/Unit_03_Answers.md: unit-03-c1-06 has alternatives or multiple blanks; manual review required.
 - ANSWER_KEYS/Unit_03_Answers.md: unit-03-c1-10 has alternatives or multiple blanks; manual review required.

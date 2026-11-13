@@ -40,7 +40,7 @@ internal static class AnswerComparison
         Status = correct ? GradingStatus.Correct : GradingStatus.Incorrect,
         EarnedScore = correct ? d.MaximumScore : 0, MaximumScore = d.MaximumScore,
         Message = correct ? "FeedbackCorrect" : "FeedbackIncorrect",
-        CorrectAnswer = string.Join(" / ", d.ValidAnswers), Explanation = d.Explanation
+        CorrectAnswer = string.Join(d.Kind == ExerciseKind.MultipleBlanks ? "; " : " / ", d.ValidAnswers), Explanation = d.Explanation
     };
 }
 

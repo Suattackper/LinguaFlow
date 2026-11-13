@@ -51,7 +51,7 @@ public sealed class PracticeResultValidator
         if (result.SchemaVersion != 1 || request.ExpectedResultSchemaVersion != 1) errors.Add("Unsupported result schema version.");
         if (result.RequestId != request.RequestId) errors.Add("Request ID does not match the exported session.");
         if (result.CourseId != request.CourseId || result.CourseId != manifest.CourseId) errors.Add("Course ID does not match.");
-        if (result.CourseContentVersion != request.CourseContentVersion || manifest.ContentVersion != request.CourseContentVersion || manifest.ContentFingerprint != request.CourseContentFingerprint) errors.Add("Course content version or fingerprint differs; no migration is defined.");
+        if (result.CourseContentVersion != request.CourseContentVersion || !CourseContentCompatibility.Accepts(manifest, request.CourseContentVersion, request.CourseContentFingerprint)) errors.Add("Course content version or fingerprint differs; no migration is defined.");
         if (result.UnitId != request.UnitId) errors.Add("Unit ID does not match.");
         if (result.TaskId != request.TaskId) errors.Add("Task ID does not match.");
         if (result.Skill != request.Skill) errors.Add("Skill does not match.");

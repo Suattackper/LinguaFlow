@@ -64,7 +64,7 @@ else if (Block is ListeningBlock listening)
 }
 else if (Block is ExplanationBlock explanation)
 {
-    <details class="activity-card explanation"><summary>@T["ShowExplanation"]</summary><SafeMarkdown Class="lesson-block" Text="@explanation.Text" /></details>
+    <details class="activity-card explanation" open><summary>@T["Explanation"]</summary><SafeMarkdown Class="lesson-block" Text="@DisplayText(explanation.Text)" /></details>
 }
 else if (Block is ExampleBlock example)
 {
@@ -84,7 +84,7 @@ else if (Block is AudioBlock audio)
 }
 else
 {
-    <SafeMarkdown Class="@($"lesson-block activity-card {Block.GetType().Name.ToLowerInvariant()}")" Text="@Text(Block)" />
+    <SafeMarkdown Class="@($"lesson-block activity-card {Block.GetType().Name.ToLowerInvariant()}")" Text="@DisplayText(Text(Block))" />
 }
 @code {
     [Parameter, EditorRequired] public ContentBlock Block { get; set; } = default!;
@@ -96,6 +96,9 @@ else
     [Parameter] public bool RevealTranscript { get; set; }
     [Parameter] public string SpeechLanguage { get; set; } = "en-US";
     private string? SafeAudioUrl(string? path) => path is not null && CoursePathResolver.IsSafeRelativePath(path) && path.StartsWith("Assets/", StringComparison.Ordinal) ? AssetUrl(path) : null;
+    private string DisplayText(string text) => SectionId == "intro"
+        ? string.Join('\n', text.Split('\n').Where(line => !line.Contains("ANSWER_KEYS/", StringComparison.OrdinalIgnoreCase) && !line.Contains("ANSWER_KEY_BOOK", StringComparison.OrdinalIgnoreCase)))
+        : text;
     private string AssetUrl(string path) => Uri.TryCreate(AssetBase, UriKind.Absolute, out var baseUri) ? new Uri(baseUri, path).ToString() : path;
     private bool _showTranslation;
     private string? _saveError;

@@ -12,7 +12,7 @@
     @if (Mode == ExerciseMode.Test) { <p class="activity-count">@T["TestAnswerHeld"]</p> }
     else
     {
-        <div class="exercise-actions"><button type="button" class="reader-control exercise-submit" disabled="@(_busy || string.IsNullOrWhiteSpace(_answer))" @onclick="Submit">@(_latest is null ? T["SubmitAnswer"] : T["RetryExercise"])</button></div>
+        <div class="exercise-actions"><button type="button" class="reader-control exercise-submit" disabled="@(_busy || !AnswerComplete)" @onclick="Submit">@(_latest is null ? T["SubmitAnswer"] : T["RetryExercise"])</button></div>
     }
     @if (_error is not null) { <p class="content-warning" role="alert">@_error</p> }
     @if (_latest is not null && !_editing && (Mode != ExerciseMode.Test || TestRound > 0)) { <ExerciseFeedbackView Feedback="@_latest.Feedback" State="@PresentationState" />@if (!string.IsNullOrEmpty(NextSectionId)) { <button type="button" class="reader-control next-exercise-action" @onclick="() => OnNextSection.InvokeAsync(NextSectionId)">@T["NextSection"] →</button> } }
@@ -35,6 +35,9 @@
     private bool _editing;
     private ExerciseAttempt? _latest;
     private IReadOnlyList<ExerciseAttempt> _history = [];
+    private bool AnswerComplete => Definition.Kind == ExerciseKind.MultipleBlanks && Definition.ValidAnswers.Count == 2
+        ? _answer.Split('\n').Length == 2 && _answer.Split('\n').All(x => !string.IsNullOrWhiteSpace(x))
+        : !string.IsNullOrWhiteSpace(_answer);
     private LinguaFlow.Web.Services.ExerciseUiState PresentationState => _editing && Mode != ExerciseMode.Test ? LinguaFlow.Web.Services.ExerciseUiState.Editing : LinguaFlow.Web.Services.ExerciseStatePresenter.Resolve(Definition, _answer, _latest, Mode, TestRound > 0);
     protected override async Task OnParametersSetAsync()
     {
@@ -53,7 +56,7 @@
     }
     private async Task Submit()
     {
-        if (_busy || string.IsNullOrWhiteSpace(_answer)) return;
+        if (_busy || !AnswerComplete) return;
         _busy = true; _error = null;
         try
         {

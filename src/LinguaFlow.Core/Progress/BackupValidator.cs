@@ -17,7 +17,7 @@ public sealed class BackupValidator
         if (backup.BackupSchemaVersion != 1) errors.Add("Unsupported backup schema version.");
         if (backup.CourseId != manifest.CourseId) errors.Add("Backup belongs to a different course.");
         if (backup.ContentVersion != manifest.ContentVersion) errors.Add("Content version differs. No migration is defined.");
-        if (backup.ContentFingerprint != manifest.ContentFingerprint) errors.Add("Content fingerprint differs. No migration is defined.");
+        if (!CourseContentCompatibility.Accepts(manifest, backup.ContentVersion, backup.ContentFingerprint)) errors.Add("Content fingerprint differs. No migration is defined.");
         if (backup.ExportedAt == default) errors.Add("Export date is missing.");
         var arrays = new (List<LearningRecord>? Records, LearningRecordKind[] Allowed)[]
         {
@@ -70,7 +70,7 @@ public sealed class BackupValidator
                     try
                     {
                         var session = record.Data.Deserialize<PracticeSession>(new JsonSerializerOptions(JsonSerializerDefaults.Web));
-                        if (session is null || session.Request.CourseId != record.CourseId || session.Request.UnitId != record.UnitId || session.Request.TaskId != record.ExerciseId || session.Request.RequestId != record.Id || session.Request.CourseContentVersion != manifest.ContentVersion || session.Request.CourseContentFingerprint != manifest.ContentFingerprint || session.PackageMarkdown.Length > PracticePackageBuilder.MaximumBytes) errors.Add($"Invalid AI practice session: {record.Id}.");
+                        if (session is null || session.Request.CourseId != record.CourseId || session.Request.UnitId != record.UnitId || session.Request.TaskId != record.ExerciseId || session.Request.RequestId != record.Id || !CourseContentCompatibility.Accepts(manifest, session.Request.CourseContentVersion, session.Request.CourseContentFingerprint) || session.PackageMarkdown.Length > PracticePackageBuilder.MaximumBytes) errors.Add($"Invalid AI practice session: {record.Id}.");
                     }
                     catch (Exception ex) when (ex is JsonException or NullReferenceException) { errors.Add($"Invalid AI practice session: {record.Id}."); }
                 }

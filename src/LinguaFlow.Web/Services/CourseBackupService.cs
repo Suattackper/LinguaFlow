@@ -46,7 +46,7 @@ public sealed class CourseBackupService(LearningRepository repository, UnitConte
         if (backup is null) return new(null!, 0, 0, ["Backup is empty."]);
         var errors = new List<string>();
         if (backup.CourseId != manifest.CourseId) errors.Add("Backup belongs to a different course.");
-        if (backup.ContentVersion != manifest.ContentVersion || backup.ContentFingerprint != manifest.ContentFingerprint) errors.Add("Course content version or fingerprint differs; no migration is defined.");
+        if (!CourseContentCompatibility.Accepts(manifest, backup.ContentVersion, backup.ContentFingerprint)) errors.Add("Course content version or fingerprint differs; no migration is defined.");
         if (errors.Count > 0) return new(backup, 0, 0, errors);
         var unitMap = new Dictionary<string, UnitContent>();
         foreach (var reference in manifest.Units)

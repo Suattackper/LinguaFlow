@@ -46,6 +46,7 @@ try {
       if(process.argv.includes('--phase02') && (result.checklist<6 || result.badChecklistLinks)) throw new Error(`Assessment checklist missing at ${width}/${theme}/${lang}`);
       console.log('unit-01',width,theme,lang,result.markdown,result.strong,result.code);
       if(width===390 && lang==='vi-VN') { const shot=await send('Page.captureScreenshot',{format:'png'});writeFileSync(join(output,`unit-01-${theme}-mobile.png`),Buffer.from(shot.data,'base64')); }
+      if(process.argv.includes('--capture-unit01-matrix') && theme==='light' && lang==='vi-VN' && [360,390,768,1024,1366].includes(width)) { const shot=await send('Page.captureScreenshot',{format:'png'});writeFileSync(join(output,`unit-01-${width}-${theme}-${lang}.png`),Buffer.from(shot.data,'base64')); }
     }
   }
   for(const id of ['unit-18','unit-36']) for(const width of [390,1366]) { const result=await visit(`${course}units/${id}`,width,'dark','vi-VN','.reader-main');if(result.markdown<1) throw new Error(`${id} has no rendered markdown`); console.log(id,width,result.markdown); }
@@ -61,9 +62,10 @@ try {
   if(process.argv.includes('--phase02')) {
     const assessment=JSON.parse(readFileSync('src/LinguaFlow.Web/wwwroot/Courses/English/english-life-office-it/Assessments/assessments.json','utf8'));
     const auto=assessment.answers.find(x=>x.assessmentMode==='auto-choice' && x.unitId==='unit-01');
-    const manual=assessment.answers.find(x=>x.assessmentMode==='manual-review' && x.unitId==='unit-01' && x.exerciseId.includes('-c1-'));
+    const manual=assessment.answers.find(x=>x.assessmentMode==='manual-review' && x.unitId==='unit-01' && x.exerciseId.includes('-c3-'));
     if(!auto || !manual) throw new Error('Representative source exercises missing');
     await visit(`${course}units/unit-01`,390,'light','vi-VN','.reader-main');
+    if(await evaluate("document.querySelector('.reader-main')?.innerText.includes('ANSWER_KEYS/')")) throw new Error('Internal answer-key path is visible to learners');
     const autoId=JSON.stringify(auto.exerciseId), manualId=JSON.stringify(manual.exerciseId);
     const selected=await evaluate(`(() => { const root=document.getElementById(${autoId}), option=[...root.querySelectorAll('input[type=radio]')].find(x=>x.value.startsWith(${JSON.stringify(auto.answer+'.')})); if(!option)return false;option.click();return true; })()`);
     if(!selected) throw new Error('Auto-choice option unavailable');
@@ -77,12 +79,24 @@ try {
     await evaluate(`document.getElementById(${manualId}).querySelector('.exercise-submit').click()`);
     await until(()=>evaluate(`!!document.getElementById(${manualId}).querySelector('.exercise-feedback')`));
     const selfReview=await evaluate(`document.getElementById(${manualId}).querySelector('.exercise-feedback').innerText`);
-    if(!selfReview.includes('Cần tự đối chiếu') || !selfReview.includes('Chưa có điểm tự động') || !selfReview.includes(manual.answer)) throw new Error(`Manual feedback unclear: ${selfReview}`);
+    if(!selfReview.includes('Đã nộp') || !selfReview.includes(manual.answer)) throw new Error(`Manual feedback unclear: ${selfReview}`);
     const screenshot=await send('Page.captureScreenshot',{format:'png'});writeFileSync(join(output,'phase02-feedback-mobile.png'),Buffer.from(screenshot.data,'base64'));
     await send('Page.navigate',{url:new URL(`${course}units/unit-01`,base).href});
     await until(()=>evaluate(`!!document.getElementById(${autoId})?.querySelector('.exercise-feedback') && !!document.getElementById(${manualId})?.querySelector('.exercise-feedback')`));
     const restored=await evaluate(`({auto:document.getElementById(${autoId}).querySelector('.exercise-feedback').innerText,manual:document.getElementById(${manualId}).querySelector('.exercise-feedback').innerText})`);
-    if(!restored.auto.includes('Điểm tự động') || !restored.manual.includes('Cần tự đối chiếu')) throw new Error('Attempt feedback not restored after reload');
+    if(!restored.auto.includes('Điểm tự động') || !restored.manual.includes('Đã nộp')) throw new Error('Attempt feedback not restored after reload');
+    await send('Page.navigate',{url:new URL(`${course}units/unit-01#c1`,base).href});
+    await until(()=>evaluate("document.querySelector('.journey-visible')?.id==='c1'"));
+    const c1Id='unit-01-c1-06';
+    const twoSlots=await evaluate(`(() => {const inputs=[...document.getElementById(${JSON.stringify(c1Id)}).querySelectorAll('.answer-blanks input')];for(const [index,value] of ['Does','join'].entries()){const setter=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set;setter.call(inputs[index],value);inputs[index].dispatchEvent(new Event('input',{bubbles:true}));}return inputs.length})()`);
+    if(twoSlots!==2) throw new Error(`C1 #6 does not have two answer slots: ${twoSlots}`);
+    await until(()=>evaluate(`!document.getElementById(${JSON.stringify(c1Id)}).querySelector('.exercise-submit').disabled`));
+    await evaluate(`document.getElementById(${JSON.stringify(c1Id)}).querySelector('.exercise-submit').click()`);
+    await until(()=>evaluate(`document.getElementById(${JSON.stringify(c1Id)}).querySelector('.exercise-feedback')?.innerText.includes('Đúng')`));
+    await send('Page.navigate',{url:new URL(`${course}units/unit-01#h`,base).href});
+    await until(()=>evaluate("document.querySelector('.journey-visible')?.id==='h' && !!document.querySelector('.unit-test-info')"));
+    await until(()=>evaluate("window.scrollY<560 || getComputedStyle(document.querySelector('.back-to-top')).visibility==='visible'"));
+    const summaryShot=await send('Page.captureScreenshot',{format:'png'});writeFileSync(join(output,'unit-01-summary-mobile.png'),Buffer.from(summaryShot.data,'base64'));
     console.log('phase02 interaction: automatic, self-review and refresh passed');
   }
   if(process.argv.includes('--phase03')) {
@@ -249,9 +263,9 @@ try {
       for(const [path,marker] of targets) {
         const started=performance.now();
         await visit(path,width,theme,lang,marker);
-        const result=await evaluate("(() => {const style=getComputedStyle(document.documentElement);return {headings:[...document.querySelectorAll('#main h1')].map(x=>x.innerText),landmarks:document.querySelectorAll('main').length,focusables:[...document.querySelectorAll('#main button,#main a[href],#main input,#main textarea')].filter(x=>x.getClientRects().length>0).length,fcp:performance.getEntriesByType('paint').find(x=>x.name==='first-contentful-paint')?.startTime||null,vitals:window.__linguaVitals||null,tokens:Object.fromEntries(['--text','--muted','--primary','--surface','--bg'].map(key=>[key,style.getPropertyValue(key).trim()]))}})()");
+        const result=await evaluate("(() => {const style=getComputedStyle(document.documentElement),art=document.querySelector('.hero-art');return {headings:[...document.querySelectorAll('#main h1')].map(x=>x.innerText),landmarks:document.querySelectorAll('main').length,focusables:[...document.querySelectorAll('#main button,#main a[href],#main input,#main textarea')].filter(x=>x.getClientRects().length>0).length,heroArt:art?{loaded:art.complete&&art.naturalWidth>0,rect:art.getBoundingClientRect().toJSON(),display:getComputedStyle(art).display,opacity:getComputedStyle(art).opacity,visibility:getComputedStyle(art).visibility}:null,fcp:performance.getEntriesByType('paint').find(x=>x.name==='first-contentful-paint')?.startTime||null,vitals:window.__linguaVitals||null,tokens:Object.fromEntries(['--text','--muted','--primary','--surface','--bg'].map(key=>[key,style.getPropertyValue(key).trim()]))}})()");
         if(result.headings.length!==1 || result.landmarks!==1) throw new Error(`Heading/landmark failed ${path} ${width} ${theme} ${lang}: ${JSON.stringify(result)}`);
-        if((width===390 && theme==='light' && lang==='vi-VN' && ['','settings',`${course}practice/import`].includes(path)) || (process.argv.includes('--mobile-plan') && ['','settings',`${course}vocabulary?unit=${manifest.units[0].unitId}`,`${course}flashcards?mode=new&unit=${manifest.units[0].unitId}`].includes(path))) { const shot=await send('Page.captureScreenshot',{format:'png'});writeFileSync(join(output,`mobile-${path ? path.split('/').at(-1).replace(/[^a-z0-9-]/gi,'-') : 'home'}-${width}-${theme}-${lang}.png`),Buffer.from(shot.data,'base64')); }
+        if((width===390 && theme==='light' && lang==='vi-VN' && ['','settings',`${course}practice/import`].includes(path)) || (process.argv.includes('--mobile-plan') && ['','settings',`${course}vocabulary?unit=${manifest.units[0].unitId}`,`${course}flashcards?mode=new&unit=${manifest.units[0].unitId}`].includes(path))) { if(path==='') await until(()=>evaluate("!document.querySelector('.hero-art') || (document.querySelector('.hero-art').complete && document.querySelector('.hero-art').naturalWidth>0)")); const shot=await send('Page.captureScreenshot',{format:'png'});writeFileSync(join(output,`mobile-${path ? path.split('/').at(-1).replace(/[^a-z0-9-]/gi,'-') : 'home'}-${width}-${theme}-${lang}.png`),Buffer.from(shot.data,'base64')); }
         pageRows.push({path,width,theme,lang,loadMs:Math.round(performance.now()-started),...result});
       }
       console.log('phase06 pages',width,theme,lang,targets.length);
@@ -262,6 +276,17 @@ try {
     if(!reduced.motion || reduced.scroll!=='auto' || reduced.sections!==1) throw new Error(`Reduced motion failed: ${JSON.stringify(reduced)}`);
     await send('Emulation.setEmulatedMedia',{features:[]});
     await visit('',390,'light','vi-VN','.hero,.home-resume');
+    await evaluate("document.querySelector('.mobile-menu').click()");
+    await until(()=>evaluate("!!document.querySelector('.mobile-drawer') && !!document.querySelector('.drawer-close')"));
+    const drawerLayer=await evaluate("(() => {const drawer=document.querySelector('.mobile-drawer'),bar=document.querySelector('.topbar'),box=drawer.getBoundingClientRect();return {drawerZ:+getComputedStyle(drawer).zIndex,barZ:+getComputedStyle(bar).zIndex,top:box.top,hit:document.elementFromPoint(Math.min(100,box.right-10),Math.max(30,box.top+30))?.closest('.mobile-drawer')===drawer}})()");
+    if(drawerLayer.drawerZ<=drawerLayer.barZ || drawerLayer.top!==0 || !drawerLayer.hit) throw new Error(`Mobile drawer layer failed: ${JSON.stringify(drawerLayer)}`);
+    await evaluate("document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true,cancelable:true}))");
+    await until(()=>evaluate("!document.querySelector('.mobile-drawer')"));
+    await evaluate("document.querySelector('.mobile-menu').click()");
+    await until(()=>evaluate("!!document.querySelector('.drawer-backdrop')"));
+    await evaluate("document.querySelector('.drawer-backdrop').click()");
+    await until(()=>evaluate("!document.querySelector('.mobile-drawer') && !!document.querySelector('.topbar .language-trigger')"));
+    console.log('mobile drawer layering, Escape and backdrop passed');
     await evaluate("document.querySelector('.quick-search-trigger').click()");
     await until(()=>evaluate("document.activeElement?.classList.contains('command-search')"));
     await evaluate("document.dispatchEvent(new KeyboardEvent('keydown',{key:'Tab',shiftKey:true,bubbles:true,cancelable:true}))");
@@ -275,6 +300,12 @@ try {
     await until(()=>evaluate("document.activeElement?.textContent?.includes('English EN')"),3000).catch(()=>{throw new Error(`Language arrow navigation did not move focus: ${JSON.stringify(languageMovement)}`)});
     await evaluate("document.activeElement?.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true,cancelable:true}))");
     await until(()=>evaluate("!document.querySelector('.topbar .language-menu') && document.activeElement?.classList.contains('language-trigger')"));
+    await visit(`${course}units/${manifest.units[0].unitId}`,390,'light','vi-VN','.reader-main');
+    await evaluate("window.scrollTo(0, document.body.scrollHeight)");
+    await until(()=>evaluate("getComputedStyle(document.querySelector('.back-to-top')).visibility==='visible'"),5000).catch(async()=>{throw new Error(`Back to top did not appear: ${JSON.stringify(await evaluate("({y:scrollY,height:document.body.scrollHeight,viewport:innerHeight,button:!!document.querySelector('.back-to-top'),state:document.documentElement.dataset.backToTop})"))}`)});
+    await until(()=>evaluate("document.querySelector('.back-to-top').getBoundingClientRect().bottom <= document.querySelector('.footer').getBoundingClientRect().top - 8"));
+    await evaluate("document.querySelector('.back-to-top').click()");
+    await until(()=>evaluate("window.scrollY < 50"),5000);
     console.log('phase06 keyboard dialogs and reduced motion passed');
     const phase06Name=process.argv.includes('--phase06-baseline')?'phase06-baseline.json':process.argv.includes('--phase06-units-only')?'phase06-units.json':process.argv.includes('--mobile-plan')?'mobile-plan.json':process.argv.includes('--phase06-page-quick')?'phase06-quick.json':'phase06-results.json';
     writeFileSync(join(output,phase06Name),JSON.stringify({unitRows,pageRows,exceptions:errors.length},null,2));

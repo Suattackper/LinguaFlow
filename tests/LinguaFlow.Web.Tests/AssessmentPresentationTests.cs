@@ -82,6 +82,30 @@ public sealed class AssessmentPresentationTests
         Assert.Contains(ExerciseKind.Listening, foundKinds);
     }
 
+    [Fact]
+    public void Unit01ChecklistUsesSubmittedScoreWithoutMarkingUnfinishedUnitPassed()
+    {
+        var directory = CourseDirectory;
+        var unit = JsonSerializer.Deserialize<UnitContent>(File.ReadAllText(Path.Combine(directory, "Units", "unit-01.json")), CourseJson.Options)!;
+        var document = JsonSerializer.Deserialize<AssessmentDocument>(File.ReadAllText(Path.Combine(directory, "Assessments", "assessments.json")), CourseJson.Options)!;
+        var empty = new UnitCompletionService().Evaluate(unit.UnitId, document.Thresholds, []);
+        Assert.Equal(SkillStatus.NotStarted, empty.Status);
+        var answer = document.Answers.Single(a => a.ExerciseId == "unit-01-c1-06");
+        var section = unit.Sections.Single(s => s.Blocks.OfType<QuestionBlock>().Any(q => q.ExerciseId == answer.ExerciseId));
+        var block = section.Blocks.OfType<QuestionBlock>().Single(q => q.ExerciseId == answer.ExerciseId);
+        var definition = ExerciseDefinitionFactory.Create("english-life-office-it", unit.UnitId, section, block, answer);
+        var feedback = new ExerciseGradingService().Grade(definition, new ExerciseResponse { ExerciseId = answer.ExerciseId, Answers = ["Does", "join"] });
+        var attempt = new ExerciseAttempt { AttemptId = "unit01-test", CourseId = definition.CourseId, UnitId = unit.UnitId,
+            ExerciseId = definition.ExerciseId, SubmittedAt = DateTimeOffset.UtcNow, Mode = ExerciseMode.Practice,
+            Answers = ["Does", "join"], Feedback = feedback };
+        var partial = new UnitCompletionService().Evaluate(unit.UnitId, document.Thresholds, [attempt]);
+        var checklist = AssessmentChecklistBuilder.Build(unit, document.Thresholds, partial);
+        Assert.Equal(GradingStatus.Correct, feedback.Status);
+        Assert.NotEqual(SkillStatus.Completed, partial.Status);
+        Assert.Contains(partial.Skills, skill => skill.Skill == "grammar" && skill.Earned == feedback.EarnedScore && skill.Maximum == feedback.MaximumScore);
+        Assert.DoesNotContain(checklist, item => item.Skill == "grammar" && item.Status == SkillStatus.Passed);
+    }
+
     [Theory]
     [InlineData(GradingStatus.Correct, ExerciseKind.SingleChoice, ExerciseUiState.Correct)]
     [InlineData(GradingStatus.Incorrect, ExerciseKind.SingleChoice, ExerciseUiState.Incorrect)]

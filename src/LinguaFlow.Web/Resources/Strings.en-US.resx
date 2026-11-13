@@ -434,7 +434,7 @@
 <data name="FeedbackCorrect" xml:space="preserve"><value>Correct. You can try another question or retry.</value></data>
 <data name="FeedbackIncorrect" xml:space="preserve"><value>Review the original answer and explanation, then try again.</value></data>
 <data name="FeedbackPartial" xml:space="preserve"><value>Partially correct. Review the remaining parts.</value></data>
-<data name="FeedbackManual" xml:space="preserve"><value>Submitted for rubric or manual review. No automatic score was assigned.</value></data>
+<data name="FeedbackManual" xml:space="preserve"><value>Your answer was saved. Compare it with the sample answer or use the rubric for meaning-based review.</value></data>
 <data name="FeedbackNoAudio" xml:space="preserve"><value>Listening evidence is required before this can be assessed.</value></data>
 <data name="Question" xml:space="preserve"><value>Question</value></data>
 <data name="ReviewRecommendation" xml:space="preserve"><value>Review the original explanation, then retry each recorded mistake.</value></data>
@@ -687,7 +687,7 @@
 <data name="Cancelled" xml:space="preserve"><value>Cancelled</value></data>
 <data name="Editing" xml:space="preserve"><value>Editing answer</value></data>
 <data name="AcceptedVariant" xml:space="preserve"><value>Correct — accepted variant</value></data>
-<data name="SelfReviewNeeded" xml:space="preserve"><value>Self-review needed</value></data>
+<data name="SelfReviewNeeded" xml:space="preserve"><value>Submitted · compare with the sample answer</value></data>
 <data name="PendingExternalEvaluation" xml:space="preserve"><value>Awaiting external evaluation</value></data>
 <data name="Evaluated" xml:space="preserve"><value>Evaluated</value></data>
 <data name="Locked" xml:space="preserve"><value>Test in progress</value></data>
@@ -725,5 +725,12 @@
   <data name="FlashcardScope" xml:space="preserve"><value>Card scope</value></data>
   <data name="FlashcardDeckSize" xml:space="preserve"><value>{0} cards in this session (up to 30)</value></data>
   <data name="SelectUnit" xml:space="preserve"><value>Choose a Unit</value></data>
+  <data name="RubricReviewPending" xml:space="preserve"><value>Awaiting rubric review</value></data>
+  <data name="Explanation" xml:space="preserve"><value>Explanation</value></data>
+  <data name="BlankNumber" xml:space="preserve"><value>Blank {0}</value></data>
+  <data name="Unit01Summary" xml:space="preserve"><value>Unit 01 summary · Completion criteria</value></data>
+  <data name="UnitTestGuide" xml:space="preserve"><value>This section explains completion criteria; it is not a pre-scored test. Complete C1, C2, C3, D and E. Your submitted results appear in the checklist. Open responses, writing, speaking and listening require rubric review or suitable evidence.</value></data>
+  <data name="CloseMenu" xml:space="preserve"><value>Close menu</value></data>
+  <data name="BackToTop" xml:space="preserve"><value>Back to top</value></data>
 </root>
 

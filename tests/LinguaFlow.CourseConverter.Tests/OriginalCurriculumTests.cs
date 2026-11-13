@@ -13,7 +13,7 @@ public sealed class OriginalCurriculumTests
     private static readonly string SourceRoot = Path.Combine(Root, "CourseSources", "English");
 
     [Fact]
-    public async Task PublishedAnswerPolicyGradesOnlyAuthoredUnambiguousChoices()
+    public async Task PublishedAnswerPolicyGradesUnit01DeterministicAnswersWithoutChangingOtherUnits()
     {
         var plan = await ConversionPipeline.BuildAsync(SourceRoot);
         Assert.Equal(36, plan.Assessments.Answers.Count(a => a.AssessmentMode == "auto-choice"));
@@ -27,7 +27,43 @@ public sealed class OriginalCurriculumTests
         var fillSection = unit.Sections.Single(s => s.SectionId == "c1");
         var fill = fillSection.Blocks.OfType<QuestionBlock>().First();
         var fillKey = plan.Assessments.Answers.Single(a => a.ExerciseId == fill.ExerciseId);
-        Assert.False(ExerciseDefinitionFactory.Create(plan.Manifest.CourseId, unit.UnitId, fillSection, fill, fillKey).AutomaticGrading);
+        Assert.True(ExerciseDefinitionFactory.Create(plan.Manifest.CourseId, unit.UnitId, fillSection, fill, fillKey).AutomaticGrading);
+        Assert.Equal(17, plan.Assessments.Answers.Count(a => a.UnitId == "unit-01" && a.AssessmentMode == "auto-exact"));
+        Assert.Equal(6, plan.Assessments.Answers.Count(a => a.UnitId == "unit-01" && a.AssessmentMode == "auto-choice"));
+        Assert.Equal(10, plan.Assessments.Answers.Count(a => a.UnitId == "unit-01" && a.AssessmentMode == "manual-review"));
+        Assert.All(plan.Assessments.Answers.Where(a => a.UnitId != "unit-01" && a.ExerciseId.Contains("-c1-")), a => Assert.Equal("manual-review", a.AssessmentMode));
+    }
+
+    [Theory]
+    [InlineData("unit-01-c1-06", " DOES ", "join! ")]
+    [InlineData("unit-01-c1-10", "are", " WAITING ")]
+    public async Task Unit01TwoBlankQuestionsGradeEachAuthoredSlot(string id, string first, string second)
+    {
+        var plan = await ConversionPipeline.BuildAsync(SourceRoot);
+        var section = plan.Units[0].Sections.Single(s => s.SectionId == "c1");
+        var block = section.Blocks.OfType<QuestionBlock>().Single(q => q.ExerciseId == id);
+        var key = plan.Assessments.Answers.Single(a => a.ExerciseId == id);
+        var definition = ExerciseDefinitionFactory.Create(plan.Manifest.CourseId, "unit-01", section, block, key);
+        Assert.Equal(ExerciseKind.MultipleBlanks, definition.Kind);
+        Assert.Equal(2, definition.ValidAnswers.Count);
+        Assert.Equal(GradingStatus.Correct, new ExerciseGradingService().Grade(definition, new ExerciseResponse { ExerciseId = id, Answers = [first, second] }).Status);
+        Assert.Equal(GradingStatus.Incorrect, new ExerciseGradingService().Grade(definition, new ExerciseResponse { ExerciseId = id, Answers = [second, first] }).Status);
+    }
+
+    [Fact]
+    public async Task Unit01ApprovedContractionsAndVocabularyGradeWhileOpenResponsesStayManual()
+    {
+        var plan = await ConversionPipeline.BuildAsync(SourceRoot);
+        var grader = new ExerciseGradingService();
+        foreach (var (id, answer) in new[] { ("unit-01-c1-03", "DON'T  WORK."), ("unit-01-c1-12", "doesn't understand"), ("unit-01-d-02", "  DEADLINE! ") })
+        {
+            var section = plan.Units[0].Sections.Single(s => s.Blocks.OfType<QuestionBlock>().Any(q => q.ExerciseId == id));
+            var block = section.Blocks.OfType<QuestionBlock>().Single(q => q.ExerciseId == id);
+            var key = plan.Assessments.Answers.Single(a => a.ExerciseId == id);
+            var definition = ExerciseDefinitionFactory.Create(plan.Manifest.CourseId, "unit-01", section, block, key);
+            Assert.Equal(GradingStatus.Correct, grader.Grade(definition, new ExerciseResponse { ExerciseId = id, Answers = [answer] }).Status);
+        }
+        Assert.All(plan.Assessments.Answers.Where(a => a.UnitId == "unit-01" && (a.ExerciseId.Contains("-c3-") || a.ExerciseId.Contains("-e-"))), a => Assert.Equal("manual-review", a.AssessmentMode));
     }
 
     [Fact]

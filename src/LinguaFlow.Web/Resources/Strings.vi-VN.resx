@@ -434,7 +434,7 @@
 <data name="FeedbackCorrect" xml:space="preserve"><value>Đúng rồi. Bạn có thể làm câu khác hoặc thử lại.</value></data>
 <data name="FeedbackIncorrect" xml:space="preserve"><value>Hãy xem đáp án và giải thích gốc, rồi thử lại.</value></data>
 <data name="FeedbackPartial" xml:space="preserve"><value>Đúng một phần. Hãy xem lại các phần còn lại.</value></data>
-<data name="FeedbackManual" xml:space="preserve"><value>Đã nộp để xem theo tiêu chí hoặc đánh giá thủ công. Chưa có điểm tự động.</value></data>
+<data name="FeedbackManual" xml:space="preserve"><value>Đã lưu câu trả lời. Hãy xem đáp án mẫu hoặc dùng rubric để đánh giá theo nghĩa.</value></data>
 <data name="FeedbackNoAudio" xml:space="preserve"><value>Cần bằng chứng âm thanh trước khi đánh giá kỹ năng nghe.</value></data>
 <data name="Question" xml:space="preserve"><value>Câu</value></data>
 <data name="ReviewRecommendation" xml:space="preserve"><value>Xem lại giải thích gốc, sau đó làm lại từng câu đã ghi lỗi.</value></data>
@@ -690,7 +690,7 @@
 <data name="Cancelled" xml:space="preserve"><value>Đã hủy</value></data>
 <data name="Editing" xml:space="preserve"><value>Đang soạn câu trả lời</value></data>
 <data name="AcceptedVariant" xml:space="preserve"><value>Đúng — biến thể được chấp nhận</value></data>
-<data name="SelfReviewNeeded" xml:space="preserve"><value>Cần tự đối chiếu</value></data>
+<data name="SelfReviewNeeded" xml:space="preserve"><value>Đã nộp · xem đáp án mẫu</value></data>
 <data name="PendingExternalEvaluation" xml:space="preserve"><value>Chờ đánh giá bên ngoài</value></data>
 <data name="Evaluated" xml:space="preserve"><value>Đã đánh giá</value></data>
 <data name="Locked" xml:space="preserve"><value>Đang làm bài kiểm tra</value></data>
@@ -728,6 +728,13 @@
   <data name="FlashcardScope" xml:space="preserve"><value>Phạm vi thẻ</value></data>
   <data name="FlashcardDeckSize" xml:space="preserve"><value>{0} thẻ trong phiên này (tối đa 30)</value></data>
   <data name="SelectUnit" xml:space="preserve"><value>Chọn Unit</value></data>
+  <data name="RubricReviewPending" xml:space="preserve"><value>Chờ đánh giá theo tiêu chí</value></data>
+  <data name="Explanation" xml:space="preserve"><value>Giải thích</value></data>
+  <data name="BlankNumber" xml:space="preserve"><value>Ô trống {0}</value></data>
+  <data name="Unit01Summary" xml:space="preserve"><value>Tổng kết Unit 01 · Điều kiện hoàn thành</value></data>
+  <data name="UnitTestGuide" xml:space="preserve"><value>Đây là phần tổng kết điều kiện hoàn thành, không phải bài kiểm tra có điểm sẵn. Hãy làm các hoạt động C1, C2, C3, D và E; kết quả đã nộp được ghi trong checklist. Bài diễn đạt mở, viết, nói và nghe cần đối chiếu theo rubric hoặc có bằng chứng phù hợp.</value></data>
+  <data name="CloseMenu" xml:space="preserve"><value>Đóng menu</value></data>
+  <data name="BackToTop" xml:space="preserve"><value>Lên đầu trang</value></data>
 </root>
 
 

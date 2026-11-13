@@ -25,7 +25,7 @@ else if (_recent.Count > 0)
 }
 @if (!_loading && _loadError is null)
 {
-<section class="hero"><div class="eyebrow">@T["HeroEyebrow"]</div>@if (_recent.Count > 0) { <h2 class="hero-title">@T["HeroTitle"]</h2> } else { <h1 class="hero-title">@T["HeroTitle"]</h1> }<p>@T["HeroDescription"]</p><div class="hero-actions"><NavLink class="button primary" href="languages/en">@T["StartLearning"] →</NavLink><NavLink class="button secondary" href="help">@T["HowItWorks"]</NavLink></div><div class="hero-glow" aria-hidden="true">✦</div></section>
+<section class="hero"><div class="eyebrow">@T["HeroEyebrow"]</div>@if (_recent.Count > 0) { <h2 class="hero-title">@T["HeroTitle"]</h2> } else { <h1 class="hero-title">@T["HeroTitle"]</h1> }<p>@T["HeroDescription"]</p><div class="hero-actions"><NavLink class="button primary" href="languages/en">@T["StartLearning"] →</NavLink><NavLink class="button secondary" href="help">@T["HowItWorks"]</NavLink></div><img class="hero-art" src="images/learning-journey.webp" width="1200" height="675" alt="" loading="eager" decoding="async" /></section>
 @if (_recent.Count == 0) { <p class="dashboard-onboarding">@T["FirstVisitHint"]</p> }
 <section class="section"><div class="section-heading"><div><div class="eyebrow">@T["ChoosePath"]</div><h2>@T["Languages"]</h2></div><p>@T["CourseIntro"]</p></div><div class="language-grid">
 <article class="language-card"><div class="language-icon english">EN</div><span class="status available">@T["Available"]</span><h3>@T["English"]</h3><p>@T["EnglishDescription"]</p><NavLink class="card-link" href="languages/en">@T["ExploreEnglish"] →</NavLink></article>

@@ -18,6 +18,18 @@ else if (Definition.Kind == ExerciseKind.MultipleSelect)
     }
     </fieldset>
 }
+else if (Definition.Kind == ExerciseKind.MultipleBlanks && Definition.ValidAnswers.Count == 2)
+{
+    <div class="answer-blanks">
+        @for (var slot = 0; slot < 2; slot++)
+        {
+            var index = slot;
+            <label>@T["BlankNumber", index + 1]
+                <input class="answer-input" id="@($"input-{Definition.ExerciseId}-{index + 1}")" type="text" autocomplete="off" value="@Slot(index)" @oninput="e => SetSlot(index, e)" />
+            </label>
+        }
+    </div>
+}
 else if (Definition.Kind is ExerciseKind.Matching or ExerciseKind.SentenceOrdering or ExerciseKind.WordOrdering or ExerciseKind.MultipleBlanks)
 {
     <label class="visually-hidden" for="@($"input-{Definition.ExerciseId}")">@Definition.Prompt</label>
@@ -33,6 +45,14 @@ else
     [Parameter] public string Value { get; set; } = "";
     [Parameter] public EventCallback<string> ValueChanged { get; set; }
     private Task InputChanged(ChangeEventArgs e) => ValueChanged.InvokeAsync(e.Value?.ToString() ?? "");
+    private string Slot(int index) => Value.Split('\n').ElementAtOrDefault(index) ?? "";
+    private Task SetSlot(int index, ChangeEventArgs args)
+    {
+        var slots = Value.Split('\n');
+        var values = new[] { slots.ElementAtOrDefault(0) ?? "", slots.ElementAtOrDefault(1) ?? "" };
+        values[index] = (args.Value?.ToString() ?? "").Replace('\n', ' ').Replace('\r', ' ');
+        return ValueChanged.InvokeAsync(string.Join('\n', values));
+    }
     private bool Selected(string option) => Value.Split('\n', StringSplitOptions.RemoveEmptyEntries).Contains(option);
     private Task Toggle(string option, bool selected)
     {

@@ -4,7 +4,7 @@
 @inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
 
 <section class="assessment-overview" aria-labelledby="assessment-overview-heading">
-    <div class="assessment-overview-heading"><div><span class="eyebrow">@T["UnitAssessment"]</span><h2 id="assessment-overview-heading">@T["CompletionChecklist"]</h2></div><span class="status @(Assessment.Status == SkillStatus.Completed ? "available" : "soon")">@T[Assessment.Status.ToString()]</span></div>
+    <div class="assessment-overview-heading"><div><span class="eyebrow">@T["UnitAssessment"]</span><h2 id="assessment-overview-heading" tabindex="-1">@T["CompletionChecklist"]</h2></div><span class="status @(Assessment.Status == SkillStatus.Completed ? "available" : "soon")">@T[Assessment.Status.ToString()]</span></div>
     <p class="assessment-explainer">@T["AssessmentScoreHint"]</p>
     <div class="assessment-skill-strip">
         @foreach (var group in Assessment.Skills.GroupBy(x => x.Skill))
@@ -60,9 +60,9 @@
     [Parameter] public IReadOnlyList<ThresholdRule> Rules { get; set; } = [];
     [Parameter] public EventCallback<string> OnSectionRequested { get; set; }
     private IReadOnlyList<AssessmentChecklistItem> Checklist => Unit is null ? [] : AssessmentChecklistBuilder.Build(Unit, Rules, Assessment);
-    private string ScoreSummary(SkillAssessment item) => item.Maximum > 0 && item.Status is not (SkillStatus.NeedsReview or SkillStatus.InsufficientEvidence or SkillStatus.Submitted)
-        ? $"{T["AutomaticScore"]}: {item.Earned:0.##}/{item.Maximum:0.##}" : T["NoAutomaticScore"];
-    private string CleanRequirement(string value) => System.Text.RegularExpressions.Regex.Replace(value, @"\*\*__/\d+\*\*", $"**{T["NoAutomaticScore"]}**");
+    private string ScoreSummary(SkillAssessment item) => item.Maximum > 0
+        ? $"{T["AutomaticScore"]}: {item.Earned:0.##}/{item.Maximum:0.##}" : T[item.Status.ToString()];
+    private string CleanRequirement(string value) => System.Text.RegularExpressions.Regex.Replace(value, @"\*\*__/\d+\*\*", $"**{T["NotStarted"]}**");
 
     private string SkillName(string skill) => skill.ToLowerInvariant() switch
     {

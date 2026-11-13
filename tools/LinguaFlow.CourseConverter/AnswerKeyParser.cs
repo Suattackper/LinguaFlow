@@ -38,13 +38,20 @@ public static class AnswerKeyParser
                     warnings.Add($"{sourceFile}: answer {id} has no lesson exercise.");
                     continue;
                 }
-                var ambiguous = answer.Contains(" / ", StringComparison.Ordinal) || answer.Contains(";", StringComparison.Ordinal);
-                var mode = question.ResponseKind == "multiple-choice" && Regex.IsMatch(answer, "^[A-C]$") ? "auto-choice" : "manual-review";
+                var multipleBlanks = number == 1 && group == "c1" && question.ResponseKind == "multiple-blanks";
+                var ambiguous = answer.Contains(" / ", StringComparison.Ordinal) || (answer.Contains(';') && !multipleBlanks);
+                var mode = question.ResponseKind == "multiple-choice" && Regex.IsMatch(answer, "^[A-C]$") ? "auto-choice"
+                    : number == 1 && !ambiguous && (group is "c1" or "d") ? "auto-exact" : "manual-review";
                 if (ambiguous) warnings.Add($"{sourceFile}: {id} has alternatives or multiple blanks; manual review required.");
+                List<string>? validAnswers = null;
+                if (multipleBlanks) validAnswers = answer.Split(';', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries).ToList();
+                else if (number == 1 && group == "c1" && questionNumber == 3 && answer == "do not work") validAnswers = [answer, "don't work"];
+                else if (number == 1 && group == "c1" && questionNumber == 12 && answer == "does not understand") validAnswers = [answer, "doesn't understand"];
                 answers.Add(new AnswerRecord
                 {
                     ExerciseId = id, UnitId = unit.UnitId, Answer = answer, Explanation = group is "d" or "d1" ? "" : explanation,
-                    AssessmentMode = mode, Ambiguous = ambiguous, Source = source
+                    AssessmentMode = mode, Ambiguous = ambiguous, ValidAnswers = validAnswers,
+                    IgnorePunctuation = number == 1 && mode == "auto-exact", Source = source
                 });
             }
         }

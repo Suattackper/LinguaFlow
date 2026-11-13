@@ -18,16 +18,16 @@
 <button class="icon-button mobile-menu" type="button" aria-label="@T["OpenMenu"]" aria-controls="mobile-navigation" aria-expanded="@_menuOpen" @onclick="ToggleMenu">☰</button>
 <div class="top-actions">@if (Offline.OnlineHint is not null) { <span class="network-hint @(Offline.OnlineHint.Value ? "online" : "offline")" role="status" title="@T["NetworkHintExplanation"]">@(Offline.OnlineHint.Value ? T["OnlineHint"] : T["OfflineHint"])</span> }<QuickSearch /><UiLanguageSwitcher /><button class="icon-button" type="button" title="@T["ChangeTheme"]" aria-label="@T["ChangeTheme"]" @onclick="CycleTheme">◐</button></div>
 </header>
-@if (_menuOpen) { <div class="drawer-backdrop" @onclick="ToggleMenu"></div><nav id="mobile-navigation" class="mobile-drawer" aria-label="@T["PrimaryNavigation"]" @onclick="CloseMenu"><NavMenu /></nav> }
+@if (_menuOpen) { <div class="drawer-backdrop" @onclick="ToggleMenu"></div><nav id="mobile-navigation" class="mobile-drawer" aria-label="@T["PrimaryNavigation"]" @onclick="CloseMenu"><button type="button" class="drawer-close icon-button" aria-label="@T["CloseMenu"]" @onclick="CloseMenu">×</button><NavMenu /></nav> }
 <main id="main" class="content-wrap"><nav class="breadcrumbs" aria-label="@T["Breadcrumbs"]"><NavLink href="">@T["Home"]</NavLink>@if (Navigation.ToBaseRelativePath(Navigation.Uri) is { Length: > 0 } path) { <span>/</span><span>@Breadcrumb(path)</span> }</nav>@Body</main>
 <footer class="footer"><span>© @DateTime.Now.Year LinguaFlow</span><div><NavLink href="help">@T["Help"]</NavLink><NavLink href="about">@T["About"]</NavLink><NavLink href="privacy">@T["Privacy"]</NavLink></div></footer>
-</div></div>
+</div><BackToTop /></div>
 @code {
 private bool _menuOpen;
 private bool _drawerWasOpen;
 private bool _dark;
 private readonly MudTheme _theme = new() { PaletteLight = new PaletteLight { Primary = "#4355ba", Secondary = "#509cc9", Background = "#f5f7fc", Surface = "#ffffff", TextPrimary = "#182641", TextSecondary = "#586982" }, PaletteDark = new PaletteDark { Primary = "#b7c4ff", Secondary = "#8fcfed", Background = "#101728", Surface = "#1b263d", TextPrimary = "#f4f6ff", TextSecondary = "#bdc9df" }, LayoutProperties = new LayoutProperties { DefaultBorderRadius = "16px" } };
-protected override void OnInitialized() { Preferences.Changed += Refresh; Offline.Changed += Refresh; Refresh(); }
+protected override void OnInitialized() { Preferences.Changed += Refresh; Offline.Changed += Refresh; Navigation.LocationChanged += OnLocationChanged; Refresh(); }
 protected override async Task OnAfterRenderAsync(bool firstRender)
 {
     if (firstRender) { try { await Offline.InitializeAsync(); await Animation.InitializeAsync(); } catch (Exception ex) when (ex is JSException or InvalidOperationException) { } }
@@ -37,7 +37,8 @@ private void Refresh() { _dark = Preferences.Theme == "dark" || (Preferences.The
 private void ToggleMenu() => _menuOpen = !_menuOpen;
 private async Task ToggleSidebar() => await Preferences.SetSidebarCollapsedAsync(!Preferences.SidebarCollapsed);
 private void CloseMenu() => _menuOpen = false;
+private void OnLocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs args) => InvokeAsync(() => { if (_menuOpen) { _menuOpen = false; StateHasChanged(); } });
 private string Breadcrumb(string path) => path.TrimEnd('/') switch { "languages/en" => T["English"], "languages/ja" => T["Japanese"], "languages/zh" => T["Chinese"], "courses" => T["CourseCatalog"], "settings" => T["Settings"], "about" => T["About"], "help" => T["Help"], "privacy" => T["Privacy"], _ when path.EndsWith("/materials", StringComparison.Ordinal) => T["CourseMaterials"], _ when path.EndsWith("/offline", StringComparison.Ordinal) => T["OfflineCourse"], _ when path.EndsWith("/roadmap", StringComparison.Ordinal) => T["UnitRoadmap"], _ when path.EndsWith("/practice", StringComparison.Ordinal) => T["PracticeCenter"], _ when path.Contains("/units/", StringComparison.Ordinal) => T["Unit"] + " " + path[(path.LastIndexOf('/') + 1)..].Replace("unit-", "", StringComparison.Ordinal), _ when path.StartsWith("courses/", StringComparison.Ordinal) => T["CourseCatalog"], _ => T["NotFound"] };
 private async Task CycleTheme() => await Preferences.SetThemeAsync(Preferences.Theme switch { "system" => "light", "light" => "dark", _ => "system" });
-public async ValueTask DisposeAsync() { Preferences.Changed -= Refresh; Offline.Changed -= Refresh; await MobileDrawer.DisposeAsync(); await Animation.DisposeAsync(); }
+public async ValueTask DisposeAsync() { Preferences.Changed -= Refresh; Offline.Changed -= Refresh; Navigation.LocationChanged -= OnLocationChanged; await MobileDrawer.DisposeAsync(); await Animation.DisposeAsync(); }
 }

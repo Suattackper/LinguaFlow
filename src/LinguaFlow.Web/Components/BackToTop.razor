@@ -1,0 +1,32 @@
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+@inject Microsoft.Extensions.Localization.IStringLocalizer<LinguaFlow.Web.Resources.Strings> T
+
+<button class="back-to-top" type="button" aria-label="@T["BackToTop"]" title="@T["BackToTop"]" @onclick="ScrollToTop">↑</button>
+
+@code {
+    private readonly string _ownerId = Guid.NewGuid().ToString("N");
+    private IJSObjectReference? _module;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+        try
+        {
+            _module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/back-to-top.js");
+            await _module.InvokeVoidAsync("observe", _ownerId);
+        }
+        catch (JSException) { /* The button remains usable if the optional observer is unavailable. */ }
+    }
+
+    private Task ScrollToTop() => JS.InvokeVoidAsync("window.scrollTo", 0, 0).AsTask();
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_module is not null)
+        {
+            try { await _module.InvokeVoidAsync("dispose", _ownerId); await _module.DisposeAsync(); }
+            catch (JSDisconnectedException) { }
+        }
+    }
+}
